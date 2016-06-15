@@ -1,0 +1,190 @@
+body {
+    color: #676a6c;
+    background-color: #3C3D3E;
+}
+
+// NAV
+
+.nav>li.active {
+    background: #5B5B5B;
+}
+
+.navbar-default .nav>li>a:hover, .navbar-default .nav>li>a:focus {
+    background-color: #676767;
+}
+
+.nav>li>a {
+    color: #FFFFFF;
+}
+
+.nav-tabs {
+    li {
+        &.active {
+            background: none;
+            border-left: none;
+        }
+        a {
+            color: #555 !important;
+        }
+    }
+}
+
+.nav-header a {
+    color: #FFFFFF;
+}
+
+//
+
+.full-width {
+    width: 100% !important;
+}
+
+.gray-bg {
+    background-color: #f3f3f4;
+}
+
+.middle-box {
+    max-width: 400px;
+    z-index: 100;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+.loginscreen.middle-box {
+    max-width: 300px;
+}
+
+.middle-box {
+    h1 {
+        font-size: 170px;
+    }
+}
+
+.logo-name {
+    color: #e6e6e6;
+    font-size: 180px;
+    font-weight: 800;
+    letter-spacing: -10px;
+    margin-bottom: 0px;
+}
+
+.btn-white {
+    color: inherit;
+    background: white;
+    border: 1px solid #e7eaec;
+    &:hover {
+        color: inherit;
+        border: 1px solid #d2d2d2;
+    }
+}
+
+h3 {
+    margin-top: 5px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+
+.block {
+    display: block;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.d-table {
+    display: table;
+}
+
+.m-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+    top: 11px;
+    left: 6px;
+    height: 16px;
+    width: 16px;
+    display: block;
+    position: absolute;
+    color: #1ab394;
+    text-align: center;
+    line-height: 14px;
+    box-sizing: content-box;
+    content: "\f055";
+    font-family: FontAwesome;
+    border: none;
+    border-radius: 0 !important;
+    background-color: transparent;
+    box-shadow: 0 0;
+    font-size: 18px;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+    content: '\f056';
+    font-family: FontAwesome;
+    background-color: transparent;
+    color: #ed5565;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.child td:before {
+  display: none;
+}
+
+table.dataTable > tbody > tr.child ul {
+    text-align: left;
+}
+
+table.dataTable > tbody > tr.child > td.child {
+    text-align: left;
+}
+
+.row {
+    &:not(.no-margin) {
+        margin-bottom: 20px;
+    }
+}
+
+.table.no-border td {
+    border-top: none !important;
+}
+
+.table {
+
+    .grid-actions {
+        width: 50px;
+    }
+
+}
+
+.table-align-center {
+
+    th {
+        text-align: center !important;
+    }
+
+    td {
+        text-align: center !important;
+    }
+
+}
+
+.table-selectable > tbody > tr:hover {
+    cursor: pointer;
+}
+
+.btn-group.btn-block {
+    display: block !important;
+}
+
+.modal-dropdown-menu {
+    top: 34px;
+}
+
+.no-bottom-right-radius {
+    border-bottom-right-radius: 0px;
+}

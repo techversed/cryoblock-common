@@ -1,0 +1,40 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+
+            <li class="nav-header">
+
+                <div class="profile-element align-center" dropdown>
+                    <a class="block" ui-sref="profile.index">
+                        <profile-avatar></profile-avatar>
+                    </a>
+                    <a dropdown-toggle href>
+                        <a class="m-t-md font-bold block">{{main.user.username}}</a>
+                        <a class="block">Software Engineer</span>
+                    </a>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+
+            </li>
+
+            <li ui-sref-active="active" ui-sref="dashboard.main">
+                <a><i class="fa fa-laptop"></i> <span class="nav-label">Dashboard</span> </a>
+            </li>
+
+            <li ui-sref-active="active" ui-sref="project.index">
+                <a><i class="fa fa-book"></i> <span class="nav-label">Projects</span> </a>
+            </li>
+
+            <li ui-sref-active="active" ui-sref="storage.index">
+                <a><i class="fa fa-th"></i> <span class="nav-label">Storage</span> </a>
+            </li>
+
+            <li ui-sref-active="active" ui-sref="sample.index">
+                <a><i class="pe-7s-science" style="font-size:16px"></i> <span class="nav-label">Samples</span> </a>
+            </li>
+        </ul>
+
+    </div>
+</nav>

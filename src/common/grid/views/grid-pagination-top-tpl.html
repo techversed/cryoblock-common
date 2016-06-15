@@ -1,0 +1,13 @@
+<div class="row m-t-sm grid-pagination-top-container">
+    <div class="col-sm-6">
+        Show
+        <select
+            class="form-control input-sm page-select"
+            ng-change="updatePerPage()"
+            ng-model="model.perPage"
+            ng-options="option.value for option in model.options"
+        >
+        </select>
+        entries
+    </div>
+</div>

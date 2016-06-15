@@ -1,0 +1,35 @@
+<div class="grid-filter icon">
+    <div class="btn-group" dropdown>
+        <button id="single-button" type="button" class="btn btn-default btn-xs" dropdown-toggle ng-disabled="disabled">
+            <span class="fa fa-list"></span>
+        </button>
+        <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
+
+            <li>
+
+                <div class="form-group grid-filter-search">
+                    <input ng-model="searchText" class="form-control"></input>
+                </div>
+
+            </li>
+
+            <li role="menuitem" ng-repeat="column in visibleColumns | filter : searchText" ng-click="selectItem(column)" class="grid-filter-item">
+                <a href="#" class="grid-filter-item-detail" ng-click="toggleColumn(column)">
+                    <input ng-model="column.isVisible" type="checkbox" class="grid-filter-check" ng-checked="column.isVisible" ng-disabled="column.isPrimary"></input>
+                    <span ng-bind="column.header"></span>
+                </a>
+            </li>
+
+            <li class="divider" ng-if="hiddenColumns.length"></li>
+
+            <li role="menuitem" ng-repeat="column in hiddenColumns | filter: searchText" ng-click="toggleColumn(column)" class="grid-filter-item">
+                <a href="#" class="grid-filter-item-detail">
+                    <input ng-model="column.isVisible" type="checkbox" class="grid-filter-check" ng-checked="column.isVisible"></input>
+                    <span ng-bind="column.header"></span>
+                </a>
+            </li>
+
+
+        </ul>
+    </div>
+</div>

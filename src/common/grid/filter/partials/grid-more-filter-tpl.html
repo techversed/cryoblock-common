@@ -1,0 +1,27 @@
+<div class="btn-group" dropdown keyboard-nav ng-show="hiddenFilters.length">
+
+    <button id="single-button" type="button" class="btn btn-default" title="More" dropdown-toggle>
+        More Filters <span class="caret"></span>
+    </button>
+
+    <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+
+        <li>
+
+            <div class="form-group grid-filter-search">
+                <input ng-model="searchText" ng-click="$event.stopPropagation()" class="form-control">
+                </input>
+            </div>
+
+        </li>
+
+        <li role="menuitem" ng-repeat="filter in hiddenFilters | filter : searchText" ng-click="toggleFilter(filter)" class="grid-filter-item">
+            <a href="#" class="grid-filter-item-detail">
+                <input type="checkbox" class="grid-filter-check"></input>
+                <span ng-bind="filter.title"></span>
+            </a>
+        </li>
+
+    </ul>
+
+</div>

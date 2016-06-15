@@ -1,0 +1,86 @@
+<div class="btn-group" dropdown keyboard-nav>
+    <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectedItemsString}}" dropdown-toggle>
+        {{filter.title}} : {{ filter.selectedItemsString }} <span class="caret"></span>
+    </button>
+
+    <ul class="dropdown-menu" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()" ng-if="filter.type === 'relation'">
+
+        <li>
+
+            <div class="form-group grid-filter-search">
+                <input
+                    ng-model="form.search"
+                    ng-change="search()"
+                    ng-model-options="{debounce:300}"
+                    class="form-control"
+                >
+                </input>
+            </div>
+
+        </li>
+
+        <li role="menuitem" ng-repeat="item in filter.selectedItems" ng-click="removeItem(item)">
+            <a href="#" class="grid-filter-item-detail">
+                <input type="checkbox" checked="checked" class="grid-filter-check"></input>
+                <span ng-bind="item.{{filter.bindTo}}"></span>
+            </a>
+        </li>
+
+        <li class="divider" ng-if="filter.selectedItems.length"></li>
+
+        <li role="menuitem" ng-repeat="result in filter.results" ng-click="selectItem(result)" class="grid-filter-item">
+            <a href="#" class="grid-filter-item-detail">
+                <input type="checkbox" class="grid-filter-check"></input>
+                <span ng-bind="result.{{filter.bindTo}}"></span>
+            </a>
+        </li>
+
+        <li role="menuitem" ng-if="filter.results.length === 0">
+            <a href="#" class="grid-filter-item-detail">No Results</a>
+        </li>
+
+    </ul>
+
+    <ul class="dropdown-menu integer" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()" ng-if="filter.type === 'integer'">
+
+        <li role="menuitem">
+            <input type="radio"></input>
+            <select class="form-control operator">
+                <option value="<="><=</option>
+                <option value=">=">>=</option>
+                <option value="=">=</option>
+            </select>
+
+            <input type="number" class="form-control value"></input>
+        </li>
+
+        <li role="menuitem">
+            <input type="radio"></input>
+
+            <strong>>=</strong>
+
+            <input type="number" class="form-control between"></input>
+
+            <strong><=</strong>
+
+            <input type="number" class="form-control between"></input>
+
+
+        </li>
+
+        <li role="menuitem">
+            <div class="row no-margin">
+                <div class="col-md-6">
+                    <button class="btn btn-info btn-block">Update</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-default btn-block">
+                        <i class="fa fa-refresh" />
+                    </button>
+                </div>
+            </div>
+        </li>
+
+
+    </ul>
+</div>

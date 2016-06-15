@@ -1,0 +1,23 @@
+<!-- Header -->
+<div id="header">
+    <nav role="navigation">
+        <div minimaliza-sidebar></div>
+        <div class="small-logo">
+            <span class="text-primary"></span>
+        </div>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav no-borders">
+                <li class="dropdown" ng-if="-1 < main.user.roleValues.indexOf('ROLE_ADMIN')" ui-sref="admin.index">
+                    <a>
+                        <i class="fa fa-cog"></i>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a ng-click="main.logout()">
+                        <i class="fa fa-sign-out"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

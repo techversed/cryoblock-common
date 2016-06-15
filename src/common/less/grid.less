@@ -1,0 +1,86 @@
+.ngH eaderCell {
+  border-right: none;
+  border-bottom: 1px solid @border-color;
+}
+.ngCell {
+  border-right: none;
+}
+.ngTopPanel {
+  background: #fff;
+}
+.ngRow.even {
+  background: #f9f9f9;
+}
+.ngRow.selected {
+  background: darken(@color-background, 4%);
+}
+.ngRow {
+  border-bottom: 1px solid @border-color;
+}
+.ngCell {
+  background-color: transparent;
+}
+.ngHeaderCell {
+  border-right: none;
+}
+.gridStyle {
+  border: 1px solid @border-color;
+  height: 400px
+}
+.show-grid [class^="col-"] {
+  background-color: @color-background !important;
+  border: 1px solid #ddd;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.show-grid {
+  margin: 15px 0;
+}
+/* DATATABLES */
+
+table.dataTable {
+  margin-top: 10px;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+  &:hover {
+    background: #EFEFEF;
+    cursor: pointer;
+  }
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+  background: transparent;
+}
+
+table.dataTable thead .sorting_asc:after {
+  float: right;
+  font-family: fontawesome;
+  content: "\f0de";
+  color: rgba(50, 50, 50, .5);
+}
+
+table.dataTable thead .sorting_desc:after {
+  content: "\f0dd";
+  float: right;
+  font-family: fontawesome;
+}
+
+table.dataTable thead .sorting:after {
+  content: "\f0dc";
+  float: right;
+  font-family: fontawesome;
+  color: rgba(50, 50, 50, .5);
+}
+
+
+.dataTables_wrapper {
+  padding-bottom: 30px;
+}

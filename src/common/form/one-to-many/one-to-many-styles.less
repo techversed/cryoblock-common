@@ -1,0 +1,39 @@
+#one-to-many-container {
+    &:hover {
+        cursor: text;
+    }
+
+    height: auto;
+    ul.one-to-many-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li.one-to-many-item {
+            display: inline-block;
+        }
+    }
+
+    input {
+        display: inline-block;
+        border: none;
+        background: transparent;
+        font-size: 12px;
+        &:focus {
+            outline: none;
+        }
+    }
+
+    span.label {
+        vertical-align: top;
+        line-height: 20px;
+        margin-right: 5px;
+        .fa-close {
+            vertical-align: top;
+            margin-left: 8px;
+            line-height: 21px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

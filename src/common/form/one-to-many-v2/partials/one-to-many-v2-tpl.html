@@ -1,0 +1,18 @@
+<div class="input-group">
+    <input
+        type="text"
+        class="form-control grid-contains-search-input"
+        placeholder="Add sample ..."
+        ng-model="search"
+        typeahead-wait-ms="300"
+        typeahead="sample.name for sample in getSamples($viewValue)"
+        typeahead-on-select="onSelect($item)"
+    />
+    <span class="input-group-btn" ng-click="refresh()">
+        <button class="btn btn-primary no-bottom-right-radius" type="button">
+            <i class="fa fa-search"></i>
+        </button>
+    </span>
+</div>
+
+<grid-v2 grid="grid" class="one-to-many"></grid-v2>

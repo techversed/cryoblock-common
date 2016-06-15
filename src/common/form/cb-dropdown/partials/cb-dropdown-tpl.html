@@ -1,0 +1,14 @@
+<div class="btn-group block" dropdown>
+    <button id="single-button" type="button" class="btn btn-block" ng-class="buttonClass" dropdown-toggle ng-disabled="disabled">
+        {{modelCtrl.$viewValue[bindTo] || modelCtrl.$viewValue || "Select " + label }}
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
+        <li role="menuitem" ng-repeat="item in items" ng-click="selectItem(item)">
+            <a>{{item[bindTo] || item}}</a>
+        </li>
+    </ul>
+</div>
+<div ng-messages="formCtrl[name].$error" ng-show="formCtrl.$submitted">
+    <p ng-message="required" class="text-danger">This field is required</p>
+</div>

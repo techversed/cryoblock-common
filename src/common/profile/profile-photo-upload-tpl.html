@@ -1,0 +1,52 @@
+<div id="profile-upload-photo-container">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+        <i class="pe-7s-upload modal-icon"></i>
+        <h4 class="modal-title">Upload Profile Photo</h4>
+        <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+    </div>
+    <div class="modal-body">
+
+        <div class="cropArea" ng-show="!showProgress && fileSelected">
+            <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+        </div>
+
+        <div
+            class="progress-circle"
+            ng-show="showProgress"
+            round-progress
+            max="100"
+            current="progress"
+            color="#45ccce"
+            bgcolor="#eaeaea"
+            radius="100"
+            stroke="20"
+            semi="false"
+            rounded="true"
+            clockwise="false"
+            iterations="20"
+            animation="linearEase"
+        >
+        </div>
+
+        <form
+            id="profile-picture-upload-form"
+            file-upload
+            data-ng-class="{'fileupload-processing': processing() || loadingFiles}"
+            ng-show="!fileSelected"
+        >
+
+            <button class="btn btn-primary btn-lg select-file">
+                <i class="fa fa-file-picture-o"></i><br>
+                Select Photo
+                <input id="file-input" type="file" name="files[]" ng-disabled="disabled">
+            </button>
+
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="upload()">Upload</button>
+        <button class="btn btn-default" ng-click="close()">Cancel</button>
+    </div>
+</div>

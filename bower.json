@@ -1,0 +1,52 @@
+{
+  "name": "CryoBlockCommon",
+  "version": "2.2",
+  "authors": [
+    "Damian Dudziak - WebAppLayers"
+  ],
+  "description": "CryoBlock - Common",
+  "main": "src/index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "appPath": "app",
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "angular": "1.3.7",
+    "angular-ui-router": "~0.2.13",
+    "bootstrap": "~3.3.4",
+    "jquery-ui": "~1.11.1",
+    "angular-bootstrap": "~0.13.4",
+    "metisMenu": "~2.0.2",
+    "fontawesome": "~4.3.0",
+    "slimScroll": "https://github.com/rochal/jQuery-slimScroll.git#~1.3.6",
+    "PACE": "https://github.com/HubSpot/pace.git#~1.0.2",
+    "angular-ui-router.stateHelper": "~1.3.0",
+    "ngstorage": "~0.3.7",
+    "angular-toastr": "~1.4.1",
+    "angular-loading-bar": "~0.8.0",
+    "angular-cookies": "~1.4.2",
+    "animate.css": "~3.3.0",
+    "ng-file-upload": "~5.0.9",
+    "bower": "*",
+    "install": "~1.0.4",
+    "angular-flot": "~0.0.9",
+    "ngImgCrop": "~0.3.2",
+    "blueimp-file-upload": "~9.10.4",
+    "iCheck": "~1.0.2",
+    "angular-svg-round-progressbar": "~0.2.10",
+    "angular-datatables": "0.4.3",
+    "datatables": "~1.10.5",
+    "datatables_plugins": "https://github.com/DataTables/Plugins.git#~1.10.5",
+    "angular-messages": "~1.4.3",
+    "datatables-responsive": "~1.0.6",
+    "ng-sweet-alert": "~1.0.4",
+    "sweetalert": "~1.1.0",
+    "angular-tree-control": "~0.2.15",
+    "angular-rangeslider": "~0.0.14",
+    "angular-money-directive": "~1.2.5"
+  }
+}

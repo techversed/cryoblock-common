@@ -1,0 +1,17 @@
+<div class="grid-pagination-container">
+    <div class="col-sm-6">
+        Showing {{startIndex}} to {{stopIndex}} of {{grid.pagination.unpaginatedTotal}} entries
+    </div>
+    <div class="col-sm-6">
+        <pagination
+            total-items="grid.pagination.unpaginatedTotal"
+            ng-model="grid.pagination.page"
+            max-size="5"
+            class="pagination-sm pull-right no-margin m-n"
+            boundary-links="true"
+            ng-change="refresh()"
+            items-per-page="grid.pagination.perPage"
+        >
+        </pagination>
+    </div>
+</div>

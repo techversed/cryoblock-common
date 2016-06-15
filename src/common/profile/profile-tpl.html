@@ -1,0 +1,77 @@
+<div id="profile-container">
+
+    <div class="normalheader">
+        <div class="hpanel">
+            <div class="panel-body">
+
+                <div id="hbreadcrumb" class="pull-right m-t-lg">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                        <li class="active">
+                            <span>Profile</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    Profile
+                </h2>
+                <small>{{user.username}}'s profile details</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                    </div>
+                    User Details
+                </div>
+                <div class="panel-body float-e-margins">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Profile picture -->
+                            <div class="avatar-container align-center">
+                                <div class="avatar" ng-click="uploadPhoto()">
+                                    <profile-avatar></profile-avatar>
+                                    <div class="img-circle avatar-edit animated pulse"></div>
+                                </div>
+                            </div>
+                            <div class="m-t-md user-info">
+                                <dl>
+                                    <dt><h3>Andre Branchizio</h3></dt>
+                                    <dd>software engineer</dd>
+                                </dl>
+                                <dl>
+                                    <dt>About me</dt>
+                                    <dd>Hi I'm Andre and I build apps like the one your using now. Pretty cool right? Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                    </div>
+                    Activity
+                </div>
+                <div class="panel-body float-e-margins">
+                    No activity to show
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

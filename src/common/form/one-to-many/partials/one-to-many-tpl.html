@@ -1,0 +1,21 @@
+<div class="form-control" id="one-to-many-container">
+    <ul class="one-to-many-list">
+        <li ng-repeat="selectedItem in selectedItems" class="one-to-many-item">
+            <span class="label label-primary" >
+                {{selectedItem.name}} <i ng-click="removeItem(selectedItem)" class="fa fa-close" />
+            </span>
+        </li>
+        <li class="one-to-many-item">
+            <input
+                placeholder="Search samples .."
+                ng-model="searchModel"
+                typeahead="sample.name for sample in getSamples($viewValue)"
+                ng-model-options="{ debounce: 300 }"
+                typeahead-loading="loading"
+                typeahead-no-results="noResults"
+                typeahead-on-select="onSelect($item)"
+            >
+            </input>
+        </li>
+    </ul>
+</div>

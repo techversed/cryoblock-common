@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="cryoblockApp">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Icon -->
+        <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+
+        <!-- Page title set in pageTitle directive -->
+        <title page-title></title>
+
+        <!-- build:style bundle -->
+        <!-- /build -->
+
+    </head>
+
+    <!-- Main controller -->
+    <body ng-controller="commonCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy tour backdrop="true">
+
+        <!-- Main view  -->
+        <div ui-view="content"></div>
+
+        <!-- build:script bundle -->
+        <!-- /build -->
+
+    </body>
+
+</html>
