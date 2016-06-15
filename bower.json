@@ -1,8 +1,8 @@
 {
-  "name": "CryoBlockCommon",
-  "version": "2.2",
+  "name": "cryoblock-common",
+  "version": "0.0.2",
   "authors": [
-    "Damian Dudziak - WebAppLayers"
+    "Andre Branchizio - Techversed LLC"
   ],
   "description": "CryoBlock - Common",
   "main": "src/index.html",
@@ -12,7 +12,7 @@
     "node_modules",
     "bower_components"
   ],
-  "appPath": "app",
+  "appPath": "src",
   "dependencies": {
     "jquery": "~2.1.1",
     "angular": "1.3.7",
