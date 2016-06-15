@@ -275,7 +275,7 @@ module.exports = function (grunt) {
 
         html2js: {
             options: {
-                module: 'templates'
+                module: 'cryoblock.common.templates'
             },
             prod: {
                 src: ['<%= cryoblock.app %>/**/*.html'],
