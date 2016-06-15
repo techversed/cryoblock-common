@@ -62151,7 +62151,7 @@ angular.module('fiestah.money', [])
 
 })();
 
-angular.module('templates', ['common/admin/admin-user-detail.html', 'common/admin/views/admin-tpl.html', 'common/admin/views/admin-user-create-tpl.html', 'common/admin/views/admin-user-deactivate-tpl.html', 'common/admin/views/admin-user-detail-tpl.html', 'common/button/button-tpl.html', 'common/dashboard/dashboard-tpl.html', 'common/form/cb-dropdown/partials/cb-dropdown-tpl.html', 'common/form/cb-form-group/partials/cb-form-group-tpl.html', 'common/form/form-tpl.html', 'common/form/one-to-many-v2/partials/one-to-many-v2-tpl.html', 'common/form/one-to-many/partials/one-to-many-popup-tpl.html', 'common/form/one-to-many/partials/one-to-many-tpl.html', 'common/grid/filter/partials/grid-filter-tpl.html', 'common/grid/filter/partials/grid-more-filter-tpl.html', 'common/grid/filter/type/partials/grid-enum-filter-tpl.html', 'common/grid/filter/type/partials/grid-integer-filter-tpl.html', 'common/grid/filter/type/partials/grid-relation-filter-tpl.html', 'common/grid/views/grid-directive-tpl.html', 'common/grid/views/grid-pagination-top-tpl.html', 'common/grid/views/grid-pagination-tpl.html', 'common/grid/views/grid-show-columns-directive-tpl.html', 'common/grid/views/grid-v2-directive-tpl.html', 'common/layout/carbon-layout.html', 'common/login/views/login-tpl.html', 'common/navigation/navigation-tpl.html', 'common/profile/profile-avatar-tpl.html', 'common/profile/profile-photo-upload-tpl.html', 'common/profile/profile-tpl.html', 'common/views/footer-tpl.html', 'common/views/ibox_tools.html', 'common/views/topnavbar-tpl.html', 'index.html']);
+angular.module('templates', ['common/admin/admin-user-detail.html', 'common/admin/views/admin-tpl.html', 'common/admin/views/admin-user-create-tpl.html', 'common/admin/views/admin-user-deactivate-tpl.html', 'common/admin/views/admin-user-detail-tpl.html', 'common/button/button-tpl.html', 'common/dashboard/dashboard-tpl.html', 'common/form/cb-dropdown/partials/cb-dropdown-tpl.html', 'common/form/cb-form-group/partials/cb-form-group-tpl.html', 'common/form/form-tpl.html', 'common/form/one-to-many-v2/partials/one-to-many-v2-tpl.html', 'common/form/one-to-many/partials/one-to-many-popup-tpl.html', 'common/form/one-to-many/partials/one-to-many-tpl.html', 'common/grid/filter/partials/grid-filter-tpl.html', 'common/grid/filter/partials/grid-more-filter-tpl.html', 'common/grid/filter/type/partials/grid-enum-filter-tpl.html', 'common/grid/filter/type/partials/grid-integer-filter-tpl.html', 'common/grid/filter/type/partials/grid-relation-filter-tpl.html', 'common/grid/views/grid-directive-tpl.html', 'common/grid/views/grid-pagination-top-tpl.html', 'common/grid/views/grid-pagination-tpl.html', 'common/grid/views/grid-show-columns-directive-tpl.html', 'common/grid/views/grid-v2-directive-tpl.html', 'common/layout/carbon-layout.html', 'common/login/views/login-tpl.html', 'common/navigation/navigation-tpl.html', 'common/profile/profile-avatar-tpl.html', 'common/profile/profile-photo-upload-tpl.html', 'common/profile/profile-tpl.html', 'common/views/footer-tpl.html', 'common/views/ibox_tools.html', 'common/views/topnavbar-tpl.html']);
 
 angular.module("common/admin/admin-user-detail.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("common/admin/admin-user-detail.html",
@@ -64429,70 +64429,6 @@ angular.module("common/views/topnavbar-tpl.html", []).run(["$templateCache", fun
     "</div>\n" +
     "");
 }]);
-
-angular.module("index.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("index.html",
-    "<!DOCTYPE html>\n" +
-    "<html ng-app=\"cryoblockApp\">\n" +
-    "\n" +
-    "    <head>\n" +
-    "\n" +
-    "        <meta charset=\"utf-8\">\n" +
-    "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-    "\n" +
-    "        <!-- Icon -->\n" +
-    "        <link rel=\"icon\" href=\"images/favicon.ico\" type=\"image/x-icon\"/>\n" +
-    "\n" +
-    "        <!-- Page title set in pageTitle directive -->\n" +
-    "        <title page-title></title>\n" +
-    "\n" +
-    "        <!-- build:style bundle -->\n" +
-    "        <!-- /build -->\n" +
-    "\n" +
-    "    </head>\n" +
-    "\n" +
-    "    <!-- Main controller -->\n" +
-    "    <body ng-controller=\"commonCtrl as main\" class=\"{{$state.current.data.specialClass}}\" landing-scrollspy tour backdrop=\"true\">\n" +
-    "\n" +
-    "        <!-- Main view  -->\n" +
-    "        <div ui-view=\"content\"></div>\n" +
-    "\n" +
-    "        <!-- build:script bundle -->\n" +
-    "        <!-- /build -->\n" +
-    "\n" +
-    "    </body>\n" +
-    "\n" +
-    "</html>\n" +
-    "");
-}]);
-
-angular.module('carbonConfig', ['toastr'])
-
-    .constant('API', {
-        url: 'http://andre.dev.carbon.com',
-        apiKeyParam: 'apikey'
-    })
-
-    // override toastr configs
-    .config(['toastrConfig', function (toastrConfig) {
-
-        angular.extend(toastrConfig, {
-            closeButton: true,
-            extendedTimeOut: 1000,
-            maxOpened: 0,
-            positionClass: 'toast-top-right',
-            progressBar: true,
-            timeOut: 3000,
-        });
-
-    }])
-
-    .config(['$urlRouterProvider', function($urlRouterProvider) {
-
-        $urlRouterProvider.otherwise('/login');
-
-    }])
-;
 
 angular.module('admin.adminCtrl', [])
     .controller('adminCtrl', ['$scope', 'userRequest', 'roleRequest', 'groupRequest', '$modal', 'adminFactory', 'sessionFactory', 'API',
@@ -67450,33 +67386,3 @@ angular.module('session', [
     'session.sessionFactory',
     'session.authInterceptor'
 ]);
-
-var cryblock = angular.module('cryoblockApp', [
-    'ui.router',
-    'ui.bootstrap',
-    'templates',
-    'common',
-    // 'carbonAppDirectives',
-    'ngStorage',
-    'carbonConfig',
-    'toastr',
-    'angular-loading-bar',
-    'ngCookies',
-    'form',
-    'button',
-    'ngImgCrop',
-    'blueimp.fileupload',
-    'datatables',
-    'ngMessages',
-    'treeControl',
-    'ui-rangeSlider',
-    'fiestah.money',
-    'ui.bootstrap.typeahead',
-    'ui.bootstrap.tabs'
-]);
-
-angular.module('cryoblockApp').run(
-    ['$rootScope', '$state', function($rootScope, $state) {
-        $rootScope.$state = $state;
-    }]
-);

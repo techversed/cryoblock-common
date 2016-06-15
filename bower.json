@@ -5,7 +5,6 @@
     "Andre Branchizio - Techversed LLC"
   ],
   "description": "CryoBlock - Common",
-  "main": "src/index.html",
   "private": true,
   "ignore": [
     "**/.*",

@@ -311,7 +311,6 @@ module.exports = function (grunt) {
         'html2js:prod',
         'concat:css',
         'concat:js',
-        'htmlbuild:prod',
         'copy:prod',
         'ngAnnotate:prod',
         'uglify:prod',
