@@ -1,10 +1,10 @@
 {
-  "name": "Carbon",
-  "version": "0.0.1",
-  "description": "Carbon Interface - Admin themed interface that integrates with carbon API",
+  "name": "cryoblock-common",
+  "version": "0.0.6",
+  "description": "Cryoblock Common",
   "repository": {
     "type": "git",
-    "url": "git@github.com:andrejbranch/carbon-interface.git"
+    "url": "git@github.com/techversed/cryoblock-common.git"
   },
   "dependencies": {
     "connect-livereload": "^0.5.3"
