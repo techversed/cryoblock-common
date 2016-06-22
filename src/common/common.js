@@ -1,4 +1,5 @@
 angular.module('common', [
+
     'common.commonCtrl',
     'login',
     'dashboard',
@@ -6,5 +7,24 @@ angular.module('common', [
     'navigation',
     'profile',
     'admin',
-    'grid'
+    'grid',
+    'carbonAppDirectives',
+    'ngStorage',
+    'carbonConfig',
+    'toastr',
+    'angular-loading-bar',
+    'ngCookies',
+    'form',
+    'button',
+    'ngImgCrop',
+    'blueimp.fileupload',
+    'datatables',
+    'ngMessages',
+    'treeControl',
+    'ui-rangeSlider',
+    'fiestah.money',
+    'ui.bootstrap.typeahead',
+    'ui.bootstrap.tabs',
+
+    'cryoblock.common.templates'
 ]);
