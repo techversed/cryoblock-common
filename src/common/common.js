@@ -1,5 +1,9 @@
 angular.module('common', [
-
+    'ui.router',
+    'ui.bootstrap',
+    'ui-rangeSlider',
+    'ui.bootstrap.typeahead',
+    'ui.bootstrap.tabs',
     'common.commonCtrl',
     'login',
     'dashboard',
@@ -21,10 +25,6 @@ angular.module('common', [
     'datatables',
     'ngMessages',
     'treeControl',
-    'ui-rangeSlider',
     'fiestah.money',
-    'ui.bootstrap.typeahead',
-    'ui.bootstrap.tabs',
-
     'cryoblock.common.templates'
 ]);
