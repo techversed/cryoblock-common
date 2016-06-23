@@ -1,4 +1,4 @@
-/*! cryoblock-common - v0.0.7 - 2016-06-23 */
+/*! cryoblock-common - v0.1.0 - 2016-06-23 */
 /*! jQuery v2.1.4 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */
 pageTitle.$inject = ['$rootScope', '$timeout'];
 sideNavigation.$inject = ['$timeout'];
