@@ -290,7 +290,7 @@ module.exports = function (grunt) {
                     flatten: true,
                     cwd: '<%= cryoblock.app %>',
                     src: ['**/*.{png,jpg,gif,ico,svg}'],
-                    dest: '<%= cryoblock.build %>/production/images/'
+                    dest: '<%= cryoblock.release%>/images/'
                 }]
             }
         }
@@ -317,7 +317,7 @@ module.exports = function (grunt) {
         // // 'cssmin',
         // 'filerev:prod',
         // 'htmlmin:prod',
-        // 'imagemin:prod'
+        'imagemin:prod'
     ]);
 
 };
