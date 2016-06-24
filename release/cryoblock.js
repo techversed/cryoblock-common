@@ -1,4 +1,4 @@
-/*! cryoblock-common - v0.1.0 - 2016-06-23 */
+/*! cryoblock-common - v0.1.0 - 2016-06-24 */
 /*! jQuery v2.1.4 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */
 pageTitle.$inject = ['$rootScope', '$timeout'];
 sideNavigation.$inject = ['$timeout'];
@@ -63735,7 +63735,7 @@ angular.module("common/grid/filter/type/partials/grid-enum-filter-tpl.html", [])
     "        </li>\n" +
     "\n" +
     "        <li role=\"menuitem\" ng-repeat=\"item in filter.selectedItems\" ng-click=\"removeItem(item)\">\n" +
-    "            <a href=\"#\" class=\"grid-filter-item-detail\">\n" +
+    "            <a href=\"\" class=\"grid-filter-item-detail\">\n" +
     "                <input type=\"checkbox\" checked=\"checked\" class=\"grid-filter-check\"></input>\n" +
     "                <span ng-bind=\"item\"></span>\n" +
     "            </a>\n" +
@@ -63744,7 +63744,7 @@ angular.module("common/grid/filter/type/partials/grid-enum-filter-tpl.html", [])
     "        <li class=\"divider\" ng-if=\"filter.selectedItems.length\"></li>\n" +
     "\n" +
     "        <li role=\"menuitem\" ng-repeat=\"result in filter.enum | filter:form.search | orderBy: result\" ng-click=\"selectItem(result)\" class=\"grid-filter-item\">\n" +
-    "            <a href=\"#\" class=\"grid-filter-item-detail\">\n" +
+    "            <a href=\"\" class=\"grid-filter-item-detail\">\n" +
     "                <input type=\"checkbox\" class=\"grid-filter-check\"></input>\n" +
     "                <span ng-bind=\"result\"></span>\n" +
     "            </a>\n" +
@@ -63838,7 +63838,7 @@ angular.module("common/grid/filter/type/partials/grid-relation-filter-tpl.html",
     "        </li>\n" +
     "\n" +
     "        <li role=\"menuitem\" ng-repeat=\"item in filter.selectedItems\" ng-click=\"removeItem(item)\">\n" +
-    "            <a href=\"#\" class=\"grid-filter-item-detail\">\n" +
+    "            <a href=\"\" class=\"grid-filter-item-detail\">\n" +
     "                <input type=\"checkbox\" checked=\"checked\" class=\"grid-filter-check\"></input>\n" +
     "                <span ng-bind=\"item.{{filter.bindTo}}\"></span>\n" +
     "            </a>\n" +
@@ -63847,14 +63847,14 @@ angular.module("common/grid/filter/type/partials/grid-relation-filter-tpl.html",
     "        <li class=\"divider\" ng-if=\"filter.selectedItems.length\"></li>\n" +
     "\n" +
     "        <li role=\"menuitem\" ng-repeat=\"result in filter.results\" ng-click=\"selectItem(result)\" class=\"grid-filter-item\">\n" +
-    "            <a href=\"#\" class=\"grid-filter-item-detail\">\n" +
+    "            <a href=\"\" class=\"grid-filter-item-detail\">\n" +
     "                <input type=\"checkbox\" class=\"grid-filter-check\"></input>\n" +
     "                <span ng-bind=\"result.{{filter.bindTo}}\"></span>\n" +
     "            </a>\n" +
     "        </li>\n" +
     "\n" +
     "        <li role=\"menuitem\" ng-if=\"filter.results.length === 0\">\n" +
-    "            <a href=\"#\" class=\"grid-filter-item-detail\">No Results</a>\n" +
+    "            <a href=\"\" class=\"grid-filter-item-detail\">No Results</a>\n" +
     "        </li>\n" +
     "\n" +
     "    </ul>\n" +
@@ -63927,7 +63927,7 @@ angular.module("common/grid/views/grid-show-columns-directive-tpl.html", []).run
     "            </li>\n" +
     "\n" +
     "            <li role=\"menuitem\" ng-repeat=\"column in visibleColumns | filter : searchText\" ng-click=\"selectItem(column)\" class=\"grid-filter-item\">\n" +
-    "                <a href=\"#\" class=\"grid-filter-item-detail\" ng-click=\"toggleColumn(column)\">\n" +
+    "                <a href=\"\" class=\"grid-filter-item-detail\" ng-click=\"toggleColumn(column)\">\n" +
     "                    <input ng-model=\"column.isVisible\" type=\"checkbox\" class=\"grid-filter-check\" ng-checked=\"column.isVisible\" ng-disabled=\"column.isPrimary\"></input>\n" +
     "                    <span ng-bind=\"column.header\"></span>\n" +
     "                </a>\n" +
@@ -63936,7 +63936,7 @@ angular.module("common/grid/views/grid-show-columns-directive-tpl.html", []).run
     "            <li class=\"divider\" ng-if=\"hiddenColumns.length\"></li>\n" +
     "\n" +
     "            <li role=\"menuitem\" ng-repeat=\"column in hiddenColumns | filter: searchText\" ng-click=\"toggleColumn(column)\" class=\"grid-filter-item\">\n" +
-    "                <a href=\"#\" class=\"grid-filter-item-detail\">\n" +
+    "                <a href=\"\" class=\"grid-filter-item-detail\">\n" +
     "                    <input ng-model=\"column.isVisible\" type=\"checkbox\" class=\"grid-filter-check\" ng-checked=\"column.isVisible\"></input>\n" +
     "                    <span ng-bind=\"column.header\"></span>\n" +
     "                </a>\n" +
@@ -64052,7 +64052,7 @@ angular.module("common/grid/views/grid-v2-directive-tpl.html", []).run(["$templa
     "                        <i ng-if=\"column.sortDirection === column.sort.ASC\" class=\"fa fa-sort-amount-asc\"></i>\n" +
     "                        <i ng-if=\"column.sortDirection === column.sort.DESC\" class=\"fa fa-sort-amount-desc\"></i>\n" +
     "                    </th>\n" +
-    "                    <th class=\"action-cell\" ng-if=\"grid.actionTemplate\">\n" +
+    "                    <th class=\"action-cell\">\n" +
     "                        <grid-show-columns grid=\"grid\" ng-if=\"grid.allowToggleColumns\"></grid-show-columns>\n" +
     "                    </th>\n" +
     "                    <th ng-if=\"grid.isEditable\" class=\"editable-action-cell\" ng-hide=\"grid.results.length === 0\"></th>\n" +
@@ -64072,8 +64072,8 @@ angular.module("common/grid/views/grid-v2-directive-tpl.html", []).run(["$templa
     "                        <span ng-bind=\"result.{{column.bindTo}}\" ng-if=\"!column.sref\" class=\"column-text\" title=\"{{result[column.bindTo]}}\"></span>\n" +
     "                    </td>\n" +
     "\n" +
-    "                    <td ng-if=\"grid.actionTemplate\" class=\"action-cell\">\n" +
-    "                        <div ng-include=\"grid.actionTemplate\" class=\"action-container\"></div>\n" +
+    "                    <td class=\"action-cell\" ng-if=\"!grid.isEditable\">\n" +
+    "                        <div ng-if=\"grid.actionTemplate\" ng-include=\"grid.actionTemplate\" class=\"action-container\"></div>\n" +
     "                    </td>\n" +
     "\n" +
     "                    <td ng-if=\"grid.isEditable\" class=\"editable-action-cell\">\n" +
@@ -67570,7 +67570,7 @@ angular.module('session.sessionFactory', [])
 
                 refreshUser: function () {
 
-                    var url = API.url + '/user?id=' + this.getLoggedInUser().id;
+                    var url = API.url + '/user?id[EQ]=' + this.getLoggedInUser().id;
 
                     var promise = $http.get(url).then(function (response) {
 

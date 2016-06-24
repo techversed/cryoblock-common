@@ -22,7 +22,7 @@
         </li>
 
         <li role="menuitem" ng-repeat="item in filter.selectedItems" ng-click="removeItem(item)">
-            <a href="#" class="grid-filter-item-detail">
+            <a href="" class="grid-filter-item-detail">
                 <input type="checkbox" checked="checked" class="grid-filter-check"></input>
                 <span ng-bind="item.{{filter.bindTo}}"></span>
             </a>
@@ -31,14 +31,14 @@
         <li class="divider" ng-if="filter.selectedItems.length"></li>
 
         <li role="menuitem" ng-repeat="result in filter.results" ng-click="selectItem(result)" class="grid-filter-item">
-            <a href="#" class="grid-filter-item-detail">
+            <a href="" class="grid-filter-item-detail">
                 <input type="checkbox" class="grid-filter-check"></input>
                 <span ng-bind="result.{{filter.bindTo}}"></span>
             </a>
         </li>
 
         <li role="menuitem" ng-if="filter.results.length === 0">
-            <a href="#" class="grid-filter-item-detail">No Results</a>
+            <a href="" class="grid-filter-item-detail">No Results</a>
         </li>
 
     </ul>

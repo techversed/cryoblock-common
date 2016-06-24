@@ -99,7 +99,7 @@
                         <i ng-if="column.sortDirection === column.sort.ASC" class="fa fa-sort-amount-asc"></i>
                         <i ng-if="column.sortDirection === column.sort.DESC" class="fa fa-sort-amount-desc"></i>
                     </th>
-                    <th class="action-cell" ng-if="grid.actionTemplate">
+                    <th class="action-cell">
                         <grid-show-columns grid="grid" ng-if="grid.allowToggleColumns"></grid-show-columns>
                     </th>
                     <th ng-if="grid.isEditable" class="editable-action-cell" ng-hide="grid.results.length === 0"></th>
@@ -119,8 +119,8 @@
                         <span ng-bind="result.{{column.bindTo}}" ng-if="!column.sref" class="column-text" title="{{result[column.bindTo]}}"></span>
                     </td>
 
-                    <td ng-if="grid.actionTemplate" class="action-cell">
-                        <div ng-include="grid.actionTemplate" class="action-container"></div>
+                    <td class="action-cell" ng-if="!grid.isEditable">
+                        <div ng-if="grid.actionTemplate" ng-include="grid.actionTemplate" class="action-container"></div>
                     </td>
 
                     <td ng-if="grid.isEditable" class="editable-action-cell">

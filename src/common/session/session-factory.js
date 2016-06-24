@@ -57,7 +57,7 @@ angular.module('session.sessionFactory', [])
 
                 refreshUser: function () {
 
-                    var url = API.url + '/user?id=' + this.getLoggedInUser().id;
+                    var url = API.url + '/user?id[EQ]=' + this.getLoggedInUser().id;
 
                     var promise = $http.get(url).then(function (response) {
 
