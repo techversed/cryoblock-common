@@ -54,29 +54,29 @@ module.exports = function (grunt) {
         watch: {
             styles: {
                 files: ['<%= cryoblock.app %>/**/*.less'],
-                tasks: ['less:dev'],
+                tasks: ['build:dev'],
                 options: {
                     nospawn: true,
-                    livereload: true
+                    livereload: 35730
                 },
             },
             js: {
                 files: ['<%= cryoblock.app %>/**/*.js'],
-                tasks: ['htmlbuild:dev'],
+                tasks: ['build:dev'],
                 options: {
-                    livereload: true
+                    livereload: 35730
                 }
             },
             html: {
                 files: ['<%= cryoblock.app %>/**/*.html'],
                 options: {
-                    livereload: true
+                    livereload: 35730
                 },
-                tasks: ['html2js:dev']
+                tasks: ['build:dev']
             },
             livereload: {
                 options: {
-                    livereload: true
+                    livereload: 35730
                 },
                 files: [
                     '<%= cryoblock.app %>/**/*.html',
@@ -121,20 +121,20 @@ module.exports = function (grunt) {
         copy: {
             prod: {
                 files: [
-                    // {
-                    //     expand: true,
-                    //     dot: true,
-                    //     cwd: '<%= cryoblock.app %>',
-                    //     dest: '<%= cryoblock.build %>/production',
-                    //     src: [
-                    //         '*.{ico,png,txt}',
-                    //         // '.htaccess',
-                    //         '*.html',
-                    //         'views/{,*/}*.html',
-                    //         'styles/style.css',
-                    //         'img/{,*/}*.*'
-                    //     ]
-                    // },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= cryoblock.app %>/common/images',
+                        dest: '<%= cryoblock.release %>/images',
+                        src: [
+                            '*.{ico,png,txt,jpg}',
+                            // '.htaccess',
+                            '*.html',
+                            'views/{,*/}*.html',
+                            'styles/style.css',
+                            'img/{,*/}*.*'
+                        ]
+                    },
                     {
                         expand: true,
                         dot: true,
@@ -148,7 +148,7 @@ module.exports = function (grunt) {
                         cwd: 'bower_components/bootstrap',
                         src: ['fonts/*.*'],
                         dest: '<%= cryoblock.release %>'
-                    },
+                    }
                     // {
                     //     expand: true,
                     //     dot: true,
@@ -305,6 +305,22 @@ module.exports = function (grunt) {
     ]);
 
     // Build version for production
+    grunt.registerTask('build:dev', [
+        'clean:prod',
+        'less:prod',
+        'html2js:prod',
+        'concat:css',
+        'concat:js',
+        'copy:prod',
+        // 'ngAnnotate:prod',
+        // 'uglify:prod',
+        // // 'cssmin',
+        // 'filerev:prod',
+        // 'htmlmin:prod',
+        // 'imagemin:prod'
+    ]);
+
+    // Build version for production
     grunt.registerTask('build:prod', [
         'clean:prod',
         'less:prod',
@@ -320,4 +336,8 @@ module.exports = function (grunt) {
         'imagemin:prod'
     ]);
 
+    grunt.registerTask('build:watch', [
+        'build:dev',
+        'watch'
+    ]);
 };

@@ -1,6 +1,7 @@
 <div class="btn-group block" dropdown>
     <button id="single-button" type="button" class="btn btn-block" ng-class="buttonClass" dropdown-toggle ng-disabled="disabled">
-        {{modelCtrl.$viewValue[bindTo] || modelCtrl.$viewValue || "Select " + label }}
+        <span ng-if="isFormCtrl">{{modelCtrl.$viewValue[bindTo] || modelCtrl.$viewValue || "Select " + label }}</span>
+        <span ng-if="!isFormCtrl">{{label}}
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
