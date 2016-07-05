@@ -42,8 +42,12 @@ angular.module('form.cbDropdownDirective', [])
                     $scope.selectItem = function (item) {
 
                         $scope.modelCtrl.$setViewValue(item);
-                        console.log(typeof $scope.cbOnSelect);
-                        // if (typeof $scope.onSelect === '')
+
+                        if (typeof $scope.cbOnSelect === 'function') {
+
+                            $scope.cbOnSelect(item);
+
+                        }
 
                     };
 

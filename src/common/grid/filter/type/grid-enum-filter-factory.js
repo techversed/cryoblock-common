@@ -14,7 +14,7 @@ angular.module('grid.gridEnumFilterFactory', [])
 
                 this.selectionString = 'Any';
 
-                this.isVisible = true;
+                this.isVisible = false;
 
                 this.isFiltering = false;
 

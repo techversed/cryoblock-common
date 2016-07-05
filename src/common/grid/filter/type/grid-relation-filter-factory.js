@@ -22,7 +22,7 @@ angular.module('grid.gridRelationFilterFactory', [])
 
                 this.templateUrl = 'common/grid/filter/type/partials/grid-relation-filter-tpl.html';
 
-                this.isVisible = true;
+                this.isVisible = false;
 
                 this.isFiltering = false;
 

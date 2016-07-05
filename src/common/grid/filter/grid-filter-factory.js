@@ -15,6 +15,9 @@ angular.module('grid.gridFilterFactory', [])
                     },
                     'enum': {
                         'factory': 'gridEnumFilterFactory'
+                    },
+                    'string': {
+                        'factory': 'gridStringFilterFactory'
                     }
                 },
 

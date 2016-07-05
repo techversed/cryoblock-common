@@ -24,7 +24,7 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                 this.selectionString = 'Any';
 
-                this.isVisible = true;
+                this.isVisible = false;
 
                 this.isFiltering = false;
 
