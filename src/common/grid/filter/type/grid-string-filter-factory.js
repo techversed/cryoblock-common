@@ -71,6 +71,7 @@ angular.module('grid.gridStringFilterFactory', [])
                     this.selectionString = 'Any';
 
                 },
+
                 setResults: function (results) {
                     this.results = results;
                 },
@@ -86,6 +87,17 @@ angular.module('grid.gridStringFilterFactory', [])
 
                     return params;
 
+                    if (this.selectedOperator === 'EQ') {
+
+                        return this.filterProperty + '[' + this.selectedOperator.value + ']=' + this.singleValue;
+
+                    }
+
+                    if (this.selectedOperator === 'LIKE') {
+
+                        return this.filterProperty + '[' + this.selectedOperator.value + ']=' + this.singleValue;
+
+                    }
                 },
 
                 clear: function () {
