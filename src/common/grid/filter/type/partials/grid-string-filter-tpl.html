@@ -1,0 +1,37 @@
+<div class="btn-group" dropdown keyboard-nav>
+    <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectionString}}" dropdown-toggle ng-class="{filtering: filter.isFiltering}">
+        {{filter.title}} : {{ filter.selectionString }}
+        <span class="caret"></span>
+        <i class="fa fa-close grid-filter-toggle" ng-click="toggleFilter($event)" />
+    </button>
+
+    <ul class="dropdown-menu integer" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
+
+        <li role="menuitem">
+
+            <input type="radio" name="type" value="single" ng-model="filter.selectedType"></input>
+
+            <select
+                class="form-control operator"
+                ng-options="operator.name for operator in filter.operators track by operator.value"
+                ng-model="filter.selectedOperator"
+            >
+            </select>
+
+            <input type="text" class="form-control value" ng-model="filter.singleValue"></input>
+        </li>
+
+        <li role="menuitem">
+            <div class="row no-margin">
+                <div class="col-md-6">
+                    <button class="btn btn-info btn-block" ng-click="update()">Update</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-default btn-block" ng-click="refresh()">
+                        <i class="fa fa-refresh" />
+                    </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

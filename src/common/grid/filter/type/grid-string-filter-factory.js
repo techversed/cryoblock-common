@@ -16,6 +16,12 @@ angular.module('grid.gridStringFilterFactory', [])
 
                 this.templateUrl = 'common/grid/filter/type/partials/grid-string-filter-tpl.html';
 
+                this.selectedOperator = this.operators[0];
+
+                this.selectedType = 'single';
+
+                this.singleValue = '';
+
                 this.isVisible = false;
 
                 this.isFiltering = false;
@@ -28,6 +34,43 @@ angular.module('grid.gridStringFilterFactory', [])
 
             GridStringFilter.prototype = {
 
+                operators: [
+                    {
+                        value: 'LIKE',
+                        name: 'Like'
+                    },
+                    {
+                        value: 'EQ',
+                        name: '='
+                    }
+                ],
+
+                refresh: function () {
+
+                    this.selectedType = 'single';
+                    this.singleValue = '';
+                    this.selectedOperator = this.operators[0];
+                    this.isFiltering = false;
+
+                },
+
+                updateSelectionString: function () {
+
+                    if (this.selectedType === 'single' && !!this.singleValue) {
+
+                        this.selectionString = this.selectedOperator.name + ' ' + this.singleValue;
+
+                        this.isFiltering = true;
+
+                        return;
+
+                    }
+
+                    this.isFiltering = false;
+
+                    this.selectionString = 'Any';
+
+                },
                 setResults: function (results) {
                     this.results = results;
                 },
