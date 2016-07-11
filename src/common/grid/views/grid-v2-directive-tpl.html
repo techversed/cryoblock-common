@@ -33,7 +33,7 @@
 
     </div>
 
-    <div class="row">
+    <div class="row" ng-if="grid.showFilters">
 
         <div class="col-sm-12 grid-pagination-top-container">
 
@@ -85,7 +85,7 @@
     </div>
 
     <div class="grid-overflow" ng-class="{'no-results': grid.results.length === 0}">
-        <table class="table table-striped table-hover table-selectable table-align-center dataTable">
+        <table class="table table-striped table-selectable table-align-center dataTable" ng-class="{'table-hover': grid.isHoverable}">
             <thead>
                 <tr>
                     <th
@@ -94,7 +94,8 @@
                         ng-class="{sortable: column.isSortable, isSorting: (column.sortDirection === column.sort.ASC) || (column.sortDirection === column.sort.DESC)}"
                         ng-show="column.isVisible"
                     >
-                        <span>{{column.header}}</span>
+                        <div ng-if="column.headerUrl" ng-include="column.headerUrl"></div>
+                        <span ng-if="!column.headerUrl">{{column.header}}</span>
                         <i ng-if="column.isSortable && column.sortDirection === column.sort.NONE" class="fa fa-sort"></i>
                         <i ng-if="column.sortDirection === column.sort.ASC" class="fa fa-sort-amount-asc"></i>
                         <i ng-if="column.sortDirection === column.sort.DESC" class="fa fa-sort-amount-desc"></i>
@@ -114,9 +115,14 @@
                     <td
                         ng-repeat="column in grid.columns"
                         ng-show="column.isVisible"
+                        ng-class="{{column.ngClass}}"
                     >
-                        <a ng-bind="result.{{column.bindTo}}" ng-if="column.sref" ui-sref="{{column.sref}}" class="column-text" ng-class="{'soft-link': !column.isPrimary}" title="{{result[column.bindTo]}}"></a>
-                        <span ng-bind="result.{{column.bindTo}}" ng-if="!column.sref" class="column-text" title="{{result[column.bindTo]}}"></span>
+                        <div ng-if="column.templateUrl" ng-include="column.templateUrl"></div>
+
+                        <div ng-if="!column.templateUrl">
+                            <a ng-bind="result.{{column.bindTo}}" ng-if="column.sref" ui-sref="{{column.sref}}" class="column-text" ng-class="{'soft-link': !column.isPrimary}" title="{{result[column.bindTo]}}"></a>
+                            <span ng-bind="result.{{column.bindTo}}" ng-if="!column.sref" class="column-text" title="{{result[column.bindTo]}}"></span>
+                        </div>
                     </td>
 
                     <td class="action-cell" ng-if="!grid.isEditable">

@@ -47,6 +47,8 @@ angular.module('grid.gridFactory', [])
 
                 this.noResultString = 'No Results';
 
+                this.isHoverable = true;
+
             };
 
             Grid.prototype = {
@@ -89,7 +91,6 @@ angular.module('grid.gridFactory', [])
 
                     var startIndex = ((this.pagination.page - 1) * this.pagination.perPage);
 
-                    console.log(startIndex);
                     this.results = this.data.slice(startIndex, startIndex + this.pagination.perPage);
 
                     this.pagination.startIndex = startIndex + 1;
@@ -345,6 +346,11 @@ angular.module('grid.gridFactory', [])
 
                 setNoResultString: function (noResultString) {
                     this.noResultString = noResultString;
+                    return this;
+                },
+
+                disableHover: function () {
+                    this.isHoverable = false;
                     return this;
                 }
 

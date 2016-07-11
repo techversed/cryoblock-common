@@ -2,8 +2,6 @@ angular.module('common', [
     'ui.router',
     'ui.bootstrap',
     'ui-rangeSlider',
-    'ui.bootstrap.typeahead',
-    'ui.bootstrap.tabs',
     'common.commonCtrl',
     'login',
     'dashboard',

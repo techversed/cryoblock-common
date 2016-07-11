@@ -1,9 +1,9 @@
-<div class="btn-group" dropdown keyboard-nav>
-    <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectedItemsString}}" dropdown-toggle>
+<div class="btn-group" uib-dropdown keyboard-nav>
+    <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectedItemsString}}" uib-dropdown-toggle>
         {{filter.title}} : {{ filter.selectedItemsString }} <span class="caret"></span>
     </button>
 
-    <ul class="dropdown-menu" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()" ng-if="filter.type === 'relation'">
+    <ul uib-dropdown-menu class="dropdown-menu" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()" ng-if="filter.type === 'relation'">
 
         <li>
 
