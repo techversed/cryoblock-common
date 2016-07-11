@@ -1,7 +1,8 @@
 angular.module('common.commonCtrl', [])
-    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer',
 
-        function ($scope, sessionFactory, navigationInitializer) {
+    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', '$injector',
+
+        function ($scope, sessionFactory, navigationInitializer, $injector) {
 
             navigationInitializer.initialize();
 
@@ -16,6 +17,15 @@ angular.module('common.commonCtrl', [])
                 this.user = sessionFactory.getLoggedInUser();
 
             }
+
+            $scope.showNavigationBar = true;
+
+            var showNavigationBar = $injector.get('showNavigationBar');
+
+            if (showNavigationBar !== undefined) {
+                $scope.showNavigationBar = showNavigationBar;
+            }
+
         }
 
     ])
