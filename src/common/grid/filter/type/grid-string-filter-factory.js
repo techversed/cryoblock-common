@@ -6,8 +6,6 @@ angular.module('grid.gridStringFilterFactory', [])
 
             var GridStringFilter = function (defaults) {
 
-                this.results = [];
-
                 this.filterProperty = null;
 
                 this.title = null;
@@ -19,8 +17,6 @@ angular.module('grid.gridStringFilterFactory', [])
                 this.selectionString = 'Any';
 
                 this.selectedOperator = this.operators[0];
-
-                this.selectedType = 'single';
 
                 this.singleValue = '';
 
@@ -39,7 +35,7 @@ angular.module('grid.gridStringFilterFactory', [])
                 operators: [
                     {
                         value: 'LIKE',
-                        name: 'Like'
+                        name: 'LIKE'
                     },
                     {
                         value: 'EQ',
@@ -49,7 +45,6 @@ angular.module('grid.gridStringFilterFactory', [])
 
                 refresh: function () {
 
-                    this.selectedType = 'single';
                     this.singleValue = '';
                     this.selectedOperator = this.operators[0];
                     this.isFiltering = false;
@@ -58,7 +53,7 @@ angular.module('grid.gridStringFilterFactory', [])
 
                 updateSelectionString: function () {
 
-                    if (this.selectedType === 'single' && !!this.singleValue) {
+                    if (!!this.singleValue) {
 
                         this.selectionString = this.selectedOperator.name + ' ' + this.singleValue;
 
@@ -74,23 +69,22 @@ angular.module('grid.gridStringFilterFactory', [])
 
                 },
 
-                setResults: function (results) {
-                    this.results = results;
-                },
-
                 getParams: function () {
 
-                    var params = [];
+                    this.updateSelectionString();
 
-                    var that = this;
+                    if (!this.singleValue) {
+
+                        return [];
+
+                    }
 
                     return this.filterProperty + '[' + this.selectedOperator.value + ']=' + this.singleValue;
-
                 },
 
                 clear: function () {
 
-                    this.isFiltering = false;
+                    this.refresh();
 
                 }
 

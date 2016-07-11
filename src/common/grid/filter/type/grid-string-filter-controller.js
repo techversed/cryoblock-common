@@ -1,43 +1,17 @@
 angular.module('grid.gridStringFilterCtrl', [])
 
-    .controller('gridStringFilterCtrl', ['$scope', 'API', '$http',
+    .controller('gridStringFilterCtrl', ['$scope',
 
-        function ($scope, API, $http) {
-
-            var init = function () {
-
-                var url = API.url + $scope.filter.resourceUrl + '?';
-
-                var params = [];
-                if ($scope.form.search !== '') {
-                   params.push('cSearch=' + $scope.form.search);
-                }
-
-                params.push('cPerPage=5');
-
-                $http.get(url + params.join('&')).then(function (response) {
-
-                    $scope.filter.setResults(response.data.data);
-
-                });
-
-            };
+        function ($scope) {
 
             $scope.form = {
                 search: ''
             };
 
-            // $scope.update = function () {
-
-            //     init();
-
-            // };
-
             $scope.refresh = function () {
 
                 $scope.filter.refresh();
                 $scope.update();
-                $scope.$emit('grid.updateSelectionString');
 
             };
 
@@ -52,11 +26,8 @@ angular.module('grid.gridStringFilterCtrl', [])
                 $scope.filter.isVisible = false;
                 $scope.filter.clear();
                 $scope.$emit('grid.filterToggle');
-                $scope.$emit('grid.refresh');
-                init();
+                $scope.update();
             };
-
-            init();
 
         }
 
