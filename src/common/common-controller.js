@@ -20,11 +20,10 @@ angular.module('common.commonCtrl', [])
 
             $scope.showNavigationBar = true;
 
-            var showNavigationBar = $injector.get('showNavigationBar');
-
-            if (showNavigationBar !== undefined) {
-                $scope.showNavigationBar = showNavigationBar;
+            if ($injector.has('showNavigationBar')) {
+                $scope.showNavigationBar = $injector.get('showNavigationBar');
             }
+            console.log($scope.showNavigationBar)
 
         }
 
