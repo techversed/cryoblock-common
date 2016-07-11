@@ -27,9 +27,23 @@ angular.module('grid.gridStringFilterCtrl', [])
                 search: ''
             };
 
-            $scope.search = function () {
+            // $scope.update = function () {
 
-                init();
+            //     init();
+
+            // };
+
+            $scope.refresh = function () {
+
+                $scope.filter.refresh();
+                $scope.update();
+                $scope.$emit('grid.updateSelectionString');
+
+            };
+
+            $scope.update = function () {
+
+                $scope.$emit('grid.refresh');
 
             };
 

@@ -9,8 +9,6 @@
 
         <li role="menuitem">
 
-            <input type="radio" name="type" value="single" ng-model="filter.selectedType"></input>
-
             <select
                 class="form-control operator"
                 ng-options="operator.name for operator in filter.operators track by operator.value"

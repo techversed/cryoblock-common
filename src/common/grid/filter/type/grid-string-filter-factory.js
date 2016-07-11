@@ -16,13 +16,15 @@ angular.module('grid.gridStringFilterFactory', [])
 
                 this.templateUrl = 'common/grid/filter/type/partials/grid-string-filter-tpl.html';
 
+                this.selectionString = 'Any';
+
                 this.selectedOperator = this.operators[0];
 
                 this.selectedType = 'single';
 
                 this.singleValue = '';
 
-                this.isVisible = false;
+                this.isVisible = true;
 
                 this.isFiltering = false;
 
@@ -81,23 +83,9 @@ angular.module('grid.gridStringFilterFactory', [])
                     var params = [];
 
                     var that = this;
-                    this.selectedItems.map(function (item) {
-                        params.push(that.filterProperty + '[IN][]=' + item[that.accessProperty]);
-                    });
 
-                    return params;
+                    return this.filterProperty + '[' + this.selectedOperator.value + ']=' + this.singleValue;
 
-                    if (this.selectedOperator === 'EQ') {
-
-                        return this.filterProperty + '[' + this.selectedOperator.value + ']=' + this.singleValue;
-
-                    }
-
-                    if (this.selectedOperator === 'LIKE') {
-
-                        return this.filterProperty + '[' + this.selectedOperator.value + ']=' + this.singleValue;
-
-                    }
                 },
 
                 clear: function () {
