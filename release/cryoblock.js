@@ -63659,7 +63659,7 @@ angular.module('fiestah.money', [])
 
 })();
 
-angular.module('cryoblock.common.templates', ['common/admin/admin-user-detail.html', 'common/admin/views/admin-tpl.html', 'common/admin/views/admin-user-create-tpl.html', 'common/admin/views/admin-user-deactivate-tpl.html', 'common/admin/views/admin-user-detail-tpl.html', 'common/button/button-tpl.html', 'common/dashboard/dashboard-tpl.html', 'common/form/cb-dropdown/partials/cb-dropdown-tpl.html', 'common/form/cb-form-group/partials/cb-form-group-tpl.html', 'common/form/form-tpl.html', 'common/form/one-to-many-v2/partials/one-to-many-v2-tpl.html', 'common/form/one-to-many/partials/one-to-many-popup-tpl.html', 'common/form/one-to-many/partials/one-to-many-tpl.html', 'common/grid/filter/partials/grid-filter-tpl.html', 'common/grid/filter/partials/grid-more-filter-tpl.html', 'common/grid/filter/type/partials/grid-enum-filter-tpl.html', 'common/grid/filter/type/partials/grid-integer-filter-tpl.html', 'common/grid/filter/type/partials/grid-relation-filter-tpl.html', 'common/grid/views/grid-directive-tpl.html', 'common/grid/views/grid-pagination-top-tpl.html', 'common/grid/views/grid-pagination-tpl.html', 'common/grid/views/grid-show-columns-directive-tpl.html', 'common/grid/views/grid-v2-directive-tpl.html', 'common/layout/carbon-layout.html', 'common/login/views/login-tpl.html', 'common/navigation/navigation-tpl.html', 'common/profile/profile-avatar-tpl.html', 'common/profile/profile-photo-upload-tpl.html', 'common/profile/profile-tpl.html', 'common/views/footer-tpl.html', 'common/views/ibox_tools.html', 'common/views/topnavbar-tpl.html']);
+angular.module('cryoblock.common.templates', ['common/admin/admin-user-detail.html', 'common/admin/views/admin-tpl.html', 'common/admin/views/admin-user-create-tpl.html', 'common/admin/views/admin-user-deactivate-tpl.html', 'common/admin/views/admin-user-detail-tpl.html', 'common/button/button-tpl.html', 'common/dashboard/dashboard-tpl.html', 'common/form/cb-dropdown/partials/cb-dropdown-tpl.html', 'common/form/cb-form-group/partials/cb-form-group-tpl.html', 'common/form/form-tpl.html', 'common/form/one-to-many-v2/partials/one-to-many-v2-tpl.html', 'common/form/one-to-many/partials/one-to-many-popup-tpl.html', 'common/form/one-to-many/partials/one-to-many-tpl.html', 'common/grid/filter/partials/grid-filter-tpl.html', 'common/grid/filter/partials/grid-more-filter-tpl.html', 'common/grid/filter/type/partials/grid-enum-filter-tpl.html', 'common/grid/filter/type/partials/grid-integer-filter-tpl.html', 'common/grid/filter/type/partials/grid-relation-filter-tpl.html', 'common/grid/filter/type/partials/grid-string-filter-tpl.html', 'common/grid/views/grid-directive-tpl.html', 'common/grid/views/grid-pagination-top-tpl.html', 'common/grid/views/grid-pagination-tpl.html', 'common/grid/views/grid-show-columns-directive-tpl.html', 'common/grid/views/grid-v2-directive-tpl.html', 'common/layout/carbon-layout.html', 'common/login/views/login-tpl.html', 'common/navigation/navigation-tpl.html', 'common/profile/profile-avatar-tpl.html', 'common/profile/profile-photo-upload-tpl.html', 'common/profile/profile-tpl.html', 'common/views/footer-tpl.html', 'common/views/ibox_tools.html', 'common/views/topnavbar-tpl.html']);
 
 angular.module("common/admin/admin-user-detail.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("common/admin/admin-user-detail.html",
@@ -65294,7 +65294,7 @@ angular.module("common/grid/filter/type/partials/grid-integer-filter-tpl.html", 
     "\n" +
     "            <input type=\"number\" class=\"form-control between\" ng-model=\"filter.betweenStart\"></input>\n" +
     "\n" +
-    "            <strong><=</strong>\n" +
+    "            <strong style=\"margin-right: 6px;\"><=</strong>\n" +
     "\n" +
     "            <input type=\"number\" class=\"form-control between\" ng-model=\"filter.endStart\"></input>\n" +
     "\n" +
@@ -65364,6 +65364,46 @@ angular.module("common/grid/filter/type/partials/grid-relation-filter-tpl.html",
     "\n" +
     "    </ul>\n" +
     "\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("common/grid/filter/type/partials/grid-string-filter-tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("common/grid/filter/type/partials/grid-string-filter-tpl.html",
+    "<div class=\"btn-group\" uib-dropdown keyboard-nav>\n" +
+    "    <button id=\"single-button\" type=\"button\" class=\"btn btn-default\" title=\"{{filter.selectionString}}\" uib-dropdown-toggle ng-class=\"{filtering: filter.isFiltering}\">\n" +
+    "        {{filter.title}} : {{ filter.selectionString }}\n" +
+    "        <span class=\"caret\"></span>\n" +
+    "        <i class=\"fa fa-close grid-filter-toggle\" ng-click=\"toggleFilter($event)\" />\n" +
+    "    </button>\n" +
+    "\n" +
+    "    <ul uib-dropdown-menu class=\"dropdown-menu integer\" role=\"menu\" aria-labelledby=\"single-button\" ng-click=\"$event.stopPropagation()\">\n" +
+    "\n" +
+    "        <li role=\"menuitem\">\n" +
+    "\n" +
+    "            <select\n" +
+    "                class=\"form-control operator\"\n" +
+    "                ng-options=\"operator.name for operator in filter.operators track by operator.value\"\n" +
+    "                ng-model=\"filter.selectedOperator\"\n" +
+    "            >\n" +
+    "            </select>\n" +
+    "\n" +
+    "            <input type=\"text\" class=\"form-control value\" ng-model=\"filter.singleValue\"></input>\n" +
+    "        </li>\n" +
+    "\n" +
+    "        <li role=\"menuitem\">\n" +
+    "            <div class=\"row no-margin\">\n" +
+    "                <div class=\"col-md-6\">\n" +
+    "                    <button class=\"btn btn-info btn-block\" ng-click=\"update()\">Update</button>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-md-6\">\n" +
+    "                    <button class=\"btn btn-default btn-block\" ng-click=\"refresh()\">\n" +
+    "                        <i class=\"fa fa-refresh\" />\n" +
+    "                    </button>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </li>\n" +
+    "    </ul>\n" +
     "</div>\n" +
     "");
 }]);
@@ -66723,6 +66763,10 @@ angular.module('grid.gridFilterDirective', [])
                         throw new Error('Filter property isVisible must be defined');
                     }
 
+                    if ($scope.filter.isFiltering === undefined) {
+                        throw new Error('Filter property isFiltering must be defined');
+                    }
+
                     $controller($scope.filter.controllerName, {$scope: $scope});
 
                 }
@@ -66807,7 +66851,9 @@ angular.module('grid.gridFilter', [
     'grid.gridIntegerFilterCtrl',
     'grid.gridMoreFilterDirective',
     'grid.gridEnumFilterFactory',
-    'grid.gridEnumFilterCtrl'
+    'grid.gridEnumFilterCtrl',
+    'grid.gridStringFilterFactory',
+    'grid.gridStringFilterCtrl'
 ]);
 
 angular.module('grid.gridMoreFilterDirective', [])
@@ -67140,7 +67186,6 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                     }
 
-
                     return '';
 
                 }
@@ -67342,6 +67387,42 @@ angular.module('grid.gridRelationFilterFactory', [])
     ])
 ;
 
+angular.module('grid.gridStringFilterCtrl', [])
+
+    .controller('gridStringFilterCtrl', ['$scope',
+
+        function ($scope) {
+
+            $scope.form = {
+                search: ''
+            };
+
+            $scope.refresh = function () {
+
+                $scope.filter.refresh();
+                $scope.update();
+
+            };
+
+            $scope.update = function () {
+
+                $scope.$emit('grid.refresh');
+
+            };
+
+            $scope.toggleFilter = function (e) {
+                e.stopPropagation();
+                $scope.filter.isVisible = false;
+                $scope.filter.clear();
+                $scope.$emit('grid.filterToggle');
+                $scope.update();
+            };
+
+        }
+
+    ])
+;
+
 angular.module('grid.gridStringFilterFactory', [])
 
     .factory('gridStringFilterFactory', [
@@ -67455,6 +67536,108 @@ angular.module('grid.gridStringFilterFactory', [])
     ])
 ;
 
+angular.module('grid.gridStringFilterFactory', [])
+
+    .factory('gridStringFilterFactory', [
+
+        function () {
+
+            var GridStringFilter = function (defaults) {
+
+                this.filterProperty = null;
+
+                this.title = null;
+
+                this.controllerName = 'gridStringFilterCtrl';
+
+                this.templateUrl = 'common/grid/filter/type/partials/grid-string-filter-tpl.html';
+
+                this.selectionString = 'Any';
+
+                this.selectedOperator = this.operators[0];
+
+                this.singleValue = '';
+
+                this.isVisible = true;
+
+                this.isFiltering = false;
+
+                for (attr in defaults) {
+                    this[attr] = defaults[attr];
+                }
+
+            };
+
+            GridStringFilter.prototype = {
+
+                operators: [
+                    {
+                        value: 'LIKE',
+                        name: 'LIKE'
+                    },
+                    {
+                        value: 'EQ',
+                        name: '='
+                    }
+                ],
+
+                refresh: function () {
+
+                    this.singleValue = '';
+                    this.selectedOperator = this.operators[0];
+                    this.isFiltering = false;
+
+                },
+
+                updateSelectionString: function () {
+
+                    if (!!this.singleValue) {
+
+                        this.selectionString = this.selectedOperator.name + ' ' + this.singleValue;
+
+                        this.isFiltering = true;
+
+                        return;
+
+                    }
+
+                    this.isFiltering = false;
+
+                    this.selectionString = 'Any';
+
+                },
+
+                getParams: function () {
+
+                    this.updateSelectionString();
+
+                    if (!this.singleValue) {
+
+                        return [];
+
+                    }
+
+                    return this.filterProperty + '[' + this.selectedOperator.value + ']=' + this.singleValue;
+                },
+
+                clear: function () {
+
+                    this.refresh();
+
+                }
+
+            };
+
+            GridStringFilter.create = function (defaults) {
+                return new GridStringFilter(defaults);
+            };
+
+            return GridStringFilter;
+
+        }
+
+    ])
+;
 
 angular.module('grid.gridColumnDirective', [])
     .directive('gridColumn', [

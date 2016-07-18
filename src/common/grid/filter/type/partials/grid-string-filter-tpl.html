@@ -9,8 +9,6 @@
 
         <li role="menuitem">
 
-            <input type="radio" name="type" value="single" ng-model="filter.selectedType"></input>
-
             <select
                 class="form-control operator"
                 ng-options="operator.name for operator in filter.operators track by operator.value"
@@ -18,21 +16,7 @@
             >
             </select>
 
-            <input type="number" class="form-control value" ng-model="filter.singleValue"></input>
-        </li>
-
-        <li role="menuitem">
-
-            <input type="radio" name="type" value="between" ng-model="filter.selectedType"></input>
-
-            <strong>>=</strong>
-
-            <input type="number" class="form-control between" ng-model="filter.betweenStart"></input>
-
-            <strong style="margin-right: 6px;"><=</strong>
-
-            <input type="number" class="form-control between" ng-model="filter.endStart"></input>
-
+            <input type="text" class="form-control value" ng-model="filter.singleValue"></input>
         </li>
 
         <li role="menuitem">
