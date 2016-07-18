@@ -6,7 +6,7 @@ angular.module('grid.gridFactory', [])
 
             var Grid = function () {
 
-                this.results = null;
+                this.results = [];
 
                 this.data = null;
 

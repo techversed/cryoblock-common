@@ -60,6 +60,9 @@
 
     &.isEditable {
         border-width: 0px 1px 1px 1px;
+        &.no-results {
+            border-width: 0px 1px 0px 1px;
+        }
         border-color: #e5e6e7;
         border-style: solid;
         .table td {
@@ -100,9 +103,9 @@
     }
 
     tr.removing {
-        background-color: #FFE4E4 !important;
         td {
             border-top: 1px solid #FFD1D1;
+            background-color: #FFE4E4 !important;
         }
     }
 
