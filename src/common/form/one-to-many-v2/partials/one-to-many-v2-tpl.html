@@ -2,10 +2,10 @@
     <input
         type="text"
         class="form-control grid-contains-search-input"
-        placeholder="Add sample ..."
+        placeholder="{{placeholder}}"
         ng-model="search"
         typeahead-wait-ms="300"
-        typeahead="sample.name for sample in getSamples($viewValue)"
+        uib-typeahead="result.name for result in getResults($viewValue)"
         typeahead-on-select="onSelect($item)"
     />
     <span class="input-group-btn" ng-click="refresh()">

@@ -1,8 +1,8 @@
 angular.module('form.oneToManyV2Directive', [])
 
-    .directive('oneToManyV2', ['gridFactory', 'sampleFactory',
+    .directive('oneToManyV2', ['gridFactory', '$http', 'API',
 
-        function (gridFactory, sampleFactory) {
+        function (gridFactory, $http, API) {
 
             return {
 
@@ -15,28 +15,27 @@ angular.module('form.oneToManyV2Directive', [])
                 scope: {
                     grid: '=',
                     parentObject: '=',
-                    bindTo: '@'
+                    bindTo: '@',
+                    resourceUrl: '@',
+                    placeholder: '@'
                 },
 
                 controller: function ($scope) {
 
-                    $scope.getSamples = function (search) {
+                    $scope.isopen = true;
+                    $scope.getResults = function (search) {
 
-                        // var filteredItemIds = $scope.selectedItems.map(function (selectedItem) {
-                        //     return selectedItem.id;
-                        // });
+                        var url = API.url + $scope.resourceUrl;
+                        var params = [];
 
-                        // filteredItemIds.push(model.id);
+                        params.push('cPerPage=5');
+                        params.push('cSearch=' + search);
 
-                        return sampleFactory.getSamples(
-                            {
-                                search:search,
-                                perPage: 5
-                                // filteredIds: filteredItemIds
-                            }
-                        ).then(function (data) {
+                        return $http.get(url + '?' + params.join('&')).then(function (response) {
 
-                            return data.data;
+                            // $scope.results = response.data.data;
+
+                            return response.data.data;
 
                         });
 
