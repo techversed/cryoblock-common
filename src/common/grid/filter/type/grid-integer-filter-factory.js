@@ -112,7 +112,6 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                     }
 
-
                     return '';
 
                 }

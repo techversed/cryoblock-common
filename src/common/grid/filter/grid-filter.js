@@ -6,5 +6,7 @@ angular.module('grid.gridFilter', [
     'grid.gridIntegerFilterCtrl',
     'grid.gridMoreFilterDirective',
     'grid.gridEnumFilterFactory',
-    'grid.gridEnumFilterCtrl'
+    'grid.gridEnumFilterCtrl',
+    'grid.gridStringFilterFactory',
+    'grid.gridStringFilterCtrl'
 ]);

@@ -25,6 +25,10 @@ angular.module('grid.gridFilterDirective', [])
                         throw new Error('Filter property isVisible must be defined');
                     }
 
+                    if ($scope.filter.isFiltering === undefined) {
+                        throw new Error('Filter property isFiltering must be defined');
+                    }
+
                     $controller($scope.filter.controllerName, {$scope: $scope});
 
                 }
