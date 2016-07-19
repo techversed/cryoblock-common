@@ -1,8 +1,8 @@
 angular.module('form.oneToManyDirective', [])
 
-    .directive('oneToMany', [ 'sampleFactory',
+    .directive('oneToMany', [
 
-        function (sampleFactory) {
+        function () {
 
             return {
 
@@ -23,29 +23,28 @@ angular.module('form.oneToManyDirective', [])
                     if (model[property] === undefined) {
                         model[property] = [];
                     }
-                    console.log(model)
 
                     $scope.selectedItems = model[property];
 
-                    $scope.getSamples = function (search) {
+                    // $scope.getSamples = function (search) {
 
-                        var filteredItemIds = $scope.selectedItems.map(function (selectedItem) {
-                            return selectedItem.id;
-                        });
+                    //     var filteredItemIds = $scope.selectedItems.map(function (selectedItem) {
+                    //         return selectedItem.id;
+                    //     });
 
-                        filteredItemIds.push(model.id);
+                    //     filteredItemIds.push(model.id);
 
-                        return sampleFactory.getSamples(
-                            {
-                                search:search,
-                                perPage: 5,
-                                filteredIds: filteredItemIds
-                            }
-                        ).then(function (data) {
-                            return data.data;
-                        });
+                    //     return sampleFactory.getSamples(
+                    //         {
+                    //             search:search,
+                    //             perPage: 5,
+                    //             filteredIds: filteredItemIds
+                    //         }
+                    //     ).then(function (data) {
+                    //         return data.data;
+                    //     });
 
-                    };
+                    // };
 
                     $scope.onSelect = function (item) {
                         $scope.selectedItems.push(item);

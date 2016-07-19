@@ -33,7 +33,7 @@
 
     </div>
 
-    <div class="row" ng-if="grid.showFilters && grid.results.length">
+    <div class="row" ng-if="grid.showFilters && grid.initResultCount">
 
         <div class="col-sm-12 grid-pagination-top-container">
 
@@ -84,7 +84,7 @@
 
     </div>
 
-    <div class="grid-overflow" ng-class="{'no-results': grid.results.length === 0}" ng-if="grid.results.length">
+    <div class="grid-overflow" ng-class="{'no-results': grid.results.length === 0}" ng-if="grid.initResultCount">
         <table class="table table-striped table-selectable table-align-center dataTable" ng-class="{'table-hover': grid.isHoverable}">
             <thead>
                 <tr>

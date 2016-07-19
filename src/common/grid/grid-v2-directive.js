@@ -43,7 +43,7 @@ angular.module('grid.gridV2Directive', [])
                         $http.get(API.url + $scope.grid.getRequestPath()).then(function (response) {
 
                             $scope.grid
-                                .setResults(response.data.data)
+                                .setResults(response.data.data, false)
                                 .setPaginationFromResponse(response.data)
                             ;
 

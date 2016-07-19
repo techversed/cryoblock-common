@@ -8,6 +8,8 @@ angular.module('grid.gridFactory', [])
 
                 this.results = [];
 
+                this.initResultCount = 0;
+
                 this.data = null;
 
                 this.columns = [];
@@ -61,7 +63,11 @@ angular.module('grid.gridFactory', [])
 
                 },
 
-                setResults: function (results) {
+                setResults: function (results, initial) {
+
+                    if (initial === undefined || initial === true) {
+                        this.initResultCount = results.length;
+                    }
 
                     this.results = results;
 
