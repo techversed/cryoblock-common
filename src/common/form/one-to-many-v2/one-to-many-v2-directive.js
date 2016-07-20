@@ -22,7 +22,6 @@ angular.module('form.oneToManyV2Directive', [])
 
                 controller: function ($scope) {
 
-                    $scope.isopen = true;
                     $scope.getResults = function (search) {
 
                         var url = API.url + $scope.resourceUrl;
@@ -32,8 +31,6 @@ angular.module('form.oneToManyV2Directive', [])
                         params.push('cSearch=' + search);
 
                         return $http.get(url + '?' + params.join('&')).then(function (response) {
-
-                            // $scope.results = response.data.data;
 
                             return response.data.data;
 

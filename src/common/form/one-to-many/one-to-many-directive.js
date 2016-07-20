@@ -49,7 +49,6 @@ angular.module('form.oneToManyDirective', [])
                     $scope.onSelect = function (item) {
                         $scope.selectedItems.push(item);
                         $scope.searchModel = '';
-                        console.log(model);
                     };
 
                     $scope.removeItem = function (item) {

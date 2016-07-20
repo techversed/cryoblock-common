@@ -1,5 +1,5 @@
 angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$localStorage', '$modal', 'user', 'API',
+    .controller('profileCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'API',
 
         function ($scope, $localStorage, $modal, user, API) {
 

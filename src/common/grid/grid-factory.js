@@ -51,6 +51,8 @@ angular.module('grid.gridFactory', [])
 
                 this.isHoverable = true;
 
+                this.showHyperLinks = true;
+
             };
 
             Grid.prototype = {
@@ -357,6 +359,11 @@ angular.module('grid.gridFactory', [])
 
                 disableHover: function () {
                     this.isHoverable = false;
+                    return this;
+                },
+
+                disableHyperlinks: function () {
+                    this.showHyperLinks = false;
                     return this;
                 }
 

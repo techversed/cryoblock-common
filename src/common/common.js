@@ -24,5 +24,6 @@ angular.module('common', [
     'ngMessages',
     'treeControl',
     'fiestah.money',
-    'cryoblock.common.templates'
+    'cryoblock.common.templates',
+    'resource'
 ]);

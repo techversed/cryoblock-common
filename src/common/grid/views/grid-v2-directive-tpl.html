@@ -120,8 +120,8 @@
                         <div ng-if="column.templateUrl" ng-include="column.templateUrl"></div>
 
                         <div ng-if="!column.templateUrl">
-                            <a ng-bind="result.{{column.bindTo}}" ng-if="column.sref" ui-sref="{{column.sref}}" class="column-text" ng-class="{'soft-link': !column.isPrimary}" title="{{result[column.bindTo]}}"></a>
-                            <span ng-bind="result.{{column.bindTo}}" ng-if="!column.sref" class="column-text" title="{{result[column.bindTo]}}"></span>
+                            <a ng-bind="result.{{column.bindTo}}" ng-if="column.sref && grid.showHyperLinks" ui-sref="{{column.sref}}" class="column-text" ng-class="{'soft-link': !column.isPrimary}" title="{{result[column.bindTo]}}"></a>
+                            <span ng-bind="result.{{column.bindTo}}" ng-if="!grid.showHyperLinks || !column.sref" class="column-text" title="{{result[column.bindTo]}}"></span>
                         </div>
                     </td>
 
