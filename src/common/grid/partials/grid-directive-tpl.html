@@ -158,7 +158,7 @@
                 Showing {{grid.pagination.startIndex}} to {{grid.pagination.stopIndex}} of {{grid.pagination.unpaginatedTotal}} results
             </div>
             <div class="col-sm-6" ng-show="grid.pagination.unpaginatedTotal > grid.pagination.perPage">
-                <pagination
+                <uib-pagination
                     total-items="grid.pagination.unpaginatedTotal"
                     ng-model="grid.pagination.page"
                     max-size="5"
@@ -167,7 +167,7 @@
                     ng-change="refresh()"
                     items-per-page="grid.pagination.perPage"
                 >
-                </pagination>
+                </uib-pagination>
             </div>
         </div>
 
