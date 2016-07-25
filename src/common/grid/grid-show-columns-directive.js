@@ -9,7 +9,7 @@ angular.module('grid.gridShowColumnsDirective', [])
                     grid: '=',
                 },
                 restrict: 'E',
-                templateUrl: 'common/grid/views/grid-show-columns-directive-tpl.html',
+                templateUrl: 'common/grid/partials/grid-show-columns-directive-tpl.html',
                 link: function ($scope, element, attrs) {
 
                     $scope.visibleColumns = [];

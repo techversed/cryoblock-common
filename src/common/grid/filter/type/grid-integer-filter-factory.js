@@ -20,7 +20,7 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                 this.betweenStart = '';
 
-                this.endStart = '';
+                this.betweenEnd = '';
 
                 this.selectionString = 'Any';
 
@@ -57,7 +57,7 @@ angular.module('grid.gridIntegerFilterFactory', [])
                     this.singleValue = '';
                     this.selectedOperator = this.operators[0];
                     this.betweenStart = '';
-                    this.endStart = '';
+                    this.betweenEnd = '';
                     this.isFiltering = false;
 
                 },
@@ -74,9 +74,9 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                     }
 
-                    if (this.selectedType === 'between' && !!this.betweenStart && !!this.endStart) {
+                    if (this.selectedType === 'between' && !!this.betweenStart && !!this.betweenEnd) {
 
-                        this.selectionString = this.operators[1].name + ' ' + this.betweenStart + ' ' + this.operators[0].name + ' ' + this.endStart;
+                        this.selectionString = this.operators[1].name + ' ' + this.betweenStart + ' ' + this.operators[0].name + ' ' + this.betweenEnd;
 
                         this.isFiltering = true;
 
@@ -94,25 +94,23 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                     this.updateSelectionString();
 
+                    var params = {};
+
                     if (this.selectedType === 'single' && !!this.singleValue) {
 
-                        return this.filterProperty + '[' + this.selectedOperator.value + ']=' + this.singleValue;
+                        params[this.filterProperty + '[' + this.selectedOperator.value + ']'] = this.singleValue;
 
                     }
 
-                    if (this.selectedType === 'between' && !!this.betweenStart && !!this.endStart) {
+                    if (this.selectedType === 'between' && !!this.betweenStart && !!this.betweenEnd) {
 
-                        var params = [];
+                        params[this.filterProperty + '[' + this.operators[1].value + ']'] = this.betweenStart;
 
-                        params.push(this.filterProperty + '[' + this.operators[1].value + ']=' + this.betweenStart);
-
-                        params.push(this.filterProperty + '[' + this.operators[0].value + ']=' + this.endStart);
-
-                        return params.join('&');
+                        params[this.filterProperty + '[' + this.operators[0].value + ']'] = this.betweenEnd;
 
                     }
 
-                    return '';
+                    return params;
 
                 }
 

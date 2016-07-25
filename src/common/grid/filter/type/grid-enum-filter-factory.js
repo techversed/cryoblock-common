@@ -69,12 +69,15 @@ angular.module('grid.gridEnumFilterFactory', [])
 
                 getParams: function () {
 
-                    var params = [];
+                    var params = {};
 
-                    var that = this;
-                    this.selectedItems.map(function (item) {
-                        params.push(that.filterProperty + '[IN][]=' + item);
-                    });
+                    if (this.selectedItems.length) {
+
+                        params[this.filterProperty + '[IN]'] = this.selectedItems.map(function (item) {
+                            return item;
+                        });
+
+                    }
 
                     return params;
 

@@ -1,15 +1,27 @@
 angular.module('grid.gridEnumFilterCtrl', [])
 
-    .controller('gridEnumFilterCtrl', ['$scope',
+    .controller('gridEnumFilterCtrl', ['$scope', '$location',
 
-        function ($scope) {
+        function ($scope, $location) {
+
+            var init = function () {
+
+                if (!$scope.grid.bindToState) {
+                    return;
+                }
+
+                var getParams = $location.search();
+                var initParam = getParams[$scope.filter.filterProperty + '[IN]']
+
+                if (initParam !== undefined) {
+                    $scope.filter.isVisible = true;
+                    $scope.filter.selectItem(initParam);
+                }
+
+            };
 
             $scope.form = {
                 search: ''
-            };
-
-            $scope.search = function () {
-
             };
 
             $scope.selectItem = function (item) {
@@ -30,6 +42,7 @@ angular.module('grid.gridEnumFilterCtrl', [])
                 $scope.$emit('grid.refresh');
             };
 
+            init();
         }
 
     ])

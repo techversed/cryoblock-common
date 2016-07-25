@@ -1,33 +1,77 @@
 angular.module('grid.gridRelationFilterCtrl', [])
 
-    .controller('gridRelationFilterCtrl', ['$scope', 'API', '$http',
+    .controller('gridRelationFilterCtrl', ['$scope', 'API', 'resourceFactory', '$location',
 
-        function ($scope, API, $http) {
+        function ($scope, API, resourceFactory, $location) {
 
-            var init = function () {
+            var init = function (first = false) {
 
-                var url = API.url + $scope.filter.resourceUrl + '?';
+                var url = $scope.filter.resourceUrl;
 
-                var params = [];
+                var params = {};
                 if ($scope.form.search !== '') {
-                   params.push('cSearch=' + $scope.form.search);
+                   params.cSearch =  $scope.form.search;
                 }
 
-                params.push('cPerPage=5');
+                params.cPerPage = 5;
 
+                var paramKey = $scope.filter.filterProperty + '[IN]';
 
-                // if ($sc.filteredIds !== undefined) {
-                $scope.filter.selectedItems.map(function(item) {
+                getParams = $location.search();
 
-                    params.push('cNot[id][]=' + item.id);
+                if ($scope.grid.bindToState && first && getParams[paramKey]) {
 
-                });
+                    $scope.filter.isVisible = true;
 
-                $http.get(url + params.join('&')).then(function (response) {
+                    var itemIds = getParams[paramKey];
 
-                    $scope.filter.setResults(response.data.data);
+                    if (itemIds) {
 
-                });
+                        resourceFactory.get(url, {'id[EQ]': itemIds}).then(function (response) {
+
+                            angular.forEach(response.data, function (item) {
+
+                                $scope.filter.selectItem(item);
+
+                            })
+
+                            if ($scope.filter.selectedItems.length) {
+
+                                params['id[NE]'] = $scope.filter.selectedItems.map(function(item) {
+
+                                    return item.id;
+
+                                });
+
+                            }
+
+                            resourceFactory.get(url, params).then(function (response) {
+
+                                $scope.filter.setResults(response.data);
+
+                            });
+                        })
+                    }
+
+                } else {
+
+                    if ($scope.filter.selectedItems.length) {
+
+                        params['id[NE]'] = $scope.filter.selectedItems.map(function(item) {
+
+                            return item.id;
+
+                        });
+
+                    }
+
+                    resourceFactory.get(url, params).then(function (response) {
+
+                        $scope.filter.setResults(response.data);
+
+                    });
+
+                }
 
             };
 
@@ -62,7 +106,7 @@ angular.module('grid.gridRelationFilterCtrl', [])
                 init();
             };
 
-            init();
+            init(true);
 
         }
 

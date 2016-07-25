@@ -6,34 +6,21 @@ angular.module('resource.factory', [])
 
             var resourceFactory = {
 
-                defaults: {
-                    'cOrderBy': 'id',
-                    'cOrderByDirection': 'DESC',
-                    'cPerPage': 25
-                },
+                getOne: function (url, params) {
 
-                getOne: function (url, options) {
-
-                    return this.get(url, options).then(function (response) {
+                    return this.get(url, params).then(function (response) {
                         return response.data[0];
                     });
 
                 },
 
-                get: function (url, options) {
+                get: function (url, params) {
 
-                    if (options === undefined) {
-                        options = {};
+                    if (params === undefined) {
+                        params = {};
                     }
 
-                    options = angular.extend(this.defaults, options);
-
-                    var params = [];
-                    angular.forEach(options, function (option, key) {
-                        params.push(key + '=' + option);
-                    });
-
-                    url = API.url + url + '?' + params.join('&');
+                    url = API.url + url + '?' + this.serializeParams(params);
 
                     return $http.get(url).then(function (response) {
                         return response.data;
@@ -41,15 +28,34 @@ angular.module('resource.factory', [])
 
                 },
 
-                create: function (url, obj, options) {
+                create: function (url, obj, params) {
 
                     return $http.post(API.url + url, obj);
 
                 },
 
-                update: function (url, obj, options) {
+                update: function (url, obj, params) {
 
                     return $http.put(API.url + url, obj);
+
+                },
+
+                serializeParams: function(obj, prefix) {
+
+                    var str = [];
+
+                    for(var p in obj) {
+
+                        if (obj.hasOwnProperty(p)) {
+                          var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+                          str.push(typeof v == "object" ?
+                            this.serializeParams(v, k) :
+                            encodeURIComponent(k) + "=" + encodeURIComponent(v));
+                        }
+
+                    }
+
+                    return str.join("&");
 
                 }
 

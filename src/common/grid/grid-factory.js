@@ -1,8 +1,8 @@
 angular.module('grid.gridFactory', [])
 
-    .factory('gridFactory', ['gridColumnFactory', 'gridFilterFactory',
+    .factory('gridFactory', ['gridColumnFactory', 'gridFilterFactory', '$location',
 
-        function (gridColumnFactory, gridFilterFactory) {
+        function (gridColumnFactory, gridFilterFactory, $location) {
 
             var Grid = function () {
 
@@ -52,6 +52,8 @@ angular.module('grid.gridFactory', [])
                 this.isHoverable = true;
 
                 this.showHyperLinks = true;
+
+                this.bindToState = false;
 
             };
 
@@ -249,7 +251,21 @@ angular.module('grid.gridFactory', [])
 
                 },
 
-                sortColumn: function (sortColumn, direction) {
+                sortColumn: function (sortColumn, direction, init = true) {
+
+                    var getParams = $location.search();
+
+                    if (init) {
+
+                        if (getParams['cOrderBy'] !== undefined) {
+                            sortColumn = {name: getParams['cOrderBy']};
+                        }
+
+                        if (getParams['cOrderByDirection'] !== undefined) {
+                            direction = getParams['cOrderByDirection'];
+                        }
+
+                    }
 
                     var that = this;
                     this.columns.map(function (column) {
@@ -283,22 +299,20 @@ angular.module('grid.gridFactory', [])
 
                 },
 
-                getRequestPath: function () {
+                getRequestParams: function () {
 
-                    var path = this.resourceUrl + '?';
-
-                    var params = [];
+                    var params = {};
 
                     if (this.sortingColumn) {
-                        params.push('cOrderBy=' + this.sortingColumn.name);
+                        params['cOrderBy'] = this.sortingColumn.name;
                     }
 
                     if (this.sortDirection) {
-                        params.push('cOrderByDirection=' + this.sortDirection);
+                        params['cOrderByDirection'] = this.sortDirection;
                     }
 
                     if (this.search != '') {
-                        params.push('cSearch=' + this.search);
+                        params['cSearch'] = this.search;
                     }
 
                     this.staticFilters.map(function (staticFilter) {
@@ -306,15 +320,25 @@ angular.module('grid.gridFactory', [])
                     });
 
                     this.filters.map(function (filter) {
-                        params = params.concat(filter.getParams());
+                        angular.forEach(filter.getParams(), function (value, key) {
+                            params[key] = value;
+                        });
                     });
 
-                    params.push('cPerPage=' + this.pagination.perPage);
-                    params.push('cPage=' + this.pagination.page);
+                    params['cPerPage'] = this.pagination.perPage;
+                    params['cPage'] = this.pagination.page;
 
-                    return path + params.join('&');
+                    return params;
 
                 },
+
+                // getRequestPath: function () {
+
+                //     return this.resourceUrl + '?';
+
+                //     return path + this.getRequestParams().join('&');
+
+                // },
 
                 removeItem: function (item) {
 
@@ -364,6 +388,11 @@ angular.module('grid.gridFactory', [])
 
                 disableHyperlinks: function () {
                     this.showHyperLinks = false;
+                    return this;
+                },
+
+                setBindToState: function (bindToState) {
+                    this.bindToState = bindToState;
                     return this;
                 }
 

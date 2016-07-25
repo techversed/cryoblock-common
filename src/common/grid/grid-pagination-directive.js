@@ -7,7 +7,7 @@ angular.module('grid.gridPaginationDirective', [])
 
                 restrict: 'E',
                 transclude: true,
-                templateUrl: 'common/grid/views/grid-pagination-tpl.html',
+                templateUrl: 'common/grid/partials/grid-pagination-tpl.html',
                 link: function ($scope, element, attrs, gridCtrl) {
 
                     var init = function () {

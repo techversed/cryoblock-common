@@ -8,7 +8,7 @@ angular.module('grid.gridPaginationTopDirective', [])
                 require: '^grid',
                 restrict: 'E',
                 scope: true,
-                templateUrl: 'common/grid/views/grid-pagination-top-tpl.html',
+                templateUrl: 'common/grid/partials/grid-pagination-top-tpl.html',
                 controller: function ($scope) {
 
                     $scope.model = {

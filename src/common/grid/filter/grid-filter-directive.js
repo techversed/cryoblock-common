@@ -6,6 +6,7 @@ angular.module('grid.gridFilterDirective', [])
 
             return {
 
+                require: '^grid',
                 scope: {
                     filter: '='
                 },
@@ -28,6 +29,8 @@ angular.module('grid.gridFilterDirective', [])
                     if ($scope.filter.isFiltering === undefined) {
                         throw new Error('Filter property isFiltering must be defined');
                     }
+
+                    $scope.grid = gridCtrl.grid;
 
                     $controller($scope.filter.controllerName, {$scope: $scope});
 

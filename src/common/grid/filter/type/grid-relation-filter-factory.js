@@ -79,12 +79,16 @@ angular.module('grid.gridRelationFilterFactory', [])
 
                 getParams: function () {
 
-                    var params = [];
+                    var params = {};
 
                     var that = this;
-                    this.selectedItems.map(function (item) {
-                        params.push(that.filterProperty + '[IN][]=' + item[that.accessProperty]);
+                    var itemValues = this.selectedItems.map(function (item) {
+                        return item[that.accessProperty]
                     });
+
+                    if (itemValues.length) {
+                        params[this.filterProperty + '[IN]'] = itemValues;
+                    }
 
                     return params;
 

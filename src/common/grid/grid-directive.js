@@ -1,113 +1,111 @@
 angular.module('grid.gridDirective', [])
-    .directive('grid', ['API', '$http',
 
-        function (API, $http) {
+    .directive('grid', ['resourceFactory', '$location',
+
+        function (resourceFactory, $location) {
 
             return {
 
-                restrict: 'E',
-                templateUrl: 'common/grid/views/grid-directive-tpl.html',
-                transclude: true,
                 scope: {
-                    initResponse: '=',
-                    requestUrl: '@',
-                    data: '=',
+                    grid: '='
                 },
-                controller: function ($scope, $compile) {
 
-                    var gridCtrl = this;
+                restrict: 'E',
 
-                    this.columns = [];
-                    this.sortColumn = null;
-                    this.sortDir = null;
+                templateUrl: 'common/grid/partials/grid-directive-tpl.html',
 
-                    this.addColumn = function (column) {
+                controller: function ($scope) {
 
-                        this.columns.push(column);
+                    this.grid = $scope.grid;
 
-                    };
+                    var init = function () {
 
-                    this.setSortColumn = function (column, direction) {
-
-                        this.sortColumn = column;
-                        this.sortDir = direction;
-
-                        // let other child grid headers know to remove sorting classes
-                        $scope.$broadcast('grid.sort', column, direction);
-
-                        this.refresh();
-                    };
-
-                    this.setPagination = function (response) {
-
-                        this.pagination = {
-                            hasNextPage: response.hasNextPage,
-                            page: response.page,
-                            paginatedTotal: response.paginatedTotal,
-                            perPage: response.perPage,
-                            unpaginatedTotal: response.unpaginatedTotal,
-                        };
+                        var getParams = $location.search();
+                        if (getParams['cSearch'] !== undefined) {
+                            $scope.grid.search = getParams['cSearch'];
+                        }
 
                     };
 
-                    this.setPage = function (page) {
+                    $scope.sortColumn = function (column) {
 
-                        this.page = page;
+                        if (false === column.isSortable) {
+                            return;
+                        }
 
-                    };
+                        var direction = column.sortDirection === column.sort.ASC ? column.sort.DESC : column.sort.ASC;
 
-                    this.setPerPage = function (perPage) {
+                        $scope.grid.sortColumn(column, direction, false);
 
-                        this.perPage = perPage;
-
-                    };
-
-                    this.setSearch = function (search) {
-
-                        this.search = search;
+                        $scope.refresh();
 
                     };
 
-                    this.refresh = function () {
+                    $scope.refresh = function () {
 
-                        params = [];
+                        if ($scope.grid.data) {
 
-                        if (this.sortColumn && this.sortColumn.name) {
+                            $scope.grid.turnPage();
 
-                            params.push('cOrderBy=' + this.sortColumn.name);
+                            return;
 
                         }
 
-                        if (this.sortDir) {
+                        var params = $scope.grid.getRequestParams();
 
-                            params.push('cOrderByDirection=' + this.sortDir);
-
+                        if ($scope.grid.search) {
+                            $location.search('cSearch', $scope.grid.search);
                         }
 
-                        if (this.search) {
-
-                            console.log(this.search);
-
-                            params.push('cSearch=' + this.search);
-
+                        if ($scope.grid.bindToState) {
+                            $location.search(params);
                         }
 
-                        params.push('cPage=' + this.page);
-                        params.push('cPerPage=' + this.perPage);
+                        resourceFactory.get($scope.grid.resourceUrl, $location.search()).then(function (response) {
 
-                        $http.get(API.url + $scope.requestUrl + '?' + params.join('&')).then(function (response) {
-
-                            $scope.data = response.data.data;
-
-                            gridCtrl.setPagination(response.data);
-
-                            $scope.$broadcast('grid.refresh');
+                            $scope.grid
+                                .setResults(response.data, false)
+                                .setPaginationFromResponse(response)
+                            ;
 
                         });
 
-                    }
+                    };
 
-                    this.setPagination($scope.initResponse);
+                    $scope.removeItem = function (item) {
+
+                        $scope.$emit('form:changed');
+
+                        $scope.grid.removeItem(item);
+
+                    };
+
+                    $scope.removeAddingItem = function (item) {
+
+                        $scope.grid.removeAddingItem(item);
+
+                    };
+
+                    $scope.isRemoving = function (item) {
+                        return $scope.grid.removingItemIds.indexOf(item.id) !== -1;
+                    };
+
+                    $scope.restoreRemovedItem = function (item) {
+
+                        $scope.grid.restoreRemovedItem(item);
+
+                    };
+
+                    $scope.$on('grid.refresh', $scope.refresh);
+
+                    $scope.$on('grid.filterToggle', function () {
+
+                        $scope.$broadcast('grid.filter.toggle');
+
+                    });
+
+                    init();
+
                 }
 
             };

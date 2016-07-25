@@ -73,13 +73,18 @@ angular.module('grid.gridStringFilterFactory', [])
 
                     this.updateSelectionString();
 
+                    var params = {};
+
                     if (!this.singleValue) {
 
-                        return [];
+                        return params;
 
                     }
 
-                    return this.filterProperty + '[' + this.selectedOperator.value + ']=' + this.singleValue;
+                    params[this.filterProperty + '[' + this.selectedOperator.value + ']'] = this.singleValue;
+
+                    return params;
+
                 },
 
                 clear: function () {

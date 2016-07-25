@@ -7,33 +7,35 @@
 
     <ul uib-dropdown-menu class="dropdown-menu integer" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
 
-        <li role="menuitem">
+        <form>
+            <li role="menuitem">
 
-            <input type="radio" name="type" value="single" ng-model="filter.selectedType"></input>
+                <input type="radio" name="type" value="single" ng-model="filter.selectedType"></input>
 
-            <select
-                class="form-control operator"
-                ng-options="operator.name for operator in filter.operators track by operator.value"
-                ng-model="filter.selectedOperator"
-            >
-            </select>
+                <select
+                    class="form-control operator"
+                    ng-options="operator.name for operator in filter.operators track by operator.value"
+                    ng-model="filter.selectedOperator"
+                >
+                </select>
 
-            <input type="number" class="form-control value" ng-model="filter.singleValue"></input>
-        </li>
+                <input type="number" class="form-control value" ng-model="filter.singleValue"></input>
+            </li>
 
-        <li role="menuitem">
+            <li role="menuitem">
 
-            <input type="radio" name="type" value="between" ng-model="filter.selectedType"></input>
+                <input type="radio" name="type" value="between" ng-model="filter.selectedType"></input>
 
-            <strong>>=</strong>
+                <strong>>=</strong>
 
-            <input type="number" class="form-control between" ng-model="filter.betweenStart"></input>
+                <input type="number" class="form-control between" ng-model="filter.betweenStart"></input>
 
-            <strong style="margin-right: 6px;"><=</strong>
+                <strong style="margin-right: 6px;"><=</strong>
 
-            <input type="number" class="form-control between" ng-model="filter.endStart"></input>
+                <input type="number" class="form-control between" ng-model="filter.betweenEnd"></input>
 
-        </li>
+            </li>
+        </form>
 
         <li role="menuitem">
             <div class="row no-margin">
