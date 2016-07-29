@@ -1,5 +1,5 @@
 angular.module('profile.photoUploadCtrl', ['ngImgCrop', 'angular-svg-round-progress'])
-    .controller('photoUploadCtrl', ['$scope', '$modalInstance', 'API', '$localStorage', 'toastr', 'sessionFactory',
+    .controller('photoUploadCtrl', ['$scope', '$uibModalInstance', 'API', '$localStorage', 'toastr', 'sessionFactory',
 
         function ($scope, $modalInstance, API, $localStorage, toastr, sessionFactory) {
 

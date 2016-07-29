@@ -1,4 +1,4 @@
-<div class="grid-responsive-table" ng-class="{isEditable: grid.isEditable, 'no-results': grid.results.length === 0}">
+<div class="grid-responsive-table" ng-class="{isEditable: grid.isEditable, isSelectable: grid.isSelectable, 'no-results': grid.results.length === 0}">
 
     <div ng-if="grid.isEditable">
 
@@ -10,7 +10,7 @@
                         <ul class="staged-changes-list">
                             <li ng-repeat="addingItem in grid.addingItems">
                                <span class="label label-primary">
-                                    {{addingItem.id + ' : ' + addingItem.name}} <i class="fa fa-remove" ng-click="removeAddingItem(addingItem)"></i>
+                                    {{addingItem.id + ' : ' + addingItem.stringLabel}} <i class="fa fa-remove" ng-click="removeAddingItem(addingItem)"></i>
                                 </span>
                             </li>
                         </ul>
@@ -22,7 +22,7 @@
                         <ul class="staged-changes-list">
                             <li ng-repeat="removingItem in grid.removingItems">
                                <span class="label label-danger">
-                                    {{removingItem.id + ' : ' +removingItem.name}} <i class="fa fa-remove" ng-click="restoreRemovedItem(removingItem)"></i>
+                                    {{removingItem.id + ' : ' + removingItem.stringLabel}} <i class="fa fa-remove" ng-click="restoreRemovedItem(removingItem)"></i>
                                 </span>
                             </li>
                         </ul>
@@ -33,7 +33,27 @@
 
     </div>
 
-    <div ng-if="(grid.isEditable && grid.initResultCount) || !grid.isEditable">
+    <div ng-if="grid.isSelectable">
+
+        <div ng-if="grid.selectedItem" class="grid-staged-changes-container">
+            <table class="staged-changes-table">
+                <tr>
+                    <td>
+                        <ul class="staged-changes-list">
+                            <li>
+                               <span class="label label-primary">
+                                    {{grid.selectedItem.id + ' : ' + grid.selectedItem.title}} <i class="fa fa-remove" ng-click="unselectItem()"></i>
+                                </span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div ng-if="((grid.isEditable || grid.isSelectable) && grid.initResultCount) || (!grid.isEditable && !grid.isSelectable)" ng-hide="grid.isSelectable && grid.selectedItem">
 
         <div class="row" ng-if="grid.showFilters">
 
@@ -87,6 +107,7 @@
         </div>
 
         <div class="grid-overflow" ng-class="{'no-results': grid.results.length === 0}">
+
             <table class="table table-striped table-selectable table-align-center dataTable" ng-class="{'table-hover': grid.isHoverable}">
                 <thead>
                     <tr>
@@ -106,6 +127,7 @@
                             <grid-show-columns grid="grid" ng-if="grid.allowToggleColumns"></grid-show-columns>
                         </th>
                         <th ng-if="grid.isEditable" class="editable-action-cell" ng-hide="grid.results.length"></th>
+                        <th ng-if="grid.isSelectable" class="editable-action-cell" ng-hide="grid.results.length"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -127,7 +149,7 @@
                             </div>
                         </td>
 
-                        <td class="action-cell" ng-if="!grid.isEditable">
+                        <td class="action-cell" ng-if="!grid.isEditable && !grid.isSelectable">
                             <div ng-if="grid.actionTemplate" ng-include="grid.actionTemplate" class="action-container"></div>
                         </td>
 
@@ -144,31 +166,45 @@
 
                         </td>
 
+                        <td ng-if="grid.isSelectable" class="editable-action-cell">
+
+                            <div>
+                                <button class="btn btn-danger btn-circle" type="button" ng-click="unselectItem()" ng-show="grid.selectedItem === result">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                               <button class="btn btn-success btn-circle" type="button" ng-click="selectItem(result)" ng-show="grid.selectedItem !== result">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </div>
+
+                        </td>
+
                     </tr>
                 </tbody>
 
             </table>
         </div>
-    </div>
 
-    <div class="row m-t-sm" ng-if="grid.results.length > 0">
+        <div class="row m-t-sm" ng-if="grid.results.length > 0">
 
-        <div class="grid-pagination-container">
-            <div class="col-sm-6">
-                Showing {{grid.pagination.startIndex}} to {{grid.pagination.stopIndex}} of {{grid.pagination.unpaginatedTotal}} results
+            <div class="grid-pagination-container">
+                <div class="col-sm-5">
+                    Showing {{grid.pagination.startIndex}} to {{grid.pagination.stopIndex}} of {{grid.pagination.unpaginatedTotal}} results
+                </div>
+                <div class="col-sm-7" ng-show="grid.pagination.unpaginatedTotal > grid.pagination.perPage">
+                    <uib-pagination
+                        total-items="grid.pagination.unpaginatedTotal"
+                        ng-model="grid.pagination.page"
+                        max-size="5"
+                        class="pagination-sm pull-right no-margin m-n"
+                        boundary-links="true"
+                        ng-change="refresh()"
+                        items-per-page="grid.pagination.perPage"
+                    >
+                    </uib-pagination>
+                </div>
             </div>
-            <div class="col-sm-6" ng-show="grid.pagination.unpaginatedTotal > grid.pagination.perPage">
-                <uib-pagination
-                    total-items="grid.pagination.unpaginatedTotal"
-                    ng-model="grid.pagination.page"
-                    max-size="5"
-                    class="pagination-sm pull-right no-margin m-n"
-                    boundary-links="true"
-                    ng-change="refresh()"
-                    items-per-page="grid.pagination.perPage"
-                >
-                </uib-pagination>
-            </div>
+
         </div>
 
     </div>

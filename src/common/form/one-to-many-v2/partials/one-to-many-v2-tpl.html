@@ -5,7 +5,7 @@
         placeholder="{{placeholder}}"
         ng-model="search"
         typeahead-wait-ms="300"
-        uib-typeahead="result.name for result in getResults($viewValue)"
+        uib-typeahead="result.stringLabel for result in getResults($viewValue)"
         typeahead-on-select="onSelect($item)"
     />
     <span class="input-group-btn" ng-click="refresh()">

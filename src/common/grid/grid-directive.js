@@ -1,8 +1,8 @@
 angular.module('grid.gridDirective', [])
 
-    .directive('grid', ['resourceFactory', '$location',
+    .directive('grid', ['$cbResource', '$location',
 
-        function (resourceFactory, $location) {
+        function ($cbResource, $location) {
 
             return {
 
@@ -21,7 +21,7 @@ angular.module('grid.gridDirective', [])
                     var init = function () {
 
                         var getParams = $location.search();
-                        if (getParams['cSearch'] !== undefined) {
+                        if ($scope.grid.bindToState && getParams['cSearch'] !== undefined) {
                             $scope.grid.search = getParams['cSearch'];
                         }
 
@@ -61,7 +61,7 @@ angular.module('grid.gridDirective', [])
                             $location.search(params);
                         }
 
-                        resourceFactory.get($scope.grid.resourceUrl, $location.search()).then(function (response) {
+                        $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
 
                             $scope.grid
                                 .setResults(response.data, false)
@@ -77,6 +77,20 @@ angular.module('grid.gridDirective', [])
                         $scope.$emit('form:changed');
 
                         $scope.grid.removeItem(item);
+
+                    };
+
+                    $scope.selectItem = function (item) {
+
+                        $scope.$emit('form:changed');
+
+                        $scope.grid.selectItem(item);
+
+                    };
+
+                    $scope.unselectItem = function (item) {
+
+                        $scope.grid.unselectItem();
 
                     };
 

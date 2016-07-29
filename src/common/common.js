@@ -25,5 +25,6 @@ angular.module('common', [
     'treeControl',
     'fiestah.money',
     'cryoblock.common.templates',
-    'resource'
+    'cbResource',
+    'angular-steps'
 ]);

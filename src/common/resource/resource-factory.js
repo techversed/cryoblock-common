@@ -1,10 +1,10 @@
-angular.module('resource.factory', [])
+angular.module('cbResource.$cbResource', [])
 
-    .factory('resourceFactory', ['$http', 'API',
+    .factory('$cbResource', ['$http', 'API',
 
         function ($http, API) {
 
-            var resourceFactory = {
+            var $cbResource = {
 
                 getOne: function (url, params) {
 
@@ -61,7 +61,7 @@ angular.module('resource.factory', [])
 
             };
 
-            return resourceFactory;
+            return $cbResource;
         }
 
     ])

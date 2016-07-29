@@ -255,6 +255,7 @@ module.exports = function (grunt) {
                     'bower_components/angular-tree-control/angular-tree-control.js',
                     'bower_components/angular-rangeslider/angular.rangeSlider.js',
                     'bower_components/angular-money-directive/dist/angular-money-directive.js',
+                    'bower_components/angular-steps/dist/angular-steps.js',
                     '<%= cryoblock.build %>/production/templates.js',
                     '<%= cryoblock.app %>/**/*.js'
                 ],

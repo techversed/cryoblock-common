@@ -1,3 +1,3 @@
-angular.module('resource', [
-    'resource.factory'
+angular.module('cbResource', [
+    'cbResource.$cbResource'
 ]);

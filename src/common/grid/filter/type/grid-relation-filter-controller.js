@@ -1,8 +1,8 @@
 angular.module('grid.gridRelationFilterCtrl', [])
 
-    .controller('gridRelationFilterCtrl', ['$scope', 'API', 'resourceFactory', '$location',
+    .controller('gridRelationFilterCtrl', ['$scope', 'API', '$cbResource', '$location',
 
-        function ($scope, API, resourceFactory, $location) {
+        function ($scope, API, $cbResource, $location) {
 
             var init = function (first = false) {
 
@@ -27,7 +27,7 @@ angular.module('grid.gridRelationFilterCtrl', [])
 
                     if (itemIds) {
 
-                        resourceFactory.get(url, {'id[EQ]': itemIds}).then(function (response) {
+                        $cbResource.get(url, {'id[EQ]': itemIds}).then(function (response) {
 
                             angular.forEach(response.data, function (item) {
 
@@ -45,7 +45,7 @@ angular.module('grid.gridRelationFilterCtrl', [])
 
                             }
 
-                            resourceFactory.get(url, params).then(function (response) {
+                            $cbResource.get(url, params).then(function (response) {
 
                                 $scope.filter.setResults(response.data);
 
@@ -65,7 +65,7 @@ angular.module('grid.gridRelationFilterCtrl', [])
 
                     }
 
-                    resourceFactory.get(url, params).then(function (response) {
+                    $cbResource.get(url, params).then(function (response) {
 
                         $scope.filter.setResults(response.data);
 

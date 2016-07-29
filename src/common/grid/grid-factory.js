@@ -37,6 +37,8 @@ angular.module('grid.gridFactory', [])
 
                 this.isEditable = false;
 
+                this.isSelectable = false;
+
                 this.removingItems = [];
 
                 this.removingItemIds = [];
@@ -44,6 +46,8 @@ angular.module('grid.gridFactory', [])
                 this.addingItems = [];
 
                 this.addingItemIds = [];
+
+                this.selectedItem = null;
 
                 this.allowToggleColumns = true;
 
@@ -54,6 +58,8 @@ angular.module('grid.gridFactory', [])
                 this.showHyperLinks = true;
 
                 this.bindToState = false;
+
+                this.selectItemCallback = null;
 
             };
 
@@ -183,6 +189,13 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                allowSelect: function () {
+
+                    this.isSelectable = true;
+
+                    return this;
+
+                },
 
                 setStaticFilters: function (staticFilters) {
 
@@ -373,6 +386,35 @@ angular.module('grid.gridFactory', [])
                     this.addingItemIds.push(item.id);
 
                     return this;
+
+                },
+
+                selectItem: function (item) {
+
+                    this.selectedItem = item;
+                    this.search = '';
+
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(item);
+
+                    }
+
+                    return this;
+
+                },
+
+                unselectItem: function (item) {
+
+                    this.selectedItem = null;
+
+                    return this;
+
+                },
+
+                setSelectItemCallback: function (callback) {
+
+                    this.selectItemCallback = callback;
 
                 },
 
