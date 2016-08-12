@@ -1,0 +1,10 @@
+<div class="cb-comment">
+
+    <div ng-hide="comment.isEditing">
+        <img class="comment-profile-img ng-scope" ng-src="http://andre.dev.carbon.com/attachment/59/download" src="http://andre.dev.carbon.com/attachment/59/download">
+        <span class="comment-content" ng-bind="comment.content"></span>
+    </div>
+
+    <textarea ng-show="comment.isEditing" ng-bind="comment.content"></textarea>
+
+</div>
