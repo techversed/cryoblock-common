@@ -20,6 +20,20 @@ angular.module('comment.commentFactory', [])
 
                     });
 
+                },
+
+                createComment: function (comment) {
+
+                    return $cbResource.create('/comment', comment);
+
+                },
+
+                updateComment: function (comment) {
+
+                    var params = {'id[EQ]': comment.id};
+
+                    return $cbResource.update('/comment', comment, params);
+
                 }
 
             };

@@ -1,0 +1,98 @@
+<div id="admin-container">
+
+    <div class="normalheader">
+
+        <div id="hbreadcrumb">
+            <ol class="hbreadcrumb breadcrumb">
+                <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                <li><a>Administrator</a></li>
+                <li class="active">
+                    <span>User</span>
+                </li>
+            </ol>
+        </div>
+
+        <div class="hpanel">
+            <div class="panel-body">
+                <h2 class="font-light m-b-xs">
+                    Administrator
+                </h2>
+                <small>Manage users, groups, and roles</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <uib-tabset active="active">
+
+            <uib-tab index="0">
+
+                <uib-tab-heading>
+                    <i class="fa fa-user"></i> Users
+                </uib-tab-heading>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="hpanel">
+                            <div class="panel-body no-padding">
+
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 p-sm">
+                                    <button class="btn btn-primary btn-block btn-mobile-stack" ng-click="createUser()">
+                                        <i class="fa fa-user" /> Create User
+                                    </button>
+                                </div>
+
+                                <grid grid="userGrid"></grid>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </uib-tab>
+
+            <uib-tab index="1" ng-click="navigateToGroups($event)">
+
+                <uib-tab-heading>
+                    <i class="fa fa-group"></i> Groups
+                </uib-tab-heading>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="hpanel">
+                            <div class="panel-body no-padding">
+
+                                <br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </uib-tab>
+
+            <uib-tab index="2" ng-click="navigateToRoles($event)">
+
+                <uib-tab-heading>
+                    <i class="fa fa-key"></i> Roles
+                </uib-tab-heading>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="hpanel">
+                            <div class="panel-body no-padding">
+
+                                <br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </uib-tab>
+
+        </uib-tabset>
+
+
+    </div>
+</div>

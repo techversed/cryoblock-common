@@ -217,3 +217,18 @@
     cursor: pointer;
   }
 }
+
+.panel-body .panel-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  label.btn {
+    border-top: 0;
+    border-radius: 0;
+    &:last-child {
+      border-right: 0;
+      // border-bottom-right-radius: 0;
+    }
+  }
+}

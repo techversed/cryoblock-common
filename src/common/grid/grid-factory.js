@@ -345,14 +345,6 @@ angular.module('grid.gridFactory', [])
 
                 },
 
-                // getRequestPath: function () {
-
-                //     return this.resourceUrl + '?';
-
-                //     return path + this.getRequestParams().join('&');
-
-                // },
-
                 removeItem: function (item) {
 
                     this.removingItems.push(item);

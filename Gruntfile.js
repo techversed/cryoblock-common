@@ -43,6 +43,8 @@ module.exports = function (grunt) {
                 },
                 files: {
                     "<%= cryoblock.build %>/production/grid.css": "<%= cryoblock.app %>/common/grid/grid-style.less",
+                    "<%= cryoblock.build %>/production/object-history.css": "<%= cryoblock.app %>/common/object-history/object-history-styles.less",
+                    "<%= cryoblock.build %>/production/comment.css": "<%= cryoblock.app %>/common/comment/comment-styles.less",
                     "<%= cryoblock.build %>/production/one-to-many.css": "<%= cryoblock.app %>/common/form/one-to-many/one-to-many-styles.less",
                     "<%= cryoblock.build %>/production/app.css": "<%= cryoblock.app %>/common/profile/profile-style.less",
                     "<%= cryoblock.build %>/production/cryoblock.css": "<%= cryoblock.app %>/common/less/style.less"
@@ -138,6 +140,13 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
+                        cwd: '<%= cryoblock.app %>/common/graphics',
+                        dest: '<%= cryoblock.release %>/graphics',
+                        src: ['**/*'],
+                    },
+                    {
+                        expand: true,
+                        dot: true,
                         cwd: 'bower_components/fontawesome',
                         src: ['fonts/*.*'],
                         dest: '<%= cryoblock.release %>'
@@ -216,6 +225,8 @@ module.exports = function (grunt) {
             css: {
                 src: [
                     '<%= cryoblock.build %>/production/grid.css',
+                    '<%= cryoblock.build %>/production/object-history.css',
+                    '<%= cryoblock.build %>/production/comment.css',
                     '<%= cryoblock.build %>/production/one-to-many.css',
                     '<%= cryoblock.build %>/production/app.css',
                     '<%= cryoblock.build %>/production/cryoblock.css'
@@ -256,6 +267,9 @@ module.exports = function (grunt) {
                     'bower_components/angular-rangeslider/angular.rangeSlider.js',
                     'bower_components/angular-money-directive/dist/angular-money-directive.js',
                     'bower_components/angular-steps/dist/angular-steps.js',
+                    'bower_components/marked/lib/marked.js',
+                    'bower_components/simplemde/debug/simplemde.js',
+                    // 'bower_components/highlight/src/highlight.js',
                     '<%= cryoblock.build %>/production/templates.js',
                     '<%= cryoblock.app %>/**/*.js'
                 ],
@@ -295,7 +309,6 @@ module.exports = function (grunt) {
                 }]
             }
         }
-
     });
 
     // Run build version of app
@@ -312,7 +325,7 @@ module.exports = function (grunt) {
         'html2js:prod',
         'concat:css',
         'concat:js',
-        'copy:prod',
+        'copy:prod'
         // 'ngAnnotate:prod',
         // 'uglify:prod',
         // // 'cssmin',

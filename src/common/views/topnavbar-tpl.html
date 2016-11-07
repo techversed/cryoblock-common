@@ -7,8 +7,8 @@
         </div>
         <div class="navbar-right">
             <ul class="nav navbar-nav no-borders">
-                <li class="dropdown" ng-if="-1 < main.user.roleValues.indexOf('ROLE_ADMIN')" ui-sref="admin.index">
-                    <a>
+                <li class="dropdown" ng-if="main.hasRole('ROLE_ADMIN')">
+                    <a ui-sref="admin.user">
                         <i class="fa fa-cog"></i>
                     </a>
                 </li>

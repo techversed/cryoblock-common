@@ -46,9 +46,10 @@
     "sweetalert": "~1.1.0",
     "angular-tree-control": "~0.2.15",
     "angular-rangeslider": "~0.0.14",
-    "angular-money-directive": "~1.2.5"
-  },
-  "dependencies": {
-    "angular-steps": "^0.2.3"
+    "angular-money-directive": "~1.2.5",
+    "bootstrap-markdown": "2.10.0",
+    "angular-steps": "^0.2.3",
+    "simplemde": "https://github.com/techversed/simplemde-markdown-editor.git#008802403ce9f9c0dac84bacf862deb85bb5ae99",
+    "highlight": "^9.6.0"
   }
 }

@@ -28,7 +28,7 @@ angular.module('cbResource.$cbResource', [])
 
                 },
 
-                create: function (url, obj, params) {
+                create: function (url, obj) {
 
                     return $http.post(API.url + url, obj);
 
@@ -36,7 +36,9 @@ angular.module('cbResource.$cbResource', [])
 
                 update: function (url, obj, params) {
 
-                    return $http.put(API.url + url, obj);
+                    url = API.url + url + '?' + this.serializeParams(params);
+
+                    return $http.put(url, obj);
 
                 },
 

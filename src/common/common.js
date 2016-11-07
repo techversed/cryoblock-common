@@ -10,6 +10,7 @@ angular.module('common', [
     'profile',
     'admin',
     'grid',
+    'notification',
     'carbonAppDirectives',
     'ngStorage',
     'carbonConfig',
@@ -26,5 +27,10 @@ angular.module('common', [
     'fiestah.money',
     'cryoblock.common.templates',
     'cbResource',
-    'angular-steps'
+    'angular-steps',
+    'user',
+    'group',
+    'role',
+    'objectHistory',
+    'commonFilters'
 ]);

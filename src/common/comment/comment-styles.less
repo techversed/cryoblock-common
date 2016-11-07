@@ -1,30 +1,117 @@
 .cb-comment {
 
-    .comment-profile-img {
+    // font-size: 11px;
+
+    .comment-container {
+        width: 100%;
+    }
+
+    .comment-profile {
         width: 50px;
-        border-radius: 50px;
+        vertical-align: top;
     }
 
     .comment-content {
-        margin-left: 10px;
+
+        &.editing {
+
+            .comment-profile-img {
+                margin-bottom: 10px;
+            }
+            .comment-username {
+                margin-bottom: 10px;
+            }
+
+        }
+
+        .comment-profile-img {
+            width: 30px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        border-radius: 2px;
+        padding: 0px 15px;
+
+        .comment-username {
+            line-height: 30px;
+            padding: 0px 0px 0px 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .comment-content-text {
+            padding: 5px 0px 0px 0px;
+        }
+        .comment-actions {
+            .action {
+                margin: 0px 5px 0px 0px;
+                color: #1c84c6;
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+
+            }
+        }
+        .comment-edit-actions {
+            background: #efefef;
+            padding: 10px;
+        }
     }
 
 }
 
 .cb-comment-list {
 
+    padding-left: 0px;
+    margin-left: 40px;
+    margin-bottom: 0px;
+    border-left: 1px solid #d6d6d6;
+    margin-top: 10px;
+
+    li {
+    }
+
+    li.comment-parent {
+
+        padding: 8px 0px;
+        border-bottom: 1px solid #c6c6c6;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:nth-of-type(even) {
+            background: #f9f9f9;
+        }
+
+    }
+
     &:first-child {
-        padding-left: 0px;
+        margin-left: 0px;
+        border-left: 0px;
     }
 
     list-style: none;
 
     .cb-comment {
-        margin-top: 10px;
-        background: #ebf1f3;
-        padding: 10px;
-        border: 1px solid #c8d8dc;
-        border-radius: 2px;
+        padding: 5px 0px;
+        // margin-top: 10px;
+        // &:hover {
+        //     background: blue;
+        // }
+    }
+
+    .CodeMirror {
+        min-height: 100px;
+    }
+
+    .CodeMirror-scroll {
+        min-height: 100px
+    }
+
+    .editor-toolbar {
+        background: #efefef;
     }
 
 }

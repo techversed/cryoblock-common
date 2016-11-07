@@ -1,0 +1,99 @@
+<div id="admin-container">
+
+    <div class="normalheader">
+
+        <div id="hbreadcrumb">
+            <ol class="hbreadcrumb breadcrumb">
+                <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                <li>Administrator</li>
+                <li class="active">
+                    <span>Group</span>
+                </li>
+            </ol>
+        </div>
+
+        <div class="hpanel">
+            <div class="panel-body">
+                <h2 class="font-light m-b-xs">
+                    Administrator
+                </h2>
+                <small>Manage users and user roles</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <uib-tabset active="active">
+
+            <uib-tab index="0" select="navigateToUsers($event)">
+
+                <uib-tab-heading>
+                    <i class="fa fa-user"></i> Users
+                </uib-tab-heading>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="hpanel">
+                            <div class="panel-body no-padding">
+
+                                <br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </uib-tab>
+
+            <uib-tab index="1">
+
+                <uib-tab-heading>
+                    <i class="fa fa-group"></i> Groups
+                </uib-tab-heading>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="hpanel">
+                            <div class="panel-body no-padding">
+
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 p-sm">
+                                    <button class="btn btn-primary btn-block btn-mobile-stack" ng-click="createGroup()">
+                                        <i class="fa fa-group" /> Create Group
+                                    </button>
+                                </div>
+
+                                <grid grid="groupGrid"></grid>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </uib-tab>
+
+            <uib-tab index="2" select="navigateToRoles($event)">
+
+                <uib-tab-heading>
+                    <i class="fa fa-key"></i> Roles
+                </uib-tab-heading>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="hpanel">
+                            <div class="panel-body no-padding">
+
+                                <br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </uib-tab>
+
+        </uib-tabset>
+
+
+    </div>
+</div>

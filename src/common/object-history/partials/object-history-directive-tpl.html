@@ -1,0 +1,29 @@
+<div id="object-history-container">
+
+    <ul class="object-history-list">
+
+        <li ng-repeat="logEntry in logEntries" class="object-history-log-entry">
+
+            <p class="m-b-sm"><strong>{{logEntry.username}}</strong> {{logEntry.action}}d - {{logEntry.loggedAt | date:'medium'}}</p>
+
+            <table class="log-entry-table">
+                <thead>
+                    <tr>
+                        <th width="20%">Field</th>
+                        <th width="80%" ng-if="logEntry.action === 'create'">Value</th>
+                        <th width="80%" ng-if="logEntry.action === 'update'">New Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(field, value) in logEntry.data">
+                        <td>{{field | camelToTitle}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </li>
+
+    </ul>
+
+</div>

@@ -1,4 +1,5 @@
 angular.module('session.sessionFactory', [])
+
     .factory('sessionFactory', ['$http', 'API', '$localStorage', '$state',
 
         function ($http, API, $localStorage, $state) {
@@ -69,7 +70,20 @@ angular.module('session.sessionFactory', [])
                     });
 
                     return promise;
+                },
+
+                hasRole: function (roleCheck) {
+
+                    if (!sessionFactory.isLoggedInUser()) {
+                        return false;
+                    }
+
+                    return undefined !== sessionFactory.getLoggedInUser().roles.find(function (role) {
+                        return role === roleCheck;
+                    });
+
                 }
+
             };
 
             return sessionFactory;

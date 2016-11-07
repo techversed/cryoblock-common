@@ -12,7 +12,6 @@ angular.module('grid.gridPaginationDirective', [])
 
                     var init = function () {
 
-                        console.log($scope.grid);
                         $scope.pagination = $scope.grid.pagination;
                         $scope.perPage = $scope.pagination.perPage;
                         $scope.page = $scope.pagination.page;

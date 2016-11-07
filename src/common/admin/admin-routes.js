@@ -14,13 +14,13 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                 },
                 children: [
                     {
-                        url: '/index',
-                        name: 'index',
+                        url: '/user',
+                        name: 'user',
                         views: {
                             content: {
 
-                                templateUrl: 'common/admin/views/admin-tpl.html',
-                                controller: 'adminCtrl',
+                                templateUrl: 'common/admin/views/admin-user-tpl.html',
+                                controller: 'adminUserCtrl',
                                 data: {
                                     pageTitle: 'Administrator',
                                     permissions: {
@@ -30,21 +30,9 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 },
                                 resolve: {
 
-                                    userRequest: function (adminFactory) {
+                                    userGrid: function (userGridFactory) {
 
-                                        return adminFactory.getUsers();
-
-                                    },
-
-                                    roleRequest: function (adminFactory) {
-
-                                        return adminFactory.getRoles();
-
-                                    },
-
-                                    groupRequest: function (adminFactory) {
-
-                                        return adminFactory.getGroups();
+                                        return userGridFactory.getIndexGrid();
 
                                     }
 
@@ -54,19 +42,56 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                         }
                     },
                     {
-                        url: '/create-user',
-                        name: 'createUser',
+                        url: '/group',
+                        name: 'group',
                         views: {
                             content: {
 
-                                templateUrl: 'common/admin/views/admin-user-create-tpl.html',
-                                controller: 'userCreateCtrl',
+                                templateUrl: 'common/admin/views/admin-group-tpl.html',
+                                controller: 'adminGroupCtrl',
                                 data: {
-                                    pageTitle: 'Create User',
+                                    pageTitle: 'Administrator',
                                     permissions: {
                                         except: ['anonymous'],
                                         redirectTo: 'login'
                                     },
+                                },
+                                resolve: {
+
+                                    groupGrid: function (groupGridFactory) {
+
+                                        return groupGridFactory.getIndexGrid();
+
+                                    }
+
+                                }
+
+                            }
+                        }
+                    },
+                    {
+                        url: '/role',
+                        name: 'role',
+                        views: {
+                            content: {
+
+                                templateUrl: 'common/admin/views/admin-role-tpl.html',
+                                controller: 'adminRoleCtrl',
+                                data: {
+                                    pageTitle: 'Administrator',
+                                    permissions: {
+                                        except: ['anonymous'],
+                                        redirectTo: 'login'
+                                    },
+                                },
+                                resolve: {
+
+                                    roleGrid: function (roleGridFactory) {
+
+                                        return roleGridFactory.getIndexGrid();
+
+                                    }
+
                                 }
 
                             }

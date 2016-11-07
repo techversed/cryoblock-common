@@ -1,0 +1,74 @@
+<form name="userForm" method="get" class="form-horizontal" ng-submit="submit(userForm.$valid)" novalidate autocomplete="off">
+
+    <div id="user-form-container">
+
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">{{ user.id ? 'Edit User' : 'Create User' }} {{user.id}}</h4>
+            <small>{{user.firstName}} {{user.lastName}}</small>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="col-sm-12 alert alert-danger m-b-md" ng-show="errors.length !== 0">
+                <p ng-repeat="error in errors">
+                    <strong>{{error}}</strong>
+                </p>
+            </div>
+
+            <cb-form-group label="First Name" name="firstName">
+                <div class="col-sm-10">
+                    <input name="firstName" type="text" class="form-control" ng-model="user.firstName" required>
+                    <div ng-messages="userForm.firstName.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Last Name" name="lastName">
+                <div class="col-sm-10">
+                    <input name="lastName" type="text" class="form-control" ng-model="user.lastName" required>
+                    <div ng-messages="userForm.lastName.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Username" name="username">
+                <div class="col-sm-10">
+                    <input name="username" type="text" class="form-control" ng-model="user.username" required>
+                    <div ng-messages="userForm.username.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Email" name="email">
+                <div class="col-sm-10">
+                    <input name="email" type="text" class="form-control" ng-model="user.email" required autocomplete="new-email">
+                    <div ng-messages="userForm.email.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Password" name="plainPassword" ng-if="!user.id">
+                <div class="col-sm-10">
+                    <input name="plainPassword" type="password" class="form-control" ng-model="user.plainPassword" required autocomplete="new-password">
+                    <div ng-messages="userForm.plainPassword.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
+        </div>
+
+
+    </div>
+
+</form>

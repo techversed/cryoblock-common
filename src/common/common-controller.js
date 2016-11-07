@@ -16,6 +16,9 @@ angular.module('common.commonCtrl', [])
                 this.user = sessionFactory.getLoggedInUser();
 
             }
+
+            this.hasRole = sessionFactory.hasRole;
+
         }
 
     ])
