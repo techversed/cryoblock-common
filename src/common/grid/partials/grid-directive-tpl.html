@@ -33,27 +33,7 @@
 
     </div>
 
-    <div ng-if="grid.isSelectable">
-
-        <div ng-if="grid.selectedItem" class="grid-staged-changes-container">
-            <table class="staged-changes-table">
-                <tr>
-                    <td>
-                        <ul class="staged-changes-list">
-                            <li>
-                               <span class="label label-primary">
-                                    {{grid.selectedItem.id + ' : ' + grid.selectedItem.stringLabel}} <i class="fa fa-remove" ng-click="unselectItem()"></i>
-                                </span>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-    </div>
-
-    <div ng-if="((grid.isEditable || grid.isSelectable) && grid.initResultCount) || (!grid.isEditable && !grid.isSelectable)" ng-hide="grid.isSelectable && grid.selectedItem">
+    <div ng-if="((grid.isEditable || grid.isSelectable) && grid.initResultCount) || (!grid.isEditable && !grid.isSelectable)">
 
         <div class="row" ng-if="grid.showFilters">
 

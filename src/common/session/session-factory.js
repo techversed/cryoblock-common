@@ -78,7 +78,14 @@ angular.module('session.sessionFactory', [])
                         return false;
                     }
 
-                    return undefined !== sessionFactory.getLoggedInUser().roles.find(function (role) {
+                    var userRoles = sessionFactory.getLoggedInUser().roles;
+
+                    // ADMIN is god
+                    if (userRoles.indexOf('ROLE_ADMIN') > -1) {
+                        return true;
+                    }
+
+                    return undefined !== userRoles.find(function (role) {
                         return role === roleCheck;
                     });
 

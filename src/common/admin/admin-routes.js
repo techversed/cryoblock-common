@@ -16,18 +16,15 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/user',
                         name: 'user',
+                        pageTitle: 'Administrator - Users',
+                        security: {
+                            roles: ['ROLE_ADMIN']
+                        },
                         views: {
                             content: {
 
                                 templateUrl: 'common/admin/views/admin-user-tpl.html',
                                 controller: 'adminUserCtrl',
-                                data: {
-                                    pageTitle: 'Administrator',
-                                    permissions: {
-                                        except: ['anonymous'],
-                                        redirectTo: 'login'
-                                    },
-                                },
                                 resolve: {
 
                                     userGrid: function (userGridFactory) {
@@ -44,18 +41,15 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/group',
                         name: 'group',
+                        pageTitle: 'Administrator - Groups',
+                        security: {
+                            roles: ['ROLE_ADMIN']
+                        },
                         views: {
                             content: {
 
                                 templateUrl: 'common/admin/views/admin-group-tpl.html',
                                 controller: 'adminGroupCtrl',
-                                data: {
-                                    pageTitle: 'Administrator',
-                                    permissions: {
-                                        except: ['anonymous'],
-                                        redirectTo: 'login'
-                                    },
-                                },
                                 resolve: {
 
                                     groupGrid: function (groupGridFactory) {
@@ -72,18 +66,15 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/role',
                         name: 'role',
+                        pageTitle: 'Administrator - Roles',
+                        security: {
+                            roles: ['ROLE_ADMIN']
+                        },
                         views: {
                             content: {
 
                                 templateUrl: 'common/admin/views/admin-role-tpl.html',
                                 controller: 'adminRoleCtrl',
-                                data: {
-                                    pageTitle: 'Administrator',
-                                    permissions: {
-                                        except: ['anonymous'],
-                                        redirectTo: 'login'
-                                    },
-                                },
                                 resolve: {
 
                                     roleGrid: function (roleGridFactory) {

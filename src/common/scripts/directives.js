@@ -11,15 +11,26 @@ function pageTitle($rootScope, $timeout) {
     return {
         link: function(scope, element) {
             var listener = function(event, toState, toParams, fromState, fromParams) {
+
                 // Default title - load on Dashboard 1
-                var title = 'Carbon | Responsive Admin Theme';
+                var title = 'Cryoblock';
                 // Create your own title pattern
-                if (toState.data && toState.data.pageTitle) title = 'Carbon | ' + toState.data.pageTitle;
+
+                if (toState.pageTitle) title = 'Cryoblock | ' + toState.pageTitle;
+
+                // look for vars in the title
+                var matches = title.match(/\{(\w*)\}/);
+
+                if (matches && toParams[matches[1]] !== undefined) {
+                    title = title.replace(/\{(\w*)\}/, toParams[matches[1]]);
+                }
+
                 $timeout(function() {
                     element.text(title);
-                });
+                }, 0, false);
+
             };
-            $rootScope.$on('$stateChangeStart', listener);
+            $rootScope.$on('$stateChangeSuccess', listener);
         }
     }
 };

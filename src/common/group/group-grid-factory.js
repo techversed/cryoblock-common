@@ -80,7 +80,7 @@ angular.module('group.groupGridFactory', [])
                         .allowSelect()
                     ;
 
-                    var params = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
+                    var params = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage: 3};
 
                     return $cbResource.get('/group', params).then(function (response) {
 

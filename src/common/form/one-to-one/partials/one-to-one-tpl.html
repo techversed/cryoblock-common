@@ -1,1 +1,21 @@
-<grid grid="grid"></grid>
+<button class="one-to-one-form-toggle btn btn-default btn-block" ng-if="!grid.selectedItem" ng-click="toggle()" ng-class="{expanded:showGrid}">
+    None Selected
+    <span class="fa fa-chevron-down" ng-show="!showGrid"></span>
+    <span class="fa fa-chevron-up" ng-show="showGrid"></span>
+</button>
+
+<div class="one-to-one-form-toggle-selected" ng-if="grid.selectedItem" ng-class="{expanded:showGrid}">
+    <div>ID {{grid.selectedItem.id}} - {{grid.selectedItem.stringLabel}}</div>
+    <div class="actions btn-group">
+        <label class="btn btn-sm btn-default" ng-click="toggle()">
+            <i class="fa fa-edit"></i>
+        </label>
+        <label title="Notifications" class="btn btn-sm btn-default ng-isolate-scope" ng-click="removeItem()">
+            <i class="fa fa-remove"></i>
+        </label>
+    </div>
+</div>
+
+<div class="animated fadeIn" ng-show="showGrid">
+    <grid grid="grid"></grid>
+</div>

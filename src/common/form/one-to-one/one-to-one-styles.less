@@ -1,0 +1,49 @@
+.one-to-one-form-toggle {
+    padding: 5px;
+    border-color: #ddd;
+    border-width: 1px;
+    border-style: solid solid solid solid;
+    &.expanded {
+        border-style: solid solid none solid;
+    }
+    border-radius: 0px !important;
+}
+
+.one-to-one-form-toggle-selected {
+    border-style: solid solid solid solid;
+    border-width: 1px;
+    border-color: #ddd;
+    padding: 5px;
+    position: relative;
+    background: #337ab7;
+    font-weight: 400;
+    color: white;
+
+    .actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      label.btn {
+        border-top: 0;
+        border-radius: 0;
+        border-bottom: 0;
+        &:last-child {
+          border-right: 0;
+          // border-bottom-right-radius: 0;
+        }
+      }
+    }
+
+    &.expanded {
+        border-style: solid solid none solid;
+        .actions {
+            label.btn {
+                border-bottom: 0;
+            }
+        }
+
+    }
+}
+
+

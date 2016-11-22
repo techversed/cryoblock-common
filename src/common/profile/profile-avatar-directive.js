@@ -1,6 +1,6 @@
 angular.module('profile.profileAvatarDirective', [])
-    .directive('profileAvatar', ['sessionFactory', 'API',
-        function (sessionFactory, API) {
+    .directive('profileAvatar', ['sessionFactory', 'API', '$rootScope',
+        function (sessionFactory, API, $rootScope) {
             return {
                 restrict: 'E',
                 templateUrl: 'common/profile/profile-avatar-tpl.html',
@@ -18,7 +18,7 @@ angular.module('profile.profileAvatarDirective', [])
 
                     }
 
-                    var setAvatarSrc = function () {
+                    $scope.setAvatarSrc = function () {
 
                         $scope.avatarSrc = $scope.hasAvatar()
                             ? API.url + '/attachment/' + $scope.getUser().avatarAttachment.id + '/download'
@@ -27,21 +27,10 @@ angular.module('profile.profileAvatarDirective', [])
 
                     }
 
-                    $scope.$watch(
+                    $scope.setAvatarSrc();
 
-                        function () {
+                    $rootScope.$on('profile.avatar_upload', $scope.setAvatarSrc);
 
-                            return sessionFactory.getLoggedInUser().avatarAttachment.id
-
-                        },
-
-                        function (v) {
-
-                            setAvatarSrc();
-
-                        }
-
-                    );
                 }
             }
         }

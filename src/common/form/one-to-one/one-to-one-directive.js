@@ -31,14 +31,28 @@ angular.module('form.oneToOne.oneToOneDirective', [])
                     $scope.$watch('grid.selectedItem', function (v) {
 
                         $scope.parentObject[$scope.bindTo] = v;
+                        if (v) { $scope.showGrid = false; }
 
                     });
 
                     $scope.onSelect = function (item) {
 
                         $scope.$emit('form:changed');
+                        console.log(3123);
 
                     };
+
+                    $scope.toggle = function () {
+                        $scope.showGrid = $scope.showGrid ? false : true;
+                    };
+
+                    $scope.removeItem = function () {
+                        $scope.grid.unselectItem();
+                        console.log($scope.grid);
+                        $scope.showGrid = false;
+                    };
+
+                    $scope.showGrid = false;
 
                 },
 

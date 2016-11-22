@@ -16,6 +16,9 @@ angular.module('dashboard.routes', [ 'ui.router', 'ui.router.stateHelper'])
                     {
                         url: '/main',
                         name: 'main',
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
                         views: {
                             content: {
 

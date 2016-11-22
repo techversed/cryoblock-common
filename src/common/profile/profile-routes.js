@@ -15,18 +15,14 @@ angular.module('profile.routes', [])
                     {
                         url: '/index',
                         name: 'index',
+                        pageTitle: 'Profile',
+                        security: {
+                            roles: ['ROLE_USER'],
+                        },
                         views: {
                             content: {
-
                                 templateUrl: 'common/profile/profile-tpl.html',
                                 controller: 'profileCtrl',
-                                data: {
-                                    pageTitle: 'Profile',
-                                    permissions: {
-                                        except: ['anonymous'],
-                                        redirectTo: 'login'
-                                    }
-                                },
                                 resolve: {
 
                                     user: function (sessionFactory, profileFactory) {
