@@ -42,6 +42,13 @@ angular.module('user.userGridFactory', [])
                         name: 'email',
                         isSortable: true,
                         // sref: 'sample.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Active',
+                        bindTo: 'enabled',
+                        name: 'enabled',
+                        isSortable: true,
+                        // sref: 'sample.detail({id:result.id})'
                     }
                 ],
 
@@ -63,6 +70,12 @@ angular.module('user.userGridFactory', [])
                         title: 'Email',
                         filterProperty: 'email',
                         isVisible: false
+                    },
+                    {
+                        type: 'boolean',
+                        title: 'Active',
+                        filterProperty: 'enabled',
+                        isVisible: true
                     }
                 ],
 
