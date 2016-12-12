@@ -39,6 +39,31 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                         }
                     },
                     {
+                        url: '/user/:id',
+                        name: 'user_detail',
+                        pageTitle: 'User {id}',
+                        security: {
+                            roles: ['ROLE_ADMIN']
+                        },
+                        views: {
+                            content: {
+
+                                templateUrl: 'common/admin/views/admin-user-detail-tpl.html',
+                                controller: 'adminUserDetailCtrl',
+                                resolve: {
+
+                                    user: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.getOne('/user?id[EQ]=' + $stateParams.id);
+
+                                    }
+
+                                }
+
+                            }
+                        }
+                    },
+                    {
                         url: '/group',
                         name: 'group',
                         pageTitle: 'Administrator - Groups',

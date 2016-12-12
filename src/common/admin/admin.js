@@ -5,4 +5,6 @@ angular.module('admin', [
     'admin.routes',
     'admin.adminFactory',
     'admin.userCreateCtrl',
+    'admin.adminUserDetailCtrl',
+    'admin.adminGroupDetailCtrl',
 ]);

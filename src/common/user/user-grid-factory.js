@@ -13,7 +13,7 @@ angular.module('user.userGridFactory', [])
                         isSortable: true,
                         name: 'id',
                         isPrimary: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.user_detail({id:result.id})'
                     },
                     {
                         header: 'Username',

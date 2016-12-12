@@ -13,9 +13,9 @@
             <div class="panel-body">
                 <button ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
                 <h2 class="font-light m-b-xs inline">
-                  User {{user.id}} - {{user.firstName}} {{user.lastName}}
+                  User {{user.id}} - {{user.name}}
                 </h2>
-                <small class="block">{{user.username}}</small>
+                <small class="block">{{user.name}}</small>
             </div>
         </div>
     </div>
@@ -40,12 +40,8 @@
                                 <td>{{user.id}}</td>
                             </tr>
                             <tr>
-                                <td>First Name</td>
-                                <td>{{user.firstName}}</td>
-                            </tr>
-                            <tr>
-                                <td>Last Name</td>
-                                <td>{{user.lastName}}</td>
+                                <td>Name</td>
+                                <td>{{user.name}}</td>
                             </tr>
                         </table>
                     </div>
@@ -108,11 +104,11 @@
                         <div class="panel-tools">
                             <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                         </div>
-                        Groups Linked to User {{group.id}}
+                        Roles Linked to Group {{role.id}}
                     </div>
                     <div class="panel-body no-padding">
 
-                        <grid grid="linkedGroupsGrid"></grid>
+                        <grid grid="linkedRolesGrid"></grid>
 
                     </div>
                 </div>
