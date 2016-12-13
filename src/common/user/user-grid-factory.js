@@ -42,7 +42,22 @@ angular.module('user.userGridFactory', [])
                         name: 'email',
                         isSortable: true,
                         // sref: 'sample.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Created At',
+                        bindTo: 'createdAt',
+                        name: 'createdAt',
+                        isSortable: true,
+                        // sref: 'sample.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Updated At',
+                        bindTo: 'updatedAt',
+                        name: 'updatedAt',
+                        isSortable: true,
+                        // sref: 'sample.detail({id:result.id})'
                     }
+
                 ],
 
                 filters: [

@@ -13,7 +13,7 @@ angular.module('group.groupGridFactory', [])
                         isSortable: true,
                         name: 'id',
                         isPrimary: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.group_detail({id:result.id})'
                     },
                     {
                         header: 'Name',
