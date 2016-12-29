@@ -39,6 +39,18 @@ angular.module('admin.adminFactory', [])
                     return promise;
                 },
 
+                createRole: function (roles) {
+
+                    var url = API.url + '/roles';
+
+                    var promise = $http.post(url, roles).then(function (response) {
+                        return response.data.data;
+                    });
+
+                    return promise;
+
+                },
+
                 getGroups: function () {
 
                     var url = API.url + '/group?cPerPage=10';
@@ -48,6 +60,18 @@ angular.module('admin.adminFactory', [])
                     });
 
                     return promise;
+                },
+
+                createGroup: function (group) {
+
+                    var url = API.url + '/group';
+
+                    var promise = $http.post(url, group).then(function (response) {
+                        return response.data.data;
+                    });
+
+                    return promise;
+
                 },
 
                 deactivateUser: function (userId) {

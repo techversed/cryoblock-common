@@ -13,7 +13,7 @@ angular.module('role.roleGridFactory', [])
                         isSortable: true,
                         name: 'id',
                         isPrimary: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.role_detail({id:result.id})'
                     },
                     {
                         header: 'Name',

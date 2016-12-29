@@ -7,4 +7,7 @@ angular.module('admin', [
     'admin.userCreateCtrl',
     'admin.adminUserDetailCtrl',
     'admin.adminGroupDetailCtrl',
+    'admin.adminRoleDetailCtrl',
+    'admin.roleCreateCtrl',
+    'admin.groupCreateCtrl',
 ]);

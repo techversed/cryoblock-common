@@ -137,7 +137,32 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                             }
                         }
-                    }
+                    },
+                    {
+                        url: '/role/:id',
+                        name: 'role_detail',
+                        pageTitle: 'Role {id}',
+                        security: {
+                            roles: ['ROLE_ADMIN']
+                        },
+                        views: {
+                            content: {
+
+                                templateUrl: 'common/admin/views/admin-role-detail-tpl.html',
+                                controller: 'adminRoleDetailCtrl',
+                                resolve: {
+
+                                    role: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.getOne('/role?id[EQ]=' + $stateParams.id);
+
+                                    }
+
+                                }
+
+                            }
+                        }
+                    },
                 ]
             })
         ;
