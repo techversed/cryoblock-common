@@ -20,7 +20,7 @@ angular.module('role.roleGridFactory', [])
                         bindTo: 'role',
                         name: 'role',
                         isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.role_detail({id:result.id})'
                     }
                 ],
 

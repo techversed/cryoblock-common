@@ -20,7 +20,7 @@ angular.module('group.groupGridFactory', [])
                         bindTo: 'name',
                         name: 'name',
                         isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.group_detail({id:result.id})'
                     }
                 ],
 

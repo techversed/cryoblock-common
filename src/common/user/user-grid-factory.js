@@ -20,7 +20,7 @@ angular.module('user.userGridFactory', [])
                         bindTo: 'username',
                         name: 'username',
                         isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.user_detail({id:result.id})'
                     },
                     {
                         header: 'First Name',
