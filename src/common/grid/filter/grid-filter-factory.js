@@ -18,6 +18,9 @@ angular.module('grid.gridFilterFactory', [])
                     },
                     'string': {
                         'factory': 'gridStringFilterFactory'
+                    },
+                    'time': {
+                        'factory': 'gridTimeFilterFactory'
                     }
                 },
 

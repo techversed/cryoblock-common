@@ -8,5 +8,7 @@ angular.module('grid.gridFilter', [
     'grid.gridEnumFilterFactory',
     'grid.gridEnumFilterCtrl',
     'grid.gridStringFilterFactory',
-    'grid.gridStringFilterCtrl'
+    'grid.gridStringFilterCtrl',
+    'grid.gridTimeFilterFactory',
+    'grid.gridTimeFilterCtrl',
 ]);

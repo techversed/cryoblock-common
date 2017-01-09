@@ -59,7 +59,7 @@ angular.module('user.userGridFactory', [])
                         isVisible: false
                     },
                     {
-                        type: 'string',
+                        type: 'time',
                         title: 'Email',
                         filterProperty: 'email',
                         isVisible: false
