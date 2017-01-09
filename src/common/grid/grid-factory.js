@@ -374,6 +374,7 @@ angular.module('grid.gridFactory', [])
 
                 addItem: function (item) {
 
+                    console.log('adding')
                     this.addingItems.push(item);
                     this.addingItemIds.push(item.id);
 

@@ -1,4 +1,4 @@
-<div class="input-group">
+<!-- <div class="input-group">
     <input
         type="text"
         class="form-control grid-contains-search-input"
@@ -16,3 +16,72 @@
 </div>
 
 <grid grid="grid" class="one-to-many"></grid>
+
+
+ -->
+
+<div class="one-to-many-container">
+
+    <div class="one-to-many-toggler">
+
+        <div class="one-to-many-btn-group btn-group">
+
+            <label class="one-to-many-list-toggle btn btn-default" ng-if="!grid.selectedItem" ng-click="toggle()" ng-class="{expanded:showGrid}">
+                <span class="label label-default" ng-if="grid.initResultCount === 0">{{grid.initResultCount}}</span>
+                <span class="label label-success" ng-if="grid.initResultCount > 0">{{grid.initResultCount}}</span>
+                <span class="m-l-xs">Linked</span>
+
+                <span class="label label-primary" ng-if="grid.addingItems.length > 0">{{grid.addingItems.length}}</span>
+                <span class="m-l-xs" ng-if="grid.addingItems.length > 0">Pending Addition</span>
+
+                <span class="label label-danger" ng-if="grid.removingItems.length > 0">{{grid.removingItems.length}}</span>
+                <span class="m-l-xs" ng-if="grid.removingItems.length > 0">Pending Removal</span>
+
+                <span class="fa fa-chevron-down" ng-show="!showGrid"></span>
+                <span class="fa fa-chevron-up" ng-show="showGrid"></span>
+            </label>
+            <label class="one-to-many-add-toggle btn btn-default btn-square" ng-click="toggleAdd()" ng-class="{expanded:showSelectGrid}">
+                <i class="fa fa-plus"></i>
+            </label>
+        </div>
+
+    </div>
+
+    <div ng-if="grid.removingItems.length || grid.addingItems.length" class="grid-staged-changes-container">
+        <table class="staged-changes-table">
+            <tr ng-if="grid.addingItems.length">
+                <td class="staged-type">Pending Addition</td>
+                <td>
+                    <ul class="staged-changes-list">
+                        <li ng-repeat="addingItem in grid.addingItems">
+                           <span class="label label-primary">
+                                {{addingItem.id + ' : ' + addingItem.stringLabel}} <i class="fa fa-remove" ng-click="removeAddingItem(addingItem)"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr ng-if="grid.removingItems.length">
+                <td class="staged-type">Pending Removal</td>
+                <td>
+                    <ul class="staged-changes-list">
+                        <li ng-repeat="removingItem in grid.removingItems">
+                           <span class="label label-danger">
+                                {{removingItem.id + ' : ' + removingItem.stringLabel}} <i class="fa fa-remove" ng-click="restoreRemovedItem(removingItem)"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="animated fadeIn" ng-show="showGrid">
+        <grid grid="grid"></grid>
+    </div>
+
+    <div class="animated fadeIn" ng-show="showSelectGrid">
+        <grid grid="searchGrid"></grid>
+    </div>
+
+</div>

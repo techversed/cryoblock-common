@@ -1,6 +1,6 @@
-angular.module('form.oneToManyV2Directive', [])
+angular.module('form.oneToManyDirective', [])
 
-    .directive('oneToManyV2', ['gridFactory', '$http', 'API',
+    .directive('oneToMany', ['gridFactory', '$http', 'API',
 
         function (gridFactory, $http, API) {
 
@@ -14,6 +14,7 @@ angular.module('form.oneToManyV2Directive', [])
 
                 scope: {
                     grid: '=',
+                    searchGrid: '=',
                     parentObject: '=',
                     bindTo: '@',
                     resourceUrl: '@',
@@ -40,11 +41,27 @@ angular.module('form.oneToManyV2Directive', [])
 
                     $scope.onSelect = function (item) {
 
+
                         $scope.grid.addItem(item);
-                        $scope.search = '';
-                        $scope.$emit('form:changed');
+                        // $scope.search = '';
+                        // $scope.$emit('form:changed');
 
                     };
+
+                    $scope.showGrid = false;
+                    $scope.showSelectGrid = false;
+
+                    $scope.toggle = function () {
+                        $scope.showSelectGrid = false;
+                        $scope.showGrid = $scope.showGrid ? false : true;
+                    };
+
+                    $scope.toggleAdd = function () {
+                        $scope.showGrid = false;
+                        $scope.showSelectGrid = $scope.showSelectGrid ? false : true;
+                    };
+
+                    $scope.searchGrid.setSelectItemCallback($scope.onSelect);
 
                 },
 

@@ -1,37 +1,5 @@
 <div class="grid-responsive-table" ng-class="{isEditable: grid.isEditable, isSelectable: grid.isSelectable, 'no-results': grid.results.length === 0}">
 
-    <div ng-if="grid.isEditable">
-
-        <div ng-if="grid.removingItems.length || grid.addingItems.length" class="grid-staged-changes-container">
-            <table class="staged-changes-table">
-                <tr ng-if="grid.addingItems.length">
-                    <td class="staged-type">Pending Addition</td>
-                    <td>
-                        <ul class="staged-changes-list">
-                            <li ng-repeat="addingItem in grid.addingItems">
-                               <span class="label label-primary">
-                                    {{addingItem.id + ' : ' + addingItem.stringLabel}} <i class="fa fa-remove" ng-click="removeAddingItem(addingItem)"></i>
-                                </span>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr ng-if="grid.removingItems.length">
-                    <td class="staged-type">Pending Removal</td>
-                    <td>
-                        <ul class="staged-changes-list">
-                            <li ng-repeat="removingItem in grid.removingItems">
-                               <span class="label label-danger">
-                                    {{removingItem.id + ' : ' + removingItem.stringLabel}} <i class="fa fa-remove" ng-click="restoreRemovedItem(removingItem)"></i>
-                                </span>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-    </div>
 
     <div ng-if="((grid.isEditable || grid.isSelectable) && grid.initResultCount) || (!grid.isEditable && !grid.isSelectable)">
 
