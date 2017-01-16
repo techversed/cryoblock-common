@@ -19,54 +19,58 @@ angular.module('grid.gridTimeFilterCtrl', [])
                 }
 
             };
-            // datepicker shit
-            $scope.todayStart = function() {
-                $scope.start = new Date();
-            };
 
-            $scope.todayEnd = function() {
-                $scope.end = new Date();
-            };
+            // datepicker for 3rd checkbox
+            if ($scope.betweenDate = true) {
+                $scope.todayStart = function() {
+                    $scope.start = new Date();
+                };
 
-            $scope.todayStart();
-            $scope.todayEnd();
+                $scope.todayEnd = function() {
+                    $scope.end = new Date();
+                };
 
-            $scope.clearStart = function() {
-                $scope.start = null
-            };
+                $scope.todayStart();
+                $scope.todayEnd();
 
-            $scope.clearEnd = function() {
-                $scope.end = null
-            };
+                $scope.clearStart = function() {
+                    $scope.start = null
+                };
 
-            $scope.open1 = function() {
-                $scope.popup1.opened = true;
-            };
+                $scope.clearEnd = function() {
+                    $scope.end = null
+                };
 
-            $scope.open2 = function() {
-                $scope.popup2.opened = true;
-            };
+                $scope.open1 = function() {
+                    $scope.popup1.opened = true;
+                };
 
-            $scope.popup1 = {
-                opened: false
-            };
+                $scope.open2 = function() {
+                    $scope.popup2.opened = true;
+                };
 
-            $scope.popup2 = {
-                opened: false
-            };
+                $scope.popup1 = {
+                    opened: false
+                };
+
+                $scope.popup2 = {
+                    opened: false
+                };
+            }
+
 
             // enum copy
             $scope.form = {
                 search: ''
             };
 
-            $scope.selectItem = function (item) {
-                $scope.filter.selectItem(item);
+            $scope.selectType = function (type) {
+                $scope.filter.selectType(type);
                 $scope.$emit('grid.refresh');
             };
 
-            $scope.removeItem = function (item) {
-                $scope.filter.removeItem(item);
+            $scope.removeType = function (type) {
+                $scope.filter.removeType(type);
                 $scope.$emit('grid.refresh');
             };
 

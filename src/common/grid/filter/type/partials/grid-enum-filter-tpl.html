@@ -1,3 +1,4 @@
+
 <div class="btn-group" uib-dropdown keyboard-nav>
 
     <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectionString}}" uib-dropdown-toggle ng-class="{filtering: filter.isFiltering}">
@@ -7,78 +8,35 @@
     </button>
 
     <ul uib-dropdown-menu class="dropdown-menu" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
+
         <li>
-            <div class="date-range-wrapper">
-                <label>
-                    <input
-                        type="checkbox"
-                        ng-model="withinLast"
-                        ng-change="toggle('withinLast')"
-                    />
-                    Within the last
-                </label>
+
+            <div class="form-group grid-filter-search">
                 <input
-                    class="number-input"
-                    ng-model="within"
-                    type="text"
-                />
-                <select ng-model="withinUnits" type="text" class="date-type-chooser">
-                    <option value="hour"> hours </option>
-                    <option value="day"> days </option>
-                    <option value="week"> weeks </option>
-                    <option value="month"> months </option>
-                </select>
+                    ng-model="form.search"
+                    class="form-control"
+                >
+                </input>
             </div>
+
         </li>
-        <li>
-            <div class="date-range-wrapper">
-                <label>
-                    <input
-                        type="checkbox"
-                        ng-model="moreThan"
-                        ng-change="toggle('moreThan')"
-                    />
-                    More than
-                </label>
-                <input
-                    class="number-input"
-                    ng-model="more"
-                    type="text"
-                />
-                <select ng-model="moreUnits" class="date-type-chooser">
-                    <option value="hour"> hours </option>
-                    <option value="day"> days </option>
-                    <option value="week"> weeks </option>
-                    <option value="month"> months </option>
-                </select>
-                <label> ago</label>
-            </div>
+
+        <li role="menuitem" ng-repeat="item in filter.selectedItems" ng-click="removeItem(item)">
+            <a href="" class="grid-filter-item-detail">
+                <input type="checkbox" checked="checked" class="grid-filter-check"></input>
+                <span ng-bind="item"></span>
+            </a>
         </li>
-        <li>
-            <div class="date-range-wrapper">
-                <label>
-                    <input
-                        type="checkbox"
-                        ng-model="betweenDate"
-                        ng-change="toggle('betweenDate')"
-                    />
-                    Between
-                </label>
-                <input
-                    class="date-input"
-                    ng-model="start"
-                    type="text"
-                    datepicker-popup="M/dd/yyyy"
-                />
-                <label> and </label>
-                <input
-                    class="date-input"
-                    ng-model="end"
-                    type="text"
-                    datepicker-popup="M/dd/yyyy"
-                />
-            </div>
+
+        <li class="divider" ng-if="filter.selectedItems.length"></li>
+
+        <li role="menuitem" ng-repeat="result in filter.enum | filter:form.search | orderBy: result" ng-click="selectItem(result)" class="grid-filter-item">
+            <a href="" class="grid-filter-item-detail">
+                <input type="checkbox" class="grid-filter-check"></input>
+                <span ng-bind="result"></span>
+            </a>
         </li>
+
     </ul>
 
 </div>
