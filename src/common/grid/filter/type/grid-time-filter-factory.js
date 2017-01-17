@@ -12,15 +12,27 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                 this.templateUrl = 'common/grid/filter/type/partials/grid-time-filter-tpl.html';
 
+                this.selectedOperator = this.operators[0];
+
+                this.selectedUnit = this.units[0];
+
                 this.selectionString = 'Any';
+
+                this.selectedType = '';
+
+                this.withinDate = '';
+
+                this.moreDate = '';
+
+                this.startDate = '';
+
+                this.endDate = '';
 
                 this.isVisible = false;
 
                 this.isFiltering = false;
 
-                this.time = [];
-
-                this.selectedItems = [];
+                this.selectedType = [];
 
                 for (attr in defaults) {
                     this[attr] = defaults[attr];
@@ -30,11 +42,40 @@ angular.module('grid.gridTimeFilterFactory', [])
 
             GridTimeFilter.prototype = {
 
-                selectItem: function (item) {
+                operators: [
+                    {
+                        value: 'withinLast',
+                        name: '<='
+                    },
+                    {
+                        value: 'moreThan',
+                        name: '>='
+                    },
+                ],
+                units: [
+                    {
+                        value: 'hours',
+                        name: 'hours'
+                    },
+                    {
+                        value: 'days',
+                        name: 'days'
+                    },
+                    {
+                        value: 'weeks',
+                        name: 'weeks'
+                    },
+                    {
+                        value: 'months',
+                        name: 'months'
+                    },
+                ],
 
-                    this.selectedItems.push(item);
+                selectType: function (type) {
 
-                    this.time.splice(this.time.indexOf(item), 1);
+                    this.selectedType.push(type);
+
+                    this.time.splice(this.time.indexOf(type), 1);
 
                     this.isFiltering = true;
 
@@ -46,9 +87,9 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                     this.time.push(item);
 
-                    this.selectedItems.splice(this.selectedItems.indexOf(item), 1);
+                    this.selectedType.splice(this.selectedType.indexOf(item), 1);
 
-                    this.isFiltering = this.selectedItems.length !== 0;
+                    this.isFiltering = this.selectedType.length !== 0;
 
                     this.updateSelectionString();
 
@@ -56,26 +97,65 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                 updateSelectionString: function () {
 
-                    if (this.selectedItems.length === 0) {
+                    if (this.selectedType === 'within' && !!this.withinDate && !!this.selectedUnit) {
 
-                        this.selectionString = 'Any';
+                        this.selectionString = this.selectedOperator.name + ' ' + this.withinDate + ' ' + this.selectedUnit.name;
+
+                        this.isFiltering = true;
 
                         return;
+
                     }
 
-                    this.selectionString = this.selectedItems.join(', ');
+                    if (this.selectedType === 'more' && !!this.moreDate && !!this.selectedUnit) {
+
+                        this.selectionString = this.selectedOperator.name + ' ' + this.moreDate + ' ' + this.selectedUnit.name;
+
+                        this.isFiltering = true;
+
+                        return;
+
+                    }
+
+                    if (this.selectedType === 'between' && !!this.startDate && !!this.endDate) {
+
+                        this.selectionString = this.operators[1].name + ' ' + this.startDate + ' ' + this.operators[0].name + ' ' + this.endDate;
+
+                        this.isFiltering = true;
+
+                        return;
+
+                    }
+
+                    this.isFiltering = false;
+
+                    this.selectionString = 'Any';
 
                 },
 
                 getParams: function () {
 
+                    this.updateSelectionString();
+
                     var params = {};
+// dates should be a calculated epic date maybe
+                    if (this.selectedType === 'within' && !!this.withinDate) {
 
-                    if (this.selectedItems.length) {
+                        params[this.filterProperty + '[' + this.selectedOperator.value + ']'] = this.withinDate;
 
-                        params[this.filterProperty + '[IN]'] = this.selectedItems.map(function (item) {
-                            return item;
-                        });
+                    }
+
+                    if (this.selectedType === 'more' && !!this.moreDate) {
+
+                        params[this.filterProperty + '[' + this.selectedOperator.value + ']'] = this.moreDate;
+
+                    }
+
+                    if (this.selectedType === 'between' && !!this.startDate && !!this.endDate) {
+
+                        params[this.filterProperty + '[' + this.operators[1].value + ']'] = this.startDate;
+
+                        params[this.filterProperty + '[' + this.operators[0].value + ']'] = this.endDate;
 
                     }
 
@@ -85,8 +165,8 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                 clear: function () {
 
-                    this.time = this.time.concat(this.selectedItems);
-                    this.selectedItems = [];
+                    this.time = this.time.concat(this.selectedType);
+                    this.selectedType = [];
                     this.isFiltering = false;
                     this.updateSelectionString();
 

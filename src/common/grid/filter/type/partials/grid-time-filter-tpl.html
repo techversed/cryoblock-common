@@ -1,5 +1,4 @@
 <div class="btn-group" uib-dropdown keyboard-nav>
-
     <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectionString}}" uib-dropdown-toggle ng-class="{filtering: filter.isFiltering}">
         {{filter.title}} : {{ filter.selectionString }}
         <span class="caret"></span>
@@ -8,87 +7,95 @@
 
     <ul uib-dropdown-menu class="dropdown-menu" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
         <li>
-            <div class="date-range-wrapper">
-                <label>
-                    <input
-                        type="checkbox"
-                        ng-model="withinLast"
-                        ng-change="toggle('withinLast')"
-                    />
-                    Within the last
-                </label>
-                <input
-                    class="number-input"
-                    ng-model="within"
-                    type="text"
-                />
-                <select ng-model="withinUnits" type="text" class="date-type-chooser">
-                    <option value="hour"> hours </option>
-                    <option value="day"> days </option>
-                    <option value="week"> weeks </option>
-                    <option value="month"> months </option>
-                </select>
-            </div>
+           <input type="radio" name="type" value="within" ng-model="filter.selectedType"></input>
+
+            <strong>Within the last</strong>
+
+            <input
+                class="number-input"
+                ng-model="filter.withinDate"
+                type="text"
+            />
+
+            <select ng-model="filter.unit" type="text" class="date-type-chooser">
+                <option value="hour"> hours </option>
+                <option value="day"> days </option>
+                <option value="week"> weeks </option>
+                <option value="month"> months </option>
+            </select>
+            <select
+                class="form-control unit"
+                ng-options="unit.name for unit in filter.units track by unit.value"
+                ng-model="filter.selectedUnits"
+            >
+            </select>
         </li>
-        <li>
-            <div class="date-range-wrapper">
-                <label>
-                    <input
-                        type="checkbox"
-                        ng-model="moreThan"
-                        ng-change="toggle('moreThan')"
-                    />
-                    More than
-                </label>
-                <input
-                    class="number-input"
-                    ng-model="more"
-                    type="text"
-                />
-                <select ng-model="moreUnits" class="date-type-chooser">
-                    <option value="hour"> hours </option>
-                    <option value="day"> days </option>
-                    <option value="week"> weeks </option>
-                    <option value="month"> months </option>
-                </select>
-                <label> ago</label>
-            </div>
+        <li >
+            <input type="radio" name="type" value="more" ng-model="filter.selectedType"></input>
+
+            <strong>More than</strong>
+
+            <input
+                class="number-input"
+                ng-model="filter.moreDate"
+                type="text"
+            />
+
+            <select ng-model="filter.moreUnits" class="date-type-chooser">
+                <option value="hour"> hours </option>
+                <option value="day"> days </option>
+                <option value="week"> weeks </option>
+                <option value="month"> months </option>
+            </select>
+            <select
+                class="form-control unit"
+                ng-options="unit.name for unit in filter.units track by unit.value"
+                ng-model="filter.selectedUnits"
+            >
+            </select>
+            <strong> ago</strong>
         </li>
-        <li>
-            <div class="date-range-wrapper">
-                <label>
-                    <input
-                        type="checkbox"
-                        ng-model="betweenDate"
-                        ng-change="toggle('betweenDate')"
-                    />
-                    Between
-                </label>
-                <p class="input-group">
-                    <input
-                        class="date-input"
-                        ng-model="start"
-                        type="text"
-                        uib-datepicker-popup="M/dd/yyyy"
-                        is-open="popup1.opened"
-                    />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </p>
-                <label> and </label>
-                <p class="input-group">
-                    <input
-                        class="date-input"
-                        ng-model="end"
-                        type="text"
-                        uib-datepicker-popup="M/dd/yyyy"
-                        is-open="popup2.opened"
-                    />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </p>
+        <li >
+            <input type="radio" name="type" value="between" ng-model="filter.selectedType"></input>
+
+            <strong>Between</strong>
+
+            <input
+                class="form-control between"
+                ng-model="filter.startDate"
+                type="text"
+                uib-datepicker-popup="M/dd/yyyy"
+                is-open="popup1.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+
+            <strong style="margin-right: 6px;">and</strong>
+
+            <input
+                class="form-control between"
+                ng-model="filter.endDate"
+                type="text"
+                uib-datepicker-popup="M/dd/yyyy"
+                is-open="popup2.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </li>
+
+
+        <li role="menuitem">
+            <div class="row no-margin">
+                <div class="col-md-6">
+                    <button class="btn btn-info btn-block" ng-click="update()">Update</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-default btn-block" ng-click="refresh()">
+                        <i class="fa fa-refresh" />
+                    </button>
+                </div>
             </div>
         </li>
     </ul>
