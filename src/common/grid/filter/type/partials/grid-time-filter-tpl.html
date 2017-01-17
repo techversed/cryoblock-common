@@ -16,17 +16,10 @@
                 ng-model="filter.withinDate"
                 type="text"
             />
-
-            <select ng-model="filter.unit" type="text" class="date-type-chooser">
-                <option value="hour"> hours </option>
-                <option value="day"> days </option>
-                <option value="week"> weeks </option>
-                <option value="month"> months </option>
-            </select>
             <select
                 class="form-control unit"
                 ng-options="unit.name for unit in filter.units track by unit.value"
-                ng-model="filter.selectedUnits"
+                ng-model="filter.withinUnits"
             >
             </select>
         </li>
@@ -40,17 +33,10 @@
                 ng-model="filter.moreDate"
                 type="text"
             />
-
-            <select ng-model="filter.moreUnits" class="date-type-chooser">
-                <option value="hour"> hours </option>
-                <option value="day"> days </option>
-                <option value="week"> weeks </option>
-                <option value="month"> months </option>
-            </select>
             <select
                 class="form-control unit"
                 ng-options="unit.name for unit in filter.units track by unit.value"
-                ng-model="filter.selectedUnits"
+                ng-model="filter.moreUnits"
             >
             </select>
             <strong> ago</strong>
@@ -84,7 +70,6 @@
                 <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
         </li>
-
 
         <li role="menuitem">
             <div class="row no-margin">

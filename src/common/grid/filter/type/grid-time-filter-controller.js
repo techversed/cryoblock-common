@@ -28,7 +28,7 @@ angular.module('grid.gridTimeFilterCtrl', [])
 
                     $scope.filter.isVisible = true;
                     $scope.filter.isFiltering = true;
-                    $scope.filter.selectedType = 'single';
+                    $scope.filter.selectedType = 'within';
                     $scope.filter.selectedOperator = $scope.filter.operators[0];
                     $scope.filter.singleValue = parseFloat(withinParam);
                     $scope.filter.updateSelectionString();
@@ -37,7 +37,7 @@ angular.module('grid.gridTimeFilterCtrl', [])
 
                     $scope.filter.isVisible = true;
                     $scope.filter.isFiltering = true;
-                    $scope.filter.selectedType = 'single';
+                    $scope.filter.selectedType = 'more';
                     $scope.filter.selectedOperator = $scope.filter.operators[1];
                     $scope.filter.singleValue = parseFloat(morethanParam);
                     $scope.filter.updateSelectionString();
@@ -54,7 +54,6 @@ angular.module('grid.gridTimeFilterCtrl', [])
             };
 
             $scope.update = function () {
-console.log(1)
                 $scope.$emit('grid.refresh');
 
             };

@@ -14,7 +14,9 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                 this.selectedOperator = this.operators[0];
 
-                this.selectedUnit = this.units[0];
+                this.withinUnit = this.units[0];
+
+                this.moreUnit = this.units[0];
 
                 this.selectionString = 'Any';
 
@@ -97,9 +99,9 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                 updateSelectionString: function () {
 
-                    if (this.selectedType === 'within' && !!this.withinDate && !!this.selectedUnit) {
+                    if (this.selectedType === 'within' && !!this.withinDate && !!this.withinUnit) {
 
-                        this.selectionString = this.selectedOperator.name + ' ' + this.withinDate + ' ' + this.selectedUnit.name;
+                        this.selectionString = this.selectedOperator.name + ' ' + this.withinDate + ' ' + this.withinUnit.name;
 
                         this.isFiltering = true;
 
@@ -107,9 +109,9 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                     }
 
-                    if (this.selectedType === 'more' && !!this.moreDate && !!this.selectedUnit) {
+                    if (this.selectedType === 'more' && !!this.moreDate && !!this.moreUnit) {
 
-                        this.selectionString = this.selectedOperator.name + ' ' + this.moreDate + ' ' + this.selectedUnit.name;
+                        this.selectionString = this.selectedOperator.name + ' ' + this.moreDate + ' ' + this.moreUnit.name;
 
                         this.isFiltering = true;
 

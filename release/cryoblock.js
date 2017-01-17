@@ -83113,17 +83113,10 @@ angular.module("common/grid/filter/type/partials/grid-time-filter-tpl.html", [])
     "                ng-model=\"filter.withinDate\"\n" +
     "                type=\"text\"\n" +
     "            />\n" +
-    "\n" +
-    "            <select ng-model=\"filter.unit\" type=\"text\" class=\"date-type-chooser\">\n" +
-    "                <option value=\"hour\"> hours </option>\n" +
-    "                <option value=\"day\"> days </option>\n" +
-    "                <option value=\"week\"> weeks </option>\n" +
-    "                <option value=\"month\"> months </option>\n" +
-    "            </select>\n" +
     "            <select\n" +
     "                class=\"form-control unit\"\n" +
     "                ng-options=\"unit.name for unit in filter.units track by unit.value\"\n" +
-    "                ng-model=\"filter.selectedUnits\"\n" +
+    "                ng-model=\"filter.withinUnits\"\n" +
     "            >\n" +
     "            </select>\n" +
     "        </li>\n" +
@@ -83137,17 +83130,10 @@ angular.module("common/grid/filter/type/partials/grid-time-filter-tpl.html", [])
     "                ng-model=\"filter.moreDate\"\n" +
     "                type=\"text\"\n" +
     "            />\n" +
-    "\n" +
-    "            <select ng-model=\"filter.moreUnits\" class=\"date-type-chooser\">\n" +
-    "                <option value=\"hour\"> hours </option>\n" +
-    "                <option value=\"day\"> days </option>\n" +
-    "                <option value=\"week\"> weeks </option>\n" +
-    "                <option value=\"month\"> months </option>\n" +
-    "            </select>\n" +
     "            <select\n" +
     "                class=\"form-control unit\"\n" +
     "                ng-options=\"unit.name for unit in filter.units track by unit.value\"\n" +
-    "                ng-model=\"filter.selectedUnits\"\n" +
+    "                ng-model=\"filter.moreUnits\"\n" +
     "            >\n" +
     "            </select>\n" +
     "            <strong> ago</strong>\n" +
@@ -83181,7 +83167,6 @@ angular.module("common/grid/filter/type/partials/grid-time-filter-tpl.html", [])
     "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"open2()\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n" +
     "            </span>\n" +
     "        </li>\n" +
-    "\n" +
     "\n" +
     "        <li role=\"menuitem\">\n" +
     "            <div class=\"row no-margin\">\n" +
@@ -86290,7 +86275,7 @@ angular.module('grid.gridTimeFilterCtrl', [])
 
                     $scope.filter.isVisible = true;
                     $scope.filter.isFiltering = true;
-                    $scope.filter.selectedType = 'single';
+                    $scope.filter.selectedType = 'within';
                     $scope.filter.selectedOperator = $scope.filter.operators[0];
                     $scope.filter.singleValue = parseFloat(withinParam);
                     $scope.filter.updateSelectionString();
@@ -86299,7 +86284,7 @@ angular.module('grid.gridTimeFilterCtrl', [])
 
                     $scope.filter.isVisible = true;
                     $scope.filter.isFiltering = true;
-                    $scope.filter.selectedType = 'single';
+                    $scope.filter.selectedType = 'more';
                     $scope.filter.selectedOperator = $scope.filter.operators[1];
                     $scope.filter.singleValue = parseFloat(morethanParam);
                     $scope.filter.updateSelectionString();
@@ -86316,7 +86301,6 @@ angular.module('grid.gridTimeFilterCtrl', [])
             };
 
             $scope.update = function () {
-console.log(1)
                 $scope.$emit('grid.refresh');
 
             };
@@ -86387,7 +86371,9 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                 this.selectedOperator = this.operators[0];
 
-                this.selectedUnit = this.units[0];
+                this.withinUnit = this.units[0];
+
+                this.moreUnit = this.units[0];
 
                 this.selectionString = 'Any';
 
@@ -86470,9 +86456,9 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                 updateSelectionString: function () {
 
-                    if (this.selectedType === 'within' && !!this.withinDate && !!this.selectedUnit) {
+                    if (this.selectedType === 'within' && !!this.withinDate && !!this.withinUnit) {
 
-                        this.selectionString = this.selectedOperator.name + ' ' + this.withinDate + ' ' + this.selectedUnit.name;
+                        this.selectionString = this.selectedOperator.name + ' ' + this.withinDate + ' ' + this.withinUnit.name;
 
                         this.isFiltering = true;
 
@@ -86480,9 +86466,9 @@ angular.module('grid.gridTimeFilterFactory', [])
 
                     }
 
-                    if (this.selectedType === 'more' && !!this.moreDate && !!this.selectedUnit) {
+                    if (this.selectedType === 'more' && !!this.moreDate && !!this.moreUnit) {
 
-                        this.selectionString = this.selectedOperator.name + ' ' + this.moreDate + ' ' + this.selectedUnit.name;
+                        this.selectionString = this.selectedOperator.name + ' ' + this.moreDate + ' ' + this.moreUnit.name;
 
                         this.isFiltering = true;
 
