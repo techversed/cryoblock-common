@@ -19,8 +19,8 @@ angular.module('grid.gridTimeFilterCtrl', [])
 
                     $scope.filter.isVisible = true;
                     $scope.filter.isFiltering = true;
-                    $scope.filter.betweenStart = parseFloat(morethanParam);
-                    $scope.filter.betweenEnd = parseFloat(withinParam);
+                    $scope.filter.betweenStart = parseInt(morethanParam);
+                    $scope.filter.betweenEnd = parseInt(withinParam);
                     $scope.filter.selectedType = 'between';
                     $scope.filter.updateSelectionString();
 
@@ -30,7 +30,9 @@ angular.module('grid.gridTimeFilterCtrl', [])
                     $scope.filter.isFiltering = true;
                     $scope.filter.selectedType = 'within';
                     $scope.filter.selectedOperator = $scope.filter.operators[0];
-                    $scope.filter.singleValue = parseFloat(withinParam);
+                    //WHAT
+                    $scope.filter.withinUnits = $scope.filter.operators[0];
+                    $scope.filter.singleValue = parseInt(withinParam);
                     $scope.filter.updateSelectionString();
 
                 } else if (morethanParam !== undefined) {
@@ -39,7 +41,9 @@ angular.module('grid.gridTimeFilterCtrl', [])
                     $scope.filter.isFiltering = true;
                     $scope.filter.selectedType = 'more';
                     $scope.filter.selectedOperator = $scope.filter.operators[1];
-                    $scope.filter.singleValue = parseFloat(morethanParam);
+                    //WHAT
+                    $scope.filter.moreUnits = $scope.filter.operators[1];
+                    $scope.filter.singleValue = parseInt(morethanParam);
                     $scope.filter.updateSelectionString();
 
                 }
@@ -54,6 +58,7 @@ angular.module('grid.gridTimeFilterCtrl', [])
             };
 
             $scope.update = function () {
+                console.log($scope.filter.withinUnits.name);
                 $scope.$emit('grid.refresh');
 
             };

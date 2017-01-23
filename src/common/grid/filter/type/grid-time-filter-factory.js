@@ -98,7 +98,8 @@ angular.module('grid.gridTimeFilterFactory', [])
                 },
 
                 updateSelectionString: function () {
-
+console.log(this.withinUnit.name)
+console.log(this.moreUnit.name)
                     if (this.selectedType === 'within' && !!this.withinDate && !!this.withinUnit) {
 
                         this.selectionString = this.selectedOperator.name + ' ' + this.withinDate + ' ' + this.withinUnit.name;
