@@ -26,13 +26,13 @@
 
         <div class="one-to-many-btn-group btn-group">
 
-            <label class="one-to-many-list-toggle btn btn-default" ng-if="!grid.selectedItem" ng-click="toggle()" ng-class="{expanded:showGrid}">
+            <label class="one-to-many-list-toggle btn btn-default" ng-if="!grid.selectedItem" ng-click="toggle()" ng-class="{expanded:showGrid, disabled: grid.initResultCount === 0}">
                 <span class="label label-default" ng-if="grid.initResultCount === 0">{{grid.initResultCount}}</span>
                 <span class="label label-success" ng-if="grid.initResultCount > 0">{{grid.initResultCount}}</span>
                 <span class="m-l-xs">Linked</span>
 
-                <span class="label label-primary" ng-if="grid.addingItems.length > 0">{{grid.addingItems.length}}</span>
-                <span class="m-l-xs" ng-if="grid.addingItems.length > 0">Pending Addition</span>
+                <span class="label label-primary" ng-if="searchGrid.addingItems.length > 0">{{searchGrid.addingItems.length}}</span>
+                <span class="m-l-xs" ng-if="searchGrid.addingItems.length > 0">Pending Addition</span>
 
                 <span class="label label-danger" ng-if="grid.removingItems.length > 0">{{grid.removingItems.length}}</span>
                 <span class="m-l-xs" ng-if="grid.removingItems.length > 0">Pending Removal</span>
@@ -47,15 +47,15 @@
 
     </div>
 
-    <div ng-if="grid.removingItems.length || grid.addingItems.length" class="grid-staged-changes-container">
+    <div ng-if="grid.removingItems.length || searchGrid.addingItems.length" class="grid-staged-changes-container" ng-show="showGrid || showSelectGrid">
         <table class="staged-changes-table">
-            <tr ng-if="grid.addingItems.length">
+            <tr ng-if="searchGrid.addingItems.length">
                 <td class="staged-type">Pending Addition</td>
                 <td>
                     <ul class="staged-changes-list">
-                        <li ng-repeat="addingItem in grid.addingItems">
+                        <li ng-repeat="addingItem in searchGrid.addingItems">
                            <span class="label label-primary">
-                                {{addingItem.id + ' : ' + addingItem.stringLabel}} <i class="fa fa-remove" ng-click="removeAddingItem(addingItem)"></i>
+                                {{addingItem.id + ' : ' + addingItem.stringLabel}} <i class="fa fa-remove" ng-click="searchGrid.removeAddingItem(addingItem)"></i>
                             </span>
                         </li>
                     </ul>

@@ -58,11 +58,11 @@
         }
     }
 
-    &.isEditable, &.isSelectable {
+    &.isEditable, &.isSelectable, &.isManySelectable {
 
         border-width: 0px 1px 1px 1px;
 
-        &.isSelectable {
+        &.isSelectable, &.isManySelectable {
             border-width: 1px 1px 1px 1px;
         }
 
@@ -116,7 +116,7 @@
         }
     }
 
-    &.isSelectable {
+    &.isSelectable, &.isManySelectable {
 
         .grid-staged-changes-container {
             border-bottom: none;
@@ -124,7 +124,7 @@
 
     }
 
-    &:not(.isEditable), &:not(.isSelectable) {
+    &:not(.isEditable), &:not(.isSelectable), &:not(.isManySelectable) {
         .grid-overflow {
             overflow: auto;
             &:not(.no-results) {
@@ -376,6 +376,9 @@ grid-more-filter {
 }
 
 .grid-staged-changes-container {
+
+    border-left: 1px solid #e5e6e7;
+    border-right: 1px solid #e5e6e7;
 
     .staged-changes-table {
         width: 100%;

@@ -39,6 +39,8 @@ angular.module('grid.gridFactory', [])
 
                 this.isSelectable = false;
 
+                this.isManySelectable = false;
+
                 this.removingItems = [];
 
                 this.removingItemIds = [];
@@ -197,6 +199,14 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                allowSelectMany: function () {
+
+                    this.isManySelectable = true;
+
+                    return this;
+
+                },
+
                 setStaticFilters: function (staticFilters) {
 
                     this.staticFilters = staticFilters;
@@ -264,11 +274,11 @@ angular.module('grid.gridFactory', [])
 
                 },
 
-                sortColumn: function (sortColumn, direction, init = true) {
+                sortColumn: function (sortColumn, direction, init) {
 
                     var getParams = $location.search();
 
-                    if (init) {
+                    if (init == undefined) {
 
                         if (getParams['cOrderBy'] !== undefined) {
                             sortColumn = {name: getParams['cOrderBy']};
@@ -374,7 +384,6 @@ angular.module('grid.gridFactory', [])
 
                 addItem: function (item) {
 
-                    console.log('adding')
                     this.addingItems.push(item);
                     this.addingItemIds.push(item.id);
 

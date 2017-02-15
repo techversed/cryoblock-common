@@ -1,4 +1,4 @@
-<div class="grid-responsive-table" ng-class="{isEditable: grid.isEditable, isSelectable: grid.isSelectable, 'no-results': grid.results.length === 0}">
+<div class="grid-responsive-table" ng-class="{isEditable: grid.isEditable, isSelectable: grid.isSelectable, isManySelectable: grid.isManySelectable, 'no-results': grid.results.length === 0}">
 
 
     <div ng-if="((grid.isEditable || grid.isSelectable) && grid.initResultCount) || (!grid.isEditable && !grid.isSelectable)">
@@ -97,7 +97,7 @@
                             </div>
                         </td>
 
-                        <td class="action-cell" ng-if="!grid.isEditable && !grid.isSelectable">
+                        <td class="action-cell" ng-if="!grid.isEditable && !grid.isSelectable && !grid.isManySelectable">
                             <div ng-if="grid.actionTemplate" ng-include="grid.actionTemplate" class="action-container"></div>
                         </td>
 
@@ -122,6 +122,19 @@
                                 </button>
                                <button class="btn btn-success btn-circle" type="button" ng-click="selectItem(result)" ng-show="grid.selectedItem !== result">
                                     <i class="fa fa-check"></i>
+                                </button>
+                            </div>
+
+                        </td>
+
+                        <td ng-if="grid.isManySelectable" class="editable-action-cell">
+
+                            <div>
+                                <button class="btn btn-danger btn-circle" type="button" ng-click="removeAddingItem(result)" ng-show="isAdding(result)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                               <button class="btn btn-success btn-circle" type="button" ng-click="addItem(result)" ng-show="!isAdding(result)">
+                                    <i class="fa fa-plus"></i>
                                 </button>
                             </div>
 

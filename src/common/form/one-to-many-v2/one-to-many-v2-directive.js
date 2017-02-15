@@ -39,19 +39,15 @@ angular.module('form.oneToManyDirective', [])
 
                     };
 
-                    $scope.onSelect = function (item) {
-
-
-                        $scope.grid.addItem(item);
-                        // $scope.search = '';
-                        // $scope.$emit('form:changed');
-
-                    };
-
                     $scope.showGrid = false;
                     $scope.showSelectGrid = false;
 
                     $scope.toggle = function () {
+
+                        if ($scope.grid.initResultCount === 0) {
+                            return;
+                        }
+
                         $scope.showSelectGrid = false;
                         $scope.showGrid = $scope.showGrid ? false : true;
                     };
@@ -60,8 +56,6 @@ angular.module('form.oneToManyDirective', [])
                         $scope.showGrid = false;
                         $scope.showSelectGrid = $scope.showSelectGrid ? false : true;
                     };
-
-                    $scope.searchGrid.setSelectItemCallback($scope.onSelect);
 
                 },
 
@@ -74,7 +68,7 @@ angular.module('form.oneToManyDirective', [])
                     $scope.$on('form:submit', function () {
 
                         // if nothing was changed
-                        if ($scope.grid.removingItemIds.length === 0 && $scope.grid.addingItemIds.length === 0) {
+                        if ($scope.grid.removingItemIds.length === 0 && $scope.searchGrid.addingItemIds.length === 0) {
 
                             return;
 
@@ -86,7 +80,7 @@ angular.module('form.oneToManyDirective', [])
 
                         $scope.parentObject[$scope.bindTo].parentId = $scope.parentObject.id;
                         $scope.parentObject[$scope.bindTo].removing = $scope.grid.removingItemIds;
-                        $scope.parentObject[$scope.bindTo].adding = $scope.grid.addingItemIds;
+                        $scope.parentObject[$scope.bindTo].adding = $scope.searchGrid.addingItemIds;
 
                     });
 
