@@ -38,7 +38,6 @@ angular.module('form.oneToOne.oneToOneDirective', [])
                     $scope.onSelect = function (item) {
 
                         $scope.$emit('form:changed');
-                        console.log(3123);
 
                     };
 

@@ -1,6 +1,6 @@
-angular.module('form.oneToManyV2Directive', [])
+angular.module('form.oneToManyDirective', [])
 
-    .directive('oneToManyV2', ['gridFactory', '$http', 'API',
+    .directive('oneToMany', ['gridFactory', '$http', 'API',
 
         function (gridFactory, $http, API) {
 
@@ -14,6 +14,7 @@ angular.module('form.oneToManyV2Directive', [])
 
                 scope: {
                     grid: '=',
+                    searchGrid: '=',
                     parentObject: '=',
                     bindTo: '@',
                     resourceUrl: '@',
@@ -38,12 +39,22 @@ angular.module('form.oneToManyV2Directive', [])
 
                     };
 
-                    $scope.onSelect = function (item) {
+                    $scope.showGrid = false;
+                    $scope.showSelectGrid = false;
 
-                        $scope.grid.addItem(item);
-                        $scope.search = '';
-                        $scope.$emit('form:changed');
+                    $scope.toggle = function () {
 
+                        if ($scope.grid.initResultCount === 0) {
+                            return;
+                        }
+
+                        $scope.showSelectGrid = false;
+                        $scope.showGrid = $scope.showGrid ? false : true;
+                    };
+
+                    $scope.toggleAdd = function () {
+                        $scope.showGrid = false;
+                        $scope.showSelectGrid = $scope.showSelectGrid ? false : true;
                     };
 
                 },
@@ -57,7 +68,7 @@ angular.module('form.oneToManyV2Directive', [])
                     $scope.$on('form:submit', function () {
 
                         // if nothing was changed
-                        if ($scope.grid.removingItemIds.length === 0 && $scope.grid.addingItemIds.length === 0) {
+                        if ($scope.grid.removingItemIds.length === 0 && $scope.searchGrid.addingItemIds.length === 0) {
 
                             return;
 
@@ -69,7 +80,7 @@ angular.module('form.oneToManyV2Directive', [])
 
                         $scope.parentObject[$scope.bindTo].parentId = $scope.parentObject.id;
                         $scope.parentObject[$scope.bindTo].removing = $scope.grid.removingItemIds;
-                        $scope.parentObject[$scope.bindTo].adding = $scope.grid.addingItemIds;
+                        $scope.parentObject[$scope.bindTo].adding = $scope.searchGrid.addingItemIds;
 
                     });
 

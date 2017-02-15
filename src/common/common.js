@@ -32,5 +32,6 @@ angular.module('common', [
     'group',
     'role',
     'objectHistory',
-    'commonFilters'
+    'commonFilters',
+    'widget'
 ]);

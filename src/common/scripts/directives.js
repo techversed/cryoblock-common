@@ -19,11 +19,18 @@ function pageTitle($rootScope, $timeout) {
                 if (toState.pageTitle) title = 'Cryoblock | ' + toState.pageTitle;
 
                 // look for vars in the title
-                var matches = title.match(/\{(\w*)\}/);
+                var matches = title.match(/\{(\w*)\}/g);
 
-                if (matches && toParams[matches[1]] !== undefined) {
-                    title = title.replace(/\{(\w*)\}/, toParams[matches[1]]);
-                }
+                angular.forEach(matches, function (match) {
+
+                    match = match.replace('{', '')
+                    match = match.replace('}', '')
+
+                    if (toParams[match] !== undefined) {
+                        title = title.replace(/\{(\w*)\}/, toParams[match]);
+                    }
+
+                });
 
                 $timeout(function() {
                     element.text(title);

@@ -8,6 +8,9 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                 url: '/administrator',
                 name: 'admin',
                 views: {
+                    navbar: {
+                        templateUrl: 'navbar-tpl.html',
+                    },
                     content: {
                         templateUrl: 'common/layout/carbon-layout.html',
                     }
