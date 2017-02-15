@@ -166,7 +166,7 @@ console.log(this.moreUnit.name)
 
                 },
 
-                clear: function () {
+                refresh: function () {
 
                     this.time = this.time.concat(this.selectedType);
                     this.selectedType = [];

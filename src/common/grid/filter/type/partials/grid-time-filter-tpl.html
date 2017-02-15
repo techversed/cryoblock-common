@@ -19,7 +19,7 @@
             <select
                 class="form-control unit"
                 ng-options="unit.name for unit in filter.units track by unit.value"
-                ng-model="filter.withinUnits"
+                ng-model="filter.withinUnit"
             >
             </select>
         </li>
@@ -36,7 +36,7 @@
             <select
                 class="form-control unit"
                 ng-options="unit.name for unit in filter.units track by unit.value"
-                ng-model="filter.moreUnits"
+                ng-model="filter.moreUnit"
             >
             </select>
             <strong> ago</strong>
