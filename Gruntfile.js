@@ -42,13 +42,13 @@ module.exports = function (grunt) {
                     optimization: 2
                 },
                 files: {
-                    "<%= cryoblock.build %>/production/grid.css": "<%= cryoblock.app %>/common/grid/grid-style.less",
-                    "<%= cryoblock.build %>/production/object-history.css": "<%= cryoblock.app %>/common/object-history/object-history-styles.less",
-                    "<%= cryoblock.build %>/production/comment.css": "<%= cryoblock.app %>/common/comment/comment-styles.less",
-                    "<%= cryoblock.build %>/production/one-to-many.css": "<%= cryoblock.app %>/common/form/one-to-many/one-to-many-styles.less",
-                    "<%= cryoblock.build %>/production/one-to-one.css": "<%= cryoblock.app %>/common/form/one-to-one/one-to-one-styles.less",
-                    "<%= cryoblock.build %>/production/app.css": "<%= cryoblock.app %>/common/profile/profile-style.less",
-                    "<%= cryoblock.build %>/production/cryoblock.css": "<%= cryoblock.app %>/common/less/style.less"
+                    // "<%= cryoblock.build %>/production/grid.css": "<%= cryoblock.app %>/common/grid/grid-style.less",
+                    // "<%= cryoblock.build %>/production/object-history.css": "<%= cryoblock.app %>/common/object-history/object-history-styles.less",
+                    // "<%= cryoblock.build %>/production/comment.css": "<%= cryoblock.app %>/common/comment/comment-styles.less",
+                    // "<%= cryoblock.build %>/production/one-to-many.css": "<%= cryoblock.app %>/common/form/one-to-many/one-to-many-styles.less",
+                    // "<%= cryoblock.build %>/production/one-to-one.css": "<%= cryoblock.app %>/common/form/one-to-one/one-to-one-styles.less",
+                    // "<%= cryoblock.build %>/production/app.css": "<%= cryoblock.app %>/common/profile/profile-style.less",
+                    "<%= cryoblock.build %>/production/cryoblock.css": "<%= cryoblock.app %>/**/*styles.less"
                 },
             }
         },
@@ -225,12 +225,12 @@ module.exports = function (grunt) {
             },
             css: {
                 src: [
-                    '<%= cryoblock.build %>/production/grid.css',
-                    '<%= cryoblock.build %>/production/object-history.css',
-                    '<%= cryoblock.build %>/production/comment.css',
-                    '<%= cryoblock.build %>/production/one-to-many.css',
-                    '<%= cryoblock.build %>/production/one-to-one.css',
-                    '<%= cryoblock.build %>/production/app.css',
+                    // '<%= cryoblock.build %>/production/grid.css',
+                    // '<%= cryoblock.build %>/production/object-history.css',
+                    // '<%= cryoblock.build %>/production/comment.css',
+                    // '<%= cryoblock.build %>/production/one-to-many.css',
+                    // '<%= cryoblock.build %>/production/one-to-one.css',
+                    // '<%= cryoblock.build %>/production/app.css',
                     '<%= cryoblock.build %>/production/cryoblock.css'
                 ],
                 dest: '<%= cryoblock.release %>/cryoblock.css'

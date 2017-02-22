@@ -7,6 +7,9 @@ angular.module('profile.routes', [])
                 url: '/profile',
                 name: 'profile',
                 views: {
+                    navbar: {
+                        templateUrl: 'navbar-tpl.html',
+                    },
                     content: {
                         templateUrl: 'common/layout/carbon-layout.html',
                     }

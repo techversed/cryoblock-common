@@ -1,3 +1,3 @@
-angular.module('form.oneToManyV2', [
-    'form.oneToManyV2Directive'
+angular.module('form.oneToMany', [
+    'form.oneToManyDirective'
 ]);
