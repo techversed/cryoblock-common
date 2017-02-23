@@ -59,6 +59,12 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                         return $cbResource.getOne('/user?id[EQ]=' + $stateParams.id);
 
+                                    },
+
+                                    groups: function (userGridFactory, user) {
+
+                                        return userGridFactory.getGroupGrid(user ? user.id : null, false);
+
                                     }
 
                                 }

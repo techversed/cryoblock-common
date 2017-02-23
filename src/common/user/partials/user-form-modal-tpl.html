@@ -61,6 +61,12 @@
                 </div>
             </cb-form-group>
 
+            <cb-form-group label="Groups" name="groups">
+                <div class="col-sm-10">
+                    <one-to-many grid="groups" search-grid="groupSelectGrid" parent-object="user" bind-to="groups" resource-url="/group" placeholder="Add Group.."></one-to-many>
+                </div>
+            </cb-form-group>
+
         </div>
 
         <div class="modal-footer">

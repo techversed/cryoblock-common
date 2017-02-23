@@ -1,8 +1,8 @@
 angular.module('user.userFormFactory', [])
 
-    .factory('userFormFactory', ['$uibModal', '$state', '$stateParams', '$cbResource',
+    .factory('userFormFactory', ['$uibModal', '$state', '$stateParams', '$cbResource', 'userGridFactory', 'groupGridFactory',
 
-        function ($uibModal, $state, $stateParams, $cbResource) {
+        function ($uibModal, $state, $stateParams, $cbResource, userGridFactory, groupGridFactory) {
 
             var userFormFactory = {
 
@@ -20,6 +20,18 @@ angular.module('user.userFormFactory', [])
                             user: function () {
 
                                 return user;
+
+                            },
+
+                            groups: function () {
+
+                                return userGridFactory.getGroupGrid(user ? user.id : null, true);
+
+                            },
+
+                            groupSelectGrid: function () {
+
+                                return groupGridFactory.getSelectGrid();
 
                             },
 

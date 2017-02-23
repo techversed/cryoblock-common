@@ -1,12 +1,14 @@
 angular.module('user.userFormCtrl', [])
 
-    .controller('userFormCtrl', ['$scope', '$uibModalInstance', 'user', '$cbResource', 'toastr', 'callback',
+    .controller('userFormCtrl', ['$scope', '$uibModalInstance', 'user', 'groups', 'groupSelectGrid', '$cbResource', 'toastr', 'callback',
 
-        function ($scope, $modalInstance, user, $cbResource, toastr, callback) {
+        function ($scope, $modalInstance, user, groups, groupSelectGrid, $cbResource, toastr, callback) {
 
             $scope.user = user ? angular.copy(user) : {};
             $scope.errors = [];
             $scope.userForm = {};
+            $scope.groups = groups;
+            $scope.groupSelectGrid = groupSelectGrid;
 
             $scope.close = function () {
 

@@ -1,8 +1,8 @@
 angular.module('user.userGridFactory', [])
 
-    .factory('userGridFactory', ['gridFactory', '$cbResource', '$location',
+    .factory('userGridFactory', ['gridFactory', '$cbResource', '$location', '$injector',
 
-        function (gridFactory, $cbResource, $location) {
+        function (gridFactory, $cbResource, $location, $injector) {
 
             var userGridFactory = {
 
@@ -109,6 +109,39 @@ angular.module('user.userGridFactory', [])
                         return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
+                        ;
+
+                    });
+
+                },
+
+                getGroupGrid: function (userId, isEditable) {
+
+                    var groupGridFactory = $injector.get('groupGridFactory');
+
+                    var grid = groupGridFactory.create();
+
+                    isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
+
+                    grid
+                        .setResourceUrl('/user-group/user/' + userId)
+                        .setPerPage(3)
+                        .disableToggleColumns()
+                        .setNoResultString('No linked groups found')
+                        .disableHover()
+                    ;
+
+                    grid.perPageOptions = [3, 10, 25];
+
+                    if (!userId) {
+                        return grid;
+                    }
+
+                    return $cbResource.get('/user-group/user/' + userId).then(function (response) {
+
+                        return grid
+                            .setPaginationFromResponse(response)
+                            .setResults(response.data)
                         ;
 
                     });
