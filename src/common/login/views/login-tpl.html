@@ -2,17 +2,17 @@
     <div>
 
         <div>
-            <h1 class="logo-name">CB</h1>
+            <h1 class="logo-name">{{loginParams.acronym}}</h1>
         </div>
 
-        <h3>Welcome to CryoBlock</h3>
-        <p>An admin interface perfectly designed to manage your data</p>
-        <p>Login to see it in action.</p>
+        <h3>{{loginParams.welcomeMessage}}</h3>
+        <p>{{loginParams.subWelcomeMessage}}</p>
+        <p>{{loginParams.subWelcomeMessage2}}</p>
 
         <form ng-submit="submit()" class="m-t" role="form">
 
             <div class="form-group">
-                <input ng-model="username" type="email" class="form-control" placeholder="Username" required="">
+                <input ng-model="username" type="text" class="form-control" placeholder="Username or Email" required="">
             </div>
             <div class="form-group">
                 <input ng-model="password" type="password" class="form-control" placeholder="Password" required="">
@@ -30,7 +30,7 @@
         </form>
 
         <p class="m-t">
-            <small>Techversed LLC - Carbon Interface Framework &copy; 2015</small>
+            <small>{{loginParams.copyright}}</small>
         </p>
 
     </div>
