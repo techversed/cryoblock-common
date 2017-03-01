@@ -102,7 +102,7 @@ angular.module('group.groupGridFactory', [])
                     isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
 
                     grid
-                        .setResourceUrl('/group-role' + groupId)
+                        .setResourceUrl('/group-role/group' + groupId)
                         .setPerPage(3)
                         .disableToggleColumns()
                         .setNoResultString('No linked roles found')
@@ -135,10 +135,10 @@ angular.module('group.groupGridFactory', [])
                     isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
 
                     grid
-                        .setResourceUrl('/user-group' + groupId)
+                        .setResourceUrl('/user-group/group' + groupId)
                         .setPerPage(3)
                         .disableToggleColumns()
-                        .setNoResultString('No linked roles found')
+                        .setNoResultString('No linked users found')
                         .disableHover()
                     ;
 

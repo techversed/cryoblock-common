@@ -1,14 +1,8 @@
 angular.module('role.roleRowActionsCtrl', [])
 
-    .controller('roleRowActionsCtrl', ['$scope', 'roleFormFactory',
+    .controller('roleRowActionsCtrl', ['$scope',
 
-        function ($scope, roleFormFactory) {
-
-            $scope.edit = function (user) {
-
-                roleFormFactory.openFormModal(user);
-
-            };
+        function ($scope) {
 
         }
 

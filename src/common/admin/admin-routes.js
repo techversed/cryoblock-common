@@ -92,6 +92,7 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     }
 
+
                                 }
 
                             }
@@ -115,8 +116,19 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                         return $cbResource.getOne('/group?id[EQ]=' + $stateParams.id);
 
-                                    }
+                                    },
 
+                                    users: function (groupGridFactory, group) {
+
+                                        return groupGridFactory.getUserGrid(group ? group.id : null, false);
+
+                                    },
+
+                                    roles: function (groupGridFactory, group) {
+
+                                        return groupGridFactory.getRoleGrid(group ? group.id : null, false);
+
+                                    }
                                 }
 
                             }
@@ -164,6 +176,12 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                     role: function ($cbResource, $stateParams) {
 
                                         return $cbResource.getOne('/role?id[EQ]=' + $stateParams.id);
+
+                                    },
+
+                                    groups: function (roleGridFactory, role) {
+
+                                        return roleGridFactory.getGroupGrid(role ? role.id : null, false);
 
                                     }
 

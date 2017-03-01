@@ -146,6 +146,31 @@ angular.module('user.userGridFactory', [])
 
                     });
 
+                },
+
+                getSelectGrid: function () {
+
+                    var grid = this.create();
+
+                    grid.setResourceUrl('/user');
+
+                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+
+                    return $cbResource.get('/user', defaultParams).then(function (response) {
+
+                        grid.perPageOptions = [3, 10, 25];
+
+                        return grid
+                            .setResults(response.data)
+                            .setPaginationFromResponse(response)
+                            .allowSelectMany()
+                            .disableHover()
+                            .setPerPage(3)
+                            .disableToggleColumns()
+                        ;
+
+                    });
+
                 }
 
             };

@@ -11,7 +11,6 @@
         </div>
         <div class="hpanel">
             <div class="panel-body">
-                <button ng-click="edit(role)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
                 <h2 class="font-light m-b-xs inline">
                   Role {{role.id}} - {{role.role}}
                 </h2>
@@ -54,30 +53,6 @@
                         <div class="panel-tools">
                             <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                         </div>
-                        <i class="fa fa-roles"></i>
-                        People
-                    </div>
-                    <div class="panel-body no-padding">
-                        <table class="table-detail">
-                            <tr>
-                                <td>Created By</td>
-                                <td>{{role.createdBy.fullName}}</td>
-                            </tr>
-                            <tr>
-                                <td>Updated By</td>
-                                <td>{{role.updatedBy.fullName}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
                         <i class="fa fa-calendar"></i>
                         Dates
                     </div>
@@ -104,11 +79,11 @@
                         <div class="panel-tools">
                             <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                         </div>
-                        Roles Linked to Role {{role.id}}
+                        Groups Linked to Role {{group.id}}
                     </div>
                     <div class="panel-body no-padding">
 
-                        <grid grid="linkedRolesGrid"></grid>
+                        <grid grid="groups"></grid>
 
                     </div>
                 </div>

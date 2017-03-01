@@ -42,7 +42,7 @@ angular.module('user.userFormCtrl', [])
 
                     function (response) {
 
-                        toastr.info('Sample ' + method + 'd successfully');
+                        toastr.info('User ' + method + 'd successfully');
                         $scope.close();
                         callback();
 

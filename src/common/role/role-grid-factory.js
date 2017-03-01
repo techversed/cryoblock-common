@@ -1,8 +1,8 @@
 angular.module('role.roleGridFactory', [])
 
-    .factory('roleGridFactory', ['gridFactory', '$cbResource', '$location',
+    .factory('roleGridFactory', ['gridFactory', '$cbResource', '$location', '$injector',
 
-        function (gridFactory, $cbResource, $location) {
+        function (gridFactory, $cbResource, $location, $injector) {
 
             var roleGridFactory = {
 
@@ -61,6 +61,64 @@ angular.module('role.roleGridFactory', [])
                         return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
+                        ;
+
+                    });
+
+                },
+
+                getGroupGrid: function (roleId, isEditable) {
+
+                    var groupGridFactory = $injector.get('groupGridFactory');
+
+                    var grid = groupGridFactory.create();
+
+                    isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
+
+                    grid
+                        .setResourceUrl('/group-role/role' + roleId)
+                        .setPerPage(3)
+                        .disableToggleColumns()
+                        .setNoResultString('No linked groups found')
+                        .disableHover()
+                    ;
+
+                    grid.perPageOptions = [3, 10, 25];
+
+                    if (!roleId) {
+                        return grid;
+                    }
+
+                    return $cbResource.get('/group-role/role/' + roleId).then(function (response) {
+
+                        return grid
+                            .setPaginationFromResponse(response)
+                            .setResults(response.data)
+                        ;
+
+                    });
+
+                },
+
+                getSelectGrid: function () {
+
+                    var grid = this.create();
+
+                    grid.setResourceUrl('/role');
+
+                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+
+                    return $cbResource.get('/role', defaultParams).then(function (response) {
+
+                        grid.perPageOptions = [3, 10, 25];
+
+                        return grid
+                            .setResults(response.data)
+                            .setPaginationFromResponse(response)
+                            .allowSelectMany()
+                            .disableHover()
+                            .setPerPage(3)
+                            .disableToggleColumns()
                         ;
 
                     });

@@ -1,12 +1,11 @@
 angular.module('admin.adminRoleDetailCtrl', [])
 
-    .controller('adminRoleDetailCtrl', ['$scope', 'role', 'roleFormFactory',
+    .controller('adminRoleDetailCtrl', ['$scope', 'role', 'groups',
 
-        function ($scope, role, roleFormFactory) {
+        function ($scope, role, groups) {
 
             $scope.role = role;
-            // $scope.linkedRolesGrid = linkedRolesGrid;
-            $scope.edit = roleFormFactory.openRoleFormModal;
+            $scope.groups = groups;
 
             $scope.roleTypeIconMapping = {
 
