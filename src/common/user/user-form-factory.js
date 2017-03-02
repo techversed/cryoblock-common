@@ -49,6 +49,39 @@ angular.module('user.userFormFactory', [])
 
                     });
 
+                },
+
+                openDisableModal: function (user) {
+
+                    $uibModal.open({
+                        templateUrl: 'common/user/partials/user-disable-modal-tpl.html',
+                        controller: 'userDisableCtrl',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'lg',
+                        resolve: {
+
+                            user: function () {
+
+                                return user;
+
+                            },
+
+                            callback: function () {
+
+                                return function () {
+
+                                    $state.go($state.current, $stateParams, {reload:true});
+
+                                };
+
+                            }
+
+                        }
+
+                    });
+
                 }
 
             };

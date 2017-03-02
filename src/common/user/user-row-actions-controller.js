@@ -10,6 +10,11 @@ angular.module('user.userRowActionsCtrl', [])
 
             };
 
+            $scope.disable = function (user) {
+
+                userFormFactory.openDisableModal(user);
+
+            };
         }
 
     ])
