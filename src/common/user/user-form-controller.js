@@ -9,6 +9,7 @@ angular.module('user.userFormCtrl', [])
             $scope.userForm = {};
             $scope.groups = groups;
             $scope.groupSelectGrid = groupSelectGrid;
+            $scope.allowEnable = !$scope.user.enabled;
 
             $scope.close = function () {
 
@@ -43,7 +44,7 @@ angular.module('user.userFormCtrl', [])
                     function (response) {
 
                         toastr.info('User ' + method + 'd successfully');
-                        $scope.close();
+                        $scope.$close();
                         callback();
 
                     },

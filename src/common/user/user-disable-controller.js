@@ -8,18 +8,6 @@ angular.module('user.userDisableCtrl', [])
             $scope.errors = [];
             $scope.userForm = {};
 
-            $scope.close = function () {
-
-                if ($scope.userForm.$pristine === false) {
-                    console.log('not pristine');
-
-                }
-
-                $modalInstance.close();
-
-            };
-
-console.log($scope.user.id);
             $scope.submit = function (isValid) {
 
                 $scope.$broadcast('form:submit');
@@ -36,7 +24,7 @@ console.log($scope.user.id);
                     function (response) {
 
                         toastr.info('User disabled successfully');
-                        $scope.close();
+                        $modalInstance.close();
                         callback();
 
                     },

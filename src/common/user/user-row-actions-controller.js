@@ -1,8 +1,17 @@
 angular.module('user.userRowActionsCtrl', [])
 
-    .controller('userRowActionsCtrl', ['$scope', 'userFormFactory',
+    .controller('userRowActionsCtrl', ['$scope', 'userFormFactory', 'sessionFactory',
 
-        function ($scope, userFormFactory) {
+        function ($scope, userFormFactory, sessionFactory) {
+
+            $scope.canDisable = true;
+            if ($scope.result.id === sessionFactory.getLoggedInUser().id) {
+                $scope.canDisable = false;
+
+            }
+            if (!$scope.result.enabled) {
+                $scope.canDisable = false;
+            }
 
             $scope.edit = function (user) {
 

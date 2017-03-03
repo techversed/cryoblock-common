@@ -6,6 +6,10 @@ angular.module('user.userGridFactory', [])
 
             var userGridFactory = {
 
+                url: '/user',
+
+                actionTemplate: 'common/user/partials/user-row-actions-tpl.html',
+
                 columns: [
                     {
                         header: 'Id',
@@ -14,6 +18,12 @@ angular.module('user.userGridFactory', [])
                         name: 'id',
                         isPrimary: true,
                         sref: 'admin.user_detail({id:result.id})'
+                    },
+                    {
+                        header: 'Enabled',
+                        bindTo: 'enabled ? "Yes" : "No"',
+                        isSortable: true,
+                        name: 'enabled'
                     },
                     {
                         header: 'Username',
@@ -45,14 +55,14 @@ angular.module('user.userGridFactory', [])
                     },
                     {
                         header: 'Created At',
-                        bindTo: 'createdAt',
+                        bindTo: 'createdAt | date:\'MMM d, y\'',
                         name: 'createdAt',
                         isSortable: true,
                         // sref: 'sample.detail({id:result.id})'
                     },
                     {
                         header: 'Updated At',
-                        bindTo: 'updatedAt',
+                        bindTo: 'updatedAt | date:\'MMM d, y\'',
                         name: 'updatedAt',
                         isSortable: true,
                         // sref: 'sample.detail({id:result.id})'
@@ -88,88 +98,6 @@ angular.module('user.userGridFactory', [])
                         .addFilters(this.filters)
                         .sortColumn(this.columns[0], 'DESC')
                     ;
-
-                },
-
-                getIndexGrid: function () {
-
-                    var grid = this.create();
-
-                    grid
-                        .setActionTemplate('common/user/partials/user-row-actions-tpl.html')
-                        .setResourceUrl('/user')
-                        .setBindToState(true)
-                    ;
-
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
-                    var params = angular.extend(defaultParams, $location.search());
-
-                    return $cbResource.get('/user', params).then(function (response) {
-
-                        return grid
-                            .setResults(response.data)
-                            .setPaginationFromResponse(response)
-                        ;
-
-                    });
-
-                },
-
-                getGroupGrid: function (userId, isEditable) {
-
-                    var groupGridFactory = $injector.get('groupGridFactory');
-
-                    var grid = groupGridFactory.create();
-
-                    isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
-
-                    grid
-                        .setResourceUrl('/user-group/user/' + userId)
-                        .setPerPage(3)
-                        .disableToggleColumns()
-                        .setNoResultString('No linked groups found')
-                        .disableHover()
-                    ;
-
-                    grid.perPageOptions = [3, 10, 25];
-
-                    if (!userId) {
-                        return grid;
-                    }
-
-                    return $cbResource.get('/user-group/user/' + userId).then(function (response) {
-
-                        return grid
-                            .setPaginationFromResponse(response)
-                            .setResults(response.data)
-                        ;
-
-                    });
-
-                },
-
-                getSelectGrid: function () {
-
-                    var grid = this.create();
-
-                    grid.setResourceUrl('/user');
-
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
-
-                    return $cbResource.get('/user', defaultParams).then(function (response) {
-
-                        grid.perPageOptions = [3, 10, 25];
-
-                        return grid
-                            .setResults(response.data)
-                            .setPaginationFromResponse(response)
-                            .allowSelectMany()
-                            .disableHover()
-                            .setPerPage(3)
-                            .disableToggleColumns()
-                        ;
-
-                    });
 
                 }
 

@@ -11,7 +11,7 @@
             <a ng-click="edit(result)"><i class="fa fa-edit m-r-xs"/>Edit</a>
         </li>
         <li role="menuitem">
-            <a ng-click="disable(result)"><i class="fa fa-trash m-r-xs"/>Delete</a>
+            <a ng-show="canDisable" ng-click="disable(result)"><i class="fa fa-ban m-r-xs"/>Disable</a>
         </li>
     </ul>
 </div>

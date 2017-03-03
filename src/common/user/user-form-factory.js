@@ -1,8 +1,8 @@
 angular.module('user.userFormFactory', [])
 
-    .factory('userFormFactory', ['$uibModal', '$state', '$stateParams', '$cbResource', 'userGridFactory', 'groupGridFactory',
+    .factory('userFormFactory', ['$uibModal', '$state', '$stateParams', '$cbGridBuilder',
 
-        function ($uibModal, $state, $stateParams, $cbResource, userGridFactory, groupGridFactory) {
+        function ($uibModal, $state, $stateParams, $cbGridBuilder) {
 
             var userFormFactory = {
 
@@ -25,13 +25,15 @@ angular.module('user.userFormFactory', [])
 
                             groups: function () {
 
-                                return userGridFactory.getGroupGrid(user ? user.id : null, true);
+                                return $cbGridBuilder.buildOTM(
+                                    '/user-group/user/', 'groupGridFactory', user, true
+                                )
 
                             },
 
                             groupSelectGrid: function () {
 
-                                return groupGridFactory.getSelectGrid();
+                                return $cbGridBuilder.buildSelect('groupGridFactory');
 
                             },
 
@@ -54,12 +56,12 @@ angular.module('user.userFormFactory', [])
                 openDisableModal: function (user) {
 
                     $uibModal.open({
-                        templateUrl: 'common/user/partials/user-disable-modal-tpl.html',
+                        templateUrl: 'common/user/partials/user-disable-tpl.html',
                         controller: 'userDisableCtrl',
                         windowClass: 'inmodal',
                         keyboard: false,
                         backdrop: 'static',
-                        size: 'lg',
+                        size: 'md',
                         resolve: {
 
                             user: function () {

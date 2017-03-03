@@ -16,6 +16,14 @@
                 </p>
             </div>
 
+            <cb-form-group label="Enabled" name="enabled" tooltip="Enable or disable a user account from being able to access this application." ng-show="allowEnable">
+
+                <div class="col-sm-10">
+                    <cb-boolean cb-boolean-primary ng-model="user.enabled"></cb-boolean>
+                </div>
+
+            </cb-form-group>
+
             <cb-form-group label="First Name" name="firstName">
                 <div class="col-sm-10">
                     <input name="firstName" type="text" class="form-control" ng-model="user.firstName" required>

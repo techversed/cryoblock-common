@@ -30,9 +30,9 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 controller: 'adminUserCtrl',
                                 resolve: {
 
-                                    userGrid: function (userGridFactory) {
+                                    userGrid: function ($cbGridBuilder) {
 
-                                        return userGridFactory.getIndexGrid();
+                                        return $cbGridBuilder.buildIndex('userGridFactory');
 
                                     }
 
@@ -61,9 +61,11 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     },
 
-                                    groups: function (userGridFactory, user) {
+                                    groups: function ($cbGridBuilder, user) {
 
-                                        return userGridFactory.getGroupGrid(user ? user.id : null, false);
+                                        return $cbGridBuilder.buildOTM(
+                                            '/user-group/user/', 'groupGridFactory', user, false
+                                        )
 
                                     }
 
@@ -86,9 +88,9 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 controller: 'adminGroupCtrl',
                                 resolve: {
 
-                                    groupGrid: function (groupGridFactory) {
+                                    groupGrid: function ($cbGridBuilder) {
 
-                                        return groupGridFactory.getIndexGrid();
+                                        return $cbGridBuilder.buildIndex('groupGridFactory');
 
                                     }
 
@@ -118,15 +120,19 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     },
 
-                                    users: function (groupGridFactory, group) {
+                                    users: function ($cbGridBuilder, group) {
 
-                                        return groupGridFactory.getUserGrid(group ? group.id : null, false);
+                                        return $cbGridBuilder.buildOTM(
+                                            '/user-group/group/', 'userGridFactory', group, false
+                                        );
 
                                     },
 
-                                    roles: function (groupGridFactory, group) {
+                                    roles: function ($cbGridBuilder, group) {
 
-                                        return groupGridFactory.getRoleGrid(group ? group.id : null, false);
+                                        return $cbGridBuilder.buildOTM(
+                                            '/group-role/group/', 'roleGridFactory', group, false
+                                        );
 
                                     }
                                 }
@@ -148,9 +154,9 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 controller: 'adminRoleCtrl',
                                 resolve: {
 
-                                    roleGrid: function (roleGridFactory) {
+                                    roleGrid: function ($cbGridBuilder) {
 
-                                        return roleGridFactory.getIndexGrid();
+                                        return $cbGridBuilder.buildIndex('roleGridFactory');
 
                                     }
 
@@ -179,9 +185,11 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     },
 
-                                    groups: function (roleGridFactory, role) {
+                                    groups: function ($cbGridBuilder, role) {
 
-                                        return roleGridFactory.getGroupGrid(role ? role.id : null, false);
+                                        return $cbGridBuilder.buildOTM(
+                                            '/group-role/role/', 'groupGridFactory', role, false
+                                        )
 
                                     }
 
