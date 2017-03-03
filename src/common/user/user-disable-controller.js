@@ -20,7 +20,6 @@ angular.module('user.userDisableCtrl', [])
 
                 $cbResource.delete('/user', {id:$scope.user.id}).then(
 
-
                     function (response) {
 
                         toastr.info('User disabled successfully');
@@ -31,7 +30,7 @@ angular.module('user.userDisableCtrl', [])
 
                     function (response) {
 
-                        $scope.errors = response.data;
+                        toastr.error('Sorry, an error occured while processing your request, please try again later.');
 
                     }
 

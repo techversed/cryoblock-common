@@ -7,12 +7,6 @@ angular.module('admin.adminRoleDetailCtrl', [])
             $scope.role = role;
             $scope.groups = groups;
 
-            $scope.roleTypeIconMapping = {
-
-            };
-
-            // $scope.iconFile = $scope.roleTypeIconMapping[$scope.role.roleType.name];
-
         }
 
     ])
