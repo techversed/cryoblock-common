@@ -38,25 +38,42 @@ angular.module('grid.gridBuilder', [])
 
                 },
 
-                buildSelect: function (url, factoryName) {
+                buildSelect: function (factoryName, single) {
 
                     var factory = $injector.get(factoryName);
 
+                    if (factory.url === undefined) {
+
+                        throw Error('No url property found on grid ' + factoryName);
+
+                    }
+
                     var grid = factory.create();
 
-                    grid.setResourceUrl(url);
+                    grid.setResourceUrl(factory.url);
                     grid.hideAllFilters();
+
+                    if (single !== undefined && single) {
+
+                        grid.allowSelect()
+
+                    }
+
+                    if (single === undefined) {
+
+                        grid.allowSelectMany()
+
+                    }
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
 
-                    return $cbResource.get(url, defaultParams).then(function (response) {
+                    return $cbResource.get(factory.url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
 
                         return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
-                            .allowSelectMany()
                             .disableHyperlinks()
                             .disableHover()
                             .setPerPage(3)

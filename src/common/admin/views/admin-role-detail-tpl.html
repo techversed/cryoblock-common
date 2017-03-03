@@ -3,19 +3,18 @@
     <div class="normalheader">
         <div id="hbreadcrumb">
             <ol class="hbreadcrumb breadcrumb">
-                <li><a ui-sref="admin.user">Users</a></li>
+                <li><a ui-sref="admin.role">Roles</a></li>
                 <li class="active">
-                    <span>User {{user.id}}</span>
+                    <span>Role {{role.id}}</span>
                 </li>
             </ol>
         </div>
         <div class="hpanel">
             <div class="panel-body">
-                <button ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
                 <h2 class="font-light m-b-xs inline">
-                  User {{user.id}} - {{user.firstName}} {{user.lastName}}
+                  Role {{role.id}} - {{role.role}}
                 </h2>
-                <small class="block">{{user.username}}</small>
+                <small class="block">{{role.role}}</small>
             </div>
         </div>
     </div>
@@ -37,15 +36,11 @@
                         <table class="table-detail">
                             <tr>
                                 <td>Id</td>
-                                <td>{{user.id}}</td>
+                                <td>{{role.id}}</td>
                             </tr>
                             <tr>
-                                <td>First Name</td>
-                                <td>{{user.firstName}}</td>
-                            </tr>
-                            <tr>
-                                <td>Last Name</td>
-                                <td>{{user.lastName}}</td>
+                                <td>Name</td>
+                                <td>{{role.role}}</td>
                             </tr>
                         </table>
                     </div>
@@ -65,11 +60,11 @@
                         <table class="table-detail">
                             <tr>
                                 <td>Created At</td>
-                                <td>{{user.createdAt | date:'medium'}}</td>
+                                <td>{{role.createdAt | date:'medium'}}</td>
                             </tr>
                             <tr>
                                 <td>Last Updated At</td>
-                                <td>{{user.updatedAt | date:'medium'}}</td>
+                                <td>{{role.updatedAt | date:'medium'}}</td>
                             </tr>
                         </table>
                     </div>
@@ -84,7 +79,7 @@
                         <div class="panel-tools">
                             <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                         </div>
-                        Groups Linked to User {{group.id}}
+                        Groups Linked to Role {{group.id}}
                     </div>
                     <div class="panel-body no-padding">
 
@@ -104,25 +99,16 @@
                                 <i class="glyphicon glyphicon-comment"></i> Comments
                             </uib-tab-heading>
                             <div class="panel-body">
-                                <cb-object-comments object-type="user" object-id="user.id"></cb-object-comments>
+                                Comments go here
                             </div>
                         </uib-tab>
                         <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">
                             {{tab.content}}
                         </uib-tab>
-                        <uib-tab index="3" select="alertMe()">
-                            <uib-tab-heading>
-                                <i class="glyphicon glyphicon-bell"></i> Activity
-                            </uib-tab-heading>
-                            <div class="panel-body no-padding">
-                                <object-history object-class="Carbon\ApiBundle\Entity\User" object-id="user.id"></object-history>
-                            </div>
-                        </uib-tab>
                     </uib-tabset>
                 </div>
             </div>
         </div>
-
 
     </div>
 </div>

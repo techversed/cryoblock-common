@@ -1,12 +1,15 @@
 angular.module('user.userFormCtrl', [])
 
-    .controller('userFormCtrl', ['$scope', '$uibModalInstance', 'user', '$cbResource', 'toastr', 'callback',
+    .controller('userFormCtrl', ['$scope', '$uibModalInstance', 'user', 'groups', 'groupSelectGrid', '$cbResource', 'toastr', 'callback',
 
-        function ($scope, $modalInstance, user, $cbResource, toastr, callback) {
+        function ($scope, $modalInstance, user, groups, groupSelectGrid, $cbResource, toastr, callback) {
 
             $scope.user = user ? angular.copy(user) : {};
             $scope.errors = [];
             $scope.userForm = {};
+            $scope.groups = groups;
+            $scope.groupSelectGrid = groupSelectGrid;
+            $scope.allowEnable = !$scope.user.enabled;
 
             $scope.close = function () {
 
@@ -40,8 +43,8 @@ angular.module('user.userFormCtrl', [])
 
                     function (response) {
 
-                        toastr.info('Sample ' + method + 'd successfully');
-                        $scope.close();
+                        toastr.info('User ' + method + 'd successfully');
+                        $scope.$close();
                         callback();
 
                     },

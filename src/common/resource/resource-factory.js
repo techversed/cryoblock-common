@@ -91,6 +91,18 @@ angular.module('cbResource.$cbResource', [])
                         return response.unpaginatedTotal
                     });
 
+                },
+
+                delete: function (url, params) {
+
+                    url = API.url + url
+
+                    if (params !== undefined) {
+                        url = url + '?' + this.serializeParams(params);
+                    }
+
+                    return $http.delete(url);
+
                 }
 
             };

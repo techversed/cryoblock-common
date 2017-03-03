@@ -3,6 +3,8 @@ angular.module('admin', [
     'admin.adminGroupCtrl',
     'admin.adminRoleCtrl',
     'admin.routes',
-    'admin.adminFactory',
     'admin.userCreateCtrl',
+    'admin.adminUserDetailCtrl',
+    'admin.adminGroupDetailCtrl',
+    'admin.adminRoleDetailCtrl',
 ]);

@@ -27,13 +27,13 @@
 
             <cb-form-group label="Roles" name="roles">
                 <div class="col-sm-10">
-                    <one-to-many-v2 grid="roleGrid" parent-object="group" bind-to="roles" resource-url="/role" placeholder="Add Role.."></one-to-many-v2>
+                    <one-to-many grid="roles" search-grid="roleSelectGrid" parent-object="group" bind-to="roles" resource-url="/role" placeholder="Add Role.."></one-to-many>
                 </div>
             </cb-form-group>
 
             <cb-form-group label="Users" name="users">
                 <div class="col-sm-10">
-                    <one-to-many-v2 grid="userGrid" parent-object="group" bind-to="users" resource-url="/user" placeholder="Add User.."></one-to-many-v2>
+                    <one-to-many grid="users" search-grid="userSelectGrid" parent-object="group" bind-to="users" resource-url="/user" placeholder="Add User.."></one-to-many>
                 </div>
             </cb-form-group>
 
