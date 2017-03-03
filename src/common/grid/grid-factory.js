@@ -175,6 +175,15 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                hideAllFilters:function () {
+                    var that = this;
+                    this.filters.map(function (filter) {
+                        filter.isVisible = false;
+                    });
+
+                    return this;
+                },
+
                 allowEdit: function () {
 
                     this.isEditable = true;

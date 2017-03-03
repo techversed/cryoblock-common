@@ -33,5 +33,6 @@ angular.module('common', [
     'role',
     'objectHistory',
     'commonFilters',
-    'widget'
+    'widget',
+    'comment'
 ]);

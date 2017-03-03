@@ -1,8 +1,8 @@
 angular.module('comment.cbCommentDirective', [])
 
-    .directive('cbComment', ['commentFactory', '$compile', '$sce', 'toastr', '$cbResource', 'sessionFactory',
+    .directive('cbComment', ['commentFactory', '$compile', '$sce', 'toastr', '$cbResource', 'sessionFactory', 'API',
 
-        function (commentFactory, $compile, $sce, toastr, $cbResource, sessionFactory) {
+        function (commentFactory, $compile, $sce, toastr, $cbResource, sessionFactory, API) {
 
             return {
 
@@ -15,6 +15,17 @@ angular.module('comment.cbCommentDirective', [])
                 link: function ($scope, element, attrs) {
 
                     $scope.loggedInUser = sessionFactory.getLoggedInUser();
+
+                    $scope.avatarSrc = $scope.loggedInUser.avatarAttachment !== 'undefined'
+                        ? API.url + '/attachment/' + $scope.loggedInUser.avatarAttachment.id + '/download'
+                        : API.url + '/images/avatar.jpg'
+                    ;
+
+                    if ($scope.comment.isDefault) {
+                        $scope.isEditing = true;
+                        $scope.isDefault = true;
+                        delete $scope.comment.isDefault;
+                    }
 
                     if ($scope.comment && $scope.comment.children.length) {
 
@@ -36,7 +47,6 @@ angular.module('comment.cbCommentDirective', [])
 
                     var textarea = element.find('textarea')[0];
 
-
                     var simplemde = new SimpleMDE({
                         autofocus: false,
                         initialValue: $scope.comment.content,
@@ -49,6 +59,7 @@ angular.module('comment.cbCommentDirective', [])
                             codeSyntaxHighlighting: true
                         },
                         spellChecker: false,
+                        forceSync: true,
                         hintOptions: {
 
                             completeSingle: false,
@@ -91,6 +102,22 @@ angular.module('comment.cbCommentDirective', [])
 
                     });
 
+
+                    $scope.onTextChange = function () {
+                        var val = simplemde.value();
+                        $scope.disallowSave = /^\s*$/.test(val);
+                        if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
+                            $scope.$apply();
+                        }
+                    };
+
+                    $scope.onTextChange();
+
+                    // hook into change
+                    simplemde.codemirror.on("change", function() {
+                        $scope.onTextChange()
+                    });
+
                     $scope.markdownHtml = $sce.trustAsHtml(simplemde.markdown(simplemde.value()));
 
                     $scope.edit = function () {
@@ -122,6 +149,7 @@ angular.module('comment.cbCommentDirective', [])
                         }
 
                         $scope.comment.content = simplemde.value();
+
                         $scope.comment.htmlContent = simplemde.options.previewRender(simplemde.value());
 
                         commentFactory.createComment($scope.comment).then(function (response) {
@@ -129,6 +157,7 @@ angular.module('comment.cbCommentDirective', [])
                             $scope.markdownHtml = $sce.trustAsHtml(simplemde.markdown(simplemde.value()));
                             $scope.isEditing = false;
                             $scope.comment = response.data;
+                            $scope.$emit('comment.replace_default');
                         });
 
                     }
@@ -136,7 +165,11 @@ angular.module('comment.cbCommentDirective', [])
                     $scope.cancel = function () {
 
                         if ($scope.comment.id === undefined) {
+                            simplemde = null;
+                            $scope.comment.parent.children.splice($scope.comment.parent.children.indexOf($scope.comment), 1);
+                            $scope.$destroy();
                             element.remove();
+                            return;
                         }
 
                         simplemde.value($scope.comment.content);
@@ -146,7 +179,6 @@ angular.module('comment.cbCommentDirective', [])
                         }
 
                         $scope.isEditing = false;
-
 
                     };
 
@@ -162,6 +194,7 @@ angular.module('comment.cbCommentDirective', [])
 
                         $scope.comment.children.push({
                             children: [],
+                            parent: $scope.comment,
                             parentId: $scope.comment.id,
                             content: null,
                             objectType: $scope.comment.objectType,

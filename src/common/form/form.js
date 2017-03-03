@@ -4,5 +4,6 @@ angular.module('form', [
     'form.oneToMany',
     'form.cbDropdown',
     'form.cbFormGroup',
-    'form.oneToOne'
+    'form.oneToOne',
+    'form.cbBoolean'
 ]);
