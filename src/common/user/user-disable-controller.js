@@ -19,7 +19,7 @@ angular.module('user.userDisableCtrl', [])
 
             };
 
-
+console.log($scope.user.id);
             $scope.submit = function (isValid) {
 
                 $scope.$broadcast('form:submit');
@@ -30,10 +30,8 @@ angular.module('user.userDisableCtrl', [])
                     return;
                 }
 
-                var method = 'delete'
-                var url = '/user?id[EQ]=' + $scope.user.id;
+                $cbResource.delete('/user', {id:$scope.user.id}).then(
 
-                $cbResource[method](url, $scope.user).then(
 
                     function (response) {
 
