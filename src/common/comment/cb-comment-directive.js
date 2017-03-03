@@ -1,8 +1,8 @@
 angular.module('comment.cbCommentDirective', [])
 
-    .directive('cbComment', ['commentFactory', '$compile', '$sce', 'toastr', '$cbResource', 'sessionFactory', 'API',
+    .directive('cbComment', ['commentFactory', '$compile', '$sce', 'toastr', '$cbResource', 'sessionFactory', 'API', 'sessionFactory', '$uibModal',
 
-        function (commentFactory, $compile, $sce, toastr, $cbResource, sessionFactory, API) {
+        function (commentFactory, $compile, $sce, toastr, $cbResource, sessionFactory, API, sessionFactory, $uibModal) {
 
             return {
 
@@ -20,6 +20,16 @@ angular.module('comment.cbCommentDirective', [])
                         ? API.url + '/attachment/' + $scope.loggedInUser.avatarAttachment.id + '/download'
                         : API.url + '/images/avatar.jpg'
                     ;
+
+                    $scope.canEdit = false;
+                    if ($scope.comment.createdById === $scope.loggedInUser.id) {
+                        $scope.canEdit = true;
+                    }
+
+                    $scope.canDelete = false;
+                    if ($scope.comment.createdById === $scope.loggedInUser.id || sessionFactory.hasRole('ROLE_ADMIN')) {
+                        $scope.canDelete = true;
+                    }
 
                     if ($scope.comment.isDefault) {
                         $scope.isEditing = true;
@@ -208,6 +218,22 @@ angular.module('comment.cbCommentDirective', [])
 
                         $scope.childList.append(template);
 
+                    };
+
+                    $scope.delete = function () {
+                        $uibModal.open({
+                            templateUrl: 'common/comment/partials/cb-comment-delete-tpl.html',
+                            controller: 'cbCommentDeleteCtrl',
+                            windowClass: 'inmodal',
+                            keyboard: false,
+                            backdrop: 'static',
+                            size: 'md',
+                            resolve: {
+                                comment: function () {
+                                    return $scope.comment;
+                                }
+                            }
+                        });
                     };
 
                     if (attrs.cbCommentEditOnLoad !== undefined) {

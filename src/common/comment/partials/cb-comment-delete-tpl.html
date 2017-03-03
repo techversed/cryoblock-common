@@ -1,0 +1,17 @@
+<div id="comment-delete-form-container">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Delete Comment {{comment.id}}</h4>
+    </div>
+
+    <div class="modal-body">
+        <p class="d-table center-block"><i class="fa fa-trash fa-5x" /></p>
+        Are you sure you want to delete this comment? This will remove comment {{comment.id}} and any replies.
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" ng-click="delete()">Delete</button>
+        <button type="button" class="btn btn-default" ng-click="$close()">Cancel</button>
+    </div>
+
+</div>

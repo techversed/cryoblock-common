@@ -36,6 +36,14 @@ angular.module('comment.commentFactory', [])
 
                     return $cbResource.update('/comment', comment, params);
 
+                },
+
+                deleteComment: function (comment) {
+
+                    var params = {'id[EQ]': comment.id};
+
+                    return $cbResource.delete('/comment', params);
+
                 }
 
             };

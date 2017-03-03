@@ -8,9 +8,9 @@
                     <div class="comment-username">{{comment.createdBy.fullName}}</div>
                     <div class="comment-content-text" ng-bind-html="markdownHtml"></div>
                     <div class="comment-actions">
-                        <span class="action" ng-click="edit()">Edit</span>
+                        <span class="action" ng-click="edit()" ng-show="canEdit">Edit</span>
                         <span class="action" ng-click="reply()">Reply</span>
-                        <span class="action">Delete</span>
+                        <span class="action" ng-show="canDelete" ng-click="delete()">Delete</span>
                     </div>
                 </td>
                 <td class="comment-content editing" ng-show="isEditing">

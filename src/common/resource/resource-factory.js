@@ -62,7 +62,7 @@ angular.module('cbResource.$cbResource', [])
                         url = url + '?' + this.serializeParams(params);
                     }
 
-                    return $http.delete(url, params);
+                    return $http.delete(url);
 
                 },
 
