@@ -64,7 +64,7 @@ angular.module('grid.gridDirective', [])
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
 
                             $scope.grid
-                                .setResults(response.data, false)
+                                .setResults(response.data)
                                 .setPaginationFromResponse(response)
                             ;
 

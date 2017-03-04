@@ -117,6 +117,7 @@ angular.module('grid.gridBuilder', [])
                         return grid
                             .setPaginationFromResponse(response)
                             .setResults(response.data)
+                            .setInitResultCount(response.unpaginatedTotal)
                         ;
 
                     });

@@ -77,11 +77,15 @@ angular.module('grid.gridFactory', [])
 
                 setResults: function (results, initial) {
 
-                    if (initial === undefined || initial === true) {
-                        this.initResultCount = results.length;
-                    }
-
                     this.results = results;
+
+                    return this;
+
+                },
+
+                setInitResultCount: function (initResultCount) {
+
+                    this.initResultCount = initResultCount;
 
                     return this;
 
