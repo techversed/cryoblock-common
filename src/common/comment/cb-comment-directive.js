@@ -16,9 +16,9 @@ angular.module('comment.cbCommentDirective', [])
 
                     $scope.loggedInUser = sessionFactory.getLoggedInUser();
 
-                    $scope.avatarSrc = $scope.loggedInUser.avatarAttachment !== 'undefined'
+                    $scope.avatarSrc = $scope.loggedInUser.avatarAttachment !== undefined
                         ? API.url + '/attachment/' + $scope.loggedInUser.avatarAttachment.id + '/download'
-                        : API.url + '/images/avatar.jpg'
+                        : '/images/avatar.jpg'
                     ;
 
                     $scope.canEdit = false;

@@ -54,11 +54,6 @@ angular.module('user.userGridFactory', [])
                         // sref: 'sample.detail({id:result.id})'
                     },
                     {
-                        header: 'Enabled',
-                        bindTo: 'enabled',
-                        name: 'enabled',
-                    },
-                    {
                         header: 'Created At',
                         bindTo: 'createdAt | date:\'MMM d, y\'',
                         name: 'createdAt',
