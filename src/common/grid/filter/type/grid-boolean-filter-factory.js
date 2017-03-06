@@ -21,8 +21,8 @@ angular.module('grid.gridBooleanFilterFactory', [])
                 this.form = null;
 
                 this.formMapping = {
-                    "True": "1",
-                    "False": "0",
+                    "Yes": "1",
+                    "No": "0",
                     "Any": "Any"
                 };
 
