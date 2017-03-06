@@ -54,11 +54,11 @@ angular.module('user.userGridFactory', [])
                         // sref: 'sample.detail({id:result.id})'
                     },
                     {
-<<<<<<< HEAD
                         header: 'Active',
                         bindTo: 'enabled',
                         name: 'enabled',
-=======
+                    },
+                    {
                         header: 'Created At',
                         bindTo: 'createdAt | date:\'MMM d, y\'',
                         name: 'createdAt',
@@ -69,7 +69,6 @@ angular.module('user.userGridFactory', [])
                         header: 'Updated At',
                         bindTo: 'updatedAt | date:\'MMM d, y\'',
                         name: 'updatedAt',
->>>>>>> 339bfedb715f09df3f689ddcbdd66d83404eebf4
                         isSortable: true,
                         // sref: 'sample.detail({id:result.id})'
                     }
