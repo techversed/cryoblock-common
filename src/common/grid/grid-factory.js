@@ -39,6 +39,8 @@ angular.module('grid.gridFactory', [])
 
                 this.isSelectable = false;
 
+                this.isManySelectable = false;
+
                 this.removingItems = [];
 
                 this.removingItemIds = [];
@@ -75,11 +77,15 @@ angular.module('grid.gridFactory', [])
 
                 setResults: function (results, initial) {
 
-                    if (initial === undefined || initial === true) {
-                        this.initResultCount = results.length;
-                    }
-
                     this.results = results;
+
+                    return this;
+
+                },
+
+                setInitResultCount: function (initResultCount) {
+
+                    this.initResultCount = initResultCount;
 
                     return this;
 
@@ -173,6 +179,15 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                hideAllFilters:function () {
+                    var that = this;
+                    this.filters.map(function (filter) {
+                        filter.isVisible = false;
+                    });
+
+                    return this;
+                },
+
                 allowEdit: function () {
 
                     this.isEditable = true;
@@ -192,6 +207,14 @@ angular.module('grid.gridFactory', [])
                 allowSelect: function () {
 
                     this.isSelectable = true;
+
+                    return this;
+
+                },
+
+                allowSelectMany: function () {
+
+                    this.isManySelectable = true;
 
                     return this;
 
@@ -264,11 +287,11 @@ angular.module('grid.gridFactory', [])
 
                 },
 
-                sortColumn: function (sortColumn, direction, init = true) {
+                sortColumn: function (sortColumn, direction, init) {
 
                     var getParams = $location.search();
 
-                    if (init) {
+                    if (init == undefined) {
 
                         if (getParams['cOrderBy'] !== undefined) {
                             sortColumn = {name: getParams['cOrderBy']};

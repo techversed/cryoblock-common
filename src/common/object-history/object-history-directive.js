@@ -31,7 +31,6 @@ angular.module('objectHistory.objectHistoryDirective', [])
 
                     $cbResource.get('/log-entry', params).then(function (response) {
                         $scope.logEntries = response.data;
-                        console.log($scope.logEntries);
                     });
 
                 }

@@ -4,25 +4,24 @@
         <table class="comment-container">
             <tr>
                 <td class="comment-content" ng-hide="isEditing">
-                    <img class="comment-profile-img ng-scope" ng-src="http://andre.dev.carbon.com/attachment/{{comment.createdBy.avatarAttachment.id}}/download">
+                    <img class="comment-profile-img ng-scope" ng-src="{{avatarSrc}}">
                     <div class="comment-username">{{comment.createdBy.fullName}}</div>
                     <div class="comment-content-text" ng-bind-html="markdownHtml"></div>
                     <div class="comment-actions">
-                        <span class="action" ng-click="edit()">Edit</span>
+                        <span class="action" ng-click="edit()" ng-show="canEdit">Edit</span>
                         <span class="action" ng-click="reply()">Reply</span>
-                        <span class="action">Delete</span>
+                        <span class="action" ng-show="canDelete" ng-click="delete()">Delete</span>
                     </div>
                 </td>
                 <td class="comment-content editing" ng-show="isEditing">
-                    <img ng-hide="comment.id" class="comment-profile-img ng-scope" ng-src="http://andre.dev.carbon.com/attachment/{{loggedInUser.avatarAttachment.id}}/download">
-                    <img ng-show="comment.id" class="comment-profile-img ng-scope" ng-src="http://andre.dev.carbon.com/attachment/{{comment.createdBy.avatarAttachment.id}}/download">
+                    <img class="comment-profile-img ng-scope" ng-src="{{avatarSrc}}">
                     <div ng-hide="comment.id" class="comment-username">{{loggedInUser.fullName}}</div>
                     <div ng-show="comment.id" class="comment-username">{{comment.createdBy.fullName}}</div>
                     <textarea></textarea>
                     <div class="comment-edit-actions">
-                        <button class="btn btn-sm btn-primary" ng-click="create()" ng-hide="comment.id">Submit</button>
-                        <button class="btn btn-sm btn-primary" ng-click="update()" ng-show="comment.id">Update</button>
-                        <button class="btn btn-default btn-sm" ng-click="cancel()">Cancel</button>
+                        <button class="btn btn-sm btn-primary" ng-click="create()" ng-hide="comment.id" ng-disabled="disallowSave"><i class="fa fa-comment" /> Comment</button>
+                        <button class="btn btn-sm btn-primary" ng-click="update()" ng-show="comment.id"><i class="fa fa-comment" /> Update</button>
+                        <button class="btn btn-default btn-sm" ng-click="cancel()" ng-hide="isDefault">Cancel</button>
                     </div>
                 </td>
             </tr>

@@ -1,10 +1,12 @@
 angular.module('role.roleGridFactory', [])
 
-    .factory('roleGridFactory', ['gridFactory', '$cbResource', '$location',
+    .factory('roleGridFactory', ['gridFactory', '$cbResource', '$location', '$injector',
 
-        function (gridFactory, $cbResource, $location) {
+        function (gridFactory, $cbResource, $location, $injector) {
 
             var roleGridFactory = {
+
+                url: '/role',
 
                 columns: [
                     {
@@ -13,14 +15,14 @@ angular.module('role.roleGridFactory', [])
                         isSortable: true,
                         name: 'id',
                         isPrimary: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.role_detail({id:result.id})'
                     },
                     {
                         header: 'Name',
                         bindTo: 'role',
                         name: 'role',
                         isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.role_detail({id:result.id})'
                     }
                 ],
 
@@ -40,30 +42,6 @@ angular.module('role.roleGridFactory', [])
                         .addFilters(this.filters)
                         .sortColumn(this.columns[0], 'DESC')
                     ;
-
-                },
-
-                getIndexGrid: function () {
-
-                    var grid = this.create();
-
-                    grid
-                        .setActionTemplate('common/role/partials/role-row-actions-tpl.html')
-                        .setResourceUrl('/role')
-                        .setBindToState(true)
-                    ;
-
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
-                    var params = angular.extend(defaultParams, $location.search());
-
-                    return $cbResource.get('/role', params).then(function (response) {
-
-                        return grid
-                            .setResults(response.data)
-                            .setPaginationFromResponse(response)
-                        ;
-
-                    });
 
                 }
 

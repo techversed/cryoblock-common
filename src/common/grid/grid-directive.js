@@ -64,7 +64,7 @@ angular.module('grid.gridDirective', [])
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
 
                             $scope.grid
-                                .setResults(response.data, false)
+                                .setResults(response.data)
                                 .setPaginationFromResponse(response)
                             ;
 
@@ -88,6 +88,14 @@ angular.module('grid.gridDirective', [])
 
                     };
 
+                    $scope.addItem = function (item) {
+
+                        $scope.$emit('form:changed');
+
+                        $scope.grid.addItem(item);
+
+                    };
+
                     $scope.unselectItem = function (item) {
 
                         $scope.grid.unselectItem();
@@ -102,6 +110,10 @@ angular.module('grid.gridDirective', [])
 
                     $scope.isRemoving = function (item) {
                         return $scope.grid.removingItemIds.indexOf(item.id) !== -1;
+                    };
+
+                    $scope.isAdding = function (item) {
+                        return $scope.grid.addingItemIds.indexOf(item.id) !== -1;
                     };
 
                     $scope.restoreRemovedItem = function (item) {

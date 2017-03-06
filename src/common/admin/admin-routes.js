@@ -8,6 +8,9 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                 url: '/administrator',
                 name: 'admin',
                 views: {
+                    navbar: {
+                        templateUrl: 'navbar-tpl.html',
+                    },
                     content: {
                         templateUrl: 'common/layout/carbon-layout.html',
                     }
@@ -27,9 +30,42 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 controller: 'adminUserCtrl',
                                 resolve: {
 
-                                    userGrid: function (userGridFactory) {
+                                    userGrid: function ($cbGridBuilder) {
 
-                                        return userGridFactory.getIndexGrid();
+                                        return $cbGridBuilder.buildIndex('userGridFactory');
+
+                                    }
+
+                                }
+
+                            }
+                        }
+                    },
+                    {
+                        url: '/user/:id',
+                        name: 'user_detail',
+                        pageTitle: 'User {id}',
+                        security: {
+                            roles: ['ROLE_ADMIN']
+                        },
+                        views: {
+                            content: {
+
+                                templateUrl: 'common/admin/views/admin-user-detail-tpl.html',
+                                controller: 'adminUserDetailCtrl',
+                                resolve: {
+
+                                    user: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.getOne('/user?id[EQ]=' + $stateParams.id);
+
+                                    },
+
+                                    groups: function ($cbGridBuilder, user) {
+
+                                        return $cbGridBuilder.buildOTM(
+                                            '/user-group/user/', 'groupGridFactory', user, false
+                                        )
 
                                     }
 
@@ -52,12 +88,53 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 controller: 'adminGroupCtrl',
                                 resolve: {
 
-                                    groupGrid: function (groupGridFactory) {
+                                    groupGrid: function ($cbGridBuilder) {
 
-                                        return groupGridFactory.getIndexGrid();
+                                        return $cbGridBuilder.buildIndex('groupGridFactory');
 
                                     }
 
+
+                                }
+
+                            }
+                        }
+                    },
+                    {
+                        url: '/group/:id',
+                        name: 'group_detail',
+                        pageTitle: 'Group {id}',
+                        security: {
+                            roles: ['ROLE_ADMIN']
+                        },
+                        views: {
+                            content: {
+
+                                templateUrl: 'common/admin/views/admin-group-detail-tpl.html',
+                                controller: 'adminGroupDetailCtrl',
+                                resolve: {
+
+                                    group: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.getOne('/group?id[EQ]=' + $stateParams.id);
+
+                                    },
+
+                                    users: function ($cbGridBuilder, group) {
+
+                                        return $cbGridBuilder.buildOTM(
+                                            '/user-group/group/', 'userGridFactory', group, false
+                                        );
+
+                                    },
+
+                                    roles: function ($cbGridBuilder, group) {
+
+                                        return $cbGridBuilder.buildOTM(
+                                            '/group-role/group/', 'roleGridFactory', group, false
+                                        );
+
+                                    }
                                 }
 
                             }
@@ -77,9 +154,9 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 controller: 'adminRoleCtrl',
                                 resolve: {
 
-                                    roleGrid: function (roleGridFactory) {
+                                    roleGrid: function ($cbGridBuilder) {
 
-                                        return roleGridFactory.getIndexGrid();
+                                        return $cbGridBuilder.buildIndex('roleGridFactory');
 
                                     }
 
@@ -87,7 +164,40 @@ angular.module('admin.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                             }
                         }
-                    }
+                    },
+                    {
+                        url: '/role/:id',
+                        name: 'role_detail',
+                        pageTitle: 'Role {id}',
+                        security: {
+                            roles: ['ROLE_ADMIN']
+                        },
+                        views: {
+                            content: {
+
+                                templateUrl: 'common/admin/views/admin-role-detail-tpl.html',
+                                controller: 'adminRoleDetailCtrl',
+                                resolve: {
+
+                                    role: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.getOne('/role?id[EQ]=' + $stateParams.id);
+
+                                    },
+
+                                    groups: function ($cbGridBuilder, role) {
+
+                                        return $cbGridBuilder.buildOTM(
+                                            '/group-role/role/', 'groupGridFactory', role, false
+                                        )
+
+                                    }
+
+                                }
+
+                            }
+                        }
+                    },
                 ]
             })
         ;

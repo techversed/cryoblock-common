@@ -13,7 +13,8 @@ angular.module('form.cbDropdownDirective', [])
                     items: '=',
                     bindTo: '@',
                     name: '@',
-                    cbOnSelect: '='
+                    cbOnSelect: '=',
+                    disabled: '='
                 },
                 link: function ($scope, element, attrs, ctrls) {
 

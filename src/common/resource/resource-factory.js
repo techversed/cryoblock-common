@@ -6,23 +6,31 @@ angular.module('cbResource.$cbResource', [])
 
             var $cbResource = {
 
-                getOne: function (url, params) {
+                getOne: function (url, params, ignoreLoadingBar) {
 
-                    return this.get(url, params).then(function (response) {
+                    return this.get(url, params, ignoreLoadingBar).then(function (response) {
                         return response.data[0];
                     });
 
                 },
 
-                get: function (url, params) {
+                get: function (url, params, ignoreLoadingBar) {
 
-                    if (params === undefined) {
-                        params = {};
+                    additionalParams = {}
+
+                    url = API.url + url
+
+                    if (params !== undefined && (url.indexOf('?') == -1)) {
+                        url = url + '?' + this.serializeParams(params);
+                    } else if (params !== undefined) {
+                        url = url + '&' + this.serializeParams(params);
                     }
 
-                    url = API.url + url + '?' + this.serializeParams(params);
+                    if (ignoreLoadingBar !== undefined) {
+                        additionalParams = {'ignoreLoadingBar': ignoreLoadingBar}
+                    }
 
-                    return $http.get(url).then(function (response) {
+                    return $http.get(url, additionalParams).then(function (response) {
                         return response.data;
                     });
 
@@ -36,9 +44,25 @@ angular.module('cbResource.$cbResource', [])
 
                 update: function (url, obj, params) {
 
-                    url = API.url + url + '?' + this.serializeParams(params);
+                    url = API.url + url
+
+                    if (params !== undefined) {
+                        url = url + '?' + this.serializeParams(params);
+                    }
 
                     return $http.put(url, obj);
+
+                },
+
+                delete: function (url, params) {
+
+                    url = API.url + url
+
+                    if (params !== undefined) {
+                        url = url + '?' + this.serializeParams(params);
+                    }
+
+                    return $http.delete(url);
 
                 },
 
@@ -58,6 +82,26 @@ angular.module('cbResource.$cbResource', [])
                     }
 
                     return str.join("&");
+
+                },
+
+                count: function (url, params, ignoreLoadingBar) {
+
+                    return this.get(url, params, ignoreLoadingBar).then(function (response) {
+                        return response.unpaginatedTotal
+                    });
+
+                },
+
+                delete: function (url, params) {
+
+                    url = API.url + url
+
+                    if (params !== undefined) {
+                        url = url + '?' + this.serializeParams(params);
+                    }
+
+                    return $http.delete(url);
 
                 }
 

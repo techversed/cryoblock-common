@@ -27,8 +27,24 @@ angular.module('comment.cbObjectCommentsDirective', [])
                     $scope.isLoading = true;
                     commentFactory.getCommentsByObject($scope.objectType, $scope.objectId).then(function (response) {
                         $scope.comments = response;
+                        $scope.addDefault();
                         $scope.isLoading = false;
                     });
+
+                    $scope.addDefault = function () {
+
+                        $scope.comments.push({
+                            children: [],
+                            content: null,
+                            objectType: $scope.objectType,
+                            objectId: $scope.objectId,
+                            level: 0,
+                            isDefault: true
+                        });
+
+                    }
+
+                    $scope.$on('comment.replace_default', $scope.addDefault);
 
                 }
 

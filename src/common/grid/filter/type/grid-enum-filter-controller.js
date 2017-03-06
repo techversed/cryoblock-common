@@ -14,8 +14,15 @@ angular.module('grid.gridEnumFilterCtrl', [])
                 var initParam = getParams[$scope.filter.filterProperty + '[IN]']
 
                 if (initParam !== undefined) {
+
+                    if (typeof initParam == 'string') {
+                        initParam = [initParam]
+                    }
+
                     $scope.filter.isVisible = true;
-                    $scope.filter.selectItem(initParam);
+                    angular.forEach(initParam, function (item) {
+                        $scope.filter.selectItem(item);
+                    })
                 }
 
             };

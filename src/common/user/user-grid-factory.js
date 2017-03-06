@@ -1,10 +1,14 @@
 angular.module('user.userGridFactory', [])
 
-    .factory('userGridFactory', ['gridFactory', '$cbResource', '$location',
+    .factory('userGridFactory', ['gridFactory', '$cbResource', '$location', '$injector',
 
-        function (gridFactory, $cbResource, $location) {
+        function (gridFactory, $cbResource, $location, $injector) {
 
             var userGridFactory = {
+
+                url: '/user',
+
+                actionTemplate: 'common/user/partials/user-row-actions-tpl.html',
 
                 columns: [
                     {
@@ -13,14 +17,20 @@ angular.module('user.userGridFactory', [])
                         isSortable: true,
                         name: 'id',
                         isPrimary: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.user_detail({id:result.id})'
+                    },
+                    {
+                        header: 'Enabled',
+                        bindTo: 'enabled ? "Yes" : "No"',
+                        isSortable: true,
+                        name: 'enabled'
                     },
                     {
                         header: 'Username',
                         bindTo: 'username',
                         name: 'username',
                         isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'admin.user_detail({id:result.id})'
                     },
                     {
                         header: 'First Name',
@@ -44,12 +54,26 @@ angular.module('user.userGridFactory', [])
                         // sref: 'sample.detail({id:result.id})'
                     },
                     {
+<<<<<<< HEAD
                         header: 'Active',
                         bindTo: 'enabled',
                         name: 'enabled',
+=======
+                        header: 'Created At',
+                        bindTo: 'createdAt | date:\'MMM d, y\'',
+                        name: 'createdAt',
+                        isSortable: true,
+                        // sref: 'sample.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Updated At',
+                        bindTo: 'updatedAt | date:\'MMM d, y\'',
+                        name: 'updatedAt',
+>>>>>>> 339bfedb715f09df3f689ddcbdd66d83404eebf4
                         isSortable: true,
                         // sref: 'sample.detail({id:result.id})'
                     }
+
                 ],
 
                 filters: [
@@ -86,30 +110,6 @@ angular.module('user.userGridFactory', [])
                         .addFilters(this.filters)
                         .sortColumn(this.columns[0], 'DESC')
                     ;
-
-                },
-
-                getIndexGrid: function () {
-
-                    var grid = this.create();
-
-                    grid
-                        .setActionTemplate('common/user/partials/user-row-actions-tpl.html')
-                        .setResourceUrl('/user')
-                        .setBindToState(true)
-                    ;
-
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
-                    var params = angular.extend(defaultParams, $location.search());
-
-                    return $cbResource.get('/user', params).then(function (response) {
-
-                        return grid
-                            .setResults(response.data)
-                            .setPaginationFromResponse(response)
-                        ;
-
-                    });
 
                 }
 

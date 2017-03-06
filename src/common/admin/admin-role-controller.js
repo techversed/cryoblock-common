@@ -1,15 +1,11 @@
 angular.module('admin.adminRoleCtrl', [])
 
-    .controller('adminRoleCtrl', ['$scope', 'roleGrid', 'roleFormFactory', '$state',
+    .controller('adminRoleCtrl', ['$scope', 'roleGrid', '$state',
 
-        function ($scope, roleGrid, roleFormFactory, $state) {
+        function ($scope, roleGrid, $state) {
 
             $scope.roleGrid = roleGrid;
             $scope.active = 2;
-
-            $scope.createRole = function () {
-                roleFormFactory.openFormModal();
-            };
 
             $scope.navigateToUsers = function ($event) {
                 $state.go('admin.user');
