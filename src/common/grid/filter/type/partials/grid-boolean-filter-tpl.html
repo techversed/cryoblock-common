@@ -8,9 +8,15 @@
     <ul uib-dropdown-menu class="dropdown-menu integer p-sm" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
 
         <div class="btn-group btn-group-justified m-b-sm">
-            <label class="btn btn-default" ng-model="form.radioModel" uib-btn-radio="'True'">True</label>
-            <label class="btn btn-default" ng-model="form.radioModel" uib-btn-radio="'False'">False</label>
-            <label class="btn btn-default" ng-model="form.radioModel" uib-btn-radio="'Any'">Any</label>
+            <div class="btn-group" role="group">
+                <button ng-model="form.radioModel" role="button" type="button" class="btn" uib-btn-radio="'True'" ng-class="{'btn-info': form.radioModel == 'True', 'btn-default': form.radioModel != 'True'}">Yes</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button ng-model="form.radioModel" role="button" type="button" class="btn" uib-btn-radio="'False'" ng-class="{'btn-info': form.radioModel == 'False', 'btn-default': form.radioModel != 'False'}">No</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button ng-model="form.radioModel" role="button" type="button" class="btn" uib-btn-radio="'Any'" ng-class="{'btn-info': form.radioModel == 'Any', 'btn-default': form.radioModel != 'Any'}">Any</button>
+            </div>
         </div>
 
         <div class="row no-margin">

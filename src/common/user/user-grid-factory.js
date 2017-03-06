@@ -54,7 +54,7 @@ angular.module('user.userGridFactory', [])
                         // sref: 'sample.detail({id:result.id})'
                     },
                     {
-                        header: 'Active',
+                        header: 'Enabled',
                         bindTo: 'enabled',
                         name: 'enabled',
                     },
@@ -96,7 +96,7 @@ angular.module('user.userGridFactory', [])
                     },
                     {
                         type: 'boolean',
-                        title: 'Active',
+                        title: 'Enabled',
                         filterProperty: 'enabled',
                         isVisible: false
                     }
