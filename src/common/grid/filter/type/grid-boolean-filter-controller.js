@@ -15,7 +15,7 @@ angular.module('grid.gridBooleanFilterCtrl', [])
                 }
 
                 var getParams = $location.search();
-                console.log(getParams)
+
                 var boolParam = getParams[$scope.filter.filterProperty + '[EQ]'];
 
                 if (boolParam === "0" || boolParam === "1") {

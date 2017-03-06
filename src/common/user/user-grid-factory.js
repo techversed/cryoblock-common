@@ -98,7 +98,7 @@ angular.module('user.userGridFactory', [])
                         type: 'boolean',
                         title: 'Active',
                         filterProperty: 'enabled',
-                        isVisible: true
+                        isVisible: false
                     }
                 ],
 

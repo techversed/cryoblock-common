@@ -14,8 +14,6 @@ angular.module('grid.gridBooleanFilterFactory', [])
 
                 this.selectionString = 'Any';
 
-                this.singleValue = '';
-
                 this.isVisible = false;
 
                 this.isFiltering = false;
@@ -38,7 +36,8 @@ angular.module('grid.gridBooleanFilterFactory', [])
 
                 refresh: function () {
 
-                    this.singleValue = '';
+                    this.form.radioModel = 'Any';
+                    this.selectionString = 'Any';
                     this.isFiltering = false;
 
                 },
@@ -64,7 +63,6 @@ angular.module('grid.gridBooleanFilterFactory', [])
                     var that = this;
                     angular.forEach(this.formMapping, function (v, k) {
                         if (v === boolString) {
-                            console.log(k)
                             that.form.radioModel = k;
                         }
                     });
@@ -85,12 +83,6 @@ angular.module('grid.gridBooleanFilterFactory', [])
                     params[this.filterProperty + "[EQ]"] = this.formMapping[this.form.radioModel];
 
                     return params;
-
-                },
-
-                clear: function () {
-
-                    this.refresh();
 
                 }
 
