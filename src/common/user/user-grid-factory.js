@@ -54,6 +54,11 @@ angular.module('user.userGridFactory', [])
                         // sref: 'sample.detail({id:result.id})'
                     },
                     {
+                        header: 'Enabled',
+                        bindTo: 'enabled',
+                        name: 'enabled',
+                    },
+                    {
                         header: 'Created At',
                         bindTo: 'createdAt | date:\'MMM d, y\'',
                         name: 'createdAt',
@@ -87,6 +92,12 @@ angular.module('user.userGridFactory', [])
                         type: 'string',
                         title: 'Email',
                         filterProperty: 'email',
+                        isVisible: false
+                    },
+                    {
+                        type: 'boolean',
+                        title: 'Enabled',
+                        filterProperty: 'enabled',
                         isVisible: false
                     }
                 ],
