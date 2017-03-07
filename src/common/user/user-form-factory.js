@@ -23,17 +23,9 @@ angular.module('user.userFormFactory', [])
 
                             },
 
-                            groups: function () {
+                            groupGrids: function () {
 
-                                return $cbGridBuilder.buildOTM(
-                                    '/user-group/user/', 'groupGridFactory', user, true
-                                )
-
-                            },
-
-                            groupSelectGrid: function () {
-
-                                return $cbGridBuilder.buildSelect('groupGridFactory');
+                                return $cbGridBuilder.buildMTMGrids('/user-group/user/', 'groupGridFactory', user, true)
 
                             },
 

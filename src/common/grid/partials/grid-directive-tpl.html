@@ -39,6 +39,7 @@
                                 typeahead-wait-ms="1000"
                                 ng-change="refresh()"
                                 ng-model-options="{debounce: 300}"
+                                onkeydown="if (event.keyCode == 13) { return false; }"
                             />
                             <span class="input-group-btn" ng-click="refresh()">
                                 <button class="btn btn-primary grid-contains-search-btn" type="button">

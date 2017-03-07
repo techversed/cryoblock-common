@@ -1,8 +1,8 @@
 angular.module('grid.gridBuilder', [])
 
-    .service('$cbGridBuilder', [ '$injector', '$cbResource', '$location',
+    .service('$cbGridBuilder', [ '$injector', '$cbResource', '$location', '$q',
 
-        function ($injector, $cbResource, $location) {
+        function ($injector, $cbResource, $location, $q) {
 
             var gridBuilder = {
 
@@ -38,19 +38,29 @@ angular.module('grid.gridBuilder', [])
 
                 },
 
-                buildSelect: function (factoryName, single) {
+                buildMTMGrids: function (url, factoryName, initObject, isEditable) {
+
+                    promises = []
+                    promises.push(this.buildOTM(url, factoryName, initObject, isEditable));
+                    promises.push(this.buildSelect(url, factoryName, initObject));
+
+                    return $q.all(promises);
+
+                },
+
+                buildSelect: function (url, factoryName, initObject, single) {
 
                     var factory = $injector.get(factoryName);
 
-                    if (factory.url === undefined) {
-
-                        throw Error('No url property found on grid ' + factoryName);
-
-                    }
-
                     var grid = factory.create();
 
-                    grid.setResourceUrl(factory.url);
+                    if (initObject && initObject.id) {
+                        url = url + initObject.id
+                    } else {
+                        url = url + 0
+                    }
+
+                    grid.setResourceUrl(url);
                     grid.hideAllFilters();
 
                     if (single !== undefined && single) {
@@ -67,7 +77,12 @@ angular.module('grid.gridBuilder', [])
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
 
-                    return $cbResource.get(factory.url, defaultParams).then(function (response) {
+                    if (single === undefined) {
+                        grid.setStaticFilters({'cSelectable' : true});
+                        defaultParams['cSelectable'] = true;
+                    }
+
+                    return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
 

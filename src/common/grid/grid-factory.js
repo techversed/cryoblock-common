@@ -351,8 +351,8 @@ angular.module('grid.gridFactory', [])
                         params['cSearch'] = this.search;
                     }
 
-                    this.staticFilters.map(function (staticFilter) {
-                        params = params.concat(staticFilter);
+                    angular.forEach(this.staticFilters, function (value, key) {
+                        params[key] = value;
                     });
 
                     this.filters.map(function (filter) {

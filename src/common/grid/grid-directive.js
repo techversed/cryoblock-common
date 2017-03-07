@@ -17,6 +17,7 @@ angular.module('grid.gridDirective', [])
                 controller: function ($scope) {
 
                     this.grid = $scope.grid;
+                    $scope.previousParams = null;
 
                     var init = function () {
 
@@ -60,6 +61,18 @@ angular.module('grid.gridDirective', [])
                         if ($scope.grid.bindToState) {
                             $location.search(params);
                         }
+
+
+                        var cloned_params = angular.copy(params)
+                        delete cloned_params['cPage'];
+                        var eq = angular.equals($scope.previousParams, cloned_params);
+
+                        if ($scope.previousParams && !eq) {
+                            params['cPage'] = 1;
+                        }
+
+                        $scope.previousParams = cloned_params;
+                        console.log(cloned_params);
 
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
 

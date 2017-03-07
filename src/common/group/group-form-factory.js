@@ -23,31 +23,19 @@ angular.module('group.groupFormFactory', [])
 
                             },
 
-                            roles: function () {
+                            roleGrids: function () {
 
-                                return $cbGridBuilder.buildOTM(
+                                return $cbGridBuilder.buildMTMGrids(
                                     '/group-role/group/', 'roleGridFactory', group, true
                                 )
 
                             },
 
-                            users: function () {
+                            userGrids: function () {
 
-                                return $cbGridBuilder.buildOTM(
+                                return $cbGridBuilder.buildMTMGrids(
                                     '/user-group/group/', 'userGridFactory', group, true
                                 )
-
-                            },
-
-                            roleSelectGrid: function () {
-
-                                return $cbGridBuilder.buildSelect('roleGridFactory')
-
-                            },
-
-                            userSelectGrid: function () {
-
-                                return $cbGridBuilder.buildSelect('userGridFactory')
 
                             },
 
