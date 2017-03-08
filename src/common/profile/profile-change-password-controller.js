@@ -39,10 +39,6 @@ angular.module('profile.changePasswordCtrl', [])
 
             }
 
-            $scope.close = function () {
-                $modalInstance.close();
-            }
-
         }
 
     ])
