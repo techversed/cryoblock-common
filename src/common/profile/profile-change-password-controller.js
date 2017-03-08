@@ -1,8 +1,8 @@
 angular.module('profile.changePasswordCtrl', [])
 
-    .controller('changePasswordCtrl', ['$scope', '$uibModalInstance', '$cbResource', 'toastr', 'callback',
+    .controller('changePasswordCtrl', ['$scope', '$uibModalInstance', '$cbResource', 'toastr',
 
-        function ($scope, $modalInstance, $cbResource, toastr, callback) {
+        function ($scope, $modalInstance, $cbResource, toastr) {
 
             $scope.changePasswordForm = {};
             $scope.success = false;
@@ -13,6 +13,11 @@ angular.module('profile.changePasswordCtrl', [])
                     toastr.error('Passwords must match, please try again');
                     return;
                 }
+
+                data = {
+                    currentPassword: $scope.currentPassword,
+                    password: $scope.password
+                };
 
                 $cbResource.create('/user/password/reset', data).then(
 

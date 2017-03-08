@@ -27,7 +27,7 @@ angular.module('profile.profileCtrl', [])
             $scope.changePassword = function () {
                 $modal.open({
                     templateUrl: 'common/profile/profile-change-password-tpl.html',
-                    controller: 'photoUploadCtrl',
+                    controller: 'changePasswordCtrl',
                     windowClass: 'inmodal',
                     keyboard: false,
                     backdrop: 'static'
