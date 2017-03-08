@@ -30,7 +30,17 @@ angular.module('profile.profileCtrl', [])
                     controller: 'changePasswordCtrl',
                     windowClass: 'inmodal',
                     keyboard: false,
-                    backdrop: 'static'
+                    backdrop: 'static',
+                    resolve: {
+
+                        user: function () {
+
+                            return $scope.user;
+
+                        }
+
+
+                    }
                 });
             }
         }

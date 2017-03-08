@@ -1,9 +1,11 @@
 angular.module('profile.changePasswordCtrl', [])
 
-    .controller('changePasswordCtrl', ['$scope', '$uibModalInstance', '$cbResource', 'toastr',
+    .controller('changePasswordCtrl', ['$scope', '$uibModalInstance', '$cbResource', 'toastr', 'user',
 
-        function ($scope, $modalInstance, $cbResource, toastr) {
+        function ($scope, $modalInstance, $cbResource, toastr, user) {
 
+            $scope.user = user;
+            console.log($scope.user)
             $scope.changePasswordForm = {};
             $scope.success = false;
 
