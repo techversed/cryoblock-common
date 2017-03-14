@@ -1,8 +1,8 @@
 angular.module('profile.changePasswordCtrl', [])
 
-    .controller('changePasswordCtrl', ['$scope', '$uibModalInstance', '$cbResource', 'toastr', 'user',
+    .controller('changePasswordCtrl', ['$scope', '$state', '$uibModalInstance', '$cbResource', 'toastr', 'user',
 
-        function ($scope, $modalInstance, $cbResource, toastr, user) {
+        function ($scope, $state, $modalInstance, $cbResource, toastr, user) {
 
             $scope.user = user;
             $scope.changePasswordForm = {};
@@ -26,7 +26,7 @@ angular.module('profile.changePasswordCtrl', [])
 
                         toastr.info('Password Changed');
                         $modalInstance.close();
-                        callback();
+                        $state.go($state.current, $stateParams, {reload:true});
 
                     },
 
