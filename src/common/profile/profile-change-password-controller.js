@@ -5,7 +5,6 @@ angular.module('profile.changePasswordCtrl', [])
         function ($scope, $modalInstance, $cbResource, toastr, user) {
 
             $scope.user = user;
-            console.log($scope.user)
             $scope.changePasswordForm = {};
             $scope.success = false;
 
