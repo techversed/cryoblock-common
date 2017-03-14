@@ -1,7 +1,6 @@
 <div class="grid-responsive-table" ng-class="{isEditable: grid.isEditable, isSelectable: grid.isSelectable, isManySelectable: grid.isManySelectable, 'no-results': grid.results.length === 0}">
 
-
-    <div ng-if="((grid.isEditable || grid.isSelectable) && grid.initResultCount) || (!grid.isEditable && !grid.isSelectable)">
+    <div ng-if="((grid.isEditable || grid.isSelectable)) || (!grid.isEditable && !grid.isSelectable)">
 
         <div class="row" ng-if="grid.showFilters">
 

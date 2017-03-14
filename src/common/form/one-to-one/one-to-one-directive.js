@@ -47,8 +47,7 @@ angular.module('form.oneToOne.oneToOneDirective', [])
 
                     $scope.removeItem = function () {
                         $scope.grid.unselectItem();
-                        console.log($scope.grid);
-                        $scope.showGrid = false;
+                        $scope.toggle();
                     };
 
                     $scope.showGrid = false;
