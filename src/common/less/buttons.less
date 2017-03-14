@@ -103,7 +103,11 @@
 .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success {
   background-image: none;
 }
-.btn-success.disabled, .btn-success.disabled:hover, .btn-success.disabled:focus, .btn-success.disabled:active, .btn-success.disabled.active, .btn-success[disabled], .btn-success[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled]:active, .btn-primary.active[disabled], fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary.active {
+.btn-success.disabled, .btn-success.disabled:hover, .btn-success.disabled:focus, .btn-success.disabled:active, .btn-success.disabled.active, .btn-success[disabled], .btn-success[disabled]:hover, .btn-success[disabled]:focus, .btn-success[disabled]:active, .btn-success.active[disabled], fieldset[disabled] .btn-success, fieldset[disabled] .btn-success:hover, fieldset[disabled] .btn-success:focus, fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success.active {
+  background-color: darken(@color-navy-blue, 6%);
+  border-color: darken(@color-navy-blue, 6%);
+}
+.btn-success:active:hover, .btn-success.active:hover, .open>.dropdown-toggle.btn-success:hover, .btn-success:active:focus, .btn-success.active:focus, .open>.dropdown-toggle.btn-success:focus, .btn-success:active.focus, .btn-success.active.focus, .open>.dropdown-toggle.btn-success.focus {
   background-color: darken(@color-navy-blue, 6%);
   border-color: darken(@color-navy-blue, 6%);
 }

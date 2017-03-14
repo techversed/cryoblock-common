@@ -72,7 +72,6 @@ angular.module('grid.gridDirective', [])
                         }
 
                         $scope.previousParams = cloned_params;
-                        console.log(cloned_params);
 
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
 

@@ -62,18 +62,7 @@ angular.module('grid.gridBuilder', [])
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
-
-                    if (single !== undefined && single) {
-
-                        grid.allowSelect()
-
-                    }
-
-                    if (single === undefined) {
-
-                        grid.allowSelectMany()
-
-                    }
+                    grid.allowSelectMany()
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
 
@@ -93,6 +82,42 @@ angular.module('grid.gridBuilder', [])
                             .disableHover()
                             .setPerPage(3)
                             .disableToggleColumns()
+                        ;
+
+                    });
+
+                },
+
+                buildSelectSingle: function (factoryName) {
+
+                    var factory = $injector.get(factoryName);
+
+                    if (factory.url === undefined) {
+
+                        throw Error('No url property found on grid ' + factoryName);
+
+                    }
+
+                    var grid = factory.create();
+
+                    grid.setResourceUrl(factory.url);
+                    grid.hideAllFilters();
+                    grid.allowSelect()
+
+                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+
+                    return $cbResource.get(factory.url, defaultParams).then(function (response) {
+
+                        grid.perPageOptions = [3, 10, 25];
+
+                        return grid
+                            .setResults(response.data)
+                            .setPaginationFromResponse(response)
+                            .disableHyperlinks()
+                            .disableHover()
+                            .setPerPage(3)
+                            .disableToggleColumns()
+                            .setInitResultCount(response.unpaginatedTotal)
                         ;
 
                     });

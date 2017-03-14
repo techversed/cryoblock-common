@@ -51,5 +51,8 @@
     "angular-steps": "^0.2.3",
     "simplemde": "https://github.com/techversed/simplemde-markdown-editor.git#008802403ce9f9c0dac84bacf862deb85bb5ae99",
     "highlight": "^9.6.0"
+  },
+  "dependencies": {
+    "angular-ui-tree": "^2.22.5"
   }
 }

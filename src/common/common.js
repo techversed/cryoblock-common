@@ -34,5 +34,6 @@ angular.module('common', [
     'objectHistory',
     'commonFilters',
     'widget',
-    'comment'
+    'comment',
+    'ui.tree'
 ]);
