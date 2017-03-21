@@ -265,7 +265,6 @@ module.exports = function (grunt) {
                     'bower_components/angular-messages/angular-messages.js',
                     'bower_components/datatables-responsive/js/dataTables.responsive.js',
                     'bower_components/sweetalert/dist/sweetalert-dev.js',
-                    'bower_components/angular-tree-control/angular-tree-control.js',
                     'bower_components/angular-rangeslider/angular.rangeSlider.js',
                     'bower_components/angular-money-directive/dist/angular-money-directive.js',
                     'bower_components/angular-steps/dist/angular-steps.js',
