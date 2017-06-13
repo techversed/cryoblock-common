@@ -26,7 +26,7 @@
 
                 <input type="radio" name="type" value="between" ng-model="filter.selectedType"></input>
 
-                <strong>>=</strong>
+                <strong style="margin-left: 10px;">>=</strong>
 
                 <input type="number" class="form-control between" ng-model="filter.betweenStart"></input>
 
@@ -40,10 +40,10 @@
         <li role="menuitem">
             <div class="row no-margin">
                 <div class="col-md-6">
-                    <button class="btn btn-info btn-block" ng-click="update()">Update</button>
+                    <button type="button" class="btn btn-info btn-block" ng-click="update()">Update</button>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-default btn-block" ng-click="refresh()">
+                    <button type="button" class="btn btn-default btn-block" ng-click="refresh()">
                         <i class="fa fa-refresh" />
                     </button>
                 </div>

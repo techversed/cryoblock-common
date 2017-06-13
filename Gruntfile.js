@@ -271,6 +271,7 @@ module.exports = function (grunt) {
                     'bower_components/marked/lib/marked.js',
                     'bower_components/simplemde/debug/simplemde.js',
                     'bower_components/angular-ui-tree/dist/angular-ui-tree.js',
+                    'bower_components/d3/d3.js',
                     // 'bower_components/highlight/src/highlight.js',
                     '<%= cryoblock.build %>/production/templates.js',
                     '<%= cryoblock.app %>/**/*.js'

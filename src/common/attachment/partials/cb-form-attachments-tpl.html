@@ -1,0 +1,17 @@
+<div id="cb-form-attachments-container">
+    <button class="btn btn-default btn-block" type="button" ng-click="upload()">
+        <i class="fa fa-upload"/>
+        Attach Files
+    </button>
+    <table ng-if="files.length">
+        <tbody>
+            <tr ng-repeat="file in files">
+                <td>
+                    <img ng-if="isImage(file)" class="img-polaroid" ng-src="{{file.src}}" title="file.name" />
+                </td>
+                <td class="name" width="100%">{{file.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

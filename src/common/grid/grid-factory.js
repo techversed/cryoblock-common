@@ -33,6 +33,8 @@ angular.module('grid.gridFactory', [])
 
                 this.showFilters = true;
 
+                this.hidePagination = false;
+
                 this.staticFilters = [];
 
                 this.isEditable = false;
@@ -199,6 +201,14 @@ angular.module('grid.gridFactory', [])
                 disallowEdit: function () {
 
                     this.isEditable = false;
+
+                    return this;
+
+                },
+
+                disablePagination: function () {
+
+                    this.hidePagination = true;
 
                     return this;
 
@@ -373,6 +383,12 @@ angular.module('grid.gridFactory', [])
                     this.removingItems.push(item);
                     this.removingItemIds.push(item.id);
 
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(item);
+
+                    }
+
                     return this;
 
                 },
@@ -400,16 +416,22 @@ angular.module('grid.gridFactory', [])
                     this.addingItems.push(item);
                     this.addingItemIds.push(item.id);
 
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(item);
+
+                    }
+
                     return this;
 
                 },
 
-                selectItem: function (item) {
+                selectItem: function (item, skip) {
 
                     this.selectedItem = item;
                     this.search = '';
 
-                    if (this.selectItemCallback) {
+                    if (this.selectItemCallback && skip === undefined) {
 
                         this.selectItemCallback(item);
 
@@ -423,6 +445,12 @@ angular.module('grid.gridFactory', [])
 
                     this.selectedItem = null;
 
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(null);
+
+                    }
+
                     return this;
 
                 },
@@ -430,6 +458,8 @@ angular.module('grid.gridFactory', [])
                 setSelectItemCallback: function (callback) {
 
                     this.selectItemCallback = callback;
+
+                    return this;
 
                 },
 

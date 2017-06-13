@@ -1,0 +1,12 @@
+<div class="row form-group">
+    <div class="col-xs-12">
+        <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+            <li ng-repeat="step in stepsData" ng-class="{disabled: ($index > currentStepIndex), active: (step.name == currentStep)}">
+                <a ng-click="goTo($index)">
+                    <h4 class="list-group-item-heading">{{step.title}}</h4>
+                    <p class="list-group-item-text">{{step.description}}</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

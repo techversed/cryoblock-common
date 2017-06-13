@@ -34,5 +34,7 @@ angular.module('common', [
     'commonFilters',
     'widget',
     'comment',
-    'ui.tree'
+    'ui.tree',
+    'step',
+    'attachment'
 ]);
