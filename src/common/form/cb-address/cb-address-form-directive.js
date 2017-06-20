@@ -69,7 +69,10 @@ angular.module('form.cbAddress.cbAddressFormDirective', [])
                     $scope.cancelEdit = function () {
                         $scope.submitted = false;
                         $scope.toggleAdd();
-                        $scope.toggle();
+
+                        if ($scope.addresses.length > 0) {
+                            $scope.toggle();
+                        }
                     };
 
                     $scope.createAddress = function () {
