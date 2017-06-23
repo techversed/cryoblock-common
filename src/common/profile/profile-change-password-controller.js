@@ -26,7 +26,6 @@ angular.module('profile.changePasswordCtrl', [])
 
                         toastr.info('Password Changed');
                         $modalInstance.close();
-                        $state.go($state.current, $stateParams, {reload:true});
 
                     },
 

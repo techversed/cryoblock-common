@@ -47,6 +47,10 @@
                                 <td>Last Name</td>
                                 <td>{{user.lastName}}</td>
                             </tr>
+                            <tr>
+                                <td>Enabled</td>
+                                <td>{{user.enabled}}</td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -63,6 +67,10 @@
                     </div>
                     <div class="panel-body no-padding">
                         <table class="table-detail">
+                            <tr>
+                                <td>Last Login</td>
+                                <td>{{user.lastLogin | date:'medium'}}</td>
+                            </tr>
                             <tr>
                                 <td>Created At</td>
                                 <td>{{user.createdAt | date:'medium'}}</td>
