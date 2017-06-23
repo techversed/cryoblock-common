@@ -53,6 +53,7 @@
     "highlight": "^9.6.0"
   },
   "dependencies": {
-    "angular-ui-tree": "^2.22.5"
+    "angular-ui-tree": "^2.22.5",
+    "d3": "^4.7.4"
   }
 }

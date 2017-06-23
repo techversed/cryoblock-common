@@ -144,13 +144,14 @@ angular.module('grid.gridBuilder', [])
                         .disableHover()
                     ;
 
-                    grid.perPageOptions = [3, 10, 25];
+                    grid.perPageOptions = isEditable ? [3, 10, 25] : [25, 50, 100];
+                    cPerPage = isEditable ? 3 : 25;
 
                     if (!initObject || !initObject.id) {
                         return grid;
                     }
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:cPerPage};
 
                     return $cbResource.get(url, defaultParams).then(function (response) {
 

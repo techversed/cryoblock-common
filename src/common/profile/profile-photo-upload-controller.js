@@ -45,7 +45,7 @@ angular.module('profile.photoUploadCtrl', ['ngImgCrop', 'angular-svg-round-progr
 
                 var options = {
                     files: [blob],
-                    url: API.url + '/_uploader/profile/upload',
+                    url: API.url + '/_uploader/profile/upload?object_id=' + $localStorage.User.id + '&object_class=Carbon\\ApiBundle\\Entity\\User',
                     headers: {}
                 };
 
