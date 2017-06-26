@@ -3,7 +3,7 @@ angular.module('user.userAvatarDirective', [])
         function (sessionFactory, API, $rootScope) {
             return {
                 restrict: 'E',
-                templateUrl: 'common/user/user-avatar-tpl.html',
+                templateUrl: 'common/user/partials/user-avatar-tpl.html',
                 link: function ($scope) {
 
                     $scope.getUser = function () {

@@ -10,12 +10,18 @@
             </ol>
         </div>
         <div class="hpanel">
-            <div class="panel-body">
+            <div class="panel-body" id="user-container">
                 <button ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
                 <h2 class="font-light m-b-xs inline">
                   User {{user.id}} - {{user.firstName}} {{user.lastName}}
                 </h2>
                 <small class="block">{{user.username}}</small>
+                    <div class="avatar-container align-center" class="col-lg-12">
+                        <div class="avatar" ng-click="uploadPhoto()">
+                            <user-avatar user=""></user-avatar>
+                            <div class="img-circle avatar-edit animated pulse"></div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
