@@ -4,5 +4,6 @@ angular.module('user', [
     'user.userFormFactory',
     'user.userFormCtrl',
     'user.userDisableCtrl',
-    'user.userAvatarDirective'
+    'user.userAvatarDirective',
+    'user.userAvatarCtrl'
 ]);
