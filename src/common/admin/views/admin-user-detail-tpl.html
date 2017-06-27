@@ -1,26 +1,33 @@
 <div id="admin-container">
-
     <div class="normalheader">
         <div id="hbreadcrumb">
             <ol class="hbreadcrumb breadcrumb">
                 <li><a ui-sref="admin.user">Users</a></li>
                 <li class="active">
                     <span>User {{user.id}}</span>
-                </li>
-            </ol>
-        </div>
-        <div class="hpanel">
-            <div class="panel-body" id="user-container">
-                <button ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
-                <h2 class="font-light m-b-xs inline">
-                  User {{user.id}} - {{user.firstName}} {{user.lastName}}
-                </h2>
-                    <div class="avatar-container align-center" class="col-lg-12" ng-controller="userAvatarCtrl" user="user">
+
+<div id="user-container">
+                     <div class="avatar-container align-right" class="col-lg-12" ng-controller="userAvatarCtrl" user="user">
+                        <small class="block">{{user.username}}</small>
                         <div class="avatar" ng-click="uploadPhoto()">
                             <user-avatar></user-avatar>
                             <div class="img-circle avatar-edit animated pulse"></div>
                         </div>
                     </div>
+</div>
+                </li>
+            </ol>
+        </div>
+        <div class="hpanel">
+            <div class="panel-body" >
+
+                <button ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
+                <h2 class="font-light m-b-xs inline">
+                  User {{user.id}} - {{user.firstName}} {{user.lastName}}
+                </h2>
+
+
+
                 <small class="block">{{user.username}}</small>
             </div>
         </div>

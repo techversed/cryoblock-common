@@ -1,7 +1,7 @@
 angular.module('user.userAvatarCtrl', [])
-    .controller('userAvatarCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'API',
+    .controller('userAvatarCtrl', ['$scope', '$localStorage', '$uibModal',  'API',
 
-        function ($scope, $localStorage, $modal, user, API) {
+        function ($scope, $localStorage, $modal,  API) {
 
             // $scope.user = user;
 
