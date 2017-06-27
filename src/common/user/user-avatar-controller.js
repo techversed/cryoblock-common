@@ -1,9 +1,9 @@
 angular.module('user.userAvatarCtrl', [])
-    .controller('userAvatarCtrl', ['$scope', '$localStorage', '$uibModal',  'API',
+    .controller('userAvatarCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'API',
 
-        function ($scope, $localStorage, $modal,  API) {
+        function ($scope, $localStorage, $modal, user, API) {
 
-            // $scope.user = user;
+            $scope.user = user;
 
             $scope.hasAvatar = function () {
                 return typeof $scope.user.avatar_attachment !== 'undefined';
