@@ -3,15 +3,20 @@
         <i class="fa fa-upload"/>
         Attach Files
     </button>
-    <table ng-if="files.length">
+    <table ng-if="form.files.length">
         <tbody>
-            <tr ng-repeat="file in files">
+            <tr ng-repeat="file in form.files">
                 <td>
-                    <img ng-if="isImage(file)" class="img-polaroid" ng-src="{{file.src}}" title="file.name" />
+                    <img ng-if="file.isImage" class="img-polaroid" ng-src="{{file.src}}" title="{{file.name}}" />
+                    <i ng-if="!file.isImage" class="default-image fa fa-file-image-o" style="{font-size:45px}" title="{{file.name}}" />
                 </td>
-                <td class="name" width="100%">{{file.name}}</td>
+                <td class="name">{{file.name}}</td>
+                <td class="size">{{file.size | filesize}}</td>
+                <td class="meme">{{file.type}}</td>
+                <td class="actions"><i ng-click="removeFile(file)" class="fa fa-remove"/></td>
             </tr>
         </tbody>
     </table>
 </div>
+
 

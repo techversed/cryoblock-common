@@ -2,7 +2,7 @@
 
     img.img-polaroid {
         max-width: 100px;
-        max-height: 45px;
+        max-height: 30px;
         padding: 4px;
         background-color: #fff;
         border: 1px solid #ccc;
@@ -17,19 +17,30 @@
         margin-bottom: 20px;
         td {
             padding: 5px;
-            &.loading {
-                width: 300px;
-                padding-right: 17px;
+            &.file-progress {
+                width: 25%;
                 .progress {
                     margin-bottom: 0px;
                 }
             }
-                &.name {
+            &.name {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 max-width: 200px;
             }
+            .default-image {
+                font-size: 30px;
+            }
+            &.actions {
+                i {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        tr:nth-of-type(even) {
+            background-color: #f0f0f0;
         }
     }
 

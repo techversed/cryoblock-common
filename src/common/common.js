@@ -20,7 +20,6 @@ angular.module('common', [
     'form',
     'button',
     'ngImgCrop',
-    'blueimp.fileupload',
     'datatables',
     'ngMessages',
     'fiestah.money',
