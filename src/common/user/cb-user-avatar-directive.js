@@ -1,10 +1,10 @@
-angular.module('user.userAvatarDirective', [])
-    .directive('userAvatar', ['sessionFactory', 'API', '$rootScope',
+angular.module('user.cbUserAvatarDirective', [])
+    .directive('cbUserAvatar', ['sessionFactory', 'API', '$rootScope',
         function (sessionFactory, API, $rootScope) {
             return {
                 restrict: 'E',
                 user: 'E',
-                templateUrl: 'common/profile/profile-avatar-tpl.html',
+                templateUrl: 'common/user/views/cb-user-avatar-tpl.html',
                 scope: {
                     user: '='
                 },
