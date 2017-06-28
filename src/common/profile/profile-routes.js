@@ -38,6 +38,12 @@ angular.module('profile.routes', [])
 
                                         return profileFactory.getUser($localStorage.User.id);
 
+                                    },
+
+                                    activities: function (profileFactory) {
+
+                                        return profileFactory.getActivity($localStorage.User.username);
+
                                     }
 
                                 }

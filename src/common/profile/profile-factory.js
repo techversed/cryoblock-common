@@ -14,6 +14,17 @@ angular.module('profile.profileFactory', [])
                     });
 
                     return promise;
+                },
+
+                getActivity: function (username) {
+
+                    var url = API.url + '/log-entry?username[EQ]=' + username;
+
+                    var promise = $http.get(url).then(function (response) {
+                        return response.data.data;
+                    });
+
+                    return promise;
                 }
 
             };

@@ -69,6 +69,56 @@
                 </div>
                 <div class="panel-body float-e-margins">
                     No activity to show
+                    <table>
+                        <thead>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                            <th>
+                                Logged At
+                            </th>
+                            <th>
+                                Object ID
+                            </th>
+                            <th>
+                                Object Class
+                            </th>
+                            <th>
+                                Version
+                            </th>
+                            <th>
+                                User Name
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="activity in activities.value">
+                                <td>
+                                    {{activity.id}}
+                                </td>
+                                <td>
+                                    {{activity.action}}
+                                </td>
+                                <td>
+                                    {{activity.loggedAt}}
+                                </td>
+                                <td>
+                                    {{activity.onjectId}}
+                                </td>
+                                <td>
+                                    {{activity.objectClass}}
+                                </td>
+                                <td>
+                                    {{activity.version}}
+                                </td>
+                                <td>
+                                    {{activity.username}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
