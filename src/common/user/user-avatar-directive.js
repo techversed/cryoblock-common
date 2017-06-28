@@ -3,25 +3,23 @@ angular.module('user.userAvatarDirective', [])
         function (sessionFactory, API, $rootScope) {
             return {
                 restrict: 'E',
-                templateUrl: 'common/user/partials/user-avatar-tpl.html',
+                user: 'E',
+                templateUrl: 'common/profile/profile-avatar-tpl.html',
+                scope: {
+                    user: '='
+                },
                 link: function ($scope) {
-
-                    $scope.getUser = function () {
-
-                        return sessionFactory.getLoggedInUser();
-
-                    }
 
                     $scope.hasAvatar = function () {
 
-                        return typeof $scope.getUser().avatarAttachment !== 'undefined';
+                        return typeof $scope.user.avatarAttachment !== 'undefined';
 
                     }
 
                     $scope.setAvatarSrc = function () {
 
                         $scope.avatarSrc = $scope.hasAvatar()
-                            ? API.url + '/attachment/' + $scope.getUser().avatarAttachment.id + '/download'
+                            ? API.url + '/attachment/' + $scope.user.avatarAttachment.id + '/download'
                             : null
                         ;
 
