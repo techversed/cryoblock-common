@@ -4,7 +4,7 @@ angular.module('user.cbUserAvatarDirective', [])
             return {
                 restrict: 'E',
                 user: 'E',
-                templateUrl: 'common/user/views/cb-user-avatar-tpl.html',
+                templateUrl: 'common/user/partials/cb-user-avatar-tpl.html',
                 scope: {
                     user: '='
                 },
