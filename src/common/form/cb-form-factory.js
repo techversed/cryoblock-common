@@ -1,8 +1,8 @@
 angular.module('form.cbFormFactory', [])
 
-    .factory('$cbForm', ['$http', 'API', '$cbResource', '$q', 'toastr', '$localStorage',
+    .factory('$cbForm', ['$http', 'API', '$cbResource', '$q', 'toastr', '$localStorage', '$state', '$stateParams',
 
-        function ($http, API, $cbResource, $q, toastr, $localStorage) {
+        function ($http, API, $cbResource, $q, toastr, $localStorage, $state, $stateParams) {
 
             var CBForm = function () {
 
@@ -164,7 +164,7 @@ angular.module('form.cbFormFactory', [])
                  */
                 close: function (form, scope) {
 
-                    if (form.isSaving || form.isUploading) {
+                    if (this.isSaving || this.isUploading) {
                         return;
                     }
 
@@ -205,9 +205,22 @@ angular.module('form.cbFormFactory', [])
 
                         file.loaded = 0;
 
+                        reader.onprogress = (function(file) {
+
+                            return function(e) {
+
+                                file.isLoading = true;
+                                scope.$apply();
+
+                            };
+
+                        })(file);
+
                         reader.onload = (function(file) {
 
                             return function(e) {
+
+                                file.isLoading = false;
 
                                 if (that.isImage(file)) {
                                     file.src = e.target.result;
@@ -267,10 +280,10 @@ angular.module('form.cbFormFactory', [])
                             return that.uploadAttachments(scope).then(
 
                                 function () {
-                                    console.log(12);
                                     var method = that.object.id !== undefined ? 'update' : 'create';
                                     toastr.info(that.type + ' ' + method + 'd successfully');
                                     scope.$close();
+                                    $state.go($state.current, $stateParams, {reload:true});
                                 },
 
                                 function () {

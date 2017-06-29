@@ -1,0 +1,41 @@
+<div id="cb-attachments-container">
+    <div class="hpanel">
+        <div class="panel-heading">
+            <div class="panel-tools">
+                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+            </div>
+            Attachments
+        </div>
+        <div class="panel-body no-padding">
+
+            <div ng-show="isLoading" class="p-lg">
+
+                <p class="text-center">
+                    <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+                </p>
+
+            </div>
+
+            <ul class="cb-attachment-list" ng-show='attachments.length && !isLoading'>
+                <li ng-repeat="attachment in attachments">
+                    <div class="image-container">
+                        <a class="image-hyperlink" target="_blank" href="{{attachment.src}}">
+                            <img ng-if="attachment.isImage" ng-src="{{attachment.src}}" title="{{attachment.name}}"></img>
+                            <i ng-if="!attachment.isImage" class="default-image fa fa-file-image-o" title="{{attachment.name}}" />
+                        </a>
+                    </div>
+                    <div class="image-details">
+                        <div class="title">
+                            <a target="_blank" href="{{attachment.src}}">{{attachment.name}}</a>
+                        </div>
+                        <i ng-click="deleteAttachment(attachment)" class="fa fa-trash"/>
+                        <p class="size">{{attachment.size | filesize}}</p>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
