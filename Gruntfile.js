@@ -254,6 +254,7 @@ module.exports = function (grunt) {
                     'bower_components/blueimp-file-upload/js/vendor/*.js',
                     'bower_components/blueimp-file-upload/js/jquery.fileupload.js',
                     'bower_components/blueimp-file-upload/js/jquery.fileupload-process.js',
+                    'bower_components/blueimp-file-upload/js/jquery.fileupload-angular.js',
                     'bower_components/iCheck/icheck.min.js',
                     'bower_components/angular-svg-round-progressbar/build/roundProgress.min.js',
                     'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js',

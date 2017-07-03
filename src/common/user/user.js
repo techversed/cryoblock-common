@@ -3,5 +3,6 @@ angular.module('user', [
     'user.userRowActionsCtrl',
     'user.userFormFactory',
     'user.userFormCtrl',
-    'user.userDisableCtrl'
+    'user.userDisableCtrl',
+    'user.cbUserAvatarDirective'
 ]);
