@@ -17,7 +17,8 @@ angular.module('profile.changePasswordCtrl', [])
 
                 data = {
                     currentPassword: $scope.currentPassword,
-                    password: $scope.password
+                    password: $scope.password,
+                    userId: $scope.user.id
                 };
 
                 $cbResource.create('/user/password/reset', data).then(

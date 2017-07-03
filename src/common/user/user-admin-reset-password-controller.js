@@ -16,11 +16,11 @@ angular.module('user.adminResetPasswordCtrl', [])
                 }
 
                 data = {
-                    user: $scope.user,
+                    userId: $scope.user.id,
                     password: $scope.password
                 };
 
-                $cbResource.create('/user/password/admin-reset', data).then(
+                $cbResource.create('/user/password/reset', data).then(
 
                     function (response) {
 
