@@ -6,5 +6,7 @@ angular.module('form', [
     'form.cbFormGroup',
     'form.oneToOne',
     'form.cbBoolean',
-    'form.cbAddress'
+    'form.cbAddress',
+    'form.cbFormFactory',
+    'form.cbFormDirective'
 ]);

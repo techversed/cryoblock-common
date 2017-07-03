@@ -2,7 +2,7 @@
 
     img.img-polaroid {
         max-width: 100px;
-        max-height: 45px;
+        max-height: 30px;
         padding: 4px;
         background-color: #fff;
         border: 1px solid #ccc;
@@ -17,19 +17,30 @@
         margin-bottom: 20px;
         td {
             padding: 5px;
-            &.loading {
-                width: 300px;
-                padding-right: 17px;
+            &.file-progress {
+                width: 25%;
                 .progress {
                     margin-bottom: 0px;
                 }
             }
-                &.name {
+            &.name {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 max-width: 200px;
             }
+            .default-image {
+                font-size: 30px;
+            }
+            &.actions {
+                i {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        tr:nth-of-type(even) {
+            background-color: #f0f0f0;
         }
     }
 
@@ -38,3 +49,68 @@
     }
 
 }
+
+#cb-attachments-container {
+
+    .cb-attachment-list {
+        padding: 0;
+        li {
+            &:hover {
+                background-color: #f0f0f0;
+                cursor: pointer;
+                .image-details {
+                    i {
+                        display: block;
+                    }
+                }
+            }
+            .image-container {
+                border: 1px solid #e9e9e9;
+                height: 145px;
+                border-radius: 3px;
+                vertical-align: middle;
+                display: table-cell;
+            }
+            vertical-align: top;
+            margin: 10px;
+            list-style: none;
+            display: inline-block;
+            img {
+                max-height: 140px;
+                max-width: 200px;
+            }
+            .default-image {
+                font-size: 130px;
+                width: 200px;
+                text-align: center;
+            }
+            .image-details {
+                position: relative;
+                line-height: 40px;
+                .title {
+                    margin-left: 5px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    max-width: 180px;
+                    line-height: 25px;
+                }
+                i {
+                    position: absolute;
+                    right: 2px;
+                    top: 5px;
+                    font-size: 14px;
+                    display: none;
+                }
+                .size {
+                    line-height: 15px;
+                    text-align: right;
+                }
+            }
+            .image-hyperlink {
+                color: #676a6c;
+            }
+        }
+    }
+}
+
+

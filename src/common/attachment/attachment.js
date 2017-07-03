@@ -1,4 +1,4 @@
 angular.module('attachment', [
-    'attachment.cbAttachmentDirective',
+    'attachment.cbAttachmentsDirective',
     'attachment.cbFormAttachmentsDirective'
 ]);

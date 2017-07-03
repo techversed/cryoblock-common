@@ -1,0 +1,38 @@
+<div>
+
+    <div ng-show="form.isSaving" class="p-lg">
+
+        <p class="text-center">
+            <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+        </p>
+        <p class="text-center"><i class="fa fa-save"/> Saving {{form.type}}</p>
+
+    </div>
+
+    <div id="cb-form-attachments-container" ng-show="form.isUploading" class="p-lg">
+        <p class="text-center"><i class="fa fa-save"/> Uploading Attachments</p>
+        <table ng-if="form.files.length">
+            <tbody>
+                <tr ng-repeat="file in form.files">
+                    <td>
+                        <img ng-if="file.isImage" class="img-polaroid" ng-src="{{file.src}}" title="{{file.name}}" />
+                        <i ng-if="!file.isImage" class="default-image fa fa-file-image-o" style="{font-size:45px}" title="{{file.name}}" />
+                    </td>
+                    <td class="name">{{file.name}}</td>
+                    <td class="size hidden-xs">{{file.size | filesize}}</td>
+                    <td class="meme hidden-xs">{{file.type}}</td>
+                    <td class="file-progress">
+                        <a>
+                            <uib-progressbar animate="false" value="file.loaded" type="info"><b>{{file.loaded}}%</b></uib-progressbar>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-hide="form.isSaving || form.isUploading">
+        <ng-transclude>
+    </div>
+
+</div>
