@@ -223,15 +223,16 @@
 
 .panel-body .panel-actions {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -1px;
+  left: -1px;
 
-  label.btn {
-    border-top: 0;
-    border-radius: 0;
-    &:last-child {
-      border-right: 0;
-      // border-bottom-right-radius: 0;
+  .panel-more-actions {
+    .btn {
+      border-bottom-right-radius: 3px;
     }
+  }
+
+  .btn {
+    border-radius: 0;
   }
 }
