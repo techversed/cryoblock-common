@@ -4,5 +4,7 @@ angular.module('user', [
     'user.userFormFactory',
     'user.userFormCtrl',
     'user.userDisableCtrl',
-    'user.adminResetPasswordCtrl'
+    'user.adminResetPasswordCtrl',
+    'user.cbUserAvatarDirective'
+
 ]);
