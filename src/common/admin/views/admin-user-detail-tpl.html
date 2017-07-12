@@ -13,7 +13,7 @@
             <div class="panel-body">
                 <div class="panel-actions">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-sm btn-default" ng-click="edit(collaboration)"><i class="fa fa-edit"/></button>
+                        <button type="button" class="btn btn-sm btn-default" ng-click="edit(user)"><i class="fa fa-edit"/></button>
                         <div class="btn-group panel-more-actions" role="group">
                             <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-cog"/>
@@ -21,8 +21,10 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                 <li>
+                                    <a ng-show="canDisable" ng-click="disable(user)"><i class="fa fa-ban m-r-xs"/>Disable</a>
                                     <a ng-click="changePassword()"><i class="fa fa-lock"/> Change password</a>
                                     <a class="dropdown-item" href=""><i class="fa fa-trash m-r-xs" />Delete</a>
+
                                 </li>
                             </ul>
                         </div>
