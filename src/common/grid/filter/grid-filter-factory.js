@@ -22,6 +22,7 @@ angular.module('grid.gridFilterFactory', [])
 
                     'time': {
                         'factory': 'gridTimeFilterFactory'
+                    },
 
                     'boolean': {
                         'factory': 'gridBooleanFilterFactory'
