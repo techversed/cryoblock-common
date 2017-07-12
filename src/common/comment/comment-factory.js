@@ -9,6 +9,8 @@ angular.module('comment.commentFactory', [])
                 getCommentsByObject: function (objectType, objectId) {
 
                     var params = {
+                        'cOrderBy': 'id',
+                        'cOrderByDirection': 'ASC',
                         'objectType[EQ]': objectType,
                         'objectId[EQ]': objectId,
                         'parentId[NULL]': true
@@ -33,6 +35,14 @@ angular.module('comment.commentFactory', [])
                     var params = {'id[EQ]': comment.id};
 
                     return $cbResource.update('/comment', comment, params);
+
+                },
+
+                deleteComment: function (comment) {
+
+                    var params = {'id[EQ]': comment.id};
+
+                    return $cbResource.delete('/comment', params);
 
                 }
 

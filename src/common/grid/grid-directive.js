@@ -17,6 +17,7 @@ angular.module('grid.gridDirective', [])
                 controller: function ($scope) {
 
                     this.grid = $scope.grid;
+                    $scope.previousParams = null;
 
                     var init = function () {
 
@@ -61,10 +62,21 @@ angular.module('grid.gridDirective', [])
                             $location.search(params);
                         }
 
+
+                        var cloned_params = angular.copy(params)
+                        delete cloned_params['cPage'];
+                        var eq = angular.equals($scope.previousParams, cloned_params);
+
+                        if ($scope.previousParams && !eq) {
+                            params['cPage'] = 1;
+                        }
+
+                        $scope.previousParams = cloned_params;
+
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
 
                             $scope.grid
-                                .setResults(response.data, false)
+                                .setResults(response.data)
                                 .setPaginationFromResponse(response)
                             ;
 

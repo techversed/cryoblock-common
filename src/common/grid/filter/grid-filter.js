@@ -11,4 +11,7 @@ angular.module('grid.gridFilter', [
     'grid.gridStringFilterCtrl',
     'grid.gridTimeFilterFactory',
     'grid.gridTimeFilterCtrl',
+    'grid.gridBooleanFilterFactory',
+    'grid.gridBooleanFilterCtrl'
+
 ]);

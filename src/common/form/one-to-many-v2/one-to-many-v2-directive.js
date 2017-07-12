@@ -18,7 +18,8 @@ angular.module('form.oneToManyDirective', [])
                     parentObject: '=',
                     bindTo: '@',
                     resourceUrl: '@',
-                    placeholder: '@'
+                    placeholder: '@',
+                    disabled: '='
                 },
 
                 controller: function ($scope) {
@@ -44,7 +45,7 @@ angular.module('form.oneToManyDirective', [])
 
                     $scope.toggle = function () {
 
-                        if ($scope.grid.initResultCount === 0) {
+                        if ($scope.grid.initResultCount === 0 || $scope.disabled) {
                             return;
                         }
 
@@ -53,6 +54,9 @@ angular.module('form.oneToManyDirective', [])
                     };
 
                     $scope.toggleAdd = function () {
+                        if ($scope.disabled) {
+                            return;
+                        }
                         $scope.showGrid = false;
                         $scope.showSelectGrid = $scope.showSelectGrid ? false : true;
                     };

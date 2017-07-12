@@ -1,7 +1,6 @@
 <div class="grid-responsive-table" ng-class="{isEditable: grid.isEditable, isSelectable: grid.isSelectable, isManySelectable: grid.isManySelectable, 'no-results': grid.results.length === 0}">
 
-
-    <div ng-if="((grid.isEditable || grid.isSelectable) && grid.initResultCount) || (!grid.isEditable && !grid.isSelectable)">
+    <div ng-if="((grid.isEditable || grid.isSelectable)) || (!grid.isEditable && !grid.isSelectable)">
 
         <div class="row" ng-if="grid.showFilters">
 
@@ -39,6 +38,7 @@
                                 typeahead-wait-ms="1000"
                                 ng-change="refresh()"
                                 ng-model-options="{debounce: 300}"
+                                onkeydown="if (event.keyCode == 13) { return false; }"
                             />
                             <span class="input-group-btn" ng-click="refresh()">
                                 <button class="btn btn-primary grid-contains-search-btn" type="button">
@@ -146,19 +146,33 @@
             </table>
         </div>
 
-        <div class="row m-t-sm" ng-if="grid.results.length > 0">
+        <div class="row m-t-sm" ng-if="grid.results.length > 0" ng-hide="grid.hidePagination">
 
             <div class="grid-pagination-container">
-                <div class="col-sm-5">
+                <div class="col-sm-5" ng-if="grid.pagination.unpaginatedTotal">
                     Showing {{grid.pagination.startIndex}} to {{grid.pagination.stopIndex}} of {{grid.pagination.unpaginatedTotal}} results
                 </div>
-                <div class="col-sm-7" ng-show="grid.pagination.unpaginatedTotal > grid.pagination.perPage">
+                <div class="col-sm-5" ng-if="!grid.pagination.unpaginatedTotal">
+                    Showing {{grid.pagination.startIndex}} to {{grid.pagination.stopIndex}}
+                </div>
+                <div class="col-sm-7" ng-show="grid.pagination.unpaginatedTotal > grid.pagination.perPage" ng-if="grid.pagination.unpaginatedTotal">
                     <uib-pagination
                         total-items="grid.pagination.unpaginatedTotal"
                         ng-model="grid.pagination.page"
                         max-size="5"
                         class="pagination-sm pull-right no-margin m-n"
                         boundary-links="true"
+                        ng-change="refresh()"
+                        items-per-page="grid.pagination.perPage"
+                    >
+                    </uib-pagination>
+                </div>
+                <div class="col-sm-7" ng-if="!grid.pagination.unpaginatedTotal">
+                    <uib-pagination
+                        total-items="grid.pagination.hasNextPage ? ( (grid.pagination.page * grid.pagination.perPage) + 1) : (grid.pagination.page * grid.pagination.perPage)"
+                        ng-model="grid.pagination.page"
+                        max-size="5"
+                        class="pagination-sm pull-right no-margin m-n"
                         ng-change="refresh()"
                         items-per-page="grid.pagination.perPage"
                     >

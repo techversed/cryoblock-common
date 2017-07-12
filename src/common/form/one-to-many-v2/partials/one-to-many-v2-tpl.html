@@ -26,7 +26,7 @@
 
         <div class="one-to-many-btn-group btn-group">
 
-            <label class="one-to-many-list-toggle btn btn-default" ng-if="!grid.selectedItem" ng-click="toggle()" ng-class="{expanded:showGrid, disabled: grid.initResultCount === 0}">
+            <label class="one-to-many-list-toggle btn btn-default" ng-if="!grid.selectedItem" ng-click="toggle()" ng-class="{expanded:showGrid, disabled: grid.initResultCount === 0 || disabled}">
                 <span class="label label-default" ng-if="grid.initResultCount === 0">{{grid.initResultCount}}</span>
                 <span class="label label-success" ng-if="grid.initResultCount > 0">{{grid.initResultCount}}</span>
                 <span class="m-l-xs">Linked</span>
@@ -40,8 +40,8 @@
                 <span class="fa fa-chevron-down" ng-show="!showGrid"></span>
                 <span class="fa fa-chevron-up" ng-show="showGrid"></span>
             </label>
-            <label class="one-to-many-add-toggle btn btn-default btn-square" ng-click="toggleAdd()" ng-class="{expanded:showSelectGrid}">
-                <i class="fa fa-plus"></i>
+            <label class="one-to-many-add-toggle btn btn-default btn-square" ng-click="toggleAdd()" ng-class="{expanded:showSelectGrid, disabled:disabled}">
+                <i ng-if="!disabled" class="fa fa-plus"></i>
             </label>
         </div>
 

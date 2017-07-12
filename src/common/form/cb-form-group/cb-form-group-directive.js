@@ -9,7 +9,7 @@ angular.module('form.cbFormGroupDirective', [])
                 restrict: 'E',
                 templateUrl: 'common/form/cb-form-group/partials/cb-form-group-tpl.html',
                 transclude: true,
-                scope: { label: '@', name: '@'},
+                scope: { label: '@', name: '@', tooltip: '@'},
                 link: function ($scope, element, attrs, formCtrl) {
                     $scope.formCtrl = formCtrl;
                 }

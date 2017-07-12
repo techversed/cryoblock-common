@@ -1,14 +1,16 @@
 angular.module('group.groupFormCtrl', [])
 
-    .controller('groupFormCtrl', ['$scope', '$uibModalInstance', 'group', 'roleGrid', 'userGrid', '$cbResource', 'toastr', 'callback',
+    .controller('groupFormCtrl', ['$scope', '$uibModalInstance', 'group', 'roleGrids', 'userGrids', '$cbResource', 'toastr', 'callback',
 
-        function ($scope, $modalInstance, group, roleGrid, userGrid, $cbResource, toastr, callback) {
+        function ($scope, $modalInstance, group, roleGrids, userGrids, $cbResource, toastr, callback) {
 
             $scope.group = group ? angular.copy(group) : {};
-            $scope.roleGrid = roleGrid;
-            $scope.userGrid = userGrid;
             $scope.errors = [];
             $scope.groupForm = {};
+            $scope.roles = roleGrids[0];
+            $scope.roleSelectGrid = roleGrids[1];
+            $scope.users = userGrids[0];
+            $scope.userSelectGrid = userGrids[1];
 
             $scope.close = function () {
 
@@ -20,7 +22,6 @@ angular.module('group.groupFormCtrl', [])
                 $modalInstance.close();
 
             };
-
 
             $scope.submit = function (isValid) {
 

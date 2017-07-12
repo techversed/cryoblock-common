@@ -1,8 +1,8 @@
 angular.module('group.groupFormFactory', [])
 
-    .factory('groupFormFactory', ['$uibModal', '$state', '$stateParams', '$cbResource', 'groupGridFactory',
+    .factory('groupFormFactory', ['$uibModal', '$state', '$stateParams', '$cbGridBuilder',
 
-        function ($uibModal, $state, $stateParams, $cbResource, groupGridFactory) {
+        function ($uibModal, $state, $stateParams, $cbGridBuilder) {
 
             var groupFormFactory = {
 
@@ -23,15 +23,19 @@ angular.module('group.groupFormFactory', [])
 
                             },
 
-                            roleGrid: function () {
+                            roleGrids: function () {
 
-                                return groupGridFactory.getRoleGrid(group ? group.id : null, true);
+                                return $cbGridBuilder.buildMTMGrids(
+                                    '/group-role/group/', 'roleGridFactory', group, true
+                                )
 
                             },
 
-                            userGrid: function () {
+                            userGrids: function () {
 
-                                return groupGridFactory.getUserGrid(group ? group.id : null, true);
+                                return $cbGridBuilder.buildMTMGrids(
+                                    '/user-group/group/', 'userGridFactory', group, true
+                                )
 
                             },
 

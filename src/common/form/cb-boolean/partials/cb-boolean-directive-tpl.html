@@ -1,0 +1,8 @@
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <div class="btn-group" role="group">
+        <button role="button" type="button" class="btn" ng-click="toggle(true)" ng-class="{'btn-info': modelCtrl.$viewValue, 'btn-default': !modelCtrl.$viewValue, disabled: disabled}">Yes</button>
+    </div>
+    <div class="btn-group" role="group">
+      <button role="button" type="button" class="btn" ng-click="toggle(false)" ng-class="{'btn-warning': !modelCtrl.$viewValue, 'btn-default': modelCtrl.$viewValue, disabled: disabled}">No</button>
+    </div>
+</div>

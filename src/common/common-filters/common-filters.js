@@ -1,3 +1,4 @@
 angular.module('commonFilters', [
-    'commonFilters.camelToTitleFilter'
+    'commonFilters.camelToTitleFilter',
+    'commonFilters.filesize'
 ]);

@@ -23,7 +23,6 @@ angular.module('common', [
     'blueimp.fileupload',
     'datatables',
     'ngMessages',
-    'treeControl',
     'fiestah.money',
     'cryoblock.common.templates',
     'cbResource',
@@ -33,5 +32,9 @@ angular.module('common', [
     'role',
     'objectHistory',
     'commonFilters',
-    'widget'
+    'widget',
+    'comment',
+    'ui.tree',
+    'step',
+    'attachment'
 ]);

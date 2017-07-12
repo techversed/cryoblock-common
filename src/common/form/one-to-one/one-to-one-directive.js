@@ -6,7 +6,7 @@ angular.module('form.oneToOne.oneToOneDirective', [])
 
             return {
 
-                require: '^form',
+                require: ['^form', 'ngModel'],
 
                 restrict: 'E',
 
@@ -17,14 +17,15 @@ angular.module('form.oneToOne.oneToOneDirective', [])
                     parentObject: '=',
                     bindTo: '@',
                     resourceUrl: '@',
-                    placeholder: '@'
+                    placeholder: '@',
+                    name: '@'
                 },
 
                 controller: function ($scope) {
 
                     if ($scope.parentObject[$scope.bindTo]) {
 
-                        $scope.grid.selectItem($scope.parentObject[$scope.bindTo]);
+                        $scope.grid.selectItem($scope.parentObject[$scope.bindTo], true);
 
                     }
 
@@ -47,18 +48,25 @@ angular.module('form.oneToOne.oneToOneDirective', [])
 
                     $scope.removeItem = function () {
                         $scope.grid.unselectItem();
-                        console.log($scope.grid);
-                        $scope.showGrid = false;
+                        $scope.toggle();
                     };
 
                     $scope.showGrid = false;
 
                 },
 
-                link: function ($scope, element, attrs, formCtrl) {
+                link: function ($scope, element, attrs, ctrls) {
+
+                    if (attrs.name === undefined) {
+                       throw new Error('oneToOne: name attribute must be specified');
+                    }
+
+                    $scope.modelCtrl = ctrls[1];
+                    $scope.formCtrl = ctrls[0];
+                    $scope.formCtrl.$addControl($scope.modelCtrl);
 
                     $scope.$on('form:changed', function () {
-                        formCtrl.$pristine = false;
+                        $scope.formCtrl.$pristine = false;
                     });
 
                 }

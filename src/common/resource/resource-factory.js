@@ -54,6 +54,18 @@ angular.module('cbResource.$cbResource', [])
 
                 },
 
+                delete: function (url, params) {
+
+                    url = API.url + url
+
+                    if (params !== undefined) {
+                        url = url + '?' + this.serializeParams(params);
+                    }
+
+                    return $http.delete(url);
+
+                },
+
                 serializeParams: function(obj, prefix) {
 
                     var str = [];
@@ -78,6 +90,18 @@ angular.module('cbResource.$cbResource', [])
                     return this.get(url, params, ignoreLoadingBar).then(function (response) {
                         return response.unpaginatedTotal
                     });
+
+                },
+
+                delete: function (url, params) {
+
+                    url = API.url + url
+
+                    if (params !== undefined) {
+                        url = url + '?' + this.serializeParams(params);
+                    }
+
+                    return $http.delete(url);
 
                 }
 

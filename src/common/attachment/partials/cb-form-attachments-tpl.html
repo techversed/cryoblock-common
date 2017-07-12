@@ -1,0 +1,25 @@
+<div id="cb-form-attachments-container">
+    <button class="btn btn-default btn-block" type="button" ng-click="upload()">
+        <i class="fa fa-upload"/>
+        Attach Files
+    </button>
+    <table ng-if="form.files.length">
+        <tbody>
+            <tr ng-repeat="file in form.files">
+                <td>
+                    <div ng-show="file.isLoading">
+                        <i class="text-primary fa fa-2x fa-circle-o-notch fa-spin"/>
+                    </div>
+                    <img ng-if="file.isImage && !file.isLoading" class="img-polaroid" ng-src="{{file.src}}" title="{{file.name}}" />
+                    <i ng-if="!file.isImage && !file.isLoading" class="default-image fa fa-file-image-o" style="{font-size:45px}" title="{{file.name}}" />
+                </td>
+                <td class="name">{{file.name}}</td>
+                <td class="size">{{file.size | filesize}}</td>
+                <td class="meme">{{file.type}}</td>
+                <td class="actions"><i ng-click="removeFile(file)" class="fa fa-remove"/></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

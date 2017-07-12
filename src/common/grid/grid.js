@@ -6,5 +6,6 @@ angular.module('grid', [
     'grid.gridFilter',
     'grid.gridFactory',
     'grid.gridColumnFactory',
-    'grid.gridFilterFactory'
+    'grid.gridFilterFactory',
+    'grid.gridBuilder'
 ]);

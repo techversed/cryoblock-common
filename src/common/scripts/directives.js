@@ -7,16 +7,17 @@
 /**
  * pageTitle - Directive for set Page title - mata title
  */
-function pageTitle($rootScope, $timeout) {
+function pageTitle($rootScope, $timeout, app) {
     return {
         link: function(scope, element) {
             var listener = function(event, toState, toParams, fromState, fromParams) {
 
                 // Default title - load on Dashboard 1
-                var title = 'Cryoblock';
+                var title = app.name;
+
                 // Create your own title pattern
 
-                if (toState.pageTitle) title = 'Cryoblock | ' + toState.pageTitle;
+                if (toState.pageTitle) title = app.name + ' | ' + toState.pageTitle;
 
                 // look for vars in the title
                 var matches = title.match(/\{(\w*)\}/g);

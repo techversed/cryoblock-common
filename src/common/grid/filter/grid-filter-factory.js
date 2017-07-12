@@ -19,8 +19,12 @@ angular.module('grid.gridFilterFactory', [])
                     'string': {
                         'factory': 'gridStringFilterFactory'
                     },
+
                     'time': {
                         'factory': 'gridTimeFilterFactory'
+
+                    'boolean': {
+                        'factory': 'gridBooleanFilterFactory'
                     }
                 },
 

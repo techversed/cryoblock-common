@@ -33,6 +33,8 @@ angular.module('grid.gridFactory', [])
 
                 this.showFilters = true;
 
+                this.hidePagination = false;
+
                 this.staticFilters = [];
 
                 this.isEditable = false;
@@ -77,11 +79,15 @@ angular.module('grid.gridFactory', [])
 
                 setResults: function (results, initial) {
 
-                    if (initial === undefined || initial === true) {
-                        this.initResultCount = results.length;
-                    }
-
                     this.results = results;
+
+                    return this;
+
+                },
+
+                setInitResultCount: function (initResultCount) {
+
+                    this.initResultCount = initResultCount;
 
                     return this;
 
@@ -175,6 +181,15 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                hideAllFilters:function () {
+                    var that = this;
+                    this.filters.map(function (filter) {
+                        filter.isVisible = false;
+                    });
+
+                    return this;
+                },
+
                 allowEdit: function () {
 
                     this.isEditable = true;
@@ -186,6 +201,14 @@ angular.module('grid.gridFactory', [])
                 disallowEdit: function () {
 
                     this.isEditable = false;
+
+                    return this;
+
+                },
+
+                disablePagination: function () {
+
+                    this.hidePagination = true;
 
                     return this;
 
@@ -338,8 +361,8 @@ angular.module('grid.gridFactory', [])
                         params['cSearch'] = this.search;
                     }
 
-                    this.staticFilters.map(function (staticFilter) {
-                        params = params.concat(staticFilter);
+                    angular.forEach(this.staticFilters, function (value, key) {
+                        params[key] = value;
                     });
 
                     this.filters.map(function (filter) {
@@ -359,6 +382,12 @@ angular.module('grid.gridFactory', [])
 
                     this.removingItems.push(item);
                     this.removingItemIds.push(item.id);
+
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(item);
+
+                    }
 
                     return this;
 
@@ -387,16 +416,22 @@ angular.module('grid.gridFactory', [])
                     this.addingItems.push(item);
                     this.addingItemIds.push(item.id);
 
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(item);
+
+                    }
+
                     return this;
 
                 },
 
-                selectItem: function (item) {
+                selectItem: function (item, skip) {
 
                     this.selectedItem = item;
                     this.search = '';
 
-                    if (this.selectItemCallback) {
+                    if (this.selectItemCallback && skip === undefined) {
 
                         this.selectItemCallback(item);
 
@@ -410,6 +445,12 @@ angular.module('grid.gridFactory', [])
 
                     this.selectedItem = null;
 
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(null);
+
+                    }
+
                     return this;
 
                 },
@@ -417,6 +458,8 @@ angular.module('grid.gridFactory', [])
                 setSelectItemCallback: function (callback) {
 
                     this.selectItemCallback = callback;
+
+                    return this;
 
                 },
 

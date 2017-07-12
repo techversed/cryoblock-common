@@ -1,6 +1,8 @@
 angular.module('login.loginCtrl', [])
-    .controller('loginCtrl', ['$scope', '$state', 'sessionFactory', 'toastr',
-        function ($scope, $state, sessionFactory, toastr) {
+    .controller('loginCtrl', ['$scope', '$state', 'sessionFactory', 'toastr', 'loginParams',
+        function ($scope, $state, sessionFactory, toastr, loginParams) {
+
+            $scope.loginParams = loginParams;
 
             $scope.submit = function () {
 

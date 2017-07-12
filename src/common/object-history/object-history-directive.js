@@ -26,12 +26,12 @@ angular.module('objectHistory.objectHistoryDirective', [])
                         'objectClass[EQ]': $scope.objectClass,
                         'objectId[EQ]': $scope.objectId,
                         'cOrderBy': 'loggedAt',
-                        'cOrderByDirection': 'ASC'
+                        'cOrderByDirection': 'ASC',
+                        'cPerPage': 1000
                     };
 
                     $cbResource.get('/log-entry', params).then(function (response) {
                         $scope.logEntries = response.data;
-                        console.log($scope.logEntries);
                     });
 
                 }
