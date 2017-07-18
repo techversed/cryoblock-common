@@ -1,3 +1,4 @@
+
 angular.module('grid.gridTimeFilterCtrl', [])
 
     .controller('gridTimeFilterCtrl', ['$scope', '$location',
@@ -58,7 +59,6 @@ angular.module('grid.gridTimeFilterCtrl', [])
             };
 
             $scope.update = function () {
-                console.log($scope.filter.withinUnits.name);
                 $scope.$emit('grid.refresh');
 
             };
