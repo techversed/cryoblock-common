@@ -5,13 +5,14 @@
         <i class="fa fa-close grid-filter-toggle" ng-click="toggleFilter($event)" />
     </button>
 
-    <ul uib-dropdown-menu class="dropdown-menu" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
-        <li>
+    <ul uib-dropdown-menu class="dropdown-menu" role="menu" id="time-filter" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
+        <li role="menuitem">
            <input type="radio" name="type" value="within" ng-model="filter.selectedType"></input>
 
             <strong>Within the last</strong>
 
             <input
+                class="form-control"
                 class="number-input"
                 ng-model="filter.withinDate"
                 type="text"
@@ -23,12 +24,13 @@
             >
             </select>
         </li>
-        <li >
+        <li role="menuitem">
             <input type="radio" name="type" value="more" ng-model="filter.selectedType"></input>
 
             <strong>More than</strong>
 
             <input
+                class="form-control"
                 class="number-input"
                 ng-model="filter.moreDate"
                 type="text"
@@ -41,7 +43,7 @@
             </select>
             <strong> ago</strong>
         </li>
-        <li >
+        <li role="menuitem">
             <input type="radio" name="type" value="between" ng-model="filter.selectedType"></input>
 
             <strong>Between</strong>
