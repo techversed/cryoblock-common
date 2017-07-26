@@ -1,0 +1,62 @@
+<div class="hpanel division-details-container">
+    <div class="panel-body">
+
+        <div class="sample-detail-header-container">
+
+            <div class="row m-b-none">
+                <div class="col-sm-12">
+                    <div class="col-sm-4 icon-container"></div>
+                    <div class="col-sm-8 sample-details-header">
+                        <div class="name">{{selectedWell.sample.name || "Empty Well"}}</div>
+                        <div ng-if="selectedWell.sample" class="id">ID: {{selectedWell.sample.id}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-12 m-t-sm">
+                    Postion: {{selectedWell.column}} / {{selectedWell.row}}
+                </div>
+                <div class="col-sm-12">
+                    DNA (DNA type description)
+                </div>
+            </div>
+        </div>
+
+        <div class="sample-details-container">
+            <div class="row m-b-sm">
+                <div class="col-sm-12">
+
+                    <div class="btn-group">
+                        <label class="btn btn-md btn-default">
+                            <i class="fa fa-edit" />
+                        </label>
+                        <label class="btn btn-md btn-default">
+                            <i class="fa fa-trash" />
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row m-b-none">
+                <div class="col-sm-12">
+                    <table class="sample-details-table table table-striped no-border m-b-none" ng-if="selected && selectedWell.sample">
+                        <tbody>
+                            <tr>
+                                <td><strong>Description</strong></td>
+                                <td>{{selectedWell.sample.description}}</td>
+                            </tr>
+                            <tr>
+                                <td>Volume</td>
+                                <td>1.0 mL</td>
+                            </tr>
+                            <tr>
+                                <td>Another thing</td>
+                                <td>1234</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="selected && !selectedWell.sample">Empty Well</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

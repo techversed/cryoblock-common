@@ -1,0 +1,49 @@
+<div id="admin-container">
+
+    <div class="normalheader">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div id="hbreadcrumb" class="pull-right m-t-lg">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                        <li class="active">
+                            <span>Storage</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    Storage
+                </h2>
+                <small>Manage cryo storage</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <button class="btn btn-primary" ng-click="create()">
+                    <i class="fa fa-plus"/> Storage
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3" ng-repeat="division in divisions" ui-sref="storage.division({id:division.id})">
+                <div class="hpanel selectable">
+                    <div class="panel-heading hbuilt">
+                        <i class="fa fa-th"/>
+                        {{division.title}}
+                        <div class="panel-tools"></div>
+                    </div>
+                        <div class="panel-body">
+                            {{division.title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
