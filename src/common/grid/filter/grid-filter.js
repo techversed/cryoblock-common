@@ -9,6 +9,9 @@ angular.module('grid.gridFilter', [
     'grid.gridEnumFilterCtrl',
     'grid.gridStringFilterFactory',
     'grid.gridStringFilterCtrl',
+    'grid.gridTimeFilterFactory',
+    'grid.gridTimeFilterCtrl',
     'grid.gridBooleanFilterFactory',
     'grid.gridBooleanFilterCtrl'
+
 ]);

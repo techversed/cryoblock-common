@@ -1,0 +1,87 @@
+<div class="btn-group" uib-dropdown keyboard-nav>
+
+    <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectionString}}" uib-dropdown-toggle ng-class="{filtering: filter.isFiltering}">
+        {{filter.title}} : {{ filter.selectionString }}
+        <span class="caret"></span>
+        <i class="fa fa-close grid-filter-toggle" ng-click="toggleFilter($event)" />
+    </button>
+
+    <ul uib-dropdown-menu class="dropdown-menu" role="menu" id="time-filter" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
+        <li role="menuitem">
+           <input type="radio" name="type" value="within" ng-model="filter.selectedType"></input>
+
+            <strong>Within the last</strong>
+
+            <input
+                class="form-control"
+                class="number-input"
+                ng-model="filter.withinDate"
+                type="text"
+            />
+            <select
+                class="form-control unit"
+                ng-options="unit.name for unit in filter.units track by unit.value"
+                ng-model="filter.withinUnit"
+            >
+            </select>
+        </li>
+        <li role="menuitem">
+            <input type="radio" name="type" value="more" ng-model="filter.selectedType"></input>
+
+            <strong>More than</strong>
+
+            <input
+                class="form-control"
+                class="number-input"
+                ng-model="filter.moreDate"
+                type="text"
+            />
+            <select
+                class="form-control unit"
+                ng-options="unit.name for unit in filter.units track by unit.value"
+                ng-model="filter.moreUnit"
+            >
+            </select>
+            <strong> ago</strong>
+        </li>
+        <li role="menuitem">
+            <input type="radio" name="type" value="between" ng-model="filter.selectedType"></input>
+
+            <strong>Between</strong>
+
+            <p class="input-group">
+                <input type="text" class="form-control" dropdown-nested="true" uib-datepicker-popup="M/dd/yyyy" datepicker-append-to-body="true" ng-model="filter.startDate" is-open="popup1.opened" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+
+            <strong style="margin-right: 6px;">and</strong>
+
+            <input
+                class="form-control between"
+                ng-model="filter.endDate"
+                type="text"
+                uib-datepicker-popup="M/dd/yyyy"
+                is-open="popup2.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </li>
+
+        <li role="menuitem">
+            <div class="row no-margin">
+                <div class="col-md-6">
+                    <button class="btn btn-info btn-block" ng-click="update()">Update</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-default btn-block" ng-click="refresh()">
+                        <i class="fa fa-refresh" />
+                    </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>

@@ -94,6 +94,18 @@ angular.module('user.userGridFactory', [])
                         title: 'Enabled',
                         filterProperty: 'enabled',
                         isVisible: false
+                    },
+                     {
+                        type: 'time',
+                        title: 'Created At',
+                        filterProperty: 'createdAt',
+                        isVisible: false
+                    },
+                     {
+                        type: 'time',
+                        title: 'Updated At',
+                        filterProperty: 'updatedAt',
+                        isVisible: false
                     }
                 ],
 
