@@ -82,6 +82,32 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     }
                                 }
+                            },
+                            {
+                                url: '',
+                                name: 'search',
+                                pageTitle: 'Search Division',
+                                data: { specialClass: 'storage-division-body' },
+                                security: {
+                                    roles: ['ROLE_USER']
+                                },
+                                views: {
+                                    'division@storage.division': {
+
+                                        templateUrl: 'common/storage/views/storage-division-search-tpl.html',
+                                        controller: 'storageDivisionSearchCtrl',
+                                        resolve: {
+
+                                            divisions: function (storageFactory) {
+
+                                                return storageFactory.getParentDivisions();
+
+                                            }
+
+                                        }
+
+                                    }
+                                }
                             }
                         ]
 
