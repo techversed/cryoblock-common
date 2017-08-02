@@ -1,7 +1,6 @@
-<table class="cb-address-form-list">
+<table>
     <tr>
         <td ng-repeat="address in addresses" ng-class="{'bg-info': !address.isDefault, 'bg-primary': address.isDefault }">
-            <display: "inline-block">
             <address>
                 {{address.address}}<br>
                 {{address.address2}}<br ng-if="address.address2">

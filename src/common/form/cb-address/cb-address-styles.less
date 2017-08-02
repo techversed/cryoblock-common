@@ -32,11 +32,6 @@
         .actions {
             font-size: 10px;
         }
-        tr{
-            td{
-               margin:5px;
-            }
-        }
    }
 
     position: relative;
@@ -69,5 +64,25 @@
     }
     address {
         min-height: 100px;
+    }
+}
+.cb-address-detail-container {
+    display: table;
+    table {
+        tbody {
+            display: table;
+            tr {
+                display: inline-table;
+                td {
+                    display: inline-table;
+                    margin: 5px;
+                    margin-right: 25px;
+                    font-size: 15px;
+                    address {
+                        padding: 10px;
+                    }
+                }
+            }
+        }
     }
 }
