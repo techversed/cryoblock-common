@@ -1,0 +1,12 @@
+<table class="cb-address-form-list">
+    <tr>
+        <td ng-repeat="address in addresses" ng-class="{'bg-info': !address.isDefault, 'bg-primary': address.isDefault }">
+            <display: "inline-block">
+            <address>
+                {{address.address}}<br>
+                {{address.address2}}<br ng-if="address.address2">
+                {{address.city}}, {{address.state}} {{address.zip}}
+            </address>
+        </td>
+    </tr>
+</table>
