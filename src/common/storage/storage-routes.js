@@ -92,15 +92,15 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                     roles: ['ROLE_USER']
                                 },
                                 views: {
-                                    'division@storage.division': {
+                                    content: {
 
                                         templateUrl: 'common/storage/views/storage-division-search-tpl.html',
                                         controller: 'storageDivisionSearchCtrl',
                                         resolve: {
 
-                                            divisions: function (storageFactory) {
+                                            divisionGrid: function ($cbGridBuilder) {
 
-                                                return storageFactory.getParentDivisions();
+                                                return $cbGridBuilder.buildIndex('storageDivisionGridFactory');
 
                                             }
 
