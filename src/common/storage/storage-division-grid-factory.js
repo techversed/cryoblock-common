@@ -4,9 +4,9 @@ angular.module('storage.storageDivisionGridFactory', [])
 
         function (gridFactory, $cbResource, $location, $injector) {
 
-            var userGridFactory = {
+            var storageDivisionGridFactory = {
 
-                url: '/storage/division/search',
+                url: '/storage/division',
 
                 actionTemplate: 'common/storage/partials/storage-division-row-actions-tpl.html',
 

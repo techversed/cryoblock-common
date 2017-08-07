@@ -18,5 +18,7 @@ angular.module('storage', [
     'storage.routes',
     'storage.storageTitleDirective',
     'storage.sampleTypeIconDirective',
-    'storage.storageDivisionSearchCtrl'
+    'storage.storageDivisionSearchCtrl',
+    'storage.storageDivisionRowActionsCtrl',
+    'storage.storageDivisionGridFactory'
 ]);

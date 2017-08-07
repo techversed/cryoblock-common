@@ -1,15 +1,13 @@
 angular.module('storage.storageDivisionSearchCtrl', [])
 
-    .controller('storageDivisionSearchCtrl', ['$scope', 'divisions', '$state', 'storageFormFactory', '$uibModal', '$cbResource', 'sessionFactory', '$q', 'storageFactory', 'storageDivisionManager',
+    .controller('storageDivisionSearchCtrl', ['$scope', 'divisionGrid', '$state', 'storageFormFactory', '$uibModal', '$cbResource', 'sessionFactory', '$q', 'storageFactory', 'storageDivisionManager',
 
-        function ($scope, divisions, $state, storageFormFactory, $uibModal, $cbResource, sessionFactory, $q, storageFactory, storageDivisionManager) {
+        function ($scope, divisionGrid, $state, storageFormFactory, $uibModal, $cbResource, sessionFactory, $q, storageFactory, storageDivisionManager) {
 
             $scope.sdm = storageDivisionManager;
 
-            $scope.divisions = divisions;
-            $scope.children = $scope.divisions[0].__children
+            $scope.grid = divisionGrid;
             console.log($scope.divisions)
-            console.log($scope.divisions[0].__children)
 
 
             $scope.goToDivision = function (division) {
