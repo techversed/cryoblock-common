@@ -17,12 +17,63 @@ angular.module('storage.storageDivisionGridFactory', [])
                         isSortable: true,
                         name: 'id',
                         isPrimary: true,
+                        sref: 'storage.division.detail({id:result.id})'
+                    },
+                       {
+                        header: 'Title',
+                        bindTo: 'title',
+                        name: 'title',
+                        isSortable: true,
+                        sref: 'storage.division.detail({id:result.id})'
                     },
                     {
-                        header: 'Has Dimension',
-                        bindTo: 'hasDimension ? "Yes" : "No"',
+                        header: 'Description',
+                        bindTo: 'description',
+                        name: 'description',
                         isSortable: true,
-                        name: 'hasDimension'
+                        sref: 'storage.division.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Path',
+                        bindTo: 'path',
+                        name: 'path',
+                        isSortable: true,
+                        sref: 'storage.division.detail({id:result.id})'
+                    },
+                    {
+                        header: 'IdPath',
+                        bindTo: 'idPath',
+                        name: 'idPath',
+                        isSortable: true,
+                        // sref: 'sample.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Level',
+                        bindTo: 'level',
+                        name: 'level',
+                        isSortable: true,
+                        // sref: 'sample.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Parent',
+                        bindTo: 'parent',
+                        name: 'parent',
+                        isSortable: true,
+                        // sref: 'sample.detail({id:result.id})'
+                    },
+                    {
+                        header: 'ParentID',
+                        bindTo: 'parentId',
+                        name: 'parentId',
+                        isSortable: true,
+                        // sref: 'sample.detail({id:result.id})'
+                    },
+                       {
+                        header: 'Children',
+                        bindTo: 'children',
+                        name: 'children',
+                        isSortable: true,
+                        // sref: 'sample.detail({id:result.id})'
                     },
                     {
                         header: 'Height',
@@ -36,6 +87,12 @@ angular.module('storage.storageDivisionGridFactory', [])
                         name: 'width',
                         isSortable: true,
                         // sref: 'sample.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Has Dimension',
+                        bindTo: 'hasDimension ? "Yes" : "No"',
+                        isSortable: true,
+                        name: 'hasDimension'
                     },
                     {
                         header: 'Available Slots',
@@ -64,29 +121,62 @@ angular.module('storage.storageDivisionGridFactory', [])
                         name: 'percentFull',
                         isSortable: true,
                         // sref: 'sample.detail({id:result.id})'
-                    },
-                    {
-                        header: 'Title',
-                        bindTo: 'title',
-                        name: 'title',
-                        isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
-                    },
-                    {
-                        header: 'Description',
-                        bindTo: 'description',
-                        name: 'description',
-                        isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
                     }
-
                 ],
 
                 filters: [
                     {
                         type: 'string',
+                        title: 'Title',
+                        filterProperty: 'title',
+                        isVisible: false
+                    },
+                    {
+                        type: 'string',
                         title: 'Description',
                         filterProperty: 'description',
+                        isVisible: false
+                    },
+                    {
+                        type: 'string',
+                        title: 'Path',
+                        filterProperty: 'path',
+                        isVisible: false
+                    },
+                    {
+                        type: 'integer',
+                        title: 'Height',
+                        filterProperty: 'description',
+                        isVisible: false
+                    },
+                    {
+                        type: 'integer',
+                        title: 'Width',
+                        filterProperty: 'description',
+                        isVisible: false
+                    },
+                    {
+                        type: 'integer',
+                        title: 'Available Slots',
+                        filterProperty: 'availableSlots',
+                        isVisible: false
+                    },
+                    {
+                        type: 'integer',
+                        title: 'Used Slots',
+                        filterProperty: 'usedSlots',
+                        isVisible: false
+                    },
+                    {
+                        type: 'integer',
+                        title: 'Total Slots',
+                        filterProperty: 'TotalSlots',
+                        isVisible: false
+                    },
+                    {
+                        type: 'integer',
+                        title: 'Percent Full',
+                        filterProperty: 'PercentFull',
                         isVisible: false
                     }
                 ],
