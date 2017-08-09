@@ -6,7 +6,7 @@ angular.module('storage.storageDivisionRowActionsCtrl', [])
 
             $scope.edit = function (division) {
 
-                storageFormFactory.openFormModal(division);
+                storageFormFactory.openDivisionFormModal(division);
 
             };
 
