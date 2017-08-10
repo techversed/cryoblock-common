@@ -146,13 +146,13 @@ angular.module('storage.storageDivisionGridFactory', [])
                     {
                         type: 'integer',
                         title: 'Height',
-                        filterProperty: 'description',
+                        filterProperty: 'height',
                         isVisible: false
                     },
                     {
                         type: 'integer',
                         title: 'Width',
-                        filterProperty: 'description',
+                        filterProperty: 'width',
                         isVisible: false
                     },
                     {
@@ -170,13 +170,13 @@ angular.module('storage.storageDivisionGridFactory', [])
                     {
                         type: 'integer',
                         title: 'Total Slots',
-                        filterProperty: 'TotalSlots',
+                        filterProperty: 'totalSlots',
                         isVisible: false
                     },
                     {
                         type: 'integer',
                         title: 'Percent Full',
-                        filterProperty: 'PercentFull',
+                        filterProperty: 'percentFull',
                         isVisible: false
                     }
                 ],
