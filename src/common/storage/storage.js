@@ -17,5 +17,6 @@ angular.module('storage', [
     'storage.storageSampleMoveCtrl',
     'storage.routes',
     'storage.storageTitleDirective',
-    'storage.sampleTypeIconDirective'
+    'storage.sampleTypeIconDirective',
+    'storage.catalog'
 ]);
