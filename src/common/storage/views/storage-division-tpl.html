@@ -194,6 +194,27 @@
                 <li class="add-division">
                     <button class="btn btn-primary btn-square add-division-button" ng-click="addDivision()"><i class="fa fa-plus fa-2x" /></button>
                 </li>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="hpanel">
+                             <uib-tabset active="active">
+                                <uib-tab index="0">
+                                    <uib-tab-heading>
+                                        <i class="glyphicon glyphicon-comment"></i> Comments
+                                    </uib-tab-heading>
+                                    <div class="panel-body">
+                                        Comments go here
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">
+                                    {{tab.content}}
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </div>
+
                 <div ng-repeat="division in division.children | orderBy:'lft' ">
                     <li>
                         <div class="row-column-container">
