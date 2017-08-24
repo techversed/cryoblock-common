@@ -201,52 +201,80 @@
                              <uib-tabset active="active">
                                 <uib-tab index="0">
                                     <uib-tab-heading>
-                                        <i class="glyphicon glyphicon-comment"></i> Comments
+                                        Divisions
                                     </uib-tab-heading>
-                                    <div class="panel-body">
-                                        Comments go here
+                                    <div ng-repeat="division in division.children | orderBy:'lft' ">
+                                        <li>
+                                            <div class="row-column-container">
+                                                <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x"/>
+                                                <i ng-if="division.hasDimension" class="fa fa-th fa-2x"/>
+                                            </div>
+                                            <div class="cell-list-view">
+                                                <div>
+                                                    <h3>
+                                                        <a ui-sref="storage.division.detail({id:division.id})">{{division.title}}</a>
+                                                        <i ng-if="division.canEdit" class="fa fa-pencil m-l-xs" tooltip-placement="right-top" uib-tooltip="You have permission to edit the contents of this division."/>
+                                                        <i ng-if="!division.canEdit && !division.canView" class="text-danger fa fa-lock m-l-xs" tooltip-placement="right-top" uib-tooltip="You do not have permission to view the contents of this division."/>
+                                                    </h3>
+                                                    <table class="division-detail-table">
+                                                        <tr ng-if="division.hasDimension">
+                                                            <td>Dimension</td>
+                                                            <td>{{division.width}} x {{division.height}}</td>
+                                                        </tr>
+                                                        <tr ng-if="division.hasDimension">
+                                                            <td>Percent Full</td>
+                                                            <td>{{division.percentFull | number:2}}%</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Description</td>
+                                                            <td>{{division.description}}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </div>
                                 </uib-tab>
-                                <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">
-                                    {{tab.content}}
+                                <uib-tab index="1" >
+                                    <uib-tab-heading>
+                                        Samples
+                                    </uib-tab-heading>
+                                    <div ng-repeat="sample in division.samples | orderBy:'id' ">
+                                        <li>
+                                            <div class="row-column-container">
+                                                <i class="fa fa-linode fa-2x"/>
+                                            </div>
+                                            <div class="cell-list-view">
+                                                <div>
+                                                    <h3>
+                                                        <a ui-sref="sample.detail({id:sample.id})">{{sample.stringLabel}}</a>
+                                                        <i class="fa fa-pencil m-l-xs" tooltip-placement="right-top" uib-tooltip="You have permission to edit the contents of this sample."/>
+                                                        <i class="text-danger fa fa-lock m-l-xs" tooltip-placement="right-top" uib-tooltip="You do not have permission to view the contents of this sample."/>
+                                                    </h3>
+                                                    <table class="sample-detail-table">
+                                                        <tr>
+                                                            <td>Sample Type</td>
+                                                            <td>{{sample.sampleType.stringLabel}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Target</td>
+                                                            <td>{{sample.target.stringLabel}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Description</td>
+                                                            <td>{{sample.description}}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </div>
                                 </uib-tab>
                             </uib-tabset>
                         </div>
                     </div>
                 </div>
 
-                <div ng-repeat="division in division.children | orderBy:'lft' ">
-                    <li>
-                        <div class="row-column-container">
-                            <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x"/>
-                            <i ng-if="division.hasDimension" class="fa fa-th fa-2x"/>
-                        </div>
-                        <div class="cell-list-view">
-                            <div>
-                                <h3>
-                                    <a ui-sref="storage.division.detail({id:division.id})">{{division.title}}</a>
-                                    <i ng-if="division.canEdit" class="fa fa-pencil m-l-xs" tooltip-placement="right-top" uib-tooltip="You have permission to edit the contents of this division."/>
-                                    <i ng-if="!division.canEdit && !division.canView" class="text-danger fa fa-lock m-l-xs" tooltip-placement="right-top" uib-tooltip="You do not have permission to view the contents of this division."/>
-                                </h3>
-                                <table class="division-detail-table">
-                                    <tr ng-if="division.hasDimension">
-                                        <td>Dimension</td>
-                                        <td>{{division.width}} x {{division.height}}</td>
-                                    </tr>
-                                    <tr ng-if="division.hasDimension">
-                                        <td>Percent Full</td>
-                                        <td>{{division.percentFull | number:2}}%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Description</td>
-                                        <td>{{division.description}}</td>
-                                    </tr>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                </div>
-            </ul>
 
         </div>
 
