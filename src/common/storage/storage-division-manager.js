@@ -110,6 +110,7 @@ angular.module('storage.storageDivisionManager', [])
                     return map;
 
                 },
+
                 addCell: function (cellScope) {
                     var row = cellScope.row;
                     var column = cellScope.column;
@@ -238,6 +239,22 @@ angular.module('storage.storageDivisionManager', [])
 
                     var samples = this.getSelectedSamples();
                     storageFormFactory.openSampleStorageRemoveModal(samples);
+
+                },
+
+                moveSample: function () {
+
+console.log(1)
+                    var samples = this.getSelectedSamples();
+                    storageFormFactory.openStorageSampleMove(samples);
+
+                },
+
+                createSample: function () {
+
+console.log(2)
+                    var samples = this.getSelectedSamples();
+                    storageFormFactory.openStorageSampleMove(samples);
 
                 },
 
