@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal) {
 
             var storageDivisionManager = {
 
@@ -242,9 +242,53 @@ angular.module('storage.storageDivisionManager', [])
 
                 },
 
+                openSampleStorageLinkModal: function () {
+
+                    var samples = {};
+
+                    $modal.open({
+                        templateUrl: 'common/storage/partials/storage-sample-link-tpl.html',
+                        controller: 'storageSampleLinkCtrl',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'lg',
+                        resolve: {
+
+                            samples: function () {
+
+                                return samples;
+                            },
+
+                            sampleGrid: function ($cbGridBuilder) {
+
+                                return $cbGridBuilder.buildSelectSingle('sampleGridFactory');
+
+                            },
+
+                            callBack: function () {
+
+                                return function (samples) {
+
+                                   storageDivisionManager.putSample(samples)
+
+                                 };
+
+                            }
+
+                        }
+                    });
+
+                },
+
+                putSample: function (samples) {
+console.log(2)
+                    storageFormFactory.openStorageSampleMove(samples);
+
+                },
+
                 moveSample: function () {
 
-console.log(1)
                     var samples = this.getSelectedSamples();
                     storageFormFactory.openStorageSampleMove(samples);
 
@@ -252,7 +296,6 @@ console.log(1)
 
                 createSample: function () {
 
-console.log(2)
                     var samples = this.getSelectedSamples();
                     storageFormFactory.openStorageSampleMove(samples);
 
