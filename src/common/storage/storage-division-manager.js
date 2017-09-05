@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams) {
 
             var storageDivisionManager = {
 
@@ -246,6 +246,9 @@ angular.module('storage.storageDivisionManager', [])
 
                     var samples = {};
 
+                    division = this.division
+                    selectedCells = this.selectedCells
+
                     $modal.open({
                         templateUrl: 'common/storage/partials/storage-sample-link-tpl.html',
                         controller: 'storageSampleLinkCtrl',
@@ -266,11 +269,23 @@ angular.module('storage.storageDivisionManager', [])
 
                             },
 
+                            selectedCells: function () {
+
+                                return selectedCells;
+
+                            },
+
+                            division: function () {
+
+                                return division;
+
+                            },
+
                             callBack: function () {
 
                                 return function (samples) {
 
-                                   storageDivisionManager.putSample(samples)
+                                    $state.go($state.current, $stateParams, {reload:true});
 
                                  };
 
@@ -278,12 +293,6 @@ angular.module('storage.storageDivisionManager', [])
 
                         }
                     });
-
-                },
-
-                putSample: function (samples) {
-console.log(2)
-                    storageFormFactory.openStorageSampleMove(samples);
 
                 },
 
