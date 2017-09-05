@@ -57,7 +57,24 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
 
                                         return $cbResource.getOne('/storage/catalog?id[EQ]=' + $stateParams.id);
 
+                                    },
+
+                                    samples: function ($cbResource, catalog) {
+                                        return $cbResource.get('/storage/sample?name[EQ]=' + catalog.name);
+                                    },
+
+                                    dnaSamples: function (sampleGridFactory, catalog) {
+
+                                        return sampleGridFactory.getCatalogGrid(catalog.name, 1);
+
+                                    },
+
+                                    proteinSamples: function (sampleGridFactory, catalog) {
+
+                                        return sampleGridFactory.getCatalogGrid(catalog.name, 2);
+
                                     }
+
 
                                 }
 
