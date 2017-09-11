@@ -49,8 +49,10 @@ angular.module('storage.storageSampleLinkCtrl', [])
 
                 // update sample with new division row and cell
                 $scope.form.selectedSample.divisionId = $scope.division.id;
+                $scope.form.selectedSample.division = $scope.division;
                 $scope.form.selectedSample.divisionRow = $scope.row;
                 $scope.form.selectedSample.divisionColumn = $scope.column;
+                console.log($scope.form.selectedSample);
                 $cbResource.update('/storage/sample?id[EQ]=' + $scope.form.selectedSample.id, $scope.form.selectedSample);
                 callBack();
                 $modalInstance.close();
