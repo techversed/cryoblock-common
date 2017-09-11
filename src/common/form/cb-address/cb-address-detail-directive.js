@@ -1,12 +1,10 @@
 angular.module('form.cbAddress.cbAddressDetailDirective', [])
 
-    .directive('cbAddressDetail', ['gridFactory', '$http', 'API',
+    .directive('cbAddressDetail',
 
-        function (gridFactory, $http, API) {
+        function () {
 
             return {
-
-
 
                 restrict: 'E',
 
@@ -18,34 +16,9 @@ angular.module('form.cbAddress.cbAddressDetailDirective', [])
                 },
 
                 controller: function ($scope) {
-                    console.log($scope.parentObject[$scope.bindTo])
                     $scope.addresses = $scope.parentObject[$scope.bindTo];
-                    $scope.addressForm = {};
-
-                    $scope.show = false;
-
-                    $scope.toggle = function () {
-
-                        if (!$scope.addresses.length) {
-                            $scope.createAddress();
-                            return;
-                        }
-
-                        $scope.show = $scope.show ? false : true;
-                        $scope.showAdd = false;
-
-                    };
-
                 },
-
-                link: function ($scope, element, attrs, formCtrl) {
-
-                }
-
             }
-
         }
-
-    ])
-
+    )
 ;
