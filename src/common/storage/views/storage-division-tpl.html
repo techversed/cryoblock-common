@@ -176,9 +176,29 @@
                             <div class="cell-list-view ">
                                 <span class="empty" ng-if="!sdm.sampleMap[row][column]">Empty Well</span>
                                 <div ng-if="sdm.sampleMap[row][column]">
-                                    <p>{{sdm.sampleMap[row][column].sampleType.name}}</p>
-                                    <p>{{sdm.sampleMap[row][column].name}}</p>
-                                    <p>{{sdm.sampleMap[row][column].description}}</p>
+                                    <table>
+                                        <tr>
+                                            <td>{{sdm.sampleMap[row][column].name}}</td>
+                                            <td>{{sdm.sampleMap[row][column].status}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{sdm.sampleMap[row][column].tag.name}}</td>
+                                            <td>{{sdm.sampleMap[row][column].target.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{sdm.sampleMap[row][column].sampleType.name}}</td>
+                                            <td>{{sdm.sampleMap[row][column].molecule.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Created By
+                                                <i class="user-icon-list">
+                                                    <cb-user-avatar user="sdm.sampleMap[row][column].createdBy" class="xs" uib-tooltip="{{sdm.sampleMap[row][column].createdBy.stringLabel}}"></cb-user-avatar>
+                                                </i>
+                                            </td>
+                                            <td>{{sdm.sampleMap[row][column].createdAt | date:'medium'}}</td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </li>
