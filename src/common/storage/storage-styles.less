@@ -338,8 +338,14 @@
     display: table;
     width: 100%;
 
-    table {
+    .box-grid-info-table {
         display: inline-table;
+        td {
+            padding: 3px;
+            &:first-child {
+                font-weight: 500;
+            }
+        }
     }
 
     li {

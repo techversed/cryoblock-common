@@ -174,16 +174,13 @@
                         <li ng-class="{selected: sdm.selectedCells[row][column]}" ng-click="sdm.toggleCell(row, column, $event.shiftKey)">
                             <div class="row-column-container">{{row}}{{column}}</div>
                             <div class="cell-list-view ">
+                                <a ui-sref="sample.detail({id:sdm.sampleMap[row][column].id})" ng-if="sdm.sampleMap[row][column]">View Details</a>
                                 <span class="empty" ng-if="!sdm.sampleMap[row][column]">Empty Well</span>
                                 <div ng-if="sdm.sampleMap[row][column]">
-                                    <table>
+                                    <table class="box-grid-info-table">
                                         <tr>
                                             <td>Name: </td>
                                             <td>{{sdm.sampleMap[row][column].name}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Status: </td>
-                                            <td>{{sdm.sampleMap[row][column].status}}</td>
                                         </tr>
                                         <tr>
                                             <td>Target: </td>
@@ -193,13 +190,12 @@
                                             <td>Tag: </td>
                                             <td>{{sdm.sampleMap[row][column].tag.name}}</td>
                                         </tr>
-                                    </table>
-                                    <table>
                                         <tr>
                                             <td>Sample Type: </td>
-
                                             <td>{{sdm.sampleMap[row][column].sampleType.name}}</td>
                                         </tr>
+                                    </table>
+                                    <table class="box-grid-info-table">
                                          <tr>
                                             <td>Molecule: </td>
                                             <td>{{sdm.sampleMap[row][column].molecule.name}}</td>
