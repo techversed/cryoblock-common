@@ -1,12 +1,8 @@
- <div class="cell-list-view ">
-    <a ui-sref="sample.detail({id:sdm.sampleMap[row][column].id})" ng-if="sdm.sampleMap[row][column]">View Details</a>
+<div class="cell-list-view ">
+    <a ui-sref="sample.detail({id:sdm.sampleMap[row][column].id})" ng-if="sdm.sampleMap[row][column]">ID {{sdm.sampleMap[row][column].id}} - {{sdm.sampleMap[row][column].name}}</a>
     <span class="empty" ng-if="!sdm.sampleMap[row][column]">Empty Well</span>
     <div ng-if="sdm.sampleMap[row][column]">
         <table class="box-grid-info-table">
-            <tr>
-                <td>Name: </td>
-                <td>{{sdm.sampleMap[row][column].name}}</td>
-            </tr>
             <tr>
                 <td>Target: </td>
                 <td>{{sdm.sampleMap[row][column].target.name}}</td>
@@ -21,7 +17,7 @@
             </tr>
         </table>
         <table class="box-grid-info-table">
-             <tr>
+            <tr>
                 <td>Molecule: </td>
                 <td>{{sdm.sampleMap[row][column].molecule.name}}</td>
             </tr>

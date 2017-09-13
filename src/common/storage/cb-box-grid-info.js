@@ -6,7 +6,6 @@ angular.module('storage.cbBoxGridInfoDirective', [])
                 sample: 'E',
                 templateUrl: 'common/storage/partials/cb-box-grid-info-tpl.html',
                 link: function ($scope) {
-
                 }
             }
         }
