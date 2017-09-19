@@ -1,13 +1,15 @@
 angular.module('storage.cbBoxGridInfoDirective', [])
-    .directive('cbBoxGridInfo', ['sessionFactory', 'API', '$rootScope',
-        function (sessionFactory, API, $rootScope) {
+    .directive('cbBoxGridInfo', ['sessionFactory', 'API', '$rootScope', 'storageParams',
+        function (sessionFactory, API, $rootScope, storageParams) {
+
+            var templatePath = (storageParams && storageParams.boxGridInfoTemplate) ? storageParams.boxGridInfoTemplate : "common/storage/partials/cb-box-grid-info-tpl.html";
+
             return {
                 restrict: 'E',
-                sample: 'E',
-                templateUrl: 'common/storage/partials/cb-box-grid-info-tpl.html',
-                link: function ($scope) {
-                }
+                scope: {sample:'='},
+                templateUrl: templatePath
             }
+
         }
     ])
 ;

@@ -1,37 +1,34 @@
 <div class="cell-list-view ">
-    <a ui-sref="sample.detail({id:sdm.sampleMap[row][column].id})" ng-if="sdm.sampleMap[row][column]">ID {{sdm.sampleMap[row][column].id}} - {{sdm.sampleMap[row][column].name}}</a>
-    <span class="empty" ng-if="!sdm.sampleMap[row][column]">Empty Well</span>
-    <div ng-if="sdm.sampleMap[row][column]">
+    <a ui-sref="sample.detail({id:sample.id})" ng-if="sample">ID {{sample.id}} - {{sample.name}}</a>
+    <span class="empty" ng-if="!sample">Empty Well</span>
+    <div ng-if="sample">
         <table class="box-grid-info-table">
-            <tr>
-                <td>Target: </td>
-                <td>{{sdm.sampleMap[row][column].target.name}}</td>
-            </tr>
-            <tr>
-                <td>Tag: </td>
-                <td>{{sdm.sampleMap[row][column].tag.name}}</td>
-            </tr>
-            <tr>
+             <tr>
                 <td>Sample Type: </td>
-                <td>{{sdm.sampleMap[row][column].sampleType.name}}</td>
+                <td>
+                    <i>
+                        <sample-type-icon sampleType="sample.sampleType" class="xs" uib-tooltip="{{sample.sampleType.name}}"></sample-type-icon>
+                    </i>
+                    {{sample.sampleType.name}}
+                </td>
+            </tr>
+            <tr>
+                <td>Storage Container: </td>
+                <td>{{sample.storageContainer.name}}</td>
             </tr>
         </table>
         <table class="box-grid-info-table">
             <tr>
-                <td>Molecule: </td>
-                <td>{{sdm.sampleMap[row][column].molecule.name}}</td>
-            </tr>
-            <tr>
                 <td>Created At: </td>
-                <td>{{sdm.sampleMap[row][column].createdAt | date:'medium'}}</td>
+                <td>{{sample.createdAt | date:'medium'}}</td>
             </tr>
             <tr>
                 <td>Created By: </td>
                 <td>
                     <i class="user-icon-list">
-                        <cb-user-avatar user="sdm.sampleMap[row][column].createdBy" class="xs" uib-tooltip="{{sdm.sampleMap[row][column].createdBy.stringLabel}}"></cb-user-avatar>
+                        <cb-user-avatar user="sample.createdBy" class="xs" uib-tooltip="{{sample.createdBy.stringLabel}}"></cb-user-avatar>
                     </i>
-                    {{sdm.sampleMap[row][column].createdBy.stringLabel}}
+                    {{sample.createdBy.stringLabel}}
                 </td>
             </tr>
         </table>
