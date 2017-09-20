@@ -173,14 +173,7 @@
                     <div ng-repeat="column in columns">
                         <li ng-class="{selected: sdm.selectedCells[row][column]}" ng-click="sdm.toggleCell(row, column, $event.shiftKey)">
                             <div class="row-column-container">{{row}}{{column}}</div>
-                            <div class="cell-list-view ">
-                                <span class="empty" ng-if="!sdm.sampleMap[row][column]">Empty Well</span>
-                                <div ng-if="sdm.sampleMap[row][column]">
-                                    <p>{{sdm.sampleMap[row][column].sampleType.name}}</p>
-                                    <p>{{sdm.sampleMap[row][column].name}}</p>
-                                    <p>{{sdm.sampleMap[row][column].description}}</p>
-                                </div>
-                            </div>
+                            <cb-box-grid-info sample="sdm.sampleMap[row][column]"></cb-box-grid-info>
                         </li>
                     </div>
                 </div>
@@ -201,7 +194,7 @@
                             <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x"/>
                             <i ng-if="division.hasDimension" class="fa fa-th fa-2x"/>
                         </div>
-                        <div class="cell-list-view">
+                        <div class="division-list-view">
                             <div>
                                 <h3>
                                     <a ui-sref="storage.division.detail({id:division.id})">{{division.title}}</a>

@@ -333,10 +333,20 @@
 }
 
 .storage-division-list {
-    padding-left: 0;
-
+    padding-left: 0px;
     display: table;
     width: 100%;
+
+    .box-grid-info-table {
+        display: inline;
+        margin-right: 10px;
+        td {
+            padding: 2px 10px 0px 2px;
+            &:first-child {
+                font-weight: 500;
+            }
+        }
+    }
 
     li {
         cursor: pointer;
@@ -351,13 +361,19 @@
             padding: 15px;
             display: table-cell;
         }
+        cb-box-grid-info {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .division-list-view {
+            display: table-cell;
+            padding: 15px;
+        }
         .cell-list-view {
-            display: inline-block;
             padding: 15px;
             .empty {
                 color: darkgrey;
             }
-            display: table-cell;
             width: 100%;
         }
         &.selected {
