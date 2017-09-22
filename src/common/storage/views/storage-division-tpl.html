@@ -190,19 +190,24 @@
         <div ng-show="!division.hasDimension && currentView === 'list'">
 
             <p class="m-t-md"><strong>Child Divisions</strong></p>
+
             <ul class="storage-division-list">
-                <li class="add-division">
-                    <button class="btn btn-primary btn-square add-division-button" ng-click="addDivision()"><i class="fa fa-plus fa-2x" /></button>
-                </li>
+
 
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="hpanel">
-                             <uib-tabset active="active">
+
+                             <uib-tabset active="active" >
+
                                 <uib-tab index="0">
-                                    <uib-tab-heading>
+                                    <uib-tab-heading >
                                         Divisions
                                     </uib-tab-heading>
+                                    <li class="add-division">
+                                        <button class="btn btn-primary btn-square add-division-button" ng-click="addDivision()"><i class="fa fa-plus fa-2x" /></button>
+                                        <h2> Add Division </h2>
+                                    </li>
                                     <div ng-repeat="division in division.children | orderBy:'lft' ">
                                         <li>
                                             <div class="row-column-container">
@@ -235,12 +240,12 @@
                                         </li>
                                     </div>
                                 </uib-tab>
+
                                 <uib-tab index="1" >
                                     <uib-tab-heading>
                                         Samples
                                     </uib-tab-heading>
                                     <div ng-repeat="sample in division.samples | orderBy:'id' ">
-                                        <li>
                                             <div class="row-column-container">
                                                 <i class="fa fa-linode fa-2x"/>
                                             </div>
@@ -270,11 +275,11 @@
                                         </li>
                                     </div>
                                 </uib-tab>
+
                             </uib-tabset>
                         </div>
                     </div>
                 </div>
-
 
         </div>
 
