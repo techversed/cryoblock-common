@@ -193,7 +193,6 @@
 
             <ul class="storage-division-list">
 
-
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="hpanel">
@@ -204,12 +203,12 @@
                                     <uib-tab-heading >
                                         Divisions
                                     </uib-tab-heading>
-                                    <li class="add-division">
+                                    <li class="add-division poop">
                                         <button class="btn btn-primary btn-square add-division-button" ng-click="addDivision()"><i class="fa fa-plus fa-2x" /></button>
                                         <h2> Add Division </h2>
                                     </li>
                                     <div ng-repeat="division in division.children | orderBy:'lft' ">
-                                        <li>
+                                        <li class="poop">
                                             <div class="row-column-container">
                                                 <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x"/>
                                                 <i ng-if="division.hasDimension" class="fa fa-th fa-2x"/>
@@ -280,10 +279,7 @@
                         </div>
                     </div>
                 </div>
-
         </div>
-
     </div>
-
 </div>
 
