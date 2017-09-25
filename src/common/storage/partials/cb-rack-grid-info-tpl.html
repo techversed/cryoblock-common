@@ -1,0 +1,71 @@
+ <div class="division-list-view">
+    <div>
+        <a ui-sref="storage.division.detail({id:division.id})">{{division.stringLabel}}</a>
+        <i ng-if="division.canEdit" class="fa fa-pencil m-l-xs" tooltip-placement="right-top" uib-tooltip="You have permission to edit the contents of this division."/>
+            <div ng-if="division">
+                <table class="division-detail-table">
+                    <tr>
+                        <td>Allowed Sample Types: </td>
+                        <td>
+                            <span ng-if="division.allowAllSampleTypes">
+                                <i class="fa fa-check-circle text-primary"/>
+                                Any Sample Type Allowed
+                            </span>
+                            <i ng-if="!division.allowAllSampleTypes" ng-repeat="divisionSampleTypes in division.divisionSampleTypes" class="sample-type-icon-list">
+                              <sample-type-icon sample-type="divisionSampleTypes.sampleType" class="xs" ng-if="divisionSampleTypes.sampleType" uib-tooltip="{{divisionSampleTypes.sampleType.name}}"></sample-type-icon>
+                            </i>
+                            {{division.allowAllSampleTypes}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Allowed Storage Containers:
+                        </td>
+                        <td>
+                            <span ng-if="division.allowAllStorageContainers">
+                                <i class="fa fa-check-circle text-primary"/>
+                                Any Storage Container Allowed
+                            </span>
+                            <span ng-if="!division.allowAllStorageContainers" ng-repeat="divisionStorageContainers in division.divisionStorageContainers">
+                                {{divisionStorageContainers.storageContainer.stringLabel}}
+                                <span ng-if="$index != (division.divisionStorageContainers.length - 1)"></span>
+                            </span>
+                            {{division.allowAllStorageContainers}}
+                        </td>
+                    </tr>
+                </table>
+                <table class="division-detail-table">
+                    <tr>
+                        <td>
+                            Able to View:
+                        </td>
+                        <td>
+                            <span ng-if="division.isPublicView">
+                                <i class="fa fa-users text-primary"/>
+                                All Users
+                            </span>
+                            <i ng-repeat="divisionEditors in division.divisionEditors" class="user-icon-list">
+                                <cb-user-avatar user="divisionEditors.user" class="xs" ng-if="divisionEditors.user" uib-tooltip="{{divisionEditors.user.stringLabel}}"></cb-user-avatar>
+                            </i>
+                            {{division.isPublicView}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Able to Edit: </td>
+                        <td>
+                            <span ng-if="division.isPublicEdit">
+                                <i class="fa fa-users text-primary"/>
+                                All Users
+                            </span>
+                           <span ng-repeat="divisionGroupEditors in division.divisionGroupEditors">
+                                {{divisionGroupEditors.group.stringLabel}}
+                                <span ng-if="$index != (division.divisionGroupEditors.length - 1)">,</span>
+                            </span>
+                            {{division.isPublicEdit}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </i>
+    </div>
+</div>
