@@ -85,7 +85,7 @@ angular.module('storage.storageDivisionCtrl', [])
 
             $scope.addDivision = function () {
 
-                storageFormFactory.openDivisionFormModall({parent: {id: $scope.division.id}});
+                storageFormFactory.openDivisionFormModal({parent: {id: $scope.division.id}});
 
             }
 

@@ -24,7 +24,6 @@ angular.module('storage.storageFormFactory', [])
                                 }
 
                                 return $cbResource.getOne('/storage/division', {'id[EQ]': division.id});
-
                             },
 
                             sampleTypeGrids: function () {
@@ -81,13 +80,13 @@ angular.module('storage.storageFormFactory', [])
 
                         }
                     });
-
                 },
-flagDivisionFormModal: function (division) {
+
+                flagDivisionFormModal: function (division) {
 
                     $modal.open({
-                        templateUrl: 'common/storage/partials/cb-flag-grid-info-tpl.html',
-                        controller: 'storageDivisionFormCtrl',
+                        templateUrl: 'common/storage/partials/storage-flag-form-tpl.html',
+                        controller: 'storageFlagDivisionFormCtrl',
                         windowClass: 'inmodal',
                         keyboard: false,
                         backdrop: 'static',
@@ -101,61 +100,7 @@ flagDivisionFormModal: function (division) {
                                 }
 
                                 return $cbResource.getOne('/storage/division', {'id[EQ]': division.id});
-
-                            },
-
-                            sampleTypeGrids: function () {
-
-                                return $cbGridBuilder.buildMTMGrids('/storage/division-sample-type/division/', 'sampleTypeGridFactory', division, true);
-
-                            },
-
-                            storageContainerGrids: function () {
-
-                                return $cbGridBuilder.buildMTMGrids('/storage/division-storage-container/division/', 'storageContainerGridFactory', division, true);
-
-                            },
-
-                            divisionViewerGrids: function () {
-
-                                return $cbGridBuilder.buildMTMGrids('/storage/division-viewer/division/', 'userGridFactory', division, true);
-
-                            },
-
-                            divisionGroupViewerGrids: function () {
-
-                                return $cbGridBuilder.buildMTMGrids('/storage/division-group-viewer/division/', 'groupGridFactory', division, true);
-
-                            },
-
-                            divisionEditorGrids: function () {
-
-                                return $cbGridBuilder.buildMTMGrids('/storage/division-editor/division/', 'userGridFactory', division, true);
-
-                            },
-
-                            divisionGroupEditorGrids: function () {
-
-                                return $cbGridBuilder.buildMTMGrids('/storage/division-group-editor/division/', 'groupGridFactory', division, true);
-
-                            },
-
-                            ownerGrid: function () {
-
-                                return $cbGridBuilder.buildSelectSingle('userGridFactory', true);
-
-                            },
-
-                            callback: function () {
-
-                                return function () {
-
-                                    $state.go($state.current, $stateParams, {reload:true});
-
-                                };
-
                             }
-
                         }
                     });
 
@@ -181,14 +126,10 @@ flagDivisionFormModal: function (division) {
                                 return function () {
 
                                     $state.go($state.current, $stateParams, {reload:true});
-
                                 };
-
                             }
-
                         }
                     });
-
                 },
 
                 openStorageSampleMove: function (sampleMoveMap) {
@@ -211,20 +152,15 @@ flagDivisionFormModal: function (division) {
                                 return function () {
 
                                     $state.go($state.current, $stateParams, {reload:true});
-
                                 };
 
                             }
 
                         }
                     }).result;
-
                 }
-
             };
-
             return storageFormFactory;
-
         }
     ])
 ;
