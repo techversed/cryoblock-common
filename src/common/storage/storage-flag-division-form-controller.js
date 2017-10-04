@@ -21,7 +21,7 @@ angular.module('storage.storageFlagDivisionFormCtrl', [])
                     return;
                 }
 
-                var url = '/storage/flag?id[EQ]=' + $scope.division.id;
+                var url = '/storage/box-flag?id[EQ]=' + $scope.division.id;
 
                 $cbResource[method](url, $scope.division).then(
 
