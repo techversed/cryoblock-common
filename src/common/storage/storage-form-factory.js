@@ -85,8 +85,8 @@ angular.module('storage.storageFormFactory', [])
                 flagDivisionFormModal: function (division) {
 
                     $modal.open({
-                        templateUrl: 'common/storage/partials/storage-flag-form-tpl.html',
-                        controller: 'storageFlagDivisionFormCtrl',
+                        templateUrl: 'common/storage/partials/storage-box-flag-form-tpl.html',
+                        controller: 'storageBoxFlagDivisionFormCtrl',
                         windowClass: 'inmodal',
                         keyboard: false,
                         backdrop: 'static',

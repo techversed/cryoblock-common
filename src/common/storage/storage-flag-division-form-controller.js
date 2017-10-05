@@ -1,6 +1,6 @@
-angular.module('storage.storageFlagDivisionFormCtrl', [])
+angular.module('storage.storageBoxFlagDivisionFormCtrl', [])
 
-    .controller('storageFlagDivisionFormCtrl', ['$scope', '$uibModalInstance', 'division', '$cbResource', 'toastr',
+    .controller('storageBoxFlagDivisionFormCtrl', ['$scope', '$uibModalInstance', 'division', '$cbResource', 'toastr',
 
         function ($scope, $modalInstance, division, $cbResource, toastr) {
 
@@ -21,13 +21,13 @@ angular.module('storage.storageFlagDivisionFormCtrl', [])
                     return;
                 }
 
-                var url = '/storage/box-flag?id[EQ]=' + $scope.division.id;
+                var url = '/storage/division?id[EQ]=' + $scope.division.id;
 
-                $cbResource.create(url, $scope.division).then(
+                $cbResource.update(url, $scope.division).then(
 
                     function (response) {
 
-                        toastr.info('Group ' + method + 'd successfully');
+                        toastr.info('Box flagged successfully');
                         $scope.close();
                         callback();
                     },
