@@ -11,12 +11,7 @@
 
             <cb-form-group label="Flag Type:" name="name">
                 <div class="col-sm-10">
-                    <div class="radio"><label> <input type="radio" ng-model="division.boxFlagId" checked="" value="1"> Box is wrong </label></div>
-                    <div class="radio"><label> <input type="radio" ng-model="division.boxFlagId" value="2"> App is wrong </label></div>
-                    <div class="radio"><label> <input type="radio" ng-model="division.boxFlagId" value="3"> Box description wrong </label></div>
-                    <div class="radio"><label> <input type="radio" ng-model="division.boxFlagId" value="4"> Mycoplasma Detected </label></div>
-                    <div class="radio"><label> <input type="radio" ng-model="division.boxFlagId" value="5"> Defrost Damaged </label></div>
-                    <div class="radio"><label> <input type="radio" ng-model="division.boxFlagId" value="6"> Box in wrong location</label></div>
+                    <div class="radio" ng-repeat="boxFlag in boxFlags"><label> <input type="radio" ng-model="division.boxFlagId" checked="" value="boxFlag.id">{{boxFlag.name}} - {{boxFlag.description}}</label></div>
                 </div>
             </cb-form-group>
 

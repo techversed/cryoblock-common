@@ -1,11 +1,11 @@
 angular.module('storage.storageBoxFlagDivisionFormCtrl', [])
 
-    .controller('storageBoxFlagDivisionFormCtrl', ['$scope', '$uibModalInstance', 'division', '$cbResource', 'toastr',
+    .controller('storageBoxFlagDivisionFormCtrl', ['$scope', '$uibModalInstance', 'division', '$cbResource', 'toastr', 'callback', 'boxFlags',
 
-        function ($scope, $modalInstance, division, $cbResource, toastr) {
+        function ($scope, $modalInstance, division, $cbResource, toastr, callback, boxFlags) {
 
-            $scope.division = division;
-
+            $scope.boxFlags = boxFlags.data;
+            $scope.division = angular.copy(division);
 
             $scope.close = function () {
                 $modalInstance.close();

@@ -95,11 +95,20 @@ angular.module('storage.storageFormFactory', [])
 
                             division: function () {
 
-                                if (!division || !division.id) {
-                                    return division;
-                                }
+                                return division;
 
-                                return $cbResource.getOne('/storage/division', {'id[EQ]': division.id});
+                            },
+
+                            boxFlags: function () {
+                                return $cbResource.get('/storage/box-flag');
+                            },
+
+                            callback: function () {
+
+                                return function () {
+
+                                    $state.go($state.current, $stateParams, {reload:true});
+                                };
                             }
                         }
                     });

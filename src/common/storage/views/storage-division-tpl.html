@@ -42,6 +42,16 @@
                 <li><span>{{division.title}}</span></li>
             </ol>
         </div>
+
+        <div class="row m-b-none" ng-if="division.boxFlagId">
+            <div class="col-sm-12">
+                <div uib-alert class="alert-danger">
+                    <i class="fa fa-flag" />
+                    Box Flagged: {{division.boxFlag.description}}
+                </div>
+            </div>
+        </div>
+
         <div class="row m-b-none">
             <div class="col-sm-12">
                 <h3>
