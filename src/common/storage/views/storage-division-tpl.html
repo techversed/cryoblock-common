@@ -43,7 +43,7 @@
             </ol>
         </div>
 
-        <div class="row m-b-none">
+        <div class="row m-b-none" ng-show="{currentView === 'grid' || currentView === 'list'}">
             <div class="col-sm-12">
                 <h3>
                     <button type="button" class="m-r-sm btn btn-sm btn-default" ng-click="editDivision(division)"><i class="fa fa-pencil"/></button>
@@ -163,6 +163,7 @@
                     </tr>
                 </tbody>
             </table>
+
         </div>
 
         <div class="division-overflow-container" ng-show="division.hasDimension && currentView === 'list'">
@@ -229,7 +230,47 @@
 
         </div>
 
+        <div ng-show="currentView === 'search'">
+
+            <p class="m-t-md"><strong>Division Search</strong></p>
+            <ul class="storage-division-list">
+                <div ng-repeat="division in division.children | orderBy:'lft' ">
+                    <li>
+                        <div class="row-column-container">
+                            <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x"/>
+                            <i ng-if="division.hasDimension" class="fa fa-th fa-2x"/>
+                        </div>
+                        <div class="cell-list-view">
+                            <div>
+                                <h3>
+                                    <a ui-sref="storage.division.detail({id:division.id})">{{division.title}}</a>
+                                    <i ng-if="division.canEdit" class="fa fa-pencil m-l-xs" tooltip-placement="right-top" uib-tooltip="You have permission to edit the contents of this division."/>
+                                    <i ng-if="!division.canEdit && !division.canView" class="text-danger fa fa-lock m-l-xs" tooltip-placement="right-top" uib-tooltip="You do not have permission to view the contents of this division."/>
+                                </h3>
+                                <table class="division-detail-table">
+                                    <tr ng-if="division.hasDimension">
+                                        <td>Dimension</td>
+                                        <td>{{division.width}} x {{division.height}}</td>
+                                    </tr>
+                                    <tr ng-if="division.hasDimension">
+                                        <td>Percent Full</td>
+                                        <td>{{division.percentFull | number:2}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>{{division.description}}</td>
+                                    </tr>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+
+        </div>
+
     </div>
 
 </div>
 
+</div>

@@ -58,9 +58,9 @@
                 </button>
             </li>
             <li>
-                <button class="btn btn-info btn-block m-t-sm m-b-sm" ui-sref="storage.division_search">
+                <button class="btn btn-info btn-block m-t-sm m-b-sm" ng-click="changeView('search')">
                     <i class="fa fa-search" />
-                    Search Divisions
+                    Search Division
                 </button>
             </li>
             <li cb-storage-tree-node data-expand-on-hover="800" data-collapsed="false" ng-model="item" ng-repeat="item in divisions" ui-tree-node ng-include="'nodes_renderer.html'" ng-if="item.id"></li>
