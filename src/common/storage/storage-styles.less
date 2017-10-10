@@ -333,8 +333,7 @@
 }
 
 .storage-division-list {
-    padding-left: 0;
-
+    padding-left: 0px;
     display: table;
     width: 100%;
 
@@ -349,7 +348,7 @@
         }
     }
 
-    li.poop {
+    li.storage-list {
         cursor: pointer;
         margin: 10px 0px;
         list-style: none;
@@ -362,13 +361,19 @@
             padding: 15px;
             display: table-cell;
         }
+        cb-box-grid-info {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .division-list-view {
+            display: table-cell;
+            padding: 15px;
+        }
         .cell-list-view {
-            display: inline-block;
             padding: 15px;
             .empty {
                 color: darkgrey;
             }
-            display: table-cell;
             width: 100%;
         }
         &.selected {
@@ -377,19 +382,20 @@
                 color: white;
             }
         }
-        &.add-division {
-            background: #f3f3f3;
-            height: 100px;
+        .add-division {
+            vertical-align: middle;
+            font-size: 1.5em;
+            display: inline-block;
+            border-right: 5px solid #ffffff;
+            display: table-cell;
             button {
-                height: 100%;
-                width: 64px;
-                margin-bottom: 20px;
+                padding: 21px;
             }
-            h2 {
-                margin-top: 20px;
-                margin: 10px;
-                display: inline-block;
-                font-weight: 600;
+        }
+        .add-division-title {
+            h2{
+                font-size: 23px;
+                font-weight: 400;
             }
         }
     }
