@@ -5,7 +5,6 @@ angular.module('storage.sampleTypeIconDirective', [])
         function (sessionFactory, API, $rootScope, sampleTypeIconMapping) {
             return {
                 restrict: 'E',
-                sampleType: 'E',
                 templateUrl: 'common/storage/partials/sample-type-icon-tpl.html',
                 scope: {
                     sampleType: '='

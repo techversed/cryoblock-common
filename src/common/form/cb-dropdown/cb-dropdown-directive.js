@@ -14,7 +14,9 @@ angular.module('form.cbDropdownDirective', [])
                     bindTo: '@',
                     name: '@',
                     cbOnSelect: '=',
-                    disabled: '='
+                    cbOnSelectData: '=',
+                    disabled: '=',
+                    cbIsOpen: '='
                 },
                 link: function ($scope, element, attrs, ctrls) {
 
@@ -46,7 +48,7 @@ angular.module('form.cbDropdownDirective', [])
 
                         if (typeof $scope.cbOnSelect === 'function') {
 
-                            $scope.cbOnSelect(item);
+                            $scope.cbOnSelect(item, $scope.cbOnSelectData);
 
                         }
 
