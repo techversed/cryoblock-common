@@ -33,9 +33,9 @@
             </li>
             <li ng-repeat="address in addresses" ng-class="{'bg-info': !address.isDefault, 'bg-primary': address.isDefault }">
                 <address>
+                    {{address.email}}<br>
                     {{address.address}}<br>
                     {{address.address2}}<br ng-if="address.address2">
-                    {{address.email}}<br>
                     {{address.phone}}<br>
                     {{address.city}}<br>
                     {{address.state}}<br>
@@ -59,6 +59,15 @@
 
             <div class="form-container">
 
+                <cb-form-group label="Email" name="email">
+                    <div class="col-sm-10">
+                        <input name="email" type="text" class="form-control" ng-model="email.email" required>
+                        <div ng-messages="emailForm.email.$error" ng-show="submitted">
+                            <p ng-message="required" class="text-danger">This field is required</p>
+                        </div>
+                    </div>
+                </cb-form-group>
+
                 <cb-form-group label="Address" name="address">
                     <div class="col-sm-10">
                         <input name="address" type="text" class="form-control" ng-model="address.address" required>
@@ -73,15 +82,6 @@
                         <input name="address2" type="text" class="form-control" ng-model="address.address2">
                         <div ng-messages="addressForm.address2.$error" ng-show="submitted">
                             <p class="text-danger"/p>
-                        </div>
-                    </div>
-                </cb-form-group>
-
-                <cb-form-group label="Email" name="email">
-                    <div class="col-sm-10">
-                        <input name="email" type="text" class="form-control" ng-model="address.email" required>
-                        <div ng-messages="addressForm.email.$error" ng-show="submitted">
-                            <p ng-message="required" class="text-danger">This field is required</p>
                         </div>
                     </div>
                 </cb-form-group>
