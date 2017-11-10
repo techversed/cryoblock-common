@@ -19,6 +19,10 @@ angular.module('form.cbAddress.cbAddressFormDirective', [])
 
                 controller: function ($scope) {
 
+                    if ($scope.parentObject[$scope.bindTo] == undefined){
+                        $scope.parentObject[$scope.bindTo] = [];
+                    }
+
                     $scope.addresses = $scope.parentObject[$scope.bindTo];
                     $scope.addressForm = {};
 
