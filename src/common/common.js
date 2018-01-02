@@ -36,5 +36,6 @@ angular.module('common', [
     'comment',
     'ui.tree',
     'step',
-    'attachment'
+    'attachment',
+    'storage'
 ]);

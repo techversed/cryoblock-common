@@ -1,0 +1,164 @@
+<form name="divisionForm" method="get" class="form-horizontal" ng-submit="submit(divisionForm.$valid)" novalidate>
+
+    <div id="sample-form-container">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">{{ division.id ? 'Edit Division' : 'Create Division' }} {{division.id}}</h4>
+            <small ng-if="division.id">{{division.path}}</small>
+        </div>
+        <div class="modal-body">
+
+            <div class="col-sm-12 alert alert-danger m-b-md" ng-show="errors.length !== 0">
+                <p ng-repeat="error in errors">
+                    <strong>{{error}}</strong>
+                </p>
+            </div>
+
+            <cb-form-group label="Title" name="title">
+                <div class="col-sm-10">
+                    <input name="title" type="text" class="form-control" ng-model="division.title" required>
+                    <div ng-messages="divisionForm.title.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Description" name="description">
+                <div class="col-sm-10">
+                    <input name="description" type="text" class="form-control" ng-model="division.description" required>
+                    <div ng-messages="divisionForm.description.$error" ng-show="submitted">
+                        <p ng-message="required" class="text-danger">This field is required</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+            <cb-form-group label="Has Dimension" name="hasDimension" tooltip="Does this storage division have dimension, i.e. a 10 X 10 box, or is it dimensionless, i.e. a freezer. You will be unable to change this setting after creation.">
+
+                <div class="col-sm-10">
+                    <cb-boolean cb-boolean-primary ng-model="division.hasDimension" disabled="division.id"></cb-boolean>
+                </div>
+
+            </cb-form-group>
+
+            <div ng-if="division.hasDimension">
+                <cb-form-group label="Height" name="height">
+
+                    <div class="btn-group block col-sm-10" dropdown>
+                        <cb-dropdown name="height" ng-model="division.height" label="Height" items="acceptedHeights" disabled="division.id" required></cb-dropdown>
+                    </div>
+
+                </cb-form-group>
+
+                <cb-form-group label="Width" name="width">
+
+                    <div class="btn-group block col-sm-10" dropdown>
+                        <cb-dropdown name="width" ng-model="division.width" label="Width" items="acceptedWidths" disabled="division.id" required></cb-dropdown>
+                    </div>
+
+                </cb-form-group>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <cb-form-group label="Allow All Sample Types" name="allowAllSampleTypes" tooltip="Selecting yes will put no restrictions on what sample types this division allows.">
+
+                <div class="col-sm-10">
+                    <cb-boolean cb-boolean-primary ng-model="division.allowAllSampleTypes"></cb-boolean>
+                </div>
+
+            </cb-form-group>
+
+
+            <div ng-if="!division.allowAllSampleTypes">
+                <cb-form-group label="Allowed Sample Types" name="sampleTypes" tooltip="Select the sample types that this division will allow.">
+                    <div class="col-sm-10">
+                        <one-to-many grid="sampleTypeGrids[0]" search-grid="sampleTypeGrids[1]" parent-object="division" bind-to="sampleTypes" placeholder="Add Sample Type ..."></one-to-many>
+                    </div>
+                </cb-form-group>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <cb-form-group label="Allow All Storage Containers" name="allowAllStorageContainers" tooltip="Selecting yes will put no restrictions on what storage containers this division allows.">
+
+                <div class="col-sm-10">
+                    <cb-boolean cb-boolean-primary ng-model="division.allowAllStorageContainers"></cb-boolean>
+                </div>
+
+            </cb-form-group>
+
+            <div ng-if="!division.allowAllStorageContainers">
+                <cb-form-group label="Allowed Storage Containers" name="storageContainers" tooltip="Select the storage containers that this division will allow.">
+                    <div class="col-sm-10">
+                        <one-to-many grid="storageContainerGrids[0]" search-grid="storageContainerGrids[1]" parent-object="division" bind-to="storageContainers" placeholder="Add Storage Container ..."></one-to-many>
+                    </div>
+                </cb-form-group>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <p class="font-bold text-center"><i class="fa fa-edit m-r-xs"/>Edit Permissions</p>
+
+            <cb-form-group label="Editable by All Users" name="isPublicEdit" tooltip="Can this division be edited by all users? If yes is selected, all users will be able to add/remove samples from this division.">
+
+                <div class="col-sm-10">
+                    <cb-boolean cb-boolean-primary ng-model="division.isPublicEdit"></cb-boolean>
+                </div>
+
+            </cb-form-group>
+
+            <div ng-if="!division.isPublicEdit">
+
+                <cb-form-group label="Group Editors" name="groupEditors" tooltip="Select the groups that will be able to edit this division.">
+                    <div class="col-sm-10">
+                        <one-to-many grid="divisionGroupEditorGrids[0]" search-grid="divisionGroupEditorGrids[1]" parent-object="division" bind-to="groupEditors" placeholder="Add Group Editor..."></one-to-many>
+                    </div>
+                </cb-form-group>
+
+                <cb-form-group label="Editors" name="editors" tooltip="Select the users that will be able to edit this division.">
+                    <div class="col-sm-10">
+                        <one-to-many grid="divisionEditorGrids[0]" search-grid="divisionEditorGrids[1]" parent-object="division" bind-to="editors" placeholder="Add Editor..."></one-to-many>
+                    </div>
+                </cb-form-group>
+
+            </div>
+
+            <div ng-if="!division.isPublicEdit">
+
+                <div class="hr-line-dashed"></div>
+
+                <p class="font-bold text-center"><i class="fa fa-eye m-r-xs"/> View Permissions</p>
+
+                <cb-form-group label="Viewable by All Users" name="isPublicView" tooltip="Can this division be viewed by all users? If yes is selected, all users will be able to see the locations of samples inside this division.">
+
+                    <div class="col-sm-10">
+                        <cb-boolean cb-boolean-primary ng-model="division.isPublicView"></cb-boolean>
+                    </div>
+
+                </cb-form-group>
+
+                <div ng-if="!division.isPublicView">
+
+                    <cb-form-group label="Group Viewers" name="groupViewers" tooltip="Select the groups that will be able to view this division.">
+                        <div class="col-sm-10">
+                            <one-to-many grid="divisionGroupViewerGrids[0]" search-grid="divisionGroupViewerGrids[1]" parent-object="division" bind-to="groupViewers" placeholder="Add Group Viewer..."></one-to-many>
+                        </div>
+                    </cb-form-group>
+
+                    <cb-form-group label="Viewers" name="editors" tooltip="Select the users that will be able to view this division.">
+                        <div class="col-sm-10">
+                            <one-to-many grid="divisionViewerGrids[0]" search-grid="divisionViewerGrids[1]" parent-object="division" bind-to="viewers" placeholder="Add Viewer..."></one-to-many>
+                        </div>
+                    </cb-form-group>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
+        </div>
+    </div>
+
+</form>

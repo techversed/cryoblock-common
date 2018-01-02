@@ -275,7 +275,11 @@ angular.module('form.cbFormFactory', [])
                     var that = this;
                     return this.saveObject().then(
 
-                        function () {
+                        function (response) {
+
+                            if (that.object.id == undefined) {
+                                that.object.id = response.data.id;
+                            }
 
                             return that.uploadAttachments(scope).then(
 
@@ -327,12 +331,16 @@ angular.module('form.cbFormFactory', [])
 
                             that.isSaving = false;
 
+                            return response;
+
                         },
 
                         function (response) {
 
                             that.errors = response.data;
                             that.isSaving = false;
+
+                            return response;
 
                         }
 
