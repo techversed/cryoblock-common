@@ -2,8 +2,10 @@
     <tr>
         <td ng-repeat="address in addresses" ng-class="{'bg-info': !address.isDefault, 'bg-primary': address.isDefault }">
             <address>
+                {{address.email}}<br>
                 {{address.address}}<br>
                 {{address.address2}}<br ng-if="address.address2">
+                {{address.phone}}<br>
                 {{address.city}}<br>
                 {{address.state}}<br>
                 {{address.zip}}<br>
