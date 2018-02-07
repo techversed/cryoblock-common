@@ -1,0 +1,25 @@
+<div id="division-move-confirm-container">
+
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Confirm Move</h4>
+    </div>
+
+    <div class="modal-body align-center">
+        <p class="d-table center-block"><i class="fa fa-arrows fa-5x text-warning" /></p>
+        <p>Are you sure you want to move {{sourceDivisionTitle}} from:</p>
+        <span class="font-bold" ng-class="{'text-danger': fromDivision.id != toDivision.id}">{{fromDivisionTitle}}</span>
+        <span>Position</span>
+        <span class="font-bold" ng-class="{'text-danger': fromIndex != toIndex}">{{fromIndex}}</span>
+        <i class="m-l-sm m-r-sm fa fa-long-arrow-right"/>
+        <span class="font-bold" ng-class="{'text-success': fromDivision.id != toDivision.id}">{{toDivisionTitle}}</span>
+        <span>Position</span>
+        <span class="font-bold" ng-class="{'text-success': fromIndex != toIndex}">{{toIndex}}</span>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" ng-click="confirm()">Confirm</button>
+        <button type="button" class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+    </div>
+
+</div>

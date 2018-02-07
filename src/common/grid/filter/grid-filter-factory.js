@@ -21,6 +21,12 @@ angular.module('grid.gridFilterFactory', [])
                     },
                     'boolean': {
                         'factory': 'gridBooleanFilterFactory'
+                    },
+                    'deleted': {
+                        'factory': 'gridDeletedFilterFactory'
+                    },
+                    'date': {
+                        'factory': 'gridDateFilterFactory'
                     }
                 },
 
