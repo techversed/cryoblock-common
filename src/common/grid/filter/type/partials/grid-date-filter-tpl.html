@@ -7,7 +7,7 @@
 
     <ul uib-dropdown-menu class="dropdown-menu integer" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
 
-        <form>
+        <div ng-form="dateFilterForm">
 
             <li role="menuitem">
 
@@ -20,7 +20,7 @@
                 >
                 </select>
 
-                <input class="value form-control" is-open="focus3" ng-focus="focus3=true" close-on-date-selection="false" datepicker-append-to-body="true" type="text" uib-datepicker-popup ng-model="filter.singleValue" ng-required="true" close-text="Close" />
+                <input class="value form-control" is-open="focus3" ng-focus="focus3=true" close-on-date-selection="false" datepicker-append-to-body="true" type="text" uib-datepicker-popup ng-model="filter.singleValue" close-text="Close" />
 
             </li>
 
@@ -30,14 +30,14 @@
 
                 <strong style="margin-left: 10px;">>=</strong>
 
-                <input class="between form-control" is-open="focus" ng-focus="focus=true" close-on-date-selection="false" datepicker-append-to-body="true" type="text" uib-datepicker-popup ng-model="filter.betweenStart" ng-required="true" close-text="Close" />
+                <input class="between form-control" is-open="focus" ng-focus="focus=true" close-on-date-selection="false" datepicker-append-to-body="true" type="text" uib-datepicker-popup ng-model="filter.betweenStart" close-text="Close" />
 
                 <strong style="margin-right: 6px;"><=</strong>
 
-                <input class="between form-control" is-open="focus2" ng-focus="focus2=true" close-on-date-selection="false" datepicker-append-to-body="true" type="text" uib-datepicker-popup ng-model="filter.betweenEnd" ng-required="true" close-text="Close" />
+                <input class="between form-control" is-open="focus2" ng-focus="focus2=true" close-on-date-selection="false" datepicker-append-to-body="true" type="text" uib-datepicker-popup ng-model="filter.betweenEnd" close-text="Close" />
 
             </li>
-        </form>
+        </div>
 
         <li role="menuitem">
             <div class="row no-margin">

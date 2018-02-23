@@ -1,0 +1,35 @@
+<div class="container p-md" ng-show="isUploading">
+    <p class="text-center">
+        <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+    </p>
+</div>
+
+<div class="container p-md" ng-hide="isUploading">
+
+    <h2 class="text-center font-bold m-b-lg">Specify Output</h2>
+
+    <p class="fa-1-2x">
+        Select how many samples, download your CSV template, then upload your completed CSV
+    </p>
+
+    <form>
+
+        <cb-form-group label="Total Output Samples" name="status">
+            <div class="col-sm-10">
+                <cb-dropdown name="totalOutputSamples" ng-model="config.totalOutputSamples" label="Total Output Samples" items="[1,2,3,4,5,6,7,8,9,10]" required></cb-dropdown>
+            </div>
+        </cb-form-group>
+
+    </form>
+
+    <div class="row">
+        <div class="col-xs-4">
+            <button step-next class='btn btn-primary btn-block'>
+                <i class="fa fa-arrow-right" />
+                Next
+            </button>
+        </div>
+    </div>
+
+</div>
+
