@@ -20,7 +20,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 this.totalOutputSamples = 0;
 
-                this.catalog = 'BG505';
+                this.catalogData = null;
 
                 this.inputTemplateLoaded = false;
 
@@ -108,6 +108,14 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 },
 
+                setCatalogData: function (catalogData) {
+
+                    this.catalogData = catalogData;
+
+                    return this;
+
+                },
+
                 setRequestObject: function (requestObject) {
 
                     this.requestObject = requestObject;
@@ -173,12 +181,11 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     xhr.open('POST', API.url + '/production/download-input-template' , true);
                     xhr.setRequestHeader('Content-type', 'application/json');
-                    xhr.setRequestHeader('X_FILENAME', 'test.xlsx');
+                    xhr.setRequestHeader('X_FILENAME', that.requestObject.alias + ' Input Samples Template.xlsx');
                     xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
-                    xhr.responseType= 'blob';
+                    xhr.responseType = 'blob';
 
                     xhr.onreadystatechange = function () {
-                        console.log(xhr.response);
                         if (xhr.readyState === 4) {
                             if (xhr.status === 200) {
 
@@ -187,7 +194,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                                 var windowUrl = window.URL || window.webkitURL;
                                 var url = windowUrl.createObjectURL(blob);
-                                var filename = 'PhpExcelFileSample.xlsx';
+                                var filename = that.requestObject.alias + ' Input Samples Template.xlsx';
                                 var a = document.createElement('a');
 
                                 a.href = url;
@@ -195,9 +202,6 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                                 a.click();
                                 window.URL.revokeObjectURL(url);
 
-
-                                // observer.next(blob);
-                                // observer.complete();
                             } else {
                                 // observer.error(xhr.response);
                             }
@@ -218,26 +222,60 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         id: this.requestObject.id,
                         totalOutputSamples: that.totalOutputSamples,
                         sampleType: this.outputSampleType.name,
-                        catalog: this.catalog
+                        catalog: this.catalogData.name
                     };
 
-                    $cbResource.create('/production/download-output-template', data).then(function (response) {
+                    // $cbResource.create('/production/download-output-template', data).then(function (response) {
 
-                        var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                    //     var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 
-                        var windowUrl = window.URL || window.webkitURL;
-                        var url = windowUrl.createObjectURL(blob);
+                    //     var windowUrl = window.URL || window.webkitURL;
+                    //     var url = windowUrl.createObjectURL(blob);
 
-                        var filename = that.requestObject.alias + ' Output Samples Template.xlsx';
+                    //     var filename = that.requestObject.alias + ' Output Samples Template.xlsx';
 
-                        var a = document.createElement('a');
+                    //     var a = document.createElement('a');
 
-                        a.href = url;
-                        a.download = filename;
-                        a.click();
-                        window.URL.revokeObjectURL(url);
+                    //     a.href = url;
+                    //     a.download = filename;
+                    //     a.click();
+                    //     window.URL.revokeObjectURL(url);
 
-                    });
+                    // });
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('POST', API.url + '/production/download-output-template' , true);
+                    xhr.setRequestHeader('Content-type', 'application/json');
+                    xhr.setRequestHeader('X_FILENAME', that.requestObject.alias + ' Output Samples Template.xlsx');
+                    xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
+                    xhr.responseType = 'blob';
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+
+                                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                                var blob = new Blob([xhr.response], { type: contentType });
+
+                                var windowUrl = window.URL || window.webkitURL;
+                                var url = windowUrl.createObjectURL(blob);
+                                var filename = that.requestObject.alias + ' Output Samples Template.xlsx';
+                                var a = document.createElement('a');
+
+                                a.href = url;
+                                a.download = filename;
+                                a.click();
+                                window.URL.revokeObjectURL(url);
+
+                            } else {
+                                // observer.error(xhr.response);
+                            }
+                        }
+                    };
+
+                    xhr.send(JSON.stringify(data));
+
 
                 },
 
