@@ -37,5 +37,6 @@ angular.module('common', [
     'ui.tree',
     'step',
     'attachment',
-    'storage'
+    'storage',
+    'productionPipeline'
 ]);

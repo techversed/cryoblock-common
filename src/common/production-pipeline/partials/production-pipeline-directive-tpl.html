@@ -1,0 +1,13 @@
+<steps name="{{config.name}}">
+
+    <div class="p-sm">
+        <cb-steps name="{{config.name}}" steps-data="config.steps" current-step="config.currentStep"></cb-steps>
+    </div>
+
+    <step name="{{step.name}}" ng-repeat="step in config.steps" class="animated fadeIn">
+
+        <div ng-include="step.templateUrl"></div>
+
+    </step>
+
+</steps>

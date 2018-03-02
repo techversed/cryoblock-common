@@ -59,22 +59,59 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
 
                                     },
 
-                                    samples: function ($cbResource, catalog) {
-                                        return $cbResource.get('/storage/sample?name[EQ]=' + catalog.name);
-                                    },
-
                                     dnaSamples: function (sampleGridFactory, catalog) {
 
-                                        return sampleGridFactory.getCatalogGrid(catalog.name, 1);
+                                        return sampleGridFactory.getCatalogGrid(catalog, 1);
 
                                     },
 
                                     proteinSamples: function (sampleGridFactory, catalog) {
 
-                                        return sampleGridFactory.getCatalogGrid(catalog.name, 2);
+                                        return sampleGridFactory.getCatalogGrid(catalog, 2);
+
+                                    },
+
+                                    seraSamples: function (sampleGridFactory, catalog) {
+
+                                        return sampleGridFactory.getCatalogGrid(catalog, 3);
+
+                                    },
+
+                                    bacterialSamples: function (sampleGridFactory, catalog) {
+
+                                        return sampleGridFactory.getCatalogGrid(catalog, 4);
+
+                                    },
+
+                                    mammalianSamples: function (sampleGridFactory, catalog) {
+
+                                        return sampleGridFactory.getCatalogGrid(catalog, 5);
+
+                                    },
+
+                                    yeastSamples: function (sampleGridFactory, catalog) {
+
+                                        return sampleGridFactory.getCatalogGrid(catalog, 6);
+
+                                    },
+
+                                    chemicalSamples: function (sampleGridFactory, catalog) {
+
+                                        return sampleGridFactory.getCatalogGrid(catalog, 7);
+
+                                    },
+
+                                    solutionSamples: function (sampleGridFactory, catalog) {
+
+                                        return sampleGridFactory.getCatalogGrid(catalog, 8);
+
+                                    },
+
+                                    otherSamples: function (sampleGridFactory, catalog) {
+
+                                        return sampleGridFactory.getCatalogGrid(catalog, 9);
 
                                     }
-
 
                                 }
 
