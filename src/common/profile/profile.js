@@ -3,5 +3,6 @@ angular.module('profile', [
     'profile.photoUploadCtrl',
     'profile.routes',
     'profile.profileFactory',
-    'profile.profileAvatarDirective'
+    'profile.profileAvatarDirective',
+    'profile.profileActivityDirective'
 ]);
