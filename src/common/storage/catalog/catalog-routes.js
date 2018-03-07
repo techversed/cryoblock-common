@@ -59,58 +59,43 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
 
                                     },
 
-                                    dnaSamples: function (sampleGridFactory, catalog) {
+                                    sampleTypes: function ($cbResource, $stateParams) {
 
-                                        return sampleGridFactory.getCatalogGrid(catalog, 1);
-
-                                    },
-
-                                    proteinSamples: function (sampleGridFactory, catalog) {
-
-                                        return sampleGridFactory.getCatalogGrid(catalog, 2);
+                                        return $cbResource.get('/storage/sample-type', {cPerPage:100});
 
                                     },
 
-                                    seraSamples: function (sampleGridFactory, catalog) {
+                                    grids: function (sampleTypes, catalog, sampleGridFactory, $q) {
 
-                                        return sampleGridFactory.getCatalogGrid(catalog, 3);
+                                        var sampleTypes = sampleTypes.data;
+                                        var grids = [];
+                                        var promises = [];
 
-                                    },
+                                        for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
 
-                                    bacterialSamples: function (sampleGridFactory, catalog) {
+                                            var currentSampleType = sampleTypes[sampleTypeIndex];
+                                            var promise = sampleGridFactory.getCatalogGrid(catalog, currentSampleType.id);
 
-                                        return sampleGridFactory.getCatalogGrid(catalog, 4);
+                                            promises.push(promise);
 
-                                    },
+                                        }
 
-                                    mammalianSamples: function (sampleGridFactory, catalog) {
+                                        return $q.all(promises).then(function (gridResults) {
 
-                                        return sampleGridFactory.getCatalogGrid(catalog, 5);
+                                            for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
 
-                                    },
+                                                var currentSampleType = sampleTypes[sampleTypeIndex];
 
-                                    yeastSamples: function (sampleGridFactory, catalog) {
+                                                grids.push({
+                                                    sampleType: currentSampleType,
+                                                    grid: gridResults[sampleTypeIndex]
+                                                });
 
-                                        return sampleGridFactory.getCatalogGrid(catalog, 6);
+                                            }
 
-                                    },
+                                            return grids;
 
-                                    chemicalSamples: function (sampleGridFactory, catalog) {
-
-                                        return sampleGridFactory.getCatalogGrid(catalog, 7);
-
-                                    },
-
-                                    solutionSamples: function (sampleGridFactory, catalog) {
-
-                                        return sampleGridFactory.getCatalogGrid(catalog, 8);
-
-                                    },
-
-                                    otherSamples: function (sampleGridFactory, catalog) {
-
-                                        return sampleGridFactory.getCatalogGrid(catalog, 9);
-
+                                        });
                                     }
 
                                 }

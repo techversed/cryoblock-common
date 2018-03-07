@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <div class="row" ng-if="dnaSamples.results.length > 0">
+        <div class="row" ng-if="gridData.grid.results.length > 0" ng-repeat="gridData in grids">
             <div class="col-sm-12">
                 <div class="hpanel">
                     <div class="panel-heading">
@@ -110,146 +110,10 @@
                             <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                         </div>
                         <i class="fa fa-flask"></i>
-                        DNA
+                        {{gridData.sampleType.name}}
                     </div>
                     <div class="panel-body no-padding">
-                        <grid grid="dnaSamples" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" ng-show="proteinSamples.results.length > 0">
-            <div class="col-sm-12">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        <i class="fa fa-flask"></i>
-                        Protein
-                    </div>
-                    <div class="panel-body no-padding">
-                        <grid grid="proteinSamples" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" ng-if="seraSamples.results.length > 0">
-            <div class="col-sm-12">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        <i class="fa fa-flask"></i>
-                        Sera
-                    </div>
-                    <div class="panel-body no-padding">
-                        <grid grid="seraSamples" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" ng-if="bacterialSamples.results.length > 0">
-            <div class="col-sm-12">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        <i class="fa fa-flask"></i>
-                        Bacterial Cells
-                    </div>
-                    <div class="panel-body no-padding">
-                        <grid grid="bacterialSamples" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" ng-if="mammalianSamples.results.length > 0">
-            <div class="col-sm-12">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        <i class="fa fa-flask"></i>
-                        Mammalian Cells
-                    </div>
-                    <div class="panel-body no-padding">
-                        <grid grid="mammalianSamples" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" ng-if="yeastSamples.results.length > 0">
-            <div class="col-sm-12">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        <i class="fa fa-flask"></i>
-                        Yeast Cells
-                    </div>
-                    <div class="panel-body no-padding">
-                        <grid grid="yeastSamples" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" ng-if="chemicalSamples.results.length > 0">
-            <div class="col-sm-12">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        <i class="fa fa-flask"></i>
-                        Chemical Compound
-                    </div>
-                    <div class="panel-body no-padding">
-                        <grid grid="chemicalSamples" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" ng-if="solutionSamples.results.length > 0">
-            <div class="col-sm-12">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        <i class="fa fa-flask"></i>
-                        Solution
-                    </div>
-                    <div class="panel-body no-padding">
-                        <grid grid="solutionSamples" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" ng-if="otherSamples.results.length > 0">
-            <div class="col-sm-12">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        <i class="fa fa-flask"></i>
-                        Other
-                    </div>
-                    <div class="panel-body no-padding">
-                        <grid grid="otherSamples" />
+                        <grid grid="gridData.grid" />
                     </div>
                 </div>
             </div>
