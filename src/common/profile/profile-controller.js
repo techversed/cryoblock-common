@@ -1,10 +1,11 @@
 angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'API',
+    .controller('profileCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'API', 'profileFormFactory',
 
-        function ($scope, $localStorage, $modal, user, API) {
+        function ($scope, $localStorage, $modal, user, API, profileFormFactory) {
 
             $scope.user = user;
 
+            $scope.edit = profileFormFactory.openFormModal;
             $scope.hasAvatar = function () {
                 return typeof $scope.user.avatar_attachment !== 'undefined';
             }
@@ -16,7 +17,7 @@ angular.module('profile.profileCtrl', [])
 
             $scope.uploadPhoto = function () {
                 $modal.open({
-                    templateUrl: 'common/profile/profile-photo-upload-tpl.html',
+                    templateUrl: 'common/profile/partials/profile-photo-upload-tpl.html',
                     controller: 'photoUploadCtrl',
                     windowClass: 'inmodal',
                     keyboard: false,

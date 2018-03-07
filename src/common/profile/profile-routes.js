@@ -24,7 +24,7 @@ angular.module('profile.routes', [])
                         },
                         views: {
                             content: {
-                                templateUrl: 'common/profile/profile-tpl.html',
+                                templateUrl: 'common/profile/views/profile-tpl.html',
                                 controller: 'profileCtrl',
                                 resolve: {
 

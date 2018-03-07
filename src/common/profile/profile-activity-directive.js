@@ -3,7 +3,7 @@ angular.module('profile.profileActivityDirective', [])
         function (sessionFactory, API, $rootScope, $cbResource) {
             return {
                 restrict: 'E',
-                templateUrl: 'common/profile/profile-activity-tpl.html',
+                templateUrl: 'common/profile/partials/profile-activity-tpl.html',
                 link: function ($scope) {
 
                     $scope.getActivityUser = function () {
