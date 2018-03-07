@@ -1,8 +1,8 @@
 angular.module('productionPipeline.productionPipelineFactory', [])
 
-    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager',
+    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager', 'toastr', '$state',
 
-        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager) {
+        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager, toastr, $state) {
 
             var ProductionPipelineFactory = function () {
 
@@ -51,9 +51,18 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 this.outputStorageGrid = null;
 
                 this.resetInputFileInput();
+
                 this.resetOutputFileInput();
 
                 this.resultSampleIds = null;
+
+                this.inputTemplateType = null;
+
+                this.outputSampleDefaults = null;
+
+                this.completeUrl = '/production/complete';
+
+                this.returnState = 'profile.index';
 
             };
 
@@ -108,6 +117,14 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 },
 
+                setCompleteUrl: function (completeUrl) {
+
+                    this.completeUrl = completeUrl;
+
+                    return this;
+
+                },
+
                 setCatalogData: function (catalogData) {
 
                     this.catalogData = catalogData;
@@ -140,11 +157,47 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 },
 
+                setOutputSampleDefaults: function (outputSampleDefaults) {
+
+                    this.outputSampleDefaults = outputSampleDefaults;
+
+                    return this;
+
+                },
+
+                setReturnState: function (returnState) {
+
+                    this.returnState = returnState;
+
+                    return this;
+                },
+
                 s2ab: function (s) {
                     var buf = new ArrayBuffer(s.length);
                     var view = new Uint8Array(buf);
                     for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
                     return buf;
+                },
+
+                cancel: function () {
+
+                    var that = this;
+                    swal({
+                        title: "Are you sure?",
+                        text: "Going back will result in losing your current progress.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes",
+                        closeOnConfirm: true
+                    }, function() {
+                        $state.go(that.returnState, {id: that.requestObject.id});
+                    });
+
+                },
+
+                onSelectInputTemplateType: function (inputTemplateType, data) {
+                    this.downloadInputTemplate();
                 },
 
                 downloadInputTemplate: function () {
@@ -153,62 +206,68 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     var data = {
                         entity: this.entity,
-                        id: this.requestObject.id
+                        id: this.requestObject.id,
+                        inputTemplateType: this.inputTemplateType
                     };
 
-                    // $cbResource.create('/production/download-input-template', data).then(function (response) {
-                    //     console.log(response.data);
+                    if (this.inputTemplateType === 'CSV') {
 
-                    //     var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                        $cbResource.create('/production/download-input-template', data).then(function (response) {
 
-                    //     var windowUrl = window.URL || window.webkitURL;
-                    //     var url = windowUrl.createObjectURL(blob);
+                            var blob = new Blob([response.data], {type:'application/csv'});
 
-                    //     // var filename = that.requestObject.alias + ' Input Samples Template.xlsx';
-                    //     var filename = 'PhpExcelFileSample.xlsx';
+                            var windowUrl = window.URL || window.webkitURL;
+                            var url = windowUrl.createObjectURL(blob);
 
-                    //     var a = document.createElement('a');
+                            var filename = that.requestObject.alias + ' Input Samples Template.csv';
 
-                    //     a.href = url;
-                    //     a.download = filename;
-                    //     a.click();
-                    //     window.URL.revokeObjectURL(url);
+                            var a = document.createElement('a');
 
-                    // });
+                            a.href = url;
+                            a.download = filename;
+                            a.click();
+                            window.URL.revokeObjectURL(url);
 
+                        });
 
-                    var xhr = new XMLHttpRequest();
+                    }
 
-                    xhr.open('POST', API.url + '/production/download-input-template' , true);
-                    xhr.setRequestHeader('Content-type', 'application/json');
-                    xhr.setRequestHeader('X_FILENAME', that.requestObject.alias + ' Input Samples Template.xlsx');
-                    xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
-                    xhr.responseType = 'blob';
+                    if (this.inputTemplateType === 'EXCEL') {
 
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4) {
-                            if (xhr.status === 200) {
+                        var xhr = new XMLHttpRequest();
 
-                                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-                                var blob = new Blob([xhr.response], { type: contentType });
+                        xhr.open('POST', API.url + '/production/download-input-template' , true);
+                        xhr.setRequestHeader('Content-type', 'application/json');
+                        xhr.setRequestHeader('X_FILENAME', that.requestObject.alias + ' Input Samples Template.xlsx');
+                        xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
+                        xhr.responseType = 'blob';
 
-                                var windowUrl = window.URL || window.webkitURL;
-                                var url = windowUrl.createObjectURL(blob);
-                                var filename = that.requestObject.alias + ' Input Samples Template.xlsx';
-                                var a = document.createElement('a');
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200) {
 
-                                a.href = url;
-                                a.download = filename;
-                                a.click();
-                                window.URL.revokeObjectURL(url);
+                                    var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                                    var blob = new Blob([xhr.response], { type: contentType });
 
-                            } else {
-                                // observer.error(xhr.response);
+                                    var windowUrl = window.URL || window.webkitURL;
+                                    var url = windowUrl.createObjectURL(blob);
+                                    var filename = that.requestObject.alias + ' Input Samples Template.xlsx';
+                                    var a = document.createElement('a');
+
+                                    a.href = url;
+                                    a.download = filename;
+                                    a.click();
+                                    window.URL.revokeObjectURL(url);
+
+                                } else {
+                                    // observer.error(xhr.response);
+                                }
                             }
-                        }
-                    };
+                        };
 
-                    xhr.send(JSON.stringify(data));
+                        xhr.send(JSON.stringify(data));
+
+                    }
 
 
                 },
@@ -222,59 +281,69 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         id: this.requestObject.id,
                         totalOutputSamples: that.totalOutputSamples,
                         sampleType: this.outputSampleType.name,
-                        catalog: this.catalogData.name
+                        catalog: this.catalogData.catalogName,
+                        outputTemplateType: this.outputTemplateType,
+                        outputSampleDefaults: this.outputSampleDefaults
                     };
 
-                    // $cbResource.create('/production/download-output-template', data).then(function (response) {
+                    if (this.outputTemplateType === 'CSV') {
 
-                    //     var blob = new Blob([response.data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                        $cbResource.create('/production/download-output-template', data).then(function (response) {
 
-                    //     var windowUrl = window.URL || window.webkitURL;
-                    //     var url = windowUrl.createObjectURL(blob);
+                            var blob = new Blob([response.data], {type:'application/csv'});
 
-                    //     var filename = that.requestObject.alias + ' Output Samples Template.xlsx';
+                            var windowUrl = window.URL || window.webkitURL;
+                            var url = windowUrl.createObjectURL(blob);
 
-                    //     var a = document.createElement('a');
+                            var filename = that.requestObject.alias + ' Output Samples Template.csv';
 
-                    //     a.href = url;
-                    //     a.download = filename;
-                    //     a.click();
-                    //     window.URL.revokeObjectURL(url);
+                            var a = document.createElement('a');
 
-                    // });
+                            a.href = url;
+                            a.download = filename;
+                            a.click();
+                            window.URL.revokeObjectURL(url);
 
-                    var xhr = new XMLHttpRequest();
+                        });
 
-                    xhr.open('POST', API.url + '/production/download-output-template' , true);
-                    xhr.setRequestHeader('Content-type', 'application/json');
-                    xhr.setRequestHeader('X_FILENAME', that.requestObject.alias + ' Output Samples Template.xlsx');
-                    xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
-                    xhr.responseType = 'blob';
+                    }
 
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4) {
-                            if (xhr.status === 200) {
+                    if (this.outputTemplateType === 'EXCEL') {
 
-                                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-                                var blob = new Blob([xhr.response], { type: contentType });
+                        var xhr = new XMLHttpRequest();
 
-                                var windowUrl = window.URL || window.webkitURL;
-                                var url = windowUrl.createObjectURL(blob);
-                                var filename = that.requestObject.alias + ' Output Samples Template.xlsx';
-                                var a = document.createElement('a');
+                        xhr.open('POST', API.url + '/production/download-output-template' , true);
+                        xhr.setRequestHeader('Content-type', 'application/json');
+                        xhr.setRequestHeader('X_FILENAME', that.requestObject.alias + ' Output Samples Template.xlsx');
+                        xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
+                        xhr.responseType = 'blob';
 
-                                a.href = url;
-                                a.download = filename;
-                                a.click();
-                                window.URL.revokeObjectURL(url);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200) {
 
-                            } else {
-                                // observer.error(xhr.response);
+                                    var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                                    var blob = new Blob([xhr.response], { type: contentType });
+
+                                    var windowUrl = window.URL || window.webkitURL;
+                                    var url = windowUrl.createObjectURL(blob);
+                                    var filename = that.requestObject.alias + ' Output Samples Template.xlsx';
+                                    var a = document.createElement('a');
+
+                                    a.href = url;
+                                    a.download = filename;
+                                    a.click();
+                                    window.URL.revokeObjectURL(url);
+
+                                } else {
+                                    // observer.error(xhr.response);
+                                }
                             }
-                        }
-                    };
+                        };
 
-                    xhr.send(JSON.stringify(data));
+                        xhr.send(JSON.stringify(data));
+
+                    }
 
 
                 },
@@ -328,6 +397,13 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     var file = angular.element('#input-file-uploader')[0].files[0];
 
+                    if (file == undefined) {
+                        toastr.error('Sorry, an error occured while uploading your file, please review the CSV and try again.')
+                        this.isUploading = false;
+                        this.resetInputFileInput();
+                        return;
+                    }
+
                     var xhr = new XMLHttpRequest();
 
                     xhr.open('POST', API.url + '/storage/sample-update/' + this.inputSampleType.id, true);
@@ -353,8 +429,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         } else if (xhr.readyState == 4) {
 
                             toastr.error('Sorry, an error occured while uploading your file, please review the CSV and try again.')
-                            $scope.errorCount++;
-                            $scope.isUploading = false;
+                            that.isUploading = false;
 
                         }
 
@@ -373,6 +448,13 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     this.scope.$apply();
 
                     var file = angular.element('#output-file-uploader')[0].files[0];
+
+                    if (file == undefined) {
+                        toastr.error('Sorry, an error occured while uploading your file, please review the CSV and try again.')
+                        this.isUploading = false;
+                        this.resetInputFileInput();
+                        return;
+                    }
 
                     var xhr = new XMLHttpRequest();
 
@@ -418,9 +500,11 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     this.isUploading = true;
 
-                    var bulkSamples = []
-
                     var that = this;
+
+                    var bulkSamples = [];
+
+                    var inputSampleIds = [];
 
                     angular.forEach(that.inputImportGrid.data, function (sample) {
 
@@ -436,11 +520,27 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     });
 
-                    $cbResource.create('/storage/sample-import/save', bulkSamples).then(function (response) {
+                    var sampleSaveData = {
+                        catalogData: that.catalogData,
+                        samples: bulkSamples
+                    };
+
+                    $cbResource.create('/storage/sample-import/save', sampleSaveData).then(function (response) {
 
                         that.resultSampleIds = response.data;
 
-                        $cbResource.create('/production/dna/' + that.requestObject.id + '/complete', that.resultSampleIds).then(function (response) {
+                        var data = {
+                            id: that.requestObject.id,
+                            entity: that.entity,
+                            totalOutputSamples: that.totalOutputSamples,
+                            sampleType: that.outputSampleType.name,
+                            catalog: that.catalogData.catalogName,
+                            outputTemplateType: that.outputTemplateType,
+                            outputSampleDefaults: that.outputSampleDefaults,
+                            resultSampleIds: that.resultSampleIds
+                        };
+
+                        $cbResource.create(that.completeUrl, data).then(function (response) {
                             that.isUploading = false;
                             StepsService.steps(that.name).next();
                         });

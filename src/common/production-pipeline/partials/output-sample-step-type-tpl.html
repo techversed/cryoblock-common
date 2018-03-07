@@ -16,10 +16,19 @@
             </button>
         </div>
         <div class="col-xs-4">
-            <button ng-click="config.downloadOutputTemplate()" class='btn btn-info btn-block'>
-                <i class="fa fa-download" />
-                Download Template
-            </button>
+            <cb-dropdown
+                cb-dropdown-info
+                name='outputTemplateType'
+                bind-to="name"
+                ng-model="config.outputTemplateType"
+                label="Download Template"
+                items="['CSV', 'EXCEL']"
+                cb-on-select="config.downloadOutputTemplate"
+                cb-on-select-context="config"
+                icon-class="fa fa-download"
+                required
+            >
+            </cb-dropdown>
         </div>
         <div class="col-xs-4">
             <button ng-click="config.uploadOutputTemplate()" class='btn btn-primary btn-block'>
@@ -32,7 +41,9 @@
     <div class="row" ng-if="config.outputTemplateLoaded">
         <div ng-if="!outputHasErrors">
             <p class="text-center"><i class="fa fa-check fa-3x text-success"/></p>
-            <p class="text-center fa-1-2x">Your CSV is valid! Click next to select sample storage locations or click back if you need to reupload your CSV.</p>
+            <div class="alert alert-success" role="alert">
+                Your CSV is valid! Click next to select sample storage locations or click back if you need to reupload your CSV.
+            </div>
         </div>
 
         <div ng-if="outputHasErrors">
@@ -49,7 +60,7 @@
             </button>
         </div>
         <div class="col-xs-4">
-            <button ng-click="upload()" class='btn btn-info btn-block'>
+            <button ng-click="config.uploadOutputTemplate()" class='btn btn-info btn-block'>
                 <i class="fa fa-upload" />
                 Reupload
             </button>

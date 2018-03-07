@@ -1,6 +1,7 @@
 <div class="btn-group full-width" uib-dropdown is-open="cbIsOpen || false">
     <button id="single-button" type="button" class="btn btn-block" ng-class="buttonClass" ng-class="{disabled: disabled}" uib-dropdown-toggle ng-disabled="disabled">
         <span ng-if="isFormCtrl">{{modelCtrl.$viewValue[bindTo] || modelCtrl.$viewValue || "Select " + label }}</span>
+        <i ng-if="iconClass != undefined" class="{{iconClass}}" />
         <span ng-if="!isFormCtrl">{{label}}</span>
         <span class="caret"></span>
     </button>
