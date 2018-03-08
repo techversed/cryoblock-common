@@ -18,7 +18,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 this.requestObject = null;
 
-                this.totalOutputSamples = 0;
+                this.totalOutputSamples = 1;
 
                 this.catalogData = null;
 
@@ -196,6 +196,16 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 },
 
+                verifyOutput: function (form) {
+
+                    if (!form.$valid) {
+                        return;
+                    }
+
+                    StepsService.steps(this.name).next();
+
+                },
+
                 onSelectInputTemplateType: function (inputTemplateType, data) {
                     this.downloadInputTemplate();
                 },
@@ -276,12 +286,13 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     var that = this;
 
+                    this.outputSampleDefaults['catalog'] = this.catalogData.catalogName;
+                    this.outputSampleDefaults['sampleType'] = this.outputSampleType.name;
+
                     var data = {
                         entity: this.entity,
                         id: this.requestObject.id,
                         totalOutputSamples: that.totalOutputSamples,
-                        sampleType: this.outputSampleType.name,
-                        catalog: this.catalogData.catalogName,
                         outputTemplateType: this.outputTemplateType,
                         outputSampleDefaults: this.outputSampleDefaults
                     };
