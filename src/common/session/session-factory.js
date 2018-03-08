@@ -59,13 +59,14 @@ angular.module('session.sessionFactory', [])
                 refreshUser: function () {
 
                     var url = API.url + '/user?id[EQ]=' + this.getLoggedInUser().id;
+                    var apiKey = this.getLoggedInUser().apiKey;
 
                     var promise = $http.get(url).then(function (response) {
 
-                        var user = sessionFactory.getLoggedInUser();
+                        $localStorage.User = response.data.data[0];
+                        $localStorage.User.apiKey = apiKey;
 
-                        // update avatar attachment
-                        $localStorage.User.avatarAttachment = response.data.data[0].avatarAttachment;
+                        return $localStorage.User;
 
                     });
 

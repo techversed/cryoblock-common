@@ -32,11 +32,9 @@ angular.module('profile.routes', [])
 
                                         if (sessionFactory.isLoggedInUser()) {
 
-                                            return sessionFactory.getLoggedInUser();
+                                            return sessionFactory.refreshUser();
 
                                         }
-
-                                        return profileFactory.getUser($localStorage.User.id);
 
                                     }
 
