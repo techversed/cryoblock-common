@@ -22,6 +22,17 @@ angular.module('profile.profileActivityDirective', [])
 
                     $cbResource.get('/log-entry', params).then(function (response) {
                         $scope.logs = response.data;
+                        //slice out namespace from object
+                        angular.forEach($scope.logs, function (log) {
+                            //this will always work
+                            if (log.objectClass === "Carbon\\ApiBundle\\Entity\\User") {
+                                log.objectClass = log.objectClass.slice(24, 28);
+                                $scope.object = "admin.user_detail"
+                            } else {
+                                //this will not always work can we make it slice at the 3rd "\"
+                                log.objectClass = log.objectClass.slice(17);
+                            }
+                        })
                     });
 
 
