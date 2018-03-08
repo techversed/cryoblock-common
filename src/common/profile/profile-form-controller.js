@@ -12,7 +12,7 @@ angular.module('profile.profileFormCtrl', [])
                 .setType('User')
                 .setObject($scope.user)
                 .setUrl('/user')
-                .setObjectClass('Carbon\\\\ApiBundle\\\\Entity\\\\User')
+                // .setObjectClass('Carbon\\\\ApiBundle\\\\Entity\\\\User')
             ;
 
             $scope.close = function () {

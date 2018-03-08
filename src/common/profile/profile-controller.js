@@ -6,6 +6,7 @@ angular.module('profile.profileCtrl', [])
             $scope.user = user;
 
             $scope.edit = profileFormFactory.openFormModal;
+
             $scope.hasAvatar = function () {
                 return typeof $scope.user.avatar_attachment !== 'undefined';
             }
