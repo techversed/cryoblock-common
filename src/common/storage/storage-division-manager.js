@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$stateParams',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $stateParams) {
 
             var storageDivisionManager = {
 
@@ -35,6 +35,7 @@ angular.module('storage.storageDivisionManager', [])
                 navigationStates: ['pending', 'initializing', 'initialized'],
 
                 initialize: function (division) {
+
                     this.division = division;
                     this.cellScopes = {};
                     this.selectedCells = {};
@@ -43,6 +44,10 @@ angular.module('storage.storageDivisionManager', [])
                     this.selectedSampleCount = 0;
                     this.sampleMap = this.getSampleMap();
                     this.expandToDivision(this.division);
+
+                    if ($stateParams.sampleId) {
+                        this.toggleSampleId($stateParams.sampleId);
+                    }
                 },
 
                 expandToDivision: function () {
@@ -163,6 +168,8 @@ angular.module('storage.storageDivisionManager', [])
 
                 toggle: function (row, column) {
 
+                    console.log(row, column);
+                    console.log(this.selectedCells);
                     if (this.selectedCells[row] && this.selectedCells[row][column]) {
                         this.selectedCount -= 1;
                         if (this.cellScopes[row][column].sample) {
@@ -186,6 +193,20 @@ angular.module('storage.storageDivisionManager', [])
                         this.selectedSampleCount += 1;
                     } else {
                         this.selectedEmptyCount += 1;
+                    }
+
+                },
+
+                toggleSampleId: function (sampleId) {
+                    for (var row in this.sampleMap) {
+                        for (var col in this.sampleMap[row]) {
+                            if (this.sampleMap[row][col] != undefined && this.sampleMap[row][col].id == sampleId) {
+                                if (this.selectedCells[row] == undefined) {
+                                    this.selectedCells[row] = [];
+                                }
+                                this.selectedCells[row][col] = true;
+                            }
+                        }
                     }
 
                 },
