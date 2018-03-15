@@ -19,8 +19,7 @@ angular.module('grid.gridBuilder', [])
 
                     }
 
-                    //allow the user to override the url. In case the url depends upon something in the page making the request.
-                    if(overrides.url != null){
+                    if (overrides.url != undefined){
                         factory.url = overrides.url;
                     }
 
