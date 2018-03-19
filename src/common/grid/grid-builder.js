@@ -6,7 +6,8 @@ angular.module('grid.gridBuilder', [])
 
             var gridBuilder = {
 
-                buildIndex: function (factoryName) {
+                //possible overrides: url
+                buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
 
@@ -16,6 +17,10 @@ angular.module('grid.gridBuilder', [])
 
                         throw Error('No url property found on grid ' + factoryName);
 
+                    }
+
+                    if (overrides.url != undefined){
+                        factory.url = overrides.url;
                     }
 
                     grid
