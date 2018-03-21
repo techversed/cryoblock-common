@@ -39,14 +39,14 @@
     </div>
 
     <div class="row" ng-if="config.outputTemplateLoaded">
-        <div ng-if="!outputHasErrors">
+        <div ng-if="!config.outputData.hasErrors">
             <p class="text-center"><i class="fa fa-check fa-3x text-success"/></p>
             <div class="alert alert-success" role="alert">
                 Your CSV is valid! Click next to select sample storage locations or click back if you need to reupload your CSV.
             </div>
         </div>
 
-        <div ng-if="outputHasErrors">
+        <div ng-if="config.outputData.hasErrors">
             <p class="text-center"><i class="fa fa-exclamation-triangle fa-3x text-danger"/></p>
             <p class="text-center fa-1-2x">Your CSV is invalid. Please review the errors below, update your CSV and reupload.</p>
         </div>

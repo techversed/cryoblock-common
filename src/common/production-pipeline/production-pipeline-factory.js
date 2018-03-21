@@ -517,19 +517,27 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     var inputSampleIds = [];
 
-                    angular.forEach(that.inputImportGrid.data, function (sample) {
+                    if (that.inputImportGrid) {
 
-                        bulkSamples.push(sample);
+                        angular.forEach(that.inputImportGrid.data, function (sample) {
 
-                    });
+                            bulkSamples.push(sample);
 
-                    angular.forEach(that.outputImportGrid.data, function (sample) {
+                        });
 
-                        sample.lot = that.requestObject.alias;
+                    }
 
-                        bulkSamples.push(sample);
+                    if (that.outputImportGrid) {
 
-                    });
+                        angular.forEach(that.outputImportGrid.data, function (sample) {
+
+                            sample.lot = that.requestObject.alias;
+
+                            bulkSamples.push(sample);
+
+                        });
+
+                    }
 
                     var sampleSaveData = {
                         catalogData: that.catalogData,

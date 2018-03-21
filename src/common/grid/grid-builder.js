@@ -26,7 +26,7 @@ angular.module('grid.gridBuilder', [])
                     grid
                         .setActionTemplate(factory.actionTemplate)
                         .setResourceUrl(factory.url)
-                        .setBindToState(true)
+                        .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
                     ;
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
