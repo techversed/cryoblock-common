@@ -1,5 +1,5 @@
 <div class="cell-list-view ">
-    <a ui-sref="sample.detail({id:sample.id})" ng-if="sample">ID {{sample.id}} - {{sample.name}}</a>
+    <a ui-sref="sample.detail({id:sample.id})" ng-if="sample">ID {{sample.id}} - {{sample.catalog.name}}</a>
     <span class="empty" ng-if="!sample">Empty Well</span>
     <div ng-if="sample">
         <table class="box-grid-info-table">

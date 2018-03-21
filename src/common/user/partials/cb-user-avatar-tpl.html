@@ -1,2 +1,2 @@
-<img ng-if="!hasAvatar()" class="img-circle" src="images/avatar.jpg"></img>
-<img ng-if="hasAvatar()" class="img-circle" ng-src="{{avatarSrc}}"></img>
+<img ng-if="!hasAvatar()" class="img-circle" uib-tooltip="{{user.stringLabel}}" src="images/avatar.jpg"></img>
+<img ng-if="hasAvatar()" class="img-circle" uib-tooltip="{{user.stringLabel}}" ng-src="{{avatarSrc}}"></img>
