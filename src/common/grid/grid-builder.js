@@ -6,7 +6,8 @@ angular.module('grid.gridBuilder', [])
 
             var gridBuilder = {
 
-                buildIndex: function (factoryName) {
+                //possible overrides: url
+                buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
 
@@ -18,10 +19,14 @@ angular.module('grid.gridBuilder', [])
 
                     }
 
+                    if (overrides.url != undefined){
+                        factory.url = overrides.url;
+                    }
+
                     grid
                         .setActionTemplate(factory.actionTemplate)
                         .setResourceUrl(factory.url)
-                        .setBindToState(true)
+                        .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
                     ;
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};

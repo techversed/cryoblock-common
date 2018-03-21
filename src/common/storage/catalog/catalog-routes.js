@@ -59,22 +59,44 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
 
                                     },
 
-                                    samples: function ($cbResource, catalog) {
-                                        return $cbResource.get('/storage/sample?name[EQ]=' + catalog.name);
-                                    },
+                                    sampleTypes: function ($cbResource, $stateParams) {
 
-                                    dnaSamples: function (sampleGridFactory, catalog) {
-
-                                        return sampleGridFactory.getCatalogGrid(catalog.name, 1);
+                                        return $cbResource.get('/storage/sample-type', {cPerPage:100});
 
                                     },
 
-                                    proteinSamples: function (sampleGridFactory, catalog) {
+                                    grids: function (sampleTypes, catalog, sampleGridFactory, $q) {
 
-                                        return sampleGridFactory.getCatalogGrid(catalog.name, 2);
+                                        var sampleTypes = sampleTypes.data;
+                                        var grids = [];
+                                        var promises = [];
 
+                                        for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
+
+                                            var currentSampleType = sampleTypes[sampleTypeIndex];
+                                            var promise = sampleGridFactory.getCatalogGrid(catalog, currentSampleType.id);
+
+                                            promises.push(promise);
+
+                                        }
+
+                                        return $q.all(promises).then(function (gridResults) {
+
+                                            for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
+
+                                                var currentSampleType = sampleTypes[sampleTypeIndex];
+
+                                                grids.push({
+                                                    sampleType: currentSampleType,
+                                                    grid: gridResults[sampleTypeIndex]
+                                                });
+
+                                            }
+
+                                            return grids;
+
+                                        });
                                     }
-
 
                                 }
 

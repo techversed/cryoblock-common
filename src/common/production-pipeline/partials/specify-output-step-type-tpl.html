@@ -1,0 +1,57 @@
+<div class="container p-md production-pipeline-container" ng-show="isUploading">
+    <p class="text-center">
+        <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+    </p>
+</div>
+
+<div class="container p-md production-pipeline-container" ng-hide="isUploading">
+
+    <h2 class="text-center font-bold m-b-lg">Specify Output</h2>
+
+    <p class="fa-1-2x">
+    </p>
+
+    <div class="alert alert-info" role="alert">
+        Select how many samples were created, download your CSV template, then upload your completed CSV
+    </div>
+
+    <form name="productionAppCompleteForm" class="form-horizontal" ng-submit="config.verifyOutput(productionAppCompleteForm)" novalidate>
+
+        <cb-form-group label="Output Catalog" name="catalog">
+            <div class="col-sm-10">
+                <input name="catalog" type="text" class="form-control" ng-model="config.catalogData.catalogName" required ng-disabled="config.catalogData.hasExistingCatalog || config.catalogData.totalInputCatalogs == 1" required>
+            </div>
+        </cb-form-group>
+
+        <cb-form-group label="Output Sample Type" name="sampleType">
+            <div class="col-sm-10">
+                <input name="sampleType" type="text" class="form-control" ng-model="config.outputSampleType.name" required disabled="disabled">
+            </div>
+        </cb-form-group>
+
+        <cb-form-group label="Total Output Samples" name="status">
+            <div class="col-sm-10">
+                <cb-dropdown name="totalOutputSamples" ng-model="config.totalOutputSamples" label="Total Output Samples" items="[1,2,3,4,5,6,7,8,9,10]" required></cb-dropdown>
+            </div>
+        </cb-form-group>
+
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4">
+                <button type="button" ng-click="config.cancel()" class='btn btn-default btn-block'>
+                   Cancel
+                    <i class="fa fa-ban" />
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <button type="submit" class='btn btn-primary btn-block'>
+                    <i class="fa fa-arrow-right" />
+                    Next
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+
+</div>
+
