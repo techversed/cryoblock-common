@@ -15,7 +15,6 @@ angular.module('grid.gridDeletedFilterCtrl', [])
 
                 if (initParam !== undefined) {
 
-                    console.log(initParam);
                     if (!initParam) {
                         return;
                     }

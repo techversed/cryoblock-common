@@ -10,6 +10,7 @@
             </ol>
         </div>
         <div class="hpanel">
+
             <div class="panel-body">
                 <div class="panel-actions">
                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -30,9 +31,15 @@
                         </div>
                     </div>
                 </div>
-                <h2 class="font-light m-b-xs inline">
-                  User {{user.id}} - {{user.firstName}} {{user.lastName}}
+
+                <div class="m-t">
+                    <h2 class="font-light m-b-xs inline">
+                        <i class="fa fa-user"></i>
+                        User {{user.id}} - {{user.firstName}} {{user.lastName}}
+                    </h2>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -56,6 +63,10 @@
                                 <td>{{user.id}}</td>
                             </tr>
                             <tr>
+                                <td>Username</td>
+                                <td>{{user.username}}</td>
+                            </tr>
+                            <tr>
                                 <td>First Name</td>
                                 <td>{{user.firstName}}</td>
                             </tr>
@@ -64,8 +75,12 @@
                                 <td>{{user.lastName}}</td>
                             </tr>
                             <tr>
+                                <td>Email</td>
+                                <td>{{user.email}}</td>
+                            </tr>
+                            <tr>
                                 <td>Enabled</td>
-                                <td>{{user.enabled}}</td>
+                                <td>{{user.enabled ? 'Yes' : 'No'}}</td>
                             </tr>
                         </table>
                     </div>

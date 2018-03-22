@@ -19,20 +19,18 @@ angular.module('grid.gridBuilder', [])
 
                     }
 
-                    if (overrides.url != undefined){
-                        factory.url = overrides.url;
-                    }
+                    var url = overrides.url != undefined ? overrides.url : factory.url;
 
                     grid
                         .setActionTemplate(factory.actionTemplate)
-                        .setResourceUrl(factory.url)
+                        .setResourceUrl(url)
                         .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
                     ;
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
                     var params = angular.extend(defaultParams, $location.search());
 
-                    return $cbResource.get(factory.url, params).then(function (response) {
+                    return $cbResource.get(url, params).then(function (response) {
 
                         return grid
                             .setResults(response.data)
