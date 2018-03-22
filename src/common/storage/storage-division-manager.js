@@ -168,8 +168,6 @@ angular.module('storage.storageDivisionManager', [])
 
                 toggle: function (row, column) {
 
-                    console.log(row, column);
-                    console.log(this.selectedCells);
                     if (this.selectedCells[row] && this.selectedCells[row][column]) {
                         this.selectedCount -= 1;
                         if (this.cellScopes[row][column].sample) {
