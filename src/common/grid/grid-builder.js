@@ -35,6 +35,7 @@ angular.module('grid.gridBuilder', [])
                         return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
+                            .setInitResultCount(response.unpaginatedTotal)
                         ;
 
                     });
@@ -85,6 +86,7 @@ angular.module('grid.gridBuilder', [])
                             .disableHover()
                             .setPerPage(3)
                             .disableToggleColumns()
+                            .setInitResultCount(response.unpaginatedTotal)
                         ;
 
                     });
