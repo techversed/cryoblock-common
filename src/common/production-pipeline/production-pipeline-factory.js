@@ -50,10 +50,6 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 this.outputStorageGrid = null;
 
-                this.resetInputFileInput();
-
-                this.resetOutputFileInput();
-
                 this.resultSampleIds = null;
 
                 this.inputTemplateType = null;
@@ -63,6 +59,10 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 this.completeUrl = '/production/complete';
 
                 this.returnState = 'profile.index';
+
+                this.resetInputFileInput();
+
+                this.resetOutputFileInput();
 
             };
 
@@ -378,7 +378,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     var that = this;
                     this.inputFileInput.on('change', function () {
-                        that.handleInputUpload();
+                        that.handleInputUpload(e.currentTarget.files);
                     });
 
                 },
@@ -394,19 +394,19 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     angular.element(document).find('body').append(this.outputFileInput);
 
                     var that = this;
-                    this.outputFileInput.on('change', function () {
-                        that.handleOutputUpload();
+                    this.outputFileInput.on('change', function (e) {
+                        that.handleOutputUpload(e.currentTarget.files);
                     });
 
                 },
 
-                handleInputUpload: function () {
+                handleInputUpload: function (files) {
 
                     this.isUploading = true;
 
                     this.scope.$apply();
 
-                    var file = angular.element('#input-file-uploader')[0].files[0];
+                    var file = files[0];
 
                     if (file == undefined) {
                         toastr.error('Sorry, an error occured while uploading your file, please review the CSV and try again.')
@@ -452,18 +452,18 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     xhr.send(file)
                 },
 
-                handleOutputUpload: function () {
+                handleOutputUpload: function (files) {
 
                     this.isUploading = true;
 
                     this.scope.$apply();
 
-                    var file = angular.element('#output-file-uploader')[0].files[0];
+                    var file = files[0];
 
                     if (file == undefined) {
                         toastr.error('Sorry, an error occured while uploading your file, please review the CSV and try again.')
                         this.isUploading = false;
-                        this.resetInputFileInput();
+                        this.resetOutputFileInput();
                         return;
                     }
 
@@ -494,8 +494,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         } else if (xhr.readyState == 4) {
 
                             toastr.error('Sorry, an error occured while uploading your file, please review the CSV and try again.')
-                            $scope.errorCount++;
-                            $scope.isUploading = false;
+                            that.isUploading = false;
 
                         }
 
