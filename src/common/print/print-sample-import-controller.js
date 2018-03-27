@@ -5,7 +5,6 @@ angular.module('print.printSampleImportCtrl', [])
         function ($scope, printSampleImport) {
 
             $scope.samples = printSampleImport.samples
-            console.log($scope.samples)
 
         }
 
