@@ -1,8 +1,8 @@
 angular.module('productionPipeline.productionPipelineFactory', [])
 
-    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager', 'toastr', '$state',
+    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager', 'toastr', '$state', 'printSampleImport',
 
-        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager, toastr, $state) {
+        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager, toastr, $state, printSampleImport) {
 
             var ProductionPipelineFactory = function () {
 
@@ -546,6 +546,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     $cbResource.create('/storage/sample-import/save', sampleSaveData).then(function (response) {
 
                         that.resultSampleIds = response.data;
+
+                        printSampleImport.samples = sampleSaveData.samples;
 
                         var data = {
                             id: that.requestObject.id,
