@@ -8,5 +8,6 @@ angular.module('form', [
     'form.cbBoolean',
     'form.cbAddress',
     'form.cbFormFactory',
+    'form.cbFormHelperService',
     'form.cbFormDirective'
 ]);
