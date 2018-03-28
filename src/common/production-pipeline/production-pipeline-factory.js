@@ -1,8 +1,8 @@
 angular.module('productionPipeline.productionPipelineFactory', [])
 
-    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager', 'toastr', '$state', 'printSampleImport', '$compile', '$window', '$templateRequest', '$rootScope',
+    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager', 'toastr', '$state', '$compile', '$window', '$templateRequest', '$rootScope',
 
-        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager, toastr, $state, printSampleImport, $compile, $window, $templateRequest, $rootScope) {
+        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager, toastr, $state, $compile, $window, $templateRequest, $rootScope) {
 
             var ProductionPipelineFactory = function () {
 
@@ -576,7 +576,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     printScope.samples = this.resultSamples;
 
-                    $templateRequest('common/print/views/print-sample-import-tpl.html').then(function (html) {
+                    $templateRequest('common/production-pipeline/partials/sample-put-list-tpl.html').then(function (html) {
 
                         var content = null;
                         var template = angular.element(html);

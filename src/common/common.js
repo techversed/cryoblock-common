@@ -38,6 +38,5 @@ angular.module('common', [
     'step',
     'attachment',
     'storage',
-    'productionPipeline',
-    'print'
+    'productionPipeline'
 ]);
