@@ -1,70 +1,36 @@
-<table class="table">
+<table class="table" style="width: 100%; border-collapse: collapse;">
     <thead>
         <tr>
-            <th>Catalog</th>
-            <th>Description</th>
-            <th>Sample Type</th>
-            <th>Status</th>
-            <th>Storage Container</th>
-            <th>Donor</th>
-            <th>Target</th>
-            <th>Molecule</th>
-            <th>Tag</th>
-            <th>Concentration</th>
-            <th>Concentration Units</th>
-            <th>Division</th>
-            <th>Division Row</th>
-            <th>Division Column</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">ID</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Catalog</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Description</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Sample Type</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Division</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Division Row</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Division Column</th>
         </tr>
     </thead>
     <tbody>
             <tr ng-repeat="sample in samples">
-                <td>
-                    {{sample.catalog}}
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
+                    {{sample.id}}
                 </td>
-                <td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
+                    {{sample.catalog.name}}
+                </td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
                     {{sample.description}}
                 </td>
-                <td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
                     {{sample.sampleType.stringLabel}}
                 </td>
-                <td>
-                    {{sample.status}}
-                </td>
-                <td>
-                    {{sample.storageContainer.stringLabel}}
-                </td>
-                <td>
-                    {{sample.donor.stringLabel}}
-                </td>
-                <td>
-                    {{sample.target.stringLabel}}
-                </td>
-                <td>
-                    {{sample.molecule.stringLabel}}
-                </td>
-                <td>
-                    {{sample.tag.stringLabel}}
-                </td>
-                <td>
-                    {{sample.concentrationString}}
-                </td>
-                <td>
-                    {{sample.concentrationUnits}}
-                </td>
-                <td>
-                    {{sample.volumeString}}
-                </td>
-                <td>
-                    {{sample.volumeUnits}}
-                </td>
-                <td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
                     {{sample.division.stringLabel}}
                 </td>
-                <td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
                     {{sample.divisionRow}}
                 </td>
-                <td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
                     {{sample.divisionColumn}}
                 </td>
             </tr>

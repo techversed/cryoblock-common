@@ -1,7 +1,21 @@
-<div class="container">
+<div class="container p-md production-pipeline-container align-center">
+    <h2>Request D0318-2 Completed Successfully</h2>
     <p class="text-center fa-1-2x"><i class="fa fa-3x text-success fa-check" /></p>
-    <p class="text-center fa-1-2x">Your samples were imported successfully.</p>
-    <p class="text-center">
-        <a ui-sref="print.sample">Print sample put list</a>
-    </p>
+    <div class="alert alert-success" role="alert">
+       Your samples were imported successfully. Print the sample put list and store the samples in the specified locations.
+    </div>
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-2">
+            <button type="button" ng-click="config.openPrintPutList()" class='btn btn-default btn-block'>
+                <i class="fa fa-print" />
+                Print Put List
+            </button>
+        </div>
+        <div class="col-xs-4">
+            <button ui-state="config.returnState" ui-state-params="{id:config.requestObject.id}" type="button" class='btn btn-primary btn-block'>
+                <i class="fa fa-undo" />
+                Return
+            </button>
+        </div>
+    </div>
 </div>

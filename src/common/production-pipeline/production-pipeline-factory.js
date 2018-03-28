@@ -1,8 +1,8 @@
 angular.module('productionPipeline.productionPipelineFactory', [])
 
-    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager', 'toastr', '$state', 'printSampleImport',
+    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager', 'toastr', '$state', 'printSampleImport', '$compile', '$window', '$templateRequest', '$rootScope',
 
-        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager, toastr, $state, printSampleImport) {
+        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager, toastr, $state, printSampleImport, $compile, $window, $templateRequest, $rootScope) {
 
             var ProductionPipelineFactory = function () {
 
@@ -377,7 +377,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     angular.element(document).find('body').append(this.inputFileInput);
 
                     var that = this;
-                    this.inputFileInput.on('change', function () {
+                    this.inputFileInput.on('change', function (e) {
                         that.handleInputUpload(e.currentTarget.files);
                     });
 
@@ -545,9 +545,10 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     $cbResource.create('/storage/sample-import/save', sampleSaveData).then(function (response) {
 
-                        that.resultSampleIds = response.data;
+                        that.resultSampleIds = response.data.sampleIds;
+                        that.resultSamples = response.data.samples;
 
-                        printSampleImport.samples = sampleSaveData.samples;
+                        printSampleImport.samples = response.data.samples;
 
                         var data = {
                             id: that.requestObject.id,
@@ -567,7 +568,43 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     })
 
+                },
+
+                openPrintPutList: function () {
+
+                    var printScope = $rootScope.$new(true);
+
+                    printScope.samples = this.resultSamples;
+
+                    $templateRequest('common/print/views/print-sample-import-tpl.html').then(function (html) {
+
+                        var content = null;
+                        var template = angular.element(html);
+                        printScope.$$postDigest(function () {
+
+                            var w = 800, h = 600;
+
+                            var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
+                            var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
+
+                            var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+                            var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+                            var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+                            var top = ((height / 2) - (h / 2)) + dualScreenTop;
+                            var tab = window.open('', '', 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+                            tab.document.write('<html><title>Sample Put List</title><body>' + template[0].outerHTML + '</body></html>');
+                            tab.document.close();
+                            tab.print();
+                        });
+
+                        content = $compile(template)(printScope);
+
+                    });
+
                 }
+
             };
 
             ProductionPipelineFactory.create = function () {
