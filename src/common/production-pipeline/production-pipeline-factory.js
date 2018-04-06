@@ -16,6 +16,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 this.entity = null;
 
+                this.requestFormType = null;
+
                 this.requestObject = null;
 
                 this.totalOutputSamples = 1;
@@ -63,6 +65,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 this.resetInputFileInput();
 
                 this.resetOutputFileInput();
+
+                this.hasVaryingOutputSampleTypes = false;
 
             };
 
@@ -112,6 +116,14 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 setEntity: function (entity) {
 
                     this.entity = entity;
+
+                    return this;
+
+                },
+
+                setRequestFormType: function (requestFormType) {
+
+                    this.requestFormType = requestFormType;
 
                     return this;
 
@@ -197,6 +209,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 },
 
                 verifyOutput: function (form) {
+
+                    form.$submitted = true;
 
                     if (!form.$valid) {
                         return;
@@ -286,15 +300,16 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     var that = this;
 
-                    this.outputSampleDefaults['catalog'] = this.catalogData.catalogName;
-                    this.outputSampleDefaults['sampleType'] = this.outputSampleType.name;
+                    // this.outputSampleDefaults['catalog'] = this.catalogData.catalogName;
+                    // this.outputSampleDefaults['sampleType'] = this.outputSampleType.name;
 
                     var data = {
                         entity: this.entity,
                         id: this.requestObject.id,
                         totalOutputSamples: that.totalOutputSamples,
                         outputTemplateType: this.outputTemplateType,
-                        outputSampleDefaults: this.outputSampleDefaults
+                        outputSampleDefaults: this.outputSampleDefaults,
+                        hasVaryingOutputSampleTypes: this.hasVaryingOutputSampleTypes
                     };
 
                     if (this.outputTemplateType === 'CSV') {
@@ -548,11 +563,13 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         that.resultSampleIds = response.data.sampleIds;
                         that.resultSamples = response.data.samples;
 
-                        printSampleImport.samples = response.data.samples;
+                        that.requestObject.status = 'Completed';
 
                         var data = {
                             id: that.requestObject.id,
                             entity: that.entity,
+                            requestObject: that.requestObject,
+                            requestFormType: that.requestFormType,
                             totalOutputSamples: that.totalOutputSamples,
                             sampleType: that.outputSampleType.name,
                             catalog: that.catalogData.catalogName,
@@ -580,6 +597,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                         var content = null;
                         var template = angular.element(html);
+
                         printScope.$$postDigest(function () {
 
                             var w = 800, h = 600;
@@ -594,8 +612,9 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                             var top = ((height / 2) - (h / 2)) + dualScreenTop;
                             var tab = window.open('', '', 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 
-                            tab.document.write('<html><title>Sample Put List</title><body>' + template[0].outerHTML + '</body></html>');
+                            tab.document.write('<html><head><style>@page { size: landscape; }</style></head><title>Sample Put List</title><body>' + template[0].outerHTML + '</body></html>');
                             tab.document.close();
+
                             tab.print();
                         });
 

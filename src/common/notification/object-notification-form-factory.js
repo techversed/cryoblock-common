@@ -105,7 +105,8 @@ angular.module('notification.objectNotificationFormFactory', [])
 
                                 return $cbResource.getOne('/cryoblock/user-object-notification', {
                                     'entity[EQ]': entity,
-                                    'userId[EQ]': loggedInUser.id
+                                    'userId[EQ]': loggedInUser.id,
+                                    'entityId[NULL]': true
                                 });
 
                             }

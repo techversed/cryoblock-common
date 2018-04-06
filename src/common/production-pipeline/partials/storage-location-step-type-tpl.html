@@ -16,3 +16,9 @@
 </div>
 
 <grid ng-if="config.outputStorageGrid" grid="config.outputStorageGrid" ng-hide="config.isUploading"></grid>
+
+<div class="container p-md" ng-show="config.isUploading">
+    <p class="text-center">
+        <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+    </p>
+</div>
