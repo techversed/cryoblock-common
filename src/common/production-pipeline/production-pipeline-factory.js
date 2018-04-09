@@ -68,6 +68,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 this.hasVaryingOutputSampleTypes = false;
 
+                this.postCompleteCallback = null;
+
             };
 
             ProductionPipelineFactory.prototype = {
@@ -180,6 +182,13 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 setReturnState: function (returnState) {
 
                     this.returnState = returnState;
+
+                    return this;
+                },
+
+                setPostCompleteCallback: function (postCompleteCallback) {
+
+                    this.postCompleteCallback = postCompleteCallback;
 
                     return this;
                 },
@@ -579,8 +588,24 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         };
 
                         $cbResource.create(that.completeUrl, data).then(function (response) {
-                            that.isUploading = false;
-                            StepsService.steps(that.name).next();
+
+                            if (that.postCompleteCallback) {
+
+                                that.postCompleteCallback().then(function () {
+
+                                    that.isUploading = false;
+                                    StepsService.steps(that.name).next();
+
+                                });
+
+                            } else {
+
+                                that.isUploading = false;
+
+                                StepsService.steps(that.name).next();
+
+                            }
+
                         });
 
                     })
