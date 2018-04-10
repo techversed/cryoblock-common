@@ -359,8 +359,6 @@ angular.module('form.cbFormFactory', [])
                  */
                 uploadAttachments: function (scope) {
 
-                    console.log(456);
-
                     var deferred = $q.defer();
                     var completedCount = 0;
 
