@@ -27,7 +27,7 @@ angular.module('grid.gridBuilder', [])
                         .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
                     ;
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
+                    var defaultParams = { cOrderBy: grid.sortingColumn.name, cOrderByDirection: grid.sortDirection};
                     var params = angular.extend(defaultParams, $location.search());
 
                     return $cbResource.get(url, params).then(function (response) {
