@@ -2,6 +2,10 @@ angular.module('login.loginCtrl', [])
     .controller('loginCtrl', ['$scope', '$state', 'sessionFactory', 'toastr', 'loginParams',
         function ($scope, $state, sessionFactory, toastr, loginParams) {
 
+            if (sessionFactory.getLoggedInUser()) {
+                $state.go('profile.index');
+            }
+
             $scope.loginParams = loginParams;
 
             $scope.submit = function () {
