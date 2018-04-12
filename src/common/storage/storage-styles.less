@@ -348,6 +348,16 @@
         }
     }
 
+    .rack-grid-info-table {
+        display: inline;
+        margin-right: 10px;
+        td {
+            padding: 2px 10px 0px 2px;
+            &:first-child {
+                font-weight: 500;
+            }
+        }
+    }
     li {
         cursor: pointer;
         margin: 10px 0px;
@@ -360,6 +370,15 @@
             border-right: 5px solid #ffffff;
             padding: 15px;
             display: table-cell;
+        }
+         cb-rack-grid-info {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .division-list-view {
+            display: table-cell;
+            padding: 15px;
         }
         cb-box-grid-info {
             display: table-cell;
@@ -390,13 +409,14 @@
         }
     }
     .division-detail-table {
+        display: inline-table;
         td {
+            display: table-cell;
             padding-right: 20px;
             &:first-child {
                 font-weight: 500;
             }
         }
-
     }
 }
 
