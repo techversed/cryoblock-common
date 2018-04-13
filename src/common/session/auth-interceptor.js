@@ -36,7 +36,7 @@ angular.module('session.authInterceptor', [])
 
     })
 
-    .run(['$rootScope', '$location', 'sessionFactory', '$state', 'toastr', function ($rootScope, $location, sessionFactory, $state, toastr) {
+    .run(['$rootScope', '$location', 'sessionFactory', '$state', 'toastr', 'redirectService', function ($rootScope, $location, sessionFactory, $state, toastr, redirectService) {
 
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
 
@@ -66,8 +66,13 @@ angular.module('session.authInterceptor', [])
 
             // not logged in so go to login
             if (!sessionFactory.isLoggedInUser()) {
+
+                redirectService.setRedirect(toState, toParams);
+
                 $state.go('login');
+
                 return;
+
             }
 
             toastr.error('Sorry, you don\'t have permission to view the ' + (toState.pageTitle || 'requested') + ' page. Contact your administrator to get access.')

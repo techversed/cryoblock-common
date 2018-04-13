@@ -1,6 +1,6 @@
 angular.module('login.loginCtrl', [])
-    .controller('loginCtrl', ['$scope', '$state', 'sessionFactory', 'toastr', 'loginParams',
-        function ($scope, $state, sessionFactory, toastr, loginParams) {
+    .controller('loginCtrl', ['$scope', '$state', 'sessionFactory', 'toastr', 'loginParams', 'redirectService',
+        function ($scope, $state, sessionFactory, toastr, loginParams, redirectService) {
 
             if (sessionFactory.getLoggedInUser()) {
                 $state.go('profile.index');
@@ -14,7 +14,15 @@ angular.module('login.loginCtrl', [])
 
                     function (response) {
 
-                        $state.go('profile.index');
+                        if (redirectService.redirectToState) {
+
+                            $state.go(redirectService.redirectToState, redirectService.redirectToStateParams);
+
+                        } else {
+
+                            $state.go('sample.index');
+
+                        }
 
                     },
 
