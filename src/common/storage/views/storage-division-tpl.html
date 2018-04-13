@@ -46,7 +46,7 @@
         <div class="row m-b-none">
             <div class="col-sm-12">
                 <h3>
-                    <button type="button" class="m-r-sm btn btn-sm btn-default" ng-click="editDivision(division)"><i class="fa fa-pencil"/></button>
+                    <button ng-disabled="!division.canEdit" type="button" class="m-r-sm btn btn-sm btn-default" ng-click="editDivision(division)"><i class="fa fa-pencil"/></button>
                     {{division.title}}
                 </h3>
                 <storage-title-directive division="division"></storage-title-directive>
@@ -57,7 +57,7 @@
             <div class="col-sm-4">
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" uib-dropdown>
-                        <button role="button" type="button" class="btn btn-default" ng-click="editSelectedSample()" ng-disabled="sdm.selectedSampleCount != 1">
+                        <button role="button" type="button" class="btn btn-default" ng-click="editSelectedSample()" ng-disabled="!division.canEdit || sdm.selectedSampleCount != 1">
                             <i class="fa fa-edit" />
                         </button>
                     </div>

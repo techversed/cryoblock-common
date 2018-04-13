@@ -161,6 +161,10 @@ angular.module('cbResource.$cbResource', [])
                     } else if (response.status == 403) {
                         message = response.headers('cb-delete-message');
                         toastr.error(message + ' Please contact your administrator for more information.', null, {timeOut: 10000});
+                    } else if (response.status == 400 && response.data.violations != undefined) {
+                        angular.forEach(response.data.violations, function(violation) {
+                            toastr.error(violation[0], null, {timeOut: 10000});
+                        });
                     } else {
                         toastr.error('Sorry, an error occurred while making your request. Pleast contact your administrator for more information.');
                     }
