@@ -14,7 +14,7 @@ angular.module('storage.storageSampleMoveCtrl', [])
                         $scope.$close();
                     },
                     function () {
-                        $scope.$close();
+                        $scope.$dismiss();
                     }
                 );
 
