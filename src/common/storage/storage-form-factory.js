@@ -114,7 +114,7 @@ angular.module('storage.storageFormFactory', [])
 
                 },
 
-                openStorageSampleMove: function (sampleMoveMap) {
+                openStorageSampleMove: function (sampleMoveMap, division) {
 
                     return $modal.open({
                         templateUrl: 'common/storage/partials/storage-sample-move-tpl.html',
@@ -127,6 +127,10 @@ angular.module('storage.storageFormFactory', [])
 
                             sampleMoveMap: function () {
                                 return sampleMoveMap;
+                            },
+
+                            division: function () {
+                                return division;
                             },
 
                             callback: function () {

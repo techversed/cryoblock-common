@@ -18,7 +18,8 @@ angular.module('form.oneToOne.oneToOneDirective', [])
                     bindTo: '@',
                     resourceUrl: '@',
                     placeholder: '@',
-                    name: '@'
+                    name: '@',
+                    showGrid: '@'
                 },
 
                 controller: function ($scope) {

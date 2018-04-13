@@ -44,10 +44,6 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
             $scope.close = function () {
 
-                if ($scope.divisionForm.$pristine === false) {
-                    console.log('not pristine');
-                }
-
                 $modalInstance.close();
 
             };

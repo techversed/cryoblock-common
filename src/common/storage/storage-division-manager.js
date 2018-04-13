@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$stateParams',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $stateParams) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams) {
 
             var storageDivisionManager = {
 
@@ -115,6 +115,7 @@ angular.module('storage.storageDivisionManager', [])
                     return map;
 
                 },
+
                 addCell: function (cellScope) {
                     var row = cellScope.row;
                     var column = cellScope.column;
@@ -217,6 +218,14 @@ angular.module('storage.storageDivisionManager', [])
                     }
                 },
 
+                getSingleSelectedRowColumn: function () {
+                    for (row in this.selectedCells) {
+                        for (column in this.selectedCells[row]) {
+                            return [row, column];
+                        }
+                    }
+                },
+
                 getSelectedSamples: function () {
                     var samples = [];
                     for (row in this.selectedCells) {
@@ -245,11 +254,12 @@ angular.module('storage.storageDivisionManager', [])
 
                 editSelectedSample: function () {
                     var sample = storageDivisionManager.getSelectedSample();
+                    sample.skipLocationSelect = true;
+                    sample.division = {id:this.division.id};
                     sampleFormFactory.openSampleFormModal(sample);
                 },
 
                 setSelectedDivision: function (division) {
-                    // this.selectedDivision.active = false;
                     this.selectedDivision = division;
                 },
 
@@ -257,6 +267,107 @@ angular.module('storage.storageDivisionManager', [])
 
                     var samples = this.getSelectedSamples();
                     storageFormFactory.openSampleStorageRemoveModal(samples);
+
+                },
+
+                openSampleStorageLinkModal: function () {
+
+                    if (this.division.canEdit === false) {
+
+                        swal({
+                            title: "Sorry,",
+                            text: "You do not have permission to edit this division.",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {});
+
+                        return $q.reject();
+                    }
+
+                    var samples = {};
+
+                    division = this.division
+                    selectedCells = this.selectedCells
+
+                    $modal.open({
+                        templateUrl: 'common/storage/partials/storage-sample-link-tpl.html',
+                        controller: 'storageSampleLinkCtrl',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'lg',
+                        resolve: {
+
+                            samples: function () {
+
+                                return samples;
+                            },
+
+                            sampleGrid: function ($cbGridBuilder) {
+
+                                return $cbGridBuilder.buildSelectSingle('sampleGridFactory');
+
+                            },
+
+                            selectedCells: function () {
+
+                                return selectedCells;
+
+                            },
+
+                            division: function () {
+
+                                return division;
+
+                            },
+
+                            callBack: function () {
+
+                                return function (samples) {
+
+                                    $state.go($state.current, $stateParams, {reload:true});
+
+                                 };
+
+                            }
+
+                        }
+                    });
+
+                },
+
+                moveSample: function () {
+
+                    var samples = this.getSelectedSamples();
+                    storageFormFactory.openStorageSampleMove(samples, this.division);
+
+                },
+
+                createSample: function () {
+
+                    if (this.division.canEdit === false) {
+
+                        swal({
+                            title: "Sorry,",
+                            text: "You do not have permission to edit this division.",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {});
+
+                        return $q.reject();
+                    }
+
+                    var selectedRowColumn = this.getSingleSelectedRowColumn();
+                    sampleFormFactory.openSampleFormModal({
+                        division: this.division,
+                        divisionRow: selectedRowColumn[0],
+                        divisionColumn: selectedRowColumn[1],
+                        skipLocationSelect: true
+                    });
 
                 },
 
@@ -273,7 +384,7 @@ angular.module('storage.storageDivisionManager', [])
 
                         originalEl = scope.element;
                         cellEl = angular.element(originalEl).find('.cell');
-                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.name +'</span></div></div>');
+                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.catalog.name +'</span></div></div>');
                         newEl.css({
                             'width': originalEl.offsetWidth + 'px',
                             'height': originalEl.offsetHeight + 'px',
@@ -421,7 +532,7 @@ angular.module('storage.storageDivisionManager', [])
                         return $q.reject();
                     }
 
-                    return storageFormFactory.openStorageSampleMove(sampleMoveMap).then(function () {
+                    return storageFormFactory.openStorageSampleMove(sampleMoveMap, this.division).then(function () {
 
                         angular.forEach(sampleMoveMap, function (map) {
 
