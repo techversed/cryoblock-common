@@ -13,7 +13,7 @@ angular.module('grid.gridRelationFilterCtrl', [])
                    params.cSearch =  $scope.form.search;
                 }
 
-                params.cPerPage = 5;
+                params.cPerPage = 10;
 
                 var paramKey = $scope.filter.filterProperty + '[IN]';
 

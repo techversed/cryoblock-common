@@ -5,7 +5,7 @@
             <ol class="hbreadcrumb breadcrumb">
                 <li><a ui-sref="catalog.index">Catalog</a></li>
                 <li class="active">
-                    <span>Catalog {{catalog.id}}</span>
+                    <span>Catalog Item {{catalog.id}}</span>
                 </li>
             </ol>
         </div>
@@ -13,7 +13,7 @@
             <div class="panel-body">
                 <button ng-click="edit(sample)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
                 <h2 class="font-light m-b-xs inline">
-                  Catalog {{catalog.id}} - {{catalog.name}}
+                  Catalog Item {{catalog.id}} - {{catalog.name}}
                 </h2>
             </div>
         </div>
@@ -99,6 +99,23 @@
         <div class="row">
             <div class="col-sm-12">
                 <cb-attachments object-id="catalog.id" object-class="AppBundle\Entity\Storage\Catalog"></cb-attachments>
+            </div>
+        </div>
+
+        <div class="row" ng-if="gridData.grid.results.length > 0" ng-repeat="gridData in grids">
+            <div class="col-sm-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        <i class="fa fa-flask"></i>
+                        {{gridData.sampleType.name}}
+                    </div>
+                    <div class="panel-body no-padding">
+                        <grid grid="gridData.grid" />
+                    </div>
+                </div>
             </div>
         </div>
 

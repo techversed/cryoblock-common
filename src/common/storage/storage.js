@@ -19,5 +19,7 @@ angular.module('storage', [
     'storage.storageTitleDirective',
     'storage.sampleTypeIconDirective',
     'storage.catalog',
-    'storage.storageSampleLinkCtrl'
+    'storage.storageSampleLinkCtrl',
+    'storage.cbBoxGridInfoDirective'
 ]);
+

@@ -57,6 +57,45 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
 
                                         return $cbResource.getOne('/storage/catalog?id[EQ]=' + $stateParams.id);
 
+                                    },
+
+                                    sampleTypes: function ($cbResource, $stateParams) {
+
+                                        return $cbResource.get('/storage/sample-type', {cPerPage:100});
+
+                                    },
+
+                                    grids: function (sampleTypes, catalog, sampleGridFactory, $q) {
+
+                                        var sampleTypes = sampleTypes.data;
+                                        var grids = [];
+                                        var promises = [];
+
+                                        for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
+
+                                            var currentSampleType = sampleTypes[sampleTypeIndex];
+                                            var promise = sampleGridFactory.getCatalogGrid(catalog, currentSampleType.id);
+
+                                            promises.push(promise);
+
+                                        }
+
+                                        return $q.all(promises).then(function (gridResults) {
+
+                                            for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
+
+                                                var currentSampleType = sampleTypes[sampleTypeIndex];
+
+                                                grids.push({
+                                                    sampleType: currentSampleType,
+                                                    grid: gridResults[sampleTypeIndex]
+                                                });
+
+                                            }
+
+                                            return grids;
+
+                                        });
                                     }
 
                                 }

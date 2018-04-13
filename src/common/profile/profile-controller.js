@@ -23,6 +23,25 @@ angular.module('profile.profileCtrl', [])
                     backdrop: 'static'
                 });
             }
+
+            $scope.changePassword = function () {
+                $modal.open({
+                    templateUrl: 'common/profile/profile-change-password-tpl.html',
+                    controller: 'changePasswordCtrl',
+                    windowClass: 'inmodal',
+                    keyboard: false,
+                    backdrop: 'static',
+                    resolve: {
+
+                        user: function () {
+
+                            return $scope.user;
+
+                        }
+
+                    }
+                });
+            }
         }
 
     ])

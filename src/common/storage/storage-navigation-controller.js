@@ -78,7 +78,7 @@ angular.module('storage.storageNavigationCtrl', [])
                 }
 
                 return $uibModal.open({
-                    templateUrl: 'storage/partials/division-move-confirm-tpl.html',
+                    templateUrl: 'common/storage/partials/division-move-confirm-tpl.html',
                     controller: 'storageDivisionMoveConfirmCtrl',
                     windowClass: 'inmodal',
                     keyboard: false,
