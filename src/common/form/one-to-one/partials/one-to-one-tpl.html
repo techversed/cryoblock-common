@@ -1,5 +1,5 @@
 <button type="button" class="one-to-one-form-toggle btn btn-default btn-block" ng-if="!grid.selectedItem" ng-click="toggle()" ng-class="{expanded:showGrid}">
-    None Selected
+    {{placeholder ? placeholder : "None Selected"}}
     <span class="fa fa-chevron-down" ng-show="!showGrid"></span>
     <span class="fa fa-chevron-up" ng-show="showGrid"></span>
 </button>
