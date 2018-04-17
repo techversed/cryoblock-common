@@ -348,7 +348,7 @@
         }
     }
 
-    li {
+    li.storage-list {
         cursor: pointer;
         margin: 10px 0px;
         list-style: none;
@@ -382,10 +382,20 @@
                 color: white;
             }
         }
-        &.add-division {
-            background: none;
+        .add-division {
+            vertical-align: middle;
+            font-size: 1.5em;
+            display: inline-block;
+            border-right: 5px solid #ffffff;
+            display: table-cell;
             button {
-                width: 64px;
+                padding: 21px;
+            }
+        }
+        .add-division-title {
+            h2{
+                font-size: 23px;
+                font-weight: 400;
             }
         }
     }
