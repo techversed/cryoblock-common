@@ -37,6 +37,12 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                         return storageFactory.getParentDivisions();
 
+                                    },
+
+                                    divisionGrid: function ($cbGridBuilder) {
+
+                                        return $cbGridBuilder.buildIndex('storageDivisionGridFactory');
+
                                     }
 
                                 }

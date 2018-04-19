@@ -143,6 +143,11 @@ angular.module('storage.storageNavigationCtrl', [])
 
             };
 
+            $scope.toggleView = function () {
+                console.log(1)
+                $scope.sdm.toggleView()
+            }
+
             $scope.isInventoryAdmin = sessionFactory.hasRole('ROLE_INVENTORY_ADMIN');
 
             $scope.$on('$destroy', function () {

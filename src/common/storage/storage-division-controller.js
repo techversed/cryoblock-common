@@ -3,6 +3,8 @@ angular.module('storage.storageDivisionCtrl', [])
 
         function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory, storageDivisionManager) {
 
+            $scope.toggleSearch = [];
+
             $scope.children = childrenResponse.data;
             $scope.division = division;
 
@@ -10,6 +12,8 @@ angular.module('storage.storageDivisionCtrl', [])
             $scope.sdm.initialize($scope.division);
             $scope.editSelectedSample = $scope.sdm.editSelectedSample;
 
+            $scope.toggleSearch = $scope.sdm.toggleSearch;
+            console.log($scope.toggleSearch)
             $scope.zoom = {
                 percentage: 75
             };
