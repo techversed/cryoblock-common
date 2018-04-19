@@ -1,4 +1,4 @@
-<div ng-change="!toggleView">
+<div ng-if="!toggleView">
 
     <div class="division-table-container" ng-if="!division.canView">
 
@@ -235,37 +235,48 @@
     </div>
 
 </div>
-<div ng-change="toggleView">
-    <div id="admin-container">
-        <div class="normalheader">
+<div ng-if="toggleView">
+    <div class="division-table-container" ng-if="division.canView">
 
-            <div class="hpanel">
-                <div class="panel-body">
+        <div id="hbreadcrumb">
+            <ol class="hbreadcrumb breadcrumb">
+                <li ng-repeat="breadcrumb in breadcrumbs">
+                    <a ui-sref="storage.division.detail({id:breadcrumb.id})">{{breadcrumb.title}}</a>
+                </li>
+                <li><span>{{division.title}}</span></li>
+            </ol>
+        </div>
+        <div id="admin-container">
+            <div class="normalheader">
 
-                    <h2 class="font-light m-b-xs">
-                       Division
-                    </h2>
+                <div class="hpanel">
+                    <div class="panel-body">
 
-                    <small>Manage Divisions</small>
+                        <h2 class="font-light m-b-xs">
+                           Division
+                        </h2>
+
+                        <small>Manage Divisions</small>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="content">
+            <div class="content">
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="hpanel">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="hpanel">
+                            <div class="panel-heading">
+                                <div class="panel-tools">
+                                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                                </div>
+                               Division
                             </div>
-                           Division
-                        </div>
-                        <div class="panel-body no-padding">
+                            <div class="panel-body no-padding">
 
-                            <grid grid="grid"></grid>
+                                <grid grid="grid"></grid>
 
+                            </div>
                         </div>
                     </div>
                 </div>

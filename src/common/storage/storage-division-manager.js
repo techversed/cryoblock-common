@@ -639,6 +639,7 @@ angular.module('storage.storageDivisionManager', [])
                 },
 
                 toggleView: function () {
+                    console.log(3)
 
                     if (this.toggleSearch === false) {
 

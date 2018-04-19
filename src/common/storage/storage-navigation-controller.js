@@ -146,6 +146,7 @@ angular.module('storage.storageNavigationCtrl', [])
             $scope.toggleView = function () {
                 console.log(1)
                 $scope.sdm.toggleView()
+                console.log($scope.sdm.toggleSearch)
             }
 
             $scope.isInventoryAdmin = sessionFactory.hasRole('ROLE_INVENTORY_ADMIN');

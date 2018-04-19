@@ -1,7 +1,7 @@
 angular.module('storage.storageDivisionCtrl', [])
-    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout', 'storageFormFactory', 'storageDivisionManager',
+    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout', 'storageFormFactory', 'storageDivisionManager', 'divisionGrid',
 
-        function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory, storageDivisionManager) {
+        function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory, storageDivisionManager, divisionGrid) {
 
             $scope.toggleSearch = [];
 
@@ -14,6 +14,7 @@ angular.module('storage.storageDivisionCtrl', [])
 
             $scope.toggleSearch = $scope.sdm.toggleSearch;
             console.log($scope.toggleSearch)
+            $scope.grid =  divisionGrid;
             $scope.zoom = {
                 percentage: 75
             };
