@@ -27,6 +27,9 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
             $scope.oldPublicEditValue = $scope.division.isPublicEdit;
             $scope.oldPublicViewValue = $scope.division.isPublicView;
+            //changes
+            $scope.oldAllStorage = $scope.division.allowAllStorageContainers;
+            $scope.oldAllSample = $scope.division.allowAllSampleTypes;
 
             if ($scope.division.parentId) {
                 $scope.division.parent = {id: $scope.division.parentId};
@@ -60,11 +63,18 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
                 // Check if permissions have changed
                 $scope.permissionsChanged = false;
-                if ($scope.division.editors !== undefined || $scope.division.groupEditors !== undefined || $scope.division.viewers !== undefined || $scope.division.groupViewers !== undefined) {
+                console.log($scope.division.editors);
+                console.log($scope.division.groupEditors);
+                console.log($scope.division.viewers);
+                console.log($scope.division.groupViewers);
+                console.log($scope.division.sampleTypes);
+                console.log($scope.division.storageContainers);
+                console.log($scope.division.editors['adding']);
+                if ($scope.division.editors !== undefined || $scope.division.groupEditors !== undefined || $scope.division.viewers !== undefined || $scope.division.groupViewers !== undefined || $scope.division.sampleTypes !== undefined || $scope.division.storageContainers !== undefined) {
                     $scope.permissionsChanged = true;
                 }
 
-                if ($scope.division.id !== undefined && ($scope.oldPublicViewValue !== $scope.division.isPublicView || $scope.oldPublicEditValue !== $scope.division.isPublicEdit)) {
+                if ($scope.division.id !== undefined && ($scope.oldPublicViewValue !== $scope.division.isPublicView || $scope.oldPublicEditValue !== $scope.division.isPublicEdit || $scope.oldAllSample !== $scope.division.allowAllSampleTypes || $scope.oldAllStorage !== $scope.division.allowAllStorageContainers)) {
                     $scope.permissionsChanged = true;
                 }
 
