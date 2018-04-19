@@ -92,31 +92,6 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                         ]
 
-                    },
-                    {
-                        url: '/division-search',
-                        name: 'division_search',
-                        pageTitle: 'Search Division',
-                        data: { specialClass: 'storage-division-body' },
-                        security: {
-                            roles: ['ROLE_USER']
-                        },
-                        views: {
-                            content: {
-                                templateUrl: 'common/storage/views/storage-division-search-tpl.html',
-                                controller: 'storageDivisionSearchCtrl',
-                                resolve: {
-
-                                    divisionGrid: function ($cbGridBuilder) {
-
-                                        return $cbGridBuilder.buildIndex('storageDivisionGridFactory');
-
-                                    }
-
-                                }
-
-                            }
-                        }
                     }
                 ]
             })

@@ -6,6 +6,8 @@ angular.module('storage.storageNavigationCtrl', [])
 
             $scope.sdm = storageDivisionManager;
 
+            $scope.toggleSearch = $scope.sdm.toggleSearch;
+
             $scope.divisions = divisions;
 
             $scope.treeOptions = {
@@ -144,7 +146,7 @@ angular.module('storage.storageNavigationCtrl', [])
             };
 
             $scope.toggleView = function () {
-                console.log(1)
+                console.log('storageNavigationCtrl')
                 $scope.sdm.toggleView()
                 console.log($scope.sdm.toggleSearch)
             }

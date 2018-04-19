@@ -13,8 +13,15 @@ angular.module('storage.storageDivisionCtrl', [])
             $scope.editSelectedSample = $scope.sdm.editSelectedSample;
 
             $scope.toggleSearch = $scope.sdm.toggleSearch;
-            console.log($scope.toggleSearch)
             $scope.grid =  divisionGrid;
+
+            $scope.$watch('sdm', function () {
+                $scope.toggleSearch = $scope.sdm.toggleSearch;
+            });
+
+            console.log('storageDivisionCtrl')
+            console.log($scope.toggleSearch)
+
             $scope.zoom = {
                 percentage: 75
             };
