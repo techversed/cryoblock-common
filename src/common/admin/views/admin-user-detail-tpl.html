@@ -10,13 +10,36 @@
             </ol>
         </div>
         <div class="hpanel">
+
             <div class="panel-body">
-                <button ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
-                <h2 class="font-light m-b-xs inline">
-                  User {{user.id}} - {{user.firstName}} {{user.lastName}}
-                </h2>
-                <small class="block">{{user.username}}</small>
+                <div class="panel-actions">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-sm btn-default" ng-click="edit(user)"><i class="fa fa-edit"/></button>
+                        <div class="btn-group panel-more-actions" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog"/>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li>
+                                    <a ng-show="canDisable" ng-click="disable(user)"><i class="fa fa-ban m-r-xs"/>Disable</a>
+                                    <a ng-click="changePassword()"><i class="fa fa-lock"/> Change password</a>
+                                    <a class="dropdown-item" href=""><i class="fa fa-trash m-r-xs" />Delete</a>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-t">
+                    <h2 class="font-light m-b-xs inline">
+                        <i class="fa fa-user"></i>
+                        User {{user.id}} - {{user.firstName}} {{user.lastName}}
+                    </h2>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -40,12 +63,24 @@
                                 <td>{{user.id}}</td>
                             </tr>
                             <tr>
+                                <td>Username</td>
+                                <td>{{user.username}}</td>
+                            </tr>
+                            <tr>
                                 <td>First Name</td>
                                 <td>{{user.firstName}}</td>
                             </tr>
                             <tr>
                                 <td>Last Name</td>
                                 <td>{{user.lastName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{user.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Enabled</td>
+                                <td>{{user.enabled ? 'Yes' : 'No'}}</td>
                             </tr>
                         </table>
                     </div>
@@ -63,6 +98,10 @@
                     </div>
                     <div class="panel-body no-padding">
                         <table class="table-detail">
+                            <tr>
+                                <td>Last Login</td>
+                                <td>{{user.lastLogin | date:'medium'}}</td>
+                            </tr>
                             <tr>
                                 <td>Created At</td>
                                 <td>{{user.createdAt | date:'medium'}}</td>

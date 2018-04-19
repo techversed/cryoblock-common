@@ -46,7 +46,7 @@
         <div class="row m-b-none" ng-show="currentView === 'grid' || currentView === 'list'">
             <div class="col-sm-12">
                 <h3>
-                    <button type="button" class="m-r-sm btn btn-sm btn-default" ng-click="editDivision(division)"><i class="fa fa-pencil"/></button>
+                    <button ng-disabled="!division.canEdit" type="button" class="m-r-sm btn btn-sm btn-default" ng-click="editDivision(division)"><i class="fa fa-pencil"/></button>
                     {{division.title}}
                 </h3>
                 <storage-title-directive division="division"></storage-title-directive>
@@ -56,15 +56,24 @@
         <div class="row division-action-bar m-b-none" ng-if="division.hasDimension">
             <div class="col-sm-4">
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="editSelectedSample()" ng-disabled="sdm.selectedSampleCount != 1">
+                    <div class="btn-group" uib-dropdown>
+                        <button role="button" type="button" class="btn btn-default" ng-click="editSelectedSample()" ng-disabled="!division.canEdit || sdm.selectedSampleCount != 1">
                             <i class="fa fa-edit" />
                         </button>
                     </div>
-                    <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="add()" ng-disabled="sdm.selectedCount != 1 || sdm.selectedEmptyCount != 1">
+                    <div class="btn-group" uib-dropdown>
+                        <button role="button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="sdm.selectedCount != 1 || sdm.selectedEmptyCount != 1">
                             <i class="fa fa-plus" />
                         </button>
+                        <ul uib-dropdown-menu class="dropdown-menu pull-right" role="menu" aria-labelledby="single-button">
+                            <li role="menuitem">
+                                <a ng-click="sdm.openSampleStorageLinkModal()"><i class="fa fa-arrow-right m-r-xs"/>Move Sample</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li role="menuitem">
+                                <a ng-click="sdm.createSample()"><i class="fa fa-plus m-r-xs"/>Create Sample</a>
+                            </li>
+                        </ul>
                     </div>
                     <div class="btn-group" role="group">
                         <button role="button" type="button" class="btn btn-danger" ng-click="sdm.delete()" ng-disabled="sdm.selectedSampleCount < 1 || !division.canEdit">
@@ -157,7 +166,8 @@
                                 class="cell"
                                 ng-class="{'has-sample': sdm.sampleMap[row][column]}"
                             >
-                                <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].name}}</span>
+<!--                                 <span ng-if="sdm.sampleMap[row][column].lot">{{sdm.sampleMap[row][column].lot}}</span>
+ -->                                <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name}}</span>
                             </div>
                         </td>
                     </tr>
@@ -173,14 +183,7 @@
                     <div ng-repeat="column in columns">
                         <li ng-class="{selected: sdm.selectedCells[row][column]}" ng-click="sdm.toggleCell(row, column, $event.shiftKey)">
                             <div class="row-column-container">{{row}}{{column}}</div>
-                            <div class="cell-list-view ">
-                                <span class="empty" ng-if="!sdm.sampleMap[row][column]">Empty Well</span>
-                                <div ng-if="sdm.sampleMap[row][column]">
-                                    <p>{{sdm.sampleMap[row][column].sampleType.name}}</p>
-                                    <p>{{sdm.sampleMap[row][column].name}}</p>
-                                    <p>{{sdm.sampleMap[row][column].description}}</p>
-                                </div>
-                            </div>
+                            <cb-box-grid-info sample="sdm.sampleMap[row][column]"></cb-box-grid-info>
                         </li>
                     </div>
                 </div>
@@ -201,7 +204,7 @@
                             <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x"/>
                             <i ng-if="division.hasDimension" class="fa fa-th fa-2x"/>
                         </div>
-                        <div class="cell-list-view">
+                        <div class="division-list-view">
                             <div>
                                 <h3>
                                     <a ui-sref="storage.division.detail({id:division.id})">{{division.title}}</a>

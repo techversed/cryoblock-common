@@ -5,7 +5,6 @@ angular.module('storage.sampleTypeIconDirective', [])
         function (sessionFactory, API, $rootScope, sampleTypeIconMapping) {
             return {
                 restrict: 'E',
-                sampleType: 'E',
                 templateUrl: 'common/storage/partials/sample-type-icon-tpl.html',
                 scope: {
                     sampleType: '='
@@ -19,8 +18,14 @@ angular.module('storage.sampleTypeIconDirective', [])
                     };
 
                     $scope.setIconSrc = function () {
-
-                        $scope.iconSrc =  '/images/' + $scope.sampleTypeIconMapping[$scope.sampleType.name];
+                        var mapping;
+                        if ($scope.sampleTypeIconMapping[$scope.sampleType.name]==undefined) {
+                                mapping = $scope.sampleTypeIconMapping["default"];
+                        }
+                        else {
+                            mapping = $scope.sampleTypeIconMapping[$scope.sampleType.name];
+                        }
+                        $scope.iconSrc = '/images/' + mapping;
 
                     }
 

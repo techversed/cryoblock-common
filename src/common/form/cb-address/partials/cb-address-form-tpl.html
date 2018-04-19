@@ -35,7 +35,9 @@
                 <address>
                     {{address.address}}<br>
                     {{address.address2}}<br ng-if="address.address2">
-                    {{address.city}}, {{address.state}} {{address.zip}}
+                    {{address.city}}<br>
+                    {{address.state}}<br>
+                    {{address.zip}}<br>
                 </address>
                 <div class="actions">
                     <a ng-click="edit(address)">Edit</a>

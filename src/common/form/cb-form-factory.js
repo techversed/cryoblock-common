@@ -283,25 +283,27 @@ angular.module('form.cbFormFactory', [])
 
                             return that.uploadAttachments(scope).then(
 
-                                function () {
+                                function (response) {
                                     var method = that.object.id !== undefined ? 'update' : 'create';
                                     toastr.info(that.type + ' ' + method + 'd successfully');
                                     scope.$close();
                                     $state.go($state.current, $stateParams, {reload:true});
                                 },
 
-                                function () {
+                                function (response) {
 
-                                    deferred.reject({success:true});
+                                    scope.$close();
+                                    return $q.reject(response);
 
                                 }
                             );
 
                         },
 
-                        function () {
+                        function (response) {
 
-                            deferred.reject({success:true});
+                            scope.$close();
+                            return $q.reject(response);
 
                         }
 
@@ -340,7 +342,7 @@ angular.module('form.cbFormFactory', [])
                             that.errors = response.data;
                             that.isSaving = false;
 
-                            return response;
+                            return $q.reject(response);
 
                         }
 

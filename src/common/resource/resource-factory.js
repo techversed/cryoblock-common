@@ -1,16 +1,19 @@
 angular.module('cbResource.$cbResource', [])
 
-    .factory('$cbResource', ['$http', 'API',
+    .factory('$cbResource', ['$http', 'API', 'toastr', '$q',
 
-        function ($http, API) {
+        function ($http, API, toastr, $q) {
 
             var $cbResource = {
 
                 getOne: function (url, params, ignoreLoadingBar) {
 
-                    return this.get(url, params, ignoreLoadingBar).then(function (response) {
-                        return response.data[0];
-                    });
+                    return this.get(url, params, ignoreLoadingBar).then(
+                        function (response) {
+                            return response.data[0];
+                        },
+                        $cbResource.handleFailure
+                    );
 
                 },
 
@@ -30,15 +33,23 @@ angular.module('cbResource.$cbResource', [])
                         additionalParams = {'ignoreLoadingBar': ignoreLoadingBar}
                     }
 
-                    return $http.get(url, additionalParams).then(function (response) {
-                        return response.data;
-                    });
+                    return $http.get(url, additionalParams).then(
+                        function (response) {
+                            return response.data;
+                        },
+                        $cbResource.handleFailure
+                    );
 
                 },
 
                 create: function (url, obj) {
 
-                    return $http.post(API.url + url, obj);
+                    return $http.post(API.url + url, obj).then(
+                        function (response) {
+                            return response
+                        },
+                        $cbResource.handleFailure
+                    );
 
                 },
 
@@ -50,19 +61,12 @@ angular.module('cbResource.$cbResource', [])
                         url = url + '?' + this.serializeParams(params);
                     }
 
-                    return $http.put(url, obj);
-
-                },
-
-                delete: function (url, params) {
-
-                    url = API.url + url
-
-                    if (params !== undefined) {
-                        url = url + '?' + this.serializeParams(params);
-                    }
-
-                    return $http.delete(url);
+                    return $http.put(url, obj).then(
+                        function (response) {
+                            return response
+                        },
+                        $cbResource.handleFailure
+                    );
 
                 },
 
@@ -101,7 +105,71 @@ angular.module('cbResource.$cbResource', [])
                         url = url + '?' + this.serializeParams(params);
                     }
 
-                    return $http.delete(url);
+                    return $http.delete(url).then(
+                        function (response) {
+                            return response
+                        },
+                        $cbResource.handleFailure
+                    );
+
+                },
+
+                purge: function (url, params) {
+
+                    url = API.url + url
+
+                    if (params !== undefined) {
+                        url = url + '?' + this.serializeParams(params);
+                    }
+
+                    return $http({
+                        method: 'PURGE',
+                        url: url
+                    }).then(
+                        function (response) {
+                            return response
+                        },
+                        $cbResource.handleFailure
+                    );
+
+                },
+
+                restore: function (url, params) {
+
+                    url = API.url + url
+
+                    if (params !== undefined) {
+                        url = url + '?' + this.serializeParams(params);
+                    }
+
+                    return $http.patch(url).then(
+                        function (response) {
+                            return response
+                        },
+                        $cbResource.handleFailure
+                    );
+
+                },
+
+                handleFailure: function (response) {
+
+                    var message;
+
+                    if (response.status == 401) {
+                        message = response.headers('www-authenticate');
+                        toastr.error(message + ' Please contact your administrator for more information.', null, {timeOut: 7000});
+                    } else if (response.status == 403) {
+                        message = response.headers('cb-delete-message');
+                        toastr.error(message + ' Please contact your administrator for more information.', null, {timeOut: 10000});
+                    } else if (response.status == 400 && response.data.violations != undefined) {
+                        angular.forEach(response.data.violations, function(violation) {
+                            toastr.error(violation[0], null, {timeOut: 10000});
+                        });
+                    } else {
+                        toastr.error('Sorry, an error occurred while making your request. Pleast contact your administrator for more information.');
+                    }
+
+                    return $q.reject(response);
 
                 }
 

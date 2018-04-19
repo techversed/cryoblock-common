@@ -14,11 +14,6 @@ angular.module('group.groupFormCtrl', [])
 
             $scope.close = function () {
 
-                if ($scope.groupForm.$pristine === false) {
-                    console.log('not pristine');
-
-                }
-
                 $modalInstance.close();
 
             };

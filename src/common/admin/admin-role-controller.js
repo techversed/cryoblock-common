@@ -12,7 +12,6 @@ angular.module('admin.adminRoleCtrl', [])
             };
 
             $scope.navigateToGroups = function ($event) {
-                console.log('nav to group');
                 $state.go('admin.group');
             };
         }

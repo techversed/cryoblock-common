@@ -6,7 +6,8 @@ angular.module('grid.gridBuilder', [])
 
             var gridBuilder = {
 
-                buildIndex: function (factoryName) {
+                //possible overrides: url
+                buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
 
@@ -18,20 +19,23 @@ angular.module('grid.gridBuilder', [])
 
                     }
 
+                    var url = overrides.url != undefined ? overrides.url : factory.url;
+
                     grid
                         .setActionTemplate(factory.actionTemplate)
-                        .setResourceUrl(factory.url)
-                        .setBindToState(true)
+                        .setResourceUrl(url)
+                        .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
                     ;
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
+                    var defaultParams = { cOrderBy: grid.sortingColumn.name, cOrderByDirection: grid.sortDirection};
                     var params = angular.extend(defaultParams, $location.search());
 
-                    return $cbResource.get(factory.url, params).then(function (response) {
+                    return $cbResource.get(url, params).then(function (response) {
 
                         return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
+                            .setInitResultCount(response.unpaginatedTotal)
                         ;
 
                     });
@@ -82,6 +86,7 @@ angular.module('grid.gridBuilder', [])
                             .disableHover()
                             .setPerPage(3)
                             .disableToggleColumns()
+                            .setInitResultCount(response.unpaginatedTotal)
                         ;
 
                     });

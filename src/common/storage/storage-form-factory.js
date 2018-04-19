@@ -87,7 +87,7 @@ angular.module('storage.storageFormFactory', [])
                 openSampleStorageRemoveModal: function (samplesToRemove) {
 
                     $modal.open({
-                        templateUrl: 'storage/partials/storage-sample-remove-tpl.html',
+                        templateUrl: 'common/storage/partials/storage-sample-remove-tpl.html',
                         controller: 'storageSampleRemoveCtrl',
                         windowClass: 'inmodal',
                         keyboard: false,
@@ -114,10 +114,10 @@ angular.module('storage.storageFormFactory', [])
 
                 },
 
-                openStorageSampleMove: function (sampleMoveMap) {
+                openStorageSampleMove: function (sampleMoveMap, division) {
 
                     return $modal.open({
-                        templateUrl: 'storage/partials/storage-sample-move-tpl.html',
+                        templateUrl: 'common/storage/partials/storage-sample-move-tpl.html',
                         controller: 'storageSampleMoveCtrl',
                         windowClass: 'inmodal',
                         keyboard: false,
@@ -127,6 +127,10 @@ angular.module('storage.storageFormFactory', [])
 
                             sampleMoveMap: function () {
                                 return sampleMoveMap;
+                            },
+
+                            division: function () {
+                                return division;
                             },
 
                             callback: function () {

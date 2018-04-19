@@ -13,11 +13,6 @@ angular.module('user.userFormCtrl', [])
 
             $scope.close = function () {
 
-                if ($scope.userForm.$pristine === false) {
-                    console.log('not pristine');
-
-                }
-
                 $modalInstance.close();
 
             };

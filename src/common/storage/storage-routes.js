@@ -45,7 +45,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                         },
                         children: [
                             {
-                                url: '/:id',
+                                url: '/:id?sampleId',
                                 name: 'detail',
                                 pageTitle: 'Storage Division {id}',
                                 data: { specialClass: 'storage-division-body' },
