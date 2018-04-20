@@ -336,6 +336,7 @@
     padding-left: 0px;
     display: table;
     width: 100%;
+    margin-bottom: 100px;
 
     .box-grid-info-table {
         display: inline;
@@ -348,26 +349,59 @@
         }
     }
 
-    li {
+    li.list-item {
         cursor: pointer;
         margin: 10px 0px;
         list-style: none;
         background: #f3f3f3;
         .row-column-container {
+            text-align: center;
             vertical-align: middle;
             font-size: 1.5em;
             display: inline-block;
             border-right: 5px solid #ffffff;
             padding: 15px;
             display: table-cell;
+            i.list-icon {
+                width: 40px;
+            }
+            &.add {
+                padding: 0;
+                .btn {
+                    border-radius:0px;
+                    padding: 14px;
+                }
+            }
         }
         cb-box-grid-info {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .add-sample {
+            padding: 5px 14px;
+            font-weight: bold;
             display: table-cell;
             vertical-align: middle;
         }
         .division-list-view {
             display: table-cell;
             padding: 15px;
+            &.canEdit {
+                padding: 35px 10px 10px 15px;
+            }
+            position: relative;
+            .division-list-actions {
+                position: absolute;
+                top: 0;
+                left: 0;
+                .edit {
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+                .more {
+                    border-top-right-radius: 0;
+                }
+            }
         }
         .cell-list-view {
             padding: 15px;
@@ -382,18 +416,16 @@
                 color: white;
             }
         }
-        &.add-division {
-            background: none;
-            button {
-                width: 64px;
-            }
-        }
     }
     .division-detail-table {
+        display: inline-table;
         td {
             padding-right: 20px;
             &:first-child {
                 font-weight: 500;
+            }
+            &:not(:first-child) {
+                padding-top: 4px;
             }
         }
 

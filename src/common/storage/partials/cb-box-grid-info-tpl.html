@@ -1,5 +1,21 @@
-<div class="cell-list-view ">
-    <a ui-sref="sample.detail({id:sample.id})" ng-if="sample">ID {{sample.id}} - {{sample.catalog.name}}</a>
+<div class="division-list-view" ng-class="{canEdit:division.canEdit}">
+    <div ng-if="division && division.canEdit" class="btn-group division-list-actions" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-sm btn-default edit" ng-click="sdm.editSample(sample)"><i class="fa fa-edit"/></button>
+        <div class="btn-group panel-more-actions" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle more" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-cog"/>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <li ng-click="sdm.delete([sample])">
+                    <a class="dropdown-item text-danger" ><i class="fa fa-trash m-r-xs" />Delete</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <a ng-if="!sample.lot" ui-sref="sample.detail({id:sample.id})" ng-if="sample">ID {{sample.id}} - {{sample.catalog.name}}</a>
+    <a ng-if="sample.lot" ui-sref="sample.detail({id:sample.id})" ng-if="sample">ID {{sample.id}} - {{sample.catalog.name}} - Lot {{sample.lot}}</a>
+    <span> - {{sample.description}}</span>
     <span class="empty" ng-if="!sample">Empty Well</span>
     <div ng-if="sample">
         <table class="box-grid-info-table">
@@ -15,6 +31,18 @@
             <tr>
                 <td>Storage Container: </td>
                 <td>{{sample.storageContainer.name}}</td>
+            </tr>
+        </table>
+        <table class="box-grid-info-table">
+             <tr>
+                <td>Concentration: </td>
+                <td ng-if="sample.concentration">{{sample.concentrationString}}</td>
+                <td ng-if="!sample.concentration">N/A</td>
+            </tr>
+            <tr>
+                <td>Volume: </td>
+                <td ng-if="sample.volume">{{sample.volumeString}}</td>
+                <td ng-if="!sample.volume">N/A</td>
             </tr>
         </table>
         <table class="box-grid-info-table">

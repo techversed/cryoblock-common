@@ -34,6 +34,10 @@ angular.module('storage.storageDivisionManager', [])
 
                 navigationStates: ['pending', 'initializing', 'initialized'],
 
+                toggleSearch: false,
+
+                initSampleId: null,
+
                 initialize: function (division) {
 
                     this.division = division;
@@ -44,9 +48,11 @@ angular.module('storage.storageDivisionManager', [])
                     this.selectedSampleCount = 0;
                     this.sampleMap = this.getSampleMap();
                     this.expandToDivision(this.division);
+                    this.toggleSearch = false;
 
-                    if ($stateParams.sampleId) {
-                        this.toggleSampleId($stateParams.sampleId);
+                    if (this.initSampleId) {
+                        this.toggleSampleId(this.initSampleId);
+                        this.initSampleId = null;
                     }
                 },
 
@@ -256,6 +262,10 @@ angular.module('storage.storageDivisionManager', [])
                     var sample = storageDivisionManager.getSelectedSample();
                     sample.skipLocationSelect = true;
                     sample.division = {id:this.division.id};
+                    this.editSample(sample);
+                },
+
+                editSample: function (sample) {
                     sampleFormFactory.openSampleFormModal(sample);
                 },
 
@@ -263,9 +273,9 @@ angular.module('storage.storageDivisionManager', [])
                     this.selectedDivision = division;
                 },
 
-                delete: function () {
+                delete: function (samples) {
 
-                    var samples = this.getSelectedSamples();
+                    var samples = samples != undefined ? samples : this.getSelectedSamples();
                     storageFormFactory.openSampleStorageRemoveModal(samples);
 
                 },
@@ -307,7 +317,21 @@ angular.module('storage.storageDivisionManager', [])
 
                             sampleGrid: function ($cbGridBuilder) {
 
-                                return $cbGridBuilder.buildSelectSingle('sampleGridFactory');
+                                return $cbGridBuilder.buildSelectSingle('sampleGridFactory', {
+                                    url: '/storage/sample?status[EQ]=Available',
+                                }).then(function (grid) {
+                                    angular.forEach(grid.filters, function (filter) {
+                                        if (filter.bindTo == 'status') {
+                                            filter.disabled = true;
+                                            filter.isVisible = true;
+                                            filter.selectionString = 'Available';
+                                            filter.isFiltering = true;
+                                        }
+                                    });
+
+                                    return grid;
+
+                                });
 
                             },
 
@@ -361,6 +385,15 @@ angular.module('storage.storageDivisionManager', [])
                         return $q.reject();
                     }
 
+                    if (!this.division.hasDimension) {
+                        sampleFormFactory.openSampleFormModal({
+                            division: this.division,
+                            skipLocationSelect: true,
+                            status: 'Available'
+                        });
+                        return;
+                    }
+
                     var selectedRowColumn = this.getSingleSelectedRowColumn();
                     sampleFormFactory.openSampleFormModal({
                         division: this.division,
@@ -369,6 +402,36 @@ angular.module('storage.storageDivisionManager', [])
                         skipLocationSelect: true
                     });
 
+                },
+
+                addDivision: function () {
+
+                    if (this.division.canEdit === false) {
+
+                        swal({
+                            title: "Sorry,",
+                            text: "You do not have permission to edit this division.",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {});
+
+                        return $q.reject();
+                    }
+
+                    storageFormFactory.openDivisionFormModal({parent: {id: this.division.id}});
+
+                },
+
+                editDivision: function (division, returnState) {
+
+                    storageFormFactory.openDivisionFormModal(division);
+
+                },
+
+                deleteDivision: function (division) {
+                    storageFormFactory.openDeleteForm(division);
                 },
 
                 makeGhosts: function () {
@@ -634,6 +697,12 @@ angular.module('storage.storageDivisionManager', [])
 
                     this.pageX = pageX;
                     this.pageY = pageY;
+                },
+
+                toggleView: function () {
+
+                    this.toggleSearch = this.toggleSearch ? false : true;
+
                 }
 
             };

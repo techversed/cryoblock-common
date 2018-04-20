@@ -1,7 +1,7 @@
 angular.module('storage.storageDivisionCtrl', [])
-    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout', 'storageFormFactory', 'storageDivisionManager',
+    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout', 'storageFormFactory', 'storageDivisionManager', 'divisionGrid',
 
-        function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory, storageDivisionManager) {
+        function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory, storageDivisionManager, divisionGrid) {
 
             $scope.children = childrenResponse.data;
             $scope.division = division;
@@ -9,6 +9,8 @@ angular.module('storage.storageDivisionCtrl', [])
             $scope.sdm = storageDivisionManager;
             $scope.sdm.initialize($scope.division);
             $scope.editSelectedSample = $scope.sdm.editSelectedSample;
+
+            $scope.grid =  divisionGrid;
 
             $scope.zoom = {
                 percentage: 75
@@ -75,14 +77,6 @@ angular.module('storage.storageDivisionCtrl', [])
 
             if ($scope.division.samples.length !== 0) {
                 var selectedSample = $scope.division.samples[0];
-            }
-
-            $scope.editDivision = storageFormFactory.openDivisionFormModal;
-
-            $scope.addDivision = function () {
-
-                storageFormFactory.openDivisionFormModal({parent: {id: $scope.division.id}});
-
             }
 
             $scope.breadcrumbs = [];
