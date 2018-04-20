@@ -701,15 +701,7 @@ angular.module('storage.storageDivisionManager', [])
 
                 toggleView: function () {
 
-                    if (this.toggleSearch === false) {
-
-                        this.toggleSearch = true
-
-                    } else {
-
-                        this.toggleSearch = false
-
-                    }
+                    this.toggleSearch = this.toggleSearch ? false : true;
 
                 }
 

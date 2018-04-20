@@ -45,7 +45,7 @@
             <td>
                 Able To View
             </td>
-            <td>
+            <td ng-if="division.isPublicView || division.isPublicView || division.divisionViewers.length">
                 <span ng-if="division.isPublicView || division.isPublicEdit">
                     <i class="fa fa-users text-primary"/>
                     All Users
@@ -54,7 +54,9 @@
                     <cb-user-avatar user="divisionViewers.user" class="xs" ng-if="divisionViewers.user" uib-tooltip="{{divisionViewers.user.stringLabel}}"></cb-user-avatar>
                 </i>
             </td>
-            <td ng-if="!division.isPublicView && !division.isPublicEdit && !division.divisionViewers.length">Not Configured</td>
+            <td ng-if="!division.isPublicView && !division.isPublicEdit && !division.divisionViewers.length">
+                <span><i class="text-danger fa fa-lock m-r-xs"/>Restricted</span>
+            </td>
         </tr>
 
         <tr>

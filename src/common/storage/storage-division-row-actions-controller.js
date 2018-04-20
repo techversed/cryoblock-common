@@ -6,6 +6,20 @@ angular.module('storage.storageDivisionRowActionsCtrl', [])
 
             $scope.edit = function (division) {
 
+                if (division.canEdit === false) {
+
+                    swal({
+                        title: "Sorry,",
+                        text: "You do not have permission to edit this division.",
+                        type: "warning",
+                        showCancelButton: false,
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                    }, function() {});
+
+                    return;
+                }
+
                 storageFormFactory.openDivisionFormModal(division);
 
             };
