@@ -6,7 +6,6 @@ angular.module('storage.storageSampleLinkCtrl', [])
 
             $scope.samples = samples;
             $scope.division = division;
-            console.log($scope.division.id)
 
             $scope.selectedCells = selectedCells;
 
@@ -38,7 +37,6 @@ angular.module('storage.storageSampleLinkCtrl', [])
 
             $scope.onSampleSelect = function (sample) {
 
-                console.log('some selected a sample');
                 $scope.form.selectedSample = sample;
 
             };
@@ -52,7 +50,6 @@ angular.module('storage.storageSampleLinkCtrl', [])
                 $scope.form.selectedSample.division = $scope.division;
                 $scope.form.selectedSample.divisionRow = $scope.row;
                 $scope.form.selectedSample.divisionColumn = $scope.column;
-                console.log($scope.form.selectedSample);
                 $cbResource.update('/storage/sample?id[EQ]=' + $scope.form.selectedSample.id, $scope.form.selectedSample);
                 callBack();
                 $modalInstance.close();

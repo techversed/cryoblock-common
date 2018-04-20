@@ -77,14 +77,6 @@ angular.module('storage.storageDivisionCtrl', [])
                 var selectedSample = $scope.division.samples[0];
             }
 
-            $scope.editDivision = storageFormFactory.openDivisionFormModal;
-
-            $scope.addDivision = function () {
-
-                storageFormFactory.openDivisionFormModal({parent: {id: $scope.division.id}});
-
-            }
-
             $scope.breadcrumbs = [];
             var whileScope = $scope.division.parent;
             while (whileScope) {
