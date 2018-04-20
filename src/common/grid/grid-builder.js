@@ -93,7 +93,7 @@ angular.module('grid.gridBuilder', [])
 
                 },
 
-                buildSelectSingle: function (factoryName) {
+                buildSelectSingle: function (factoryName, overrides) {
 
                     var factory = $injector.get(factoryName);
 
@@ -103,15 +103,21 @@ angular.module('grid.gridBuilder', [])
 
                     }
 
+                    var url = factory.url;
+
+                    if (overrides && overrides.url) {
+                        url = overrides.url;
+                    }
+
                     var grid = factory.create();
 
-                    grid.setResourceUrl(factory.url);
+                    grid.setResourceUrl(url);
                     grid.hideAllFilters();
                     grid.allowSelect()
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
 
-                    return $cbResource.get(factory.url, defaultParams).then(function (response) {
+                    return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
 

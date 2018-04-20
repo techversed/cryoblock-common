@@ -8,11 +8,12 @@ angular.module('form.cbBooleanDirective', [])
                 restrict: 'E',
                 templateUrl: 'common/form/cb-boolean/partials/cb-boolean-directive-tpl.html',
                 require: ['^form', 'ngModel'],
-                scope: {disabled: '=', trueText: '@', falseText: '@'},
+                scope: {disabled: '=', trueText: '@', falseText: '@', onToggle: '='},
                 controller: function ($scope) {
                     $scope.toggle = function (bool) {
                         if (!$scope.disabled) {
                             $scope.modelCtrl.$setViewValue(bool);
+                            $scope.onToggle();
                         }
                     }
 
@@ -21,14 +22,12 @@ angular.module('form.cbBooleanDirective', [])
 
                 },
                 link: function ($scope, element, attrs, ctrls) {
-
                     $scope.modelCtrl = ctrls[1];
 
                     if (ctrls[0] !== null) {
                         $scope.formCtrl = ctrls[0];
                         $scope.formCtrl.$addControl($scope.modelCtrl);
                     }
-
                 }
             }
 
