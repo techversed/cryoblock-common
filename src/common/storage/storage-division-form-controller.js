@@ -63,14 +63,15 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
                 // Check if permissions have changed
                 $scope.permissionsChanged = false;
-                console.log($scope.division.editors);
-                console.log($scope.division.groupEditors);
-                console.log($scope.division.viewers);
-                console.log($scope.division.groupViewers);
-                console.log($scope.division.sampleTypes);
-                console.log($scope.division.storageContainers);
-                console.log($scope.division.editors['adding']);
-                if ($scope.division.editors !== undefined || $scope.division.groupEditors !== undefined || $scope.division.viewers !== undefined || $scope.division.groupViewers !== undefined || $scope.division.sampleTypes !== undefined || $scope.division.storageContainers !== undefined) {
+
+                //if($scope.divison.editors !== undefined || $scope.division.groupEditors !== undefined || $scope.division.viewers !== undefined || $scope.division.groupViewers !== undefined || $scope.division.sampleTypes !== undefined || $scope.division.storageContainers !== undefined))
+                if ($scope.division.editors ? ($scope.division.editors['adding'].length != 0 || $scope.division.editors['removing'].length != 0 ) : false
+                    || $scope.division.groupEditors ? ($scope.division.groupEditors['adding'].length != 0 || $scope.division.groupEditors['removing'].length != 0) : false
+                    || $scope.division.viewers ? ($scope.division.viewers['adding'].length != 0 || $scope.division.viewers['removing'].length != 0) : false
+                    || $scope.division.groupViewers ? ($scope.division.groupViewers['adding'].length != 0 || $scope.division.groupViewers['removing'].length != 0) : false
+                    || $scope.division.sampleTypes ? ($scope.division.sampleTypes['adding'].length != 0 || $scope.division.sampleTypes['removing'].length != 0) : false
+                    || $scope.division.storageContainers ? ($scope.division.storageContainers['adding'].length != 0 || $scope.division.storageContainers['removing'].length != 0) : false)
+                {
                     $scope.permissionsChanged = true;
                 }
 
