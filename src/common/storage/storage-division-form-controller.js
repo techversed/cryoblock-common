@@ -83,7 +83,7 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
                     swal({
                         title: "Are you sure?",
-                        text: "You are changing the permissions of this division. All children permissions within this division will be overridden.",
+                        text: "You are changing the permissions/sample types/containers of this division. All children settings within this division will be overridden.",
                         type: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#DD6B55",
