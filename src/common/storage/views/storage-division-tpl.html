@@ -1,4 +1,4 @@
-<div ng-if="!toggleSearch">
+<div ng-show="!sdm.toggleSearch">
 
     <div class="division-table-container" ng-if="!division.canView">
 
@@ -45,7 +45,7 @@
         <div class="row m-b-none" ng-show="currentView === 'grid' || currentView === 'list'">
             <div class="col-sm-12">
                 <h3>
-                    <button ng-disabled="!division.canEdit" type="button" class="m-r-sm btn btn-sm btn-default" ng-click="editDivision(division)"><i class="fa fa-pencil"/></button>
+                    <button ng-disabled="!division.canEdit" type="button" class="m-r-sm btn btn-sm btn-default" ng-click="sdm.editDivision(division)"><i class="fa fa-pencil"/></button>
                     {{division.title}}
                 </h3>
                 <storage-title-directive division="division"></storage-title-directive>
@@ -180,7 +180,7 @@
             <ul class="storage-division-list">
                 <div ng-repeat="row in rows">
                     <div ng-repeat="column in columns">
-                        <li ng-class="{selected: sdm.selectedCells[row][column]}" ng-click="sdm.toggleCell(row, column, $event.shiftKey)">
+                        <li class="list-item" ng-class="{selected: sdm.selectedCells[row][column]}" ng-click="sdm.toggleCell(row, column, $event.shiftKey)">
                             <div class="row-column-container">{{row}}{{column}}</div>
                             <cb-box-grid-info sample="sdm.sampleMap[row][column]"></cb-box-grid-info>
                         </li>
@@ -192,95 +192,224 @@
 
         <div ng-show="!division.hasDimension && currentView === 'list'">
 
-            <p class="m-t-md"><strong>Child Divisions</strong></p>
-            <ul class="storage-division-list">
-                <li class="add-division">
-                    <button class="btn btn-primary btn-square add-division-button" ng-click="addDivision()"><i class="fa fa-plus fa-2x" /></button>
-                </li>
-                <div ng-repeat="division in division.children | orderBy:'lft' ">
-                    <li>
-                        <div class="row-column-container">
-                            <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x"/>
-                            <i ng-if="division.hasDimension" class="fa fa-th fa-2x"/>
+            <div class="m-t-sm">
+
+                <uib-tabset active="active">
+
+                    <uib-tab index="0">
+
+                        <uib-tab-heading>
+                            <span class="label label-default" ng-if="division.children.length === 0">{{division.children.length}}</span>
+                            <span class="label label-success" ng-if="division.children.length > 0">{{division.children.length}}</span>
+                            Divisions
+                        </uib-tab-heading>
+
+                        <div class="panel-body">
+                            <ul class="storage-division-list">
+                                <li class="add-division list-item">
+                                    <div class="row-column-container add">
+                                        <button class="btn btn-primary btn-square add-division-button" ng-click="sdm.addDivision()"><i class="fa fa-plus list-icon" /></button>
+                                    </div>
+                                    <div class="add-sample">Add a Child Division to {{division.title}}</div>
+                                </li>
+                                <li ng-repeat="division in children | orderBy:'lft' " class="list-item">
+                                    <div class="row-column-container">
+                                        <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x list-icon"/>
+                                        <i ng-if="division.hasDimension" class="fa fa-th fa-2x list-icon"/>
+                                    </div>
+                                    <div class="division-list-view" ng-class="{canEdit:division.canEdit}">
+                                        <div ng-if="division.canEdit" class="btn-group division-list-actions" role="group" aria-label="Basic example">
+                                            <button type="button" class="btn btn-sm btn-default edit" ng-click="sdm.editDivision(division)"><i class="fa fa-edit"/></button>
+                                            <div class="btn-group panel-more-actions" role="group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle more" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-cog"/>
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                    <li ng-click="sdm.deleteDivision(division)">
+                                                        <a class="dropdown-item text-danger" ><i class="fa fa-trash m-r-xs" />Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3 class="inline">
+                                                <a ui-sref="storage.division.detail({id:division.id})">{{division.title}}</a>
+                                                <i ng-if="division.canEdit" class="fa fa-pencil m-l-xs" tooltip-placement="right-top" uib-tooltip="You have permission to edit the contents of this division."/>
+                                                <i ng-if="!division.canEdit && !division.canView" class="text-danger fa fa-lock m-l-xs" tooltip-placement="right-top" uib-tooltip="You do not have permission to view the contents of this division."/>
+                                            </h3>
+                                            <span> - {{division.description}}</span>
+                                            <div>
+                                                <table class="division-detail-table" ng-if="division.hasDimension">
+                                                    <tr>
+                                                        <td>Dimension</td>
+                                                        <td>{{division.width}} x {{division.height}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Percent Full</td>
+                                                        <td>{{division.percentFull | number:2}}%</td>
+                                                    </tr>
+                                                </table>
+                                                <table class="division-detail-table">
+                                                    <tr>
+                                                        <td>Allowed Sample Types</td>
+                                                        <td ng-if="division.allowAllSampleTypes || division.divisionSampleTypes.length">
+                                                            <span ng-if="division.allowAllSampleTypes">
+                                                                <i class="fa fa-check-circle text-primary"/>
+                                                                Any Sample Type Allowed
+                                                            </span>
+                                                            <i ng-if="!division.allowAllSampleTypes" ng-repeat="divisionSampleTypes in division.divisionSampleTypes" class="sample-type-icon-list">
+                                                                <sample-type-icon sample-type="divisionSampleTypes.sampleType" class="xs" ng-if="divisionSampleTypes.sampleType" uib-tooltip="{{divisionSampleTypes.sampleType.name}}"></sample-type-icon>
+                                                            </i>
+                                                        </td>
+                                                        <td ng-if="!division.allowAllSampleTypes && !division.divisionSampleTypes.length">Not Configured</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Allowed Storage Containers
+                                                        </td>
+                                                        <td ng-if="division.allowAllStorageContainers || division.divisionStorageContainers.length">
+                                                            <span ng-if="division.allowAllStorageContainers">
+                                                                <i class="fa fa-check-circle text-primary"/>
+                                                                Any Storage Container Allowed
+                                                            </span>
+                                                            <span ng-if="!division.allowAllStorageContainers" ng-repeat="divisionStorageContainers in division.divisionStorageContainers">
+                                                                {{divisionStorageContainers.storageContainer.stringLabel}}
+                                                                <span ng-if="$index != (division.divisionStorageContainers.length - 1)">,</span>
+                                                            </span>
+                                                        </td>
+                                                        <td ng-if="!division.allowAllStorageContainers && !division.divisionStorageContainers.length">Not Configured</td>
+                                                    </tr>
+                                                </table>
+                                                <table class="division-detail-table" ng-if="division.isPublicView || division.isPublicEdit || division.divisionViewers.length">
+                                                    <tr>
+                                                        <td>
+                                                            Able To View
+                                                        </td>
+                                                        <td>
+                                                            <span ng-if="division.isPublicView || division.isPublicEdit">
+                                                                <i class="fa fa-users text-primary"/>
+                                                                All Users
+                                                            </span>
+                                                            <i ng-if="!division.isPublicView" ng-repeat="divisionViewers in division.divisionViewers" class="user-icon-list">
+                                                                <cb-user-avatar user="divisionViewers.user" class="xs" ng-if="divisionViewers.user" uib-tooltip="{{divisionViewers.user.stringLabel}}"></cb-user-avatar>
+                                                            </i>
+                                                        </td>
+                                                        <td ng-if="!division.isPublicView && !division.isPublicEdit && !division.divisionViewers.length">Not Configured</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            Able To Edit
+                                                        </td>
+                                                        <td ng-if="division.isPublicEdit || division.divisionEditors.length">
+                                                            <span ng-if="division.isPublicEdit">
+                                                                <i class="fa fa-users text-primary"/>
+                                                                All Users
+                                                            </span>
+                                                            <i ng-repeat="divisionEditor in division.divisionEditors" class="user-icon-list">
+                                                                <cb-user-avatar user="divisionEditor.user" class="xs" ng-if="divisionEditor.user" uib-tooltip="{{divisionEditor.user.stringLabel}}"></cb-user-avatar>
+                                                            </i>
+                                                        </td>
+                                                        <td ng-if="!division.isPublicEdit && !division.divisionEditors.length">Not Configured</td>
+                                                    </tr>
+                                                </table>
+                                                <table class="division-detail-table">
+
+                                                    <tr ng-if="division.divisionGroupEditors.length">
+                                                        <td>
+                                                            Group Editors
+                                                        </td>
+                                                        <td>
+                                                            <span ng-repeat="divisionGroupEditors in division.divisionGroupEditors">
+                                                                {{divisionGroupEditors.group.stringLabel}}
+                                                                <span ng-if="$index != (division.divisionGroupEditors.length - 1)">,</span>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr ng-if="division.divisionGroupViewers.length">
+                                                        <td>
+                                                            Group Viewers
+                                                        </td>
+                                                        <td>
+                                                            <span ng-repeat="divisionGroupViewer in division.divisionGroupViewers">
+                                                                {{divisionGroupViewer.group.stringLabel}}
+                                                                <span ng-if="$index != (division.divisionGroupViewers.length - 1)">,</span>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="division-list-view">
-                            <div>
-                                <h3>
-                                    <a ui-sref="storage.division.detail({id:division.id})">{{division.title}}</a>
-                                    <i ng-if="division.canEdit" class="fa fa-pencil m-l-xs" tooltip-placement="right-top" uib-tooltip="You have permission to edit the contents of this division."/>
-                                    <i ng-if="!division.canEdit && !division.canView" class="text-danger fa fa-lock m-l-xs" tooltip-placement="right-top" uib-tooltip="You do not have permission to view the contents of this division."/>
-                                </h3>
-                                <table class="division-detail-table">
-                                    <tr ng-if="division.hasDimension">
-                                        <td>Dimension</td>
-                                        <td>{{division.width}} x {{division.height}}</td>
-                                    </tr>
-                                    <tr ng-if="division.hasDimension">
-                                        <td>Percent Full</td>
-                                        <td>{{division.percentFull | number:2}}%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Description</td>
-                                        <td>{{division.description}}</td>
-                                    </tr>
-                                </table>
-                            </div>
+
+                    </uib-tab>
+
+                    <uib-tab index="1">
+                        <uib-tab-heading>
+                            <span class="label label-default" ng-if="division.samples.length === 0">{{division.samples.length}}</span>
+                            <span class="label label-success" ng-if="division.samples.length > 0">{{division.samples.length}}</span>
+                            <span>Samples</span>
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                            <ul class="storage-division-list">
+                                <li class="list-item">
+                                    <div class="row-column-container add">
+                                        <div class="btn-group" uib-dropdown>
+                                            <button role="button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                                <i class="fa fa-plus list-icon" />
+                                            </button>
+                                            <ul uib-dropdown-menu class="dropdown-menu pull-left" role="menu" aria-labelledby="single-button">
+                                                <li role="menuitem">
+                                                    <a ng-click="sdm.openSampleStorageLinkModal()"><i class="fa fa-arrow-right m-r-xs"/>Move Sample</a>
+                                                </li>
+                                                <li class="divider"></li>
+                                                <li role="menuitem">
+                                                    <a ng-click="sdm.createSample()"><i class="fa fa-plus m-r-xs"/>Create Sample</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="add-sample">Add Sample to Division {{division.title}}</div>
+                                </li>
+                                <li ng-repeat="sample in division.samples" class="list-item">
+                                    <div class="row-column-container">
+                                        <i class="list-icon fa fa-flask fa-2x"/>
+                                    </div>
+                                    <cb-box-grid-info sample="sample" division="division" sdm="sdm"></cb-box-grid-info>
+                                </li>
+                            </ul>
                         </div>
-                    </li>
-                </div>
-            </ul>
+
+                    </uib-tab>
+
+                </uib-tabset>
+
+            </div>
 
         </div>
 
     </div>
 
 </div>
-<div ng-if="toggleSearch">
-    <div class="division-table-container" ng-if="division.canView">
+<div ng-show="sdm.toggleSearch">
 
-        <div id="hbreadcrumb">
-            <ol class="hbreadcrumb breadcrumb">
-                <li ng-repeat="breadcrumb in breadcrumbs">
-                    <a ui-sref="storage.division.detail({id:breadcrumb.id})">{{breadcrumb.title}}</a>
-                </li>
-                <li><span>{{division.title}}</span></li>
-            </ol>
-        </div>
-        <div id="admin-container">
-            <div class="normalheader">
 
-                <div class="hpanel">
-                    <div class="panel-body">
-
-                        <h2 class="font-light m-b-xs">
-                           Division
-                        </h2>
-
-                        <small>Manage Divisions</small>
-                    </div>
+    <div class="col-sm-12">
+        <div class="hpanel">
+            <div class="panel-heading">
+                <div class="panel-tools">
+                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                 </div>
             </div>
-
-            <div class="content">
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="hpanel">
-                            <div class="panel-heading">
-                                <div class="panel-tools">
-                                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                                </div>
-                               Division
-                            </div>
-                            <div class="panel-body no-padding">
-
-                                <grid grid="grid"></grid>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="panel-body no-padding no-border" style="width:79vw">
+                <grid grid="grid"></grid>
             </div>
         </div>
     </div>
+
 </div>

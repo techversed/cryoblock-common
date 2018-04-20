@@ -27,13 +27,6 @@ angular.module('storage.storageDivisionGridFactory', [])
                         sref: 'storage.division.detail({id:result.id})'
                     },
                     {
-                        header: 'Description',
-                        bindTo: 'description',
-                        name: 'description',
-                        isSortable: true,
-                        sref: 'storage.division.detail({id:result.id})'
-                    },
-                    {
                         header: 'Path',
                         bindTo: 'path',
                         name: 'path',
@@ -41,39 +34,11 @@ angular.module('storage.storageDivisionGridFactory', [])
                         sref: 'storage.division.detail({id:result.id})'
                     },
                     {
-                        header: 'IdPath',
-                        bindTo: 'idPath',
-                        name: 'idPath',
+                        header: 'Description',
+                        bindTo: 'description',
+                        name: 'description',
                         isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
-                    },
-                    {
-                        header: 'Level',
-                        bindTo: 'level',
-                        name: 'level',
-                        isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
-                    },
-                    {
-                        header: 'Parent',
-                        bindTo: 'parent',
-                        name: 'parent',
-                        isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
-                    },
-                    {
-                        header: 'ParentID',
-                        bindTo: 'parentId',
-                        name: 'parentId',
-                        isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
-                    },
-                       {
-                        header: 'Children',
-                        bindTo: 'children',
-                        name: 'children',
-                        isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        sref: 'storage.division.detail({id:result.id})'
                     },
                     {
                         header: 'Height',
@@ -98,15 +63,7 @@ angular.module('storage.storageDivisionGridFactory', [])
                         header: 'Available Slots',
                         bindTo: 'availableSlots',
                         name: 'availableSlots',
-                        isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
-                    },
-                    {
-                        header: 'Used Slots',
-                        bindTo: 'usedSlots',
-                        name: 'usedSlots',
-                        isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
+                        isSortable: true
                     },
                     {
                         header: 'Total Slots',
@@ -141,6 +98,12 @@ angular.module('storage.storageDivisionGridFactory', [])
                         type: 'string',
                         title: 'Path',
                         filterProperty: 'path',
+                        isVisible: false
+                    },
+                    {
+                        type: 'boolean',
+                        title: 'Has Dimension',
+                        filterProperty: 'hasDimension',
                         isVisible: false
                     },
                     {

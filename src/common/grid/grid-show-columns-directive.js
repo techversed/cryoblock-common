@@ -30,17 +30,16 @@ angular.module('grid.gridShowColumnsDirective', [])
                             return;
                         }
 
-                        column.isVisible
+                        !column.isVisible
                             ? $scope.visibleColumns.splice($scope.visibleColumns.indexOf(column), 1)
                             : $scope.hiddenColumns.splice($scope.hiddenColumns.indexOf(column), 1)
                         ;
 
-                        column.isVisible
+                        !column.isVisible
                             ? $scope.hiddenColumns.push(column)
                             : $scope.visibleColumns.push(column)
                         ;
 
-                        $scope.grid.toggleColumn(column);
                         $scope.searchText = '';
 
                     };

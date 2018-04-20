@@ -6,8 +6,6 @@ angular.module('storage.storageNavigationCtrl', [])
 
             $scope.sdm = storageDivisionManager;
 
-            $scope.toggleSearch = $scope.sdm.toggleSearch;
-
             $scope.divisions = divisions;
 
             $scope.treeOptions = {
@@ -144,12 +142,6 @@ angular.module('storage.storageNavigationCtrl', [])
                 });
 
             };
-
-            $scope.toggleView = function () {
-                console.log('storageNavigationCtrl')
-                $scope.sdm.toggleView()
-                console.log($scope.sdm.toggleSearch)
-            }
 
             $scope.isInventoryAdmin = sessionFactory.hasRole('ROLE_INVENTORY_ADMIN');
 

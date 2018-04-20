@@ -6,7 +6,7 @@ angular.module('storage.cbBoxGridInfoDirective', [])
 
             return {
                 restrict: 'E',
-                scope: {sample:'='},
+                scope: {sample: '=', division: '=', sdm: '='},
                 templateUrl: templatePath
             }
 

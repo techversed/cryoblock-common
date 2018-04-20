@@ -56,9 +56,15 @@ angular.module('storage.storageFactory', [])
 
                 getDivisionChildren2: function (parentId) {
 
-                    var url = API.url + '/storage/division?parentId[EQ]=' + parentId;
+                    var req = {
+                        method: 'GET',
+                        url: API.url + '/storage/division?parentId[EQ]=' + parentId,
+                        headers: {
+                            'X-CARBON-SERIALIZATION-GROUPS': 'sampleTypes,containers,viewers,groupViewers,editors,groupEditors'
+                        }
+                    };
 
-                    var promise = $http.get(url).then(function (response) {
+                    var promise = $http(req).then(function (response) {
                         return response.data;
                     });
 

@@ -1,8 +1,8 @@
 angular.module('storage.storageFormFactory', [])
 
-    .factory('storageFormFactory', ['$uibModal', 'storageFactory', '$state', '$stateParams', '$cbGridBuilder', '$cbResource',
+    .factory('storageFormFactory', ['$uibModal', 'storageFactory', '$state', '$stateParams', '$cbGridBuilder', '$cbResource', 'cbFormHelper',
 
-        function ($modal, storageFactory, $state, $stateParams, $cbGridBuilder, $cbResource) {
+        function ($modal, storageFactory, $state, $stateParams, $cbGridBuilder, $cbResource, cbFormHelper) {
 
             var storageFormFactory = {
 
@@ -145,6 +145,24 @@ angular.module('storage.storageFormFactory', [])
 
                         }
                     }).result;
+
+                },
+
+                openDeleteForm: function (division, returnState) {
+
+                    cbFormHelper.openForm("delete", "Division", division.id, '/storage/division', returnState);
+
+                },
+
+                openRestoreForm: function (division, returnState) {
+
+                    cbFormHelper.openForm("restore", "Division", division.id, '/storage/division', returnState);
+
+                },
+
+                openPurgeForm: function (division, returnState) {
+
+                    cbFormHelper.openForm("purge", "Division", division.id, '/storage/division', returnState);
 
                 }
 
