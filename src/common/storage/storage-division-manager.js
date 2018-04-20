@@ -34,6 +34,8 @@ angular.module('storage.storageDivisionManager', [])
 
                 navigationStates: ['pending', 'initializing', 'initialized'],
 
+                toggleSearch: false,
+
                 initSampleId: null,
 
                 initialize: function (division) {
@@ -46,6 +48,7 @@ angular.module('storage.storageDivisionManager', [])
                     this.selectedSampleCount = 0;
                     this.sampleMap = this.getSampleMap();
                     this.expandToDivision(this.division);
+                    this.toggleSearch = false;
 
                     if (this.initSampleId) {
                         this.toggleSampleId(this.initSampleId);
@@ -694,6 +697,12 @@ angular.module('storage.storageDivisionManager', [])
 
                     this.pageX = pageX;
                     this.pageY = pageY;
+                },
+
+                toggleView: function () {
+
+                    this.toggleSearch = this.toggleSearch ? false : true;
+
                 }
 
             };

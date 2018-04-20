@@ -47,8 +47,22 @@
 
     <div ui-tree="treeOptions" class="angular-ui-tree">
         <ol ui-tree-nodes="" ng-model="divisions" class="angular-ui-tree-nodes">
+            <li>
+                <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn" ng-click="sdm.toggleView()" ng-class="{'btn-default': sdm.toggleSearch, 'btn-info': !sdm.toggleSearch}" ng-disabled="!sdm.toggleSearch">
+                            <i class="fa fa-list" />
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn" ng-click="sdm.toggleView()" ng-class="{'btn-default': !sdm.toggleSearch, 'btn-info': sdm.toggleSearch}" ng-disabled="sdm.toggleSearch">
+                            <i class="fa fa-search" />
+                        </button>
+                    </div>
+                </div>
+            </li>
             <li ng-if="isInventoryAdmin">
-                <button class="btn btn-info btn-block m-t-sm m-b-sm" ng-click="createParentDivision()">
+                <button class="btn btn-default btn-block m-t-sm m-b-sm" ng-click="createParentDivision()">
                     <i class="fa fa-plus" />
                     Add Division
                 </button>
