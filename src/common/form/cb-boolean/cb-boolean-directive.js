@@ -13,7 +13,6 @@ angular.module('form.cbBooleanDirective', [])
                     $scope.toggle = function (bool) {
                         if (!$scope.disabled) {
                             $scope.modelCtrl.$setViewValue(bool);
-                            // $scope.$emit('form:changed');
                             $scope.onToggle();
                         }
                     }
@@ -29,11 +28,6 @@ angular.module('form.cbBooleanDirective', [])
                         $scope.formCtrl = ctrls[0];
                         $scope.formCtrl.$addControl($scope.modelCtrl);
                     }
-                    // $scope.$on('form:changed', function () {
-                        // $scope.onToggle();
-                        // console.log("toggled");
-                    // });
-
                 }
             }
 
