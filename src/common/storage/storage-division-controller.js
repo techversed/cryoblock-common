@@ -15,10 +15,6 @@ angular.module('storage.storageDivisionCtrl', [])
             $scope.toggleSearch = $scope.sdm.toggleSearch;
             $scope.grid =  divisionGrid;
 
-            $scope.$watch('sdm', function () {
-                $scope.toggleSearch = $scope.sdm.toggleSearch;
-            });
-
             console.log('storageDivisionCtrl')
             console.log($scope.toggleSearch)
 
