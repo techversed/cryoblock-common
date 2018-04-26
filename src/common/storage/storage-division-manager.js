@@ -399,6 +399,7 @@ angular.module('storage.storageDivisionManager', [])
                         division: this.division,
                         divisionRow: selectedRowColumn[0],
                         divisionColumn: selectedRowColumn[1],
+                        status: 'Available',
                         skipLocationSelect: true
                     });
 
