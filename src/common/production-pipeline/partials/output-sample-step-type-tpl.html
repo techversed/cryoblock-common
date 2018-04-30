@@ -1,10 +1,4 @@
-<div class="container p-md" ng-show="config.isUploading">
-    <p class="text-center">
-        <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
-    </p>
-</div>
-
-<div class="container p-md" ng-hide="isUploading">
+<div class="container p-md">
 
     <h2 class="text-center font-bold m-b-lg">Specify Output Samples</h2>
 
@@ -40,15 +34,17 @@
 
     <div class="row" ng-if="config.outputTemplateLoaded">
         <div ng-if="!config.outputData.hasErrors">
-            <p class="text-center"><i class="fa fa-check fa-3x text-success"/></p>
             <div class="alert alert-success" role="alert">
-                Your CSV is valid! Click next to select sample storage locations or click back if you need to reupload your CSV.
+                <i class="fa fa-check fa-2x text-success"/>
+                <strong class="m-l-sm" style="font-size:1.1em;">Your CSV is valid! Click next to select sample storage locations or click back if you need to reupload your CSV.</strong>
             </div>
         </div>
 
         <div ng-if="config.outputData.hasErrors">
-            <p class="text-center"><i class="fa fa-exclamation-triangle fa-3x text-danger"/></p>
-            <p class="text-center fa-1-2x">Your CSV is invalid. Please review the errors below, update your CSV and reupload.</p>
+            <div class="alert alert-danger" role="alert">
+                <i class="fa fa-exclamation-triangle fa-2x text-danger"/>
+                <strong class="m-l-sm" style="font-size:1.1em;">Your CSV is invalid. Please review the errors below, update your CSV and reupload.</strong>
+            </div>
         </div>
     </div>
 
@@ -71,6 +67,12 @@
                 Next
             </button>
         </div>
+    </div>
+
+    <div class="container p-md" ng-show="config.isUploading">
+        <p class="text-center">
+            <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+        </p>
     </div>
 
 </div>
