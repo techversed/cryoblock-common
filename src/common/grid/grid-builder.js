@@ -42,33 +42,43 @@ angular.module('grid.gridBuilder', [])
 
                 },
 
-                buildMTMGrids: function (url, factoryName, initObject, isEditable) {
+                //Available overrides
+                    //otmPostpend -- allows you to specify text that will be added to the end of the url that is used to build the otm grid
+                    //selectPostpend -- allows you to specify text taht will be added to the end of the url that is used to build the select grid.
+                buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}) {
+
+                    var otmPostpend = overrides.otmPostpend ? overrides.selectPostpend : "";
+                    var selectPostpend = overrides.selectPostpend ? overrides.selectPostpend : "";
 
                     promises = []
-                    promises.push(this.buildOTM(url, factoryName, initObject, isEditable));
-                    promises.push(this.buildSelect(url, factoryName, initObject));
+                    promises.push(this.buildOTM(url, factoryName, initObject, isEditable, {postpend : otmPostpend}));
+                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {postpend : selectPostpend}));
 
                     return $q.all(promises);
 
                 },
 
-                buildSelect: function (url, factoryName, initObject, single) {
+                //Possible overrides
+                    //postpend -- a string that will be added to the end of the url that is passed in.
+                buildSelect: function (url, factoryName, initObject, single, overrides = {}) {
+
+                    var postpend = overrides.postpend ? overrides.postpend : "";
 
                     var factory = $injector.get(factoryName);
 
                     var grid = factory.create();
 
                     if (initObject && initObject.id) {
-                        url = url + initObject.id
+                        url = url + initObject.id + postpend;
                     } else {
-                        url = url + 0
+                        url = url + 0 + postpend;
                     }
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
-                    grid.allowSelectMany()
+                    grid.allowSelectMany();
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+                    var defaultParams = {cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
 
                     if (single === undefined) {
                         grid.setStaticFilters({'cSelectable' : true});
@@ -135,7 +145,11 @@ angular.module('grid.gridBuilder', [])
 
                 },
 
-                buildOTM: function (url, factoryName, initObject, isEditable) {
+                //Possible overrides
+                    //postpend -- specify a sting that is added to the end of the url that we qery each time.
+                buildOTM: function (url, factoryName, initObject, isEditable, overrides = {}) {
+
+                    var postpend = overrides.postpend ? overrides.postpend : "";
 
                     var factory = $injector.get(factoryName);
 
@@ -144,7 +158,7 @@ angular.module('grid.gridBuilder', [])
                     isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
 
                     if (initObject && initObject.id) {
-                        url = url + initObject.id
+                        url = url + initObject.id + postpend;
                     }
 
                     grid
