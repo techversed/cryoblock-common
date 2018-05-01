@@ -70,6 +70,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 this.postCompleteCallback = null;
 
+                this.depletedAllInputSamples = false;
+
             };
 
             ProductionPipelineFactory.prototype = {
@@ -460,6 +462,13 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     this.inputFileInput.click();
                 },
 
+                /* This is added */
+                inputsDepleted: function () {
+                    this.depletedAllInputSamples = true;
+                    StepsService.steps(this.name).next();
+                },
+                /* End of what was added */
+
                 uploadOutputTemplate: function () {
                     this.outputFileInput.click();
                 },
@@ -666,7 +675,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                             catalog: that.catalogData.catalogName,
                             outputTemplateType: that.outputTemplateType,
                             outputSampleDefaults: that.outputSampleDefaults,
-                            resultSampleIds: that.resultSampleIds
+                            resultSampleIds: that.resultSampleIds,
+                            depletedAllInputSamples: that.depletedAllInputSamples
                         };
 
                         $cbResource.create(that.completeUrl, data).then(function (response) {
