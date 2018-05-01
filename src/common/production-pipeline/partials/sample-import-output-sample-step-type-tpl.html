@@ -1,6 +1,6 @@
 <div class="container p-md">
 
-    <h2 class="text-center font-bold m-b-lg">Specify Output Samples</h2>
+    <h2 class="text-center font-bold m-b-lg">Upload Sample Import Template</h2>
 
     <div class="row" ng-if="!config.outputTemplateLoaded">
         <div class="col-xs-4">
@@ -17,7 +17,7 @@
                 ng-model="config.outputTemplateType"
                 label="Download Template"
                 items="['EXCEL']"
-                cb-on-select="config.downloadOutputTemplate"
+                cb-on-select="config.downloadSampleImportOutputTemplate"
                 cb-on-select-context="config"
                 icon-class="fa fa-download"
                 required
