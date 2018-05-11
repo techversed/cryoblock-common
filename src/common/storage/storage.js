@@ -19,6 +19,7 @@ angular.module('storage', [
     'storage.storageTitleDirective',
     'storage.sampleTypeIconDirective',
     'storage.catalog',
-    'storage.cbBoxGridInfoDirective'
+    'storage.cbBoxGridInfoDirective',
+    'storage.storageBoxFlagDivisionFormCtrl'
 ]);
 

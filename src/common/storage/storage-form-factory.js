@@ -24,7 +24,6 @@ angular.module('storage.storageFormFactory', [])
                                 }
 
                                 return $cbResource.getOne('/storage/division', {'id[EQ]': division.id});
-
                             },
 
                             sampleTypeGrids: function () {
@@ -81,6 +80,38 @@ angular.module('storage.storageFormFactory', [])
 
                         }
                     });
+                },
+
+                flagDivisionFormModal: function (division) {
+
+                    $modal.open({
+                        templateUrl: 'common/storage/partials/storage-box-flag-form-tpl.html',
+                        controller: 'storageBoxFlagDivisionFormCtrl',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'lg',
+                        resolve: {
+
+                            division: function () {
+
+                                return division;
+
+                            },
+
+                            boxFlags: function () {
+                                return $cbResource.get('/storage/box-flag');
+                            },
+
+                            callback: function () {
+
+                                return function () {
+
+                                    $state.go($state.current, $stateParams, {reload:true});
+                                };
+                            }
+                        }
+                    });
 
                 },
 
@@ -104,14 +135,10 @@ angular.module('storage.storageFormFactory', [])
                                 return function () {
 
                                     $state.go($state.current, $stateParams, {reload:true});
-
                                 };
-
                             }
-
                         }
                     });
-
                 },
 
                 openStorageSampleMove: function (sampleMoveMap) {
@@ -134,20 +161,15 @@ angular.module('storage.storageFormFactory', [])
                                 return function () {
 
                                     $state.go($state.current, $stateParams, {reload:true});
-
                                 };
 
                             }
 
                         }
                     }).result;
-
                 }
-
             };
-
             return storageFormFactory;
-
         }
     ])
 ;

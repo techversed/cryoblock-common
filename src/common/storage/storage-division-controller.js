@@ -4,10 +4,12 @@ angular.module('storage.storageDivisionCtrl', [])
         function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory, storageDivisionManager) {
 
             $scope.children = childrenResponse.data;
+
             $scope.division = division;
 
             $scope.sdm = storageDivisionManager;
             $scope.sdm.initialize($scope.division);
+
             $scope.editSelectedSample = $scope.sdm.editSelectedSample;
 
             $scope.zoom = {
@@ -78,6 +80,8 @@ angular.module('storage.storageDivisionCtrl', [])
             }
 
             $scope.editDivision = storageFormFactory.openDivisionFormModal;
+            $scope.flagDivision = storageFormFactory.flagDivisionFormModal;
+
 
             $scope.addDivision = function () {
 
