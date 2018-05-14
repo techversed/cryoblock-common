@@ -462,6 +462,12 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     this.inputFileInput.click();
                 },
 
+                setTotalOutputSamples: function(value){
+                    this.totalOutputSamples = value;
+
+                    return this;
+                },
+
                 /* This is added */
                 inputsDepleted: function () {
                     this.depletedAllInputSamples = true;
