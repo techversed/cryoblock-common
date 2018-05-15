@@ -45,6 +45,7 @@ angular.module('form.oneToManyDirective', [])
 
                     $scope.toggle = function () {
 
+                        $scope.$emit('form:changed');
                         if ($scope.grid.initResultCount === 0 || $scope.disabled) {
                             return;
                         }
@@ -54,6 +55,7 @@ angular.module('form.oneToManyDirective', [])
                     };
 
                     $scope.toggleAdd = function () {
+                        $scope.$emit('form:changed');
                         if ($scope.disabled) {
                             return;
                         }
@@ -65,8 +67,31 @@ angular.module('form.oneToManyDirective', [])
 
                 link: function ($scope, element, attrs, formCtrl) {
 
+
+                    $scope.attrs = attrs;
+
+                    // formCtrl['samples'].controls[]
+                    formCtrl['samples'].$validators.required = function(modelValue, viewValue){
+                        console.log($scope.grid.results.length + $scope.searchGrid.addingItems.length - $scope.grid.removingItems.length == 0);
+                        if (attrs.required && ($scope.grid.results.length + $scope.searchGrid.addingItems.length - $scope.grid.removingItems.length == 0)) {
+                            return false;
+                        }
+                        return true;
+                        // formCtrl['samples'].$setTouched();
+                        // return false;
+
+                    }
+
+
                     $scope.$on('form:changed', function () {
+                        console.log("scope", $scope);
+                        console.log("element", element);
+                        console.log("attrs", attrs);
+                        console.log("formCtrl", formCtrl);
                         formCtrl.$pristine = false;
+                        formCtrl['samples'].$setTouched();
+                        // formCtrol['samples'].
+
                     });
 
                     $scope.$on('form:submit', function () {
@@ -85,6 +110,7 @@ angular.module('form.oneToManyDirective', [])
                         $scope.parentObject[$scope.bindTo].parentId = $scope.parentObject.id;
                         $scope.parentObject[$scope.bindTo].removing = $scope.grid.removingItemIds;
                         $scope.parentObject[$scope.bindTo].adding = $scope.searchGrid.addingItemIds;
+
 
                     });
 
