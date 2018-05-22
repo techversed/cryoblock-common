@@ -6,6 +6,7 @@ angular.module('notification.objectNotificationFormFactory', [])
 
             var objectNotificationFormFactory = {
 
+                //This still needs to be changed to make it work with the entity detail table instead of storing things in the individual records...
                 openAdministratorForm: function (entity, objectDescription, adminRole, url) {
 
                     $uibModal.open({
@@ -23,12 +24,14 @@ angular.module('notification.objectNotificationFormFactory', [])
 
                             },
 
+                            //This is no longer needed.
                             objectDescription: function () {
 
                                 return objectDescription;
 
                             },
 
+                            //This is no longer needed...
                             url: function () {
 
                                 return url;
@@ -41,10 +44,14 @@ angular.module('notification.objectNotificationFormFactory', [])
 
                             },
 
+                            entityDetail: function() {
+                                return $cbResource.getOne('/cryoblock/entity-detail',{'objectClassName[EQ]': entity});
+                            },
+
                             groupObjectNotification: function () {
-
-                                return $cbResource.getOne('/cryoblock/group-object-notification', {'entity[EQ]': entity});
-
+                                return $cbResource.getOne('/cryoblock/entity-detail',{'objectClassName[EQ]': entity}).then( function (response) {
+                                    return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.id});
+                                })
                             },
 
                             onCreateGroupGrid: function () {
@@ -93,21 +100,25 @@ angular.module('notification.objectNotificationFormFactory', [])
 
                             },
 
+                            //This is no longer needed...
                             url: function () {
 
                                 return url;
 
                             },
 
+                            //This is no longer needed....
+                            entityDetail: function () {
+                                var data = {
+                                    'objectClassName[EQ]': entity
+                                };
+                                return $cbResource.getOne('/cryoblock/entity-detail', data);
+                            },
+
+                            // it is really sloppy to repeat this entity deatil query... we will fix that later on... just trying to get it working...
                             userObjectNotification: function () {
 
                                 var loggedInUser = sessionFactory.getLoggedInUser();
-
-                                // return $cbResource.getOne('/cryoblock/user-object-notification', {
-                                //     'entityDetailId[EQ]': 1,
-                                //     'userId[EQ]': loggedInUser.id,
-                                //     'entityId[NULL]': true
-                                // });
 
                                 var data = {
                                     'objectClassName[EQ]': entity
@@ -120,12 +131,6 @@ angular.module('notification.objectNotificationFormFactory', [])
                                         'entityId[NULL]': true
                                     });
                                 });
-                                // });
-                                // var response = {
-                                //     'id': 1
-                                // };
-
-
 
                             }
 
