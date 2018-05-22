@@ -49,6 +49,7 @@ angular.module('notification.objectNotificationFormFactory', [])
                             },
 
                             groupObjectNotification: function () {
+                                //Still need to handle the case where there is no entry in the entity detail table...
                                 return $cbResource.getOne('/cryoblock/entity-detail',{'objectClassName[EQ]': entity}).then( function (response) {
                                     return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.id});
                                 })
@@ -125,11 +126,23 @@ angular.module('notification.objectNotificationFormFactory', [])
                                 };
 
                                 return $cbResource.getOne('/cryoblock/entity-detail', data).then( function (response) {
-                                    return $cbResource.getOne('/cryoblock/user-object-notification', {
-                                        'entityDetailId[EQ]': response.id,
-                                        'userId[EQ]': loggedInUser.id,
-                                        'entityId[NULL]': true
-                                    });
+
+                                    if (response == undefined){
+                                        response = $cbResource.create('/cryoblock/entity-detail', {'objectClassName': entity, 'objectUrl': url, 'objectDescription': objectDescription});
+
+                                        return $cbResource.getOne('/cryoblock/user-object-notification', {
+                                            'entityDetailId[EQ]': response.id,
+                                            'userId[EQ]': loggedInUser.id,
+                                            'entityId[NULL]': true
+                                        }); // Read comment below
+                                    }
+                                    else {
+                                        return $cbResource.getOne('/cryoblock/user-object-notification', {
+                                            'entityDetailId[EQ]': response.id,
+                                            'userId[EQ]': loggedInUser.id,
+                                            'entityId[NULL]': true
+                                        }); //This looks like a sloppy way of doing this but I ran into an issue where the second call to cbResource was still a promise when it reached this point. Having an else a second copy of this same call may be the cleanest way to fix this even though it does not look too great...
+                                    }
                                 });
 
                             }

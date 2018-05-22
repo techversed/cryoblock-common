@@ -25,7 +25,9 @@ angular.module('notification.cbObjectWatchDirective', [])
                         'objectClassName[EQ]': $scope.entity
                     };
 
+                    // still need to handle the case where there is not an entity detail entry in the table the first time that an object is watched...
                     $cbResource.getOne('/cryoblock/entity-detail', data).then(function(response){
+                        console.log(response);
                         $scope.entityDetail = response;
 
                         var data = {

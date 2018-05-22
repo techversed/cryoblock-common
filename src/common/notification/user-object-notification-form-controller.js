@@ -6,7 +6,6 @@ angular.module('notification.userObjectNotificationFormCtrl', [])
                 //No longer need description or url above... we can remove that in the cleanup phase...
 
             var loggedInUser = sessionFactory.getLoggedInUser();
-            console.log(userObjectNotification);
             $scope.userObjectNotification = userObjectNotification ? userObjectNotification : {entityDetail: entityDetail, user: loggedInUser, url: url, objectDescription: objectDescription}; //This will need to be changed a little bit...
             // $scope.objectDescription = objectDescription;
 
