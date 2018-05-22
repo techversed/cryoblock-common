@@ -103,11 +103,29 @@ angular.module('notification.objectNotificationFormFactory', [])
 
                                 var loggedInUser = sessionFactory.getLoggedInUser();
 
-                                return $cbResource.getOne('/cryoblock/user-object-notification', {
-                                    'entity[EQ]': entity,
-                                    'userId[EQ]': loggedInUser.id,
-                                    'entityId[NULL]': true
+                                // return $cbResource.getOne('/cryoblock/user-object-notification', {
+                                //     'entityDetailId[EQ]': 1,
+                                //     'userId[EQ]': loggedInUser.id,
+                                //     'entityId[NULL]': true
+                                // });
+
+                                var data = {
+                                    'objectClassName[EQ]': entity
+                                };
+
+                                return $cbResource.getOne('/cryoblock/entity-detail', data).then( function (response) {
+                                    return $cbResource.getOne('/cryoblock/user-object-notification', {
+                                        'entityDetailId[EQ]': response.id,
+                                        'userId[EQ]': loggedInUser.id,
+                                        'entityId[NULL]': true
+                                    });
                                 });
+                                // });
+                                // var response = {
+                                //     'id': 1
+                                // };
+
+
 
                             }
 
