@@ -4,6 +4,12 @@ angular.module('notification.userObjectNotificationFormCtrl', [])
 
         function ($scope, userObjectNotification, $cbForm, entity, sessionFactory, objectDescription, url) {
 
+            console.log("changes to user-object-notification-form-controller");
+            $cbResource.getOne('/cryoblock/entity-detail', data).then(function (response){
+                        console.log(response);
+            });
+            console.log("should have printed the response of the entity-detail lookup");
+
             var loggedInUser = sessionFactory.getLoggedInUser();
             $scope.userObjectNotification = userObjectNotification ? userObjectNotification : {entity: entity, user: loggedInUser, url: url, objectDescription: objectDescription};
             $scope.objectDescription = objectDescription;

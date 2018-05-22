@@ -18,18 +18,29 @@ angular.module('notification.cbObjectWatchDirective', [])
                 templateUrl: 'common/notification/partials/cb-object-watch-tpl.html',
 
                 controller: function ($scope) {
-
+                    console.log("made changes to the cb-object-watch-directive.js");
                     $scope.loggedInUser = sessionFactory.getLoggedInUser();
                     $scope.userObjectNotification = null;
 
+                    console.log("doing the search now");
                     var data = {
-                        'entity[EQ]': $scope.entity,
-                        'entityId[EQ]': $scope.entityId,
-                        'userId[EQ]': $scope.loggedInUser.id
+                        'objectClassName[EQ]': $scope.entity
                     };
 
-                    $cbResource.getOne('/cryoblock/user-object-notification', data).then(function (response) {
-                        $scope.userObjectNotification = response;
+                    $cbResource.getOne('/cryoblock/entity-detail', data).then(function(response){
+                        $scope.entityDetail = response;
+                        //console.log("entityDetailId", $scope.entityDetailId);
+
+                        var data = {
+                            'entityDetailId[EQ]': $scope.entityDetail.id,
+                            'entityId[EQ]': $scope.entityId,
+                            'userId[EQ]': $scope.loggedInUser.id
+                        };
+
+                        $cbResource.getOne('/cryoblock/user-object-notification', data).then(function (response) {
+                            $scope.userObjectNotification = response;
+                        });
+
                     });
 
                 },
@@ -48,21 +59,21 @@ angular.module('notification.cbObjectWatchDirective', [])
                             closeOnConfirm: true
                         }, function() {
 
+                            // $scope.entityDetailId should be set when this first runs....
                             var data = {
-                                entity: $scope.entity,
+                                entityDetail: $scope.entityDetail,
                                 entityId: $scope.entityId,
-                                objectDescription: $scope.objectDescription,
-                                url: $scope.url,
                                 user: $scope.loggedInUser,
                                 onCreate: true,
                                 onUpdate: true,
                                 onDelete: true
                             };
-
                             $cbResource.create('/cryoblock/user-object-notification', data).then(function (response) {
+                                console.log("we are in the then of the create request");
                                 $state.go($state.current, $stateParams, {reload:true});
                                 toastr.success('You are now watching ' + $scope.objectDescription + ' ' + $scope.entityId);
                             });
+                            console.log("commented out much of the regular functionality here in cb-object-watch-directive");
 
                         });
 
