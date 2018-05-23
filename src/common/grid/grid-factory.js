@@ -59,6 +59,8 @@ angular.module('grid.gridFactory', [])
 
                 this.isHoverable = true;
 
+                this.allowBulkActions = false; // We are adding this for the hybridoma app mockup.
+
                 this.showHyperLinks = true;
 
                 this.bindToState = false;

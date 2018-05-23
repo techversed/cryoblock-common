@@ -174,6 +174,49 @@ angular.module('grid.gridBuilder', [])
 
                     });
 
+                },
+
+                //Experimental for bulk action work. copied form build OTM then modified.
+                buildBulkAction: function (url, factoryName, initObject, isEditable) {
+
+                    var factory = $injector.get(factoryName);
+                    //set action tempalate to row actions. -- add checkboxes and another gear to apply the row actions to all selected.
+
+                    var grid = factory.create();
+
+                    isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
+
+                    if (initObject && initObject.id) {
+                        url = url + initObject.id
+                    }
+
+                    grid
+                        .setResourceUrl(url)
+                        .setPerPage(3)
+                        .disableToggleColumns()
+                        .setNoResultString('No linked objects found')
+                        .disableHover()
+                    ;
+
+                    grid.perPageOptions = isEditable ? [3, 10, 25] : [25, 50, 100];
+                    cPerPage = isEditable ? 3 : 25;
+
+                    if (!initObject || !initObject.id) {
+                        return grid;
+                    }
+
+                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:cPerPage};
+
+                    return $cbResource.get(url, defaultParams).then(function (response) {
+
+                        return grid
+                            .setPaginationFromResponse(response)
+                            .setResults(response.data)
+                            .setInitResultCount(response.unpaginatedTotal)
+                        ;
+
+                    });
+
                 }
 
             };
