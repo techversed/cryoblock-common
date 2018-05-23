@@ -53,7 +53,7 @@ angular.module('notification.objectNotificationFormFactory', [])
                                 return $cbResource.getOne('/cryoblock/entity-detail',{'objectClassName[EQ]': entity}).then( function (response) {
                                     if (response == undefined){
                                         return $cbResource.create('/cryoblock/entity-detail', {'objectClassName': entity, 'objectUrl': url, 'objectDescription': objectDescription}).then( function (response) {
-                                            return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.id});
+                                            return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.data.id});
                                         });
                                     }
                                     return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.id});
@@ -131,12 +131,13 @@ angular.module('notification.objectNotificationFormFactory', [])
                                     'objectClassName[EQ]': entity
                                 };
 
-                                return $cbResource.getOne('/cryoblock/entity-detail', data).then( function (response) {
+                                return $cbResource.getOne('/cryoblock/entity-detail', data, true).then( function (response) {
 
                                     if (response == undefined){
                                         return $cbResource.create('/cryoblock/entity-detail', {'objectClassName': entity, 'objectUrl': url, 'objectDescription': objectDescription}).then( function (response) {
+                                            console.log(response);
                                             return $cbResource.getOne('/cryoblock/user-object-notification', {
-                                                'entityDetailId[EQ]': response.id,
+                                                'entityDetailId[EQ]': response.data.id,
                                                 'userId[EQ]': loggedInUser.id,
                                                 'entityId[NULL]': true
                                             });

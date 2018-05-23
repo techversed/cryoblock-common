@@ -32,7 +32,7 @@ angular.module('notification.cbObjectWatchDirective', [])
                             $cbResource.create('/cryoblock/entity-detail', {'objectClassName': $scope.entity, 'objectUrl': $scope.url, 'objectDescription': $scope.objectDescription}).then( function (response) {
 
                                 return $cbResource.getOne('/cryoblock/user-object-notification', {
-                                        'entityDetailId[EQ]': response.id,
+                                        'entityDetailId[EQ]': response.data.id,
                                         'userId[EQ]': $scope.loggedInUser.id,
                                         'entityId[EQ]': $scope.entityId
                                 });
