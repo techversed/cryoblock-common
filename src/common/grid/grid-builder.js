@@ -177,7 +177,7 @@ angular.module('grid.gridBuilder', [])
                 },
 
                 //Experimental for bulk action work. copied form build OTM then modified.
-                buildBulkAction: function (url, factoryName, initObject, isEditable) {
+                buildBulkAction: function (url, factoryName, initObject, isEditable, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
                     //set action tempalate to row actions. -- add checkboxes and another gear to apply the row actions to all selected.
@@ -186,28 +186,39 @@ angular.module('grid.gridBuilder', [])
 
                     isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
 
+                    var postpend = overrides['url'] ? overrides['url'] : '';
+                    // var postpend = '?plateType[EQ]=transformation';
+
                     if (initObject && initObject.id) {
-                        url = url + initObject.id
+                        url = url + initObject.id + postpend;
                     }
 
                     grid
                         .setResourceUrl(url)
                         .setPerPage(3)
-                        .disableToggleColumns()
+                        // .disableToggleColumns() //They may want this... We would really like to avoid having plate detail pages because it makes the system more complicated for the user... if we could display all needed information in the grid that would be really great.
+                        .setActionTemplate(factory.actionTemplate) // Should add the row actions
                         .setNoResultString('No linked objects found')
                         .disableHover()
                     ;
 
                     grid.perPageOptions = isEditable ? [3, 10, 25] : [25, 50, 100];
-                    cPerPage = isEditable ? 3 : 25;
+                    cPerPage = isEditable ? 3 : 100;
 
                     if (!initObject || !initObject.id) {
                         return grid;
                     }
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:cPerPage};
+                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'ASC', cPerPage:cPerPage};
 
+                    //it would make sense to add a boolean column to ech of the elements before returning them.
                     return $cbResource.get(url, defaultParams).then(function (response) {
+
+                        //We may just strike this all together and just figure it out another way.
+                        // for (var counter =0; counter < response.data.length; counter ++) {
+                        //      response.data[counter].applyAction = false;
+                        //  }
+                        // console.log(response.data);
 
                         return grid
                             .setPaginationFromResponse(response)
