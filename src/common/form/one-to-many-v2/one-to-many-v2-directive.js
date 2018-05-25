@@ -67,41 +67,22 @@ angular.module('form.oneToManyDirective', [])
 
                 link: function ($scope, element, attrs, formCtrl) {
 
-
                     $scope.attrs = attrs;
 
-                    // formCtrl['samples'].controls[]
-                    formCtrl['samples'].$validators.required = function(modelValue, viewValue){
-                        console.log($scope.grid.results.length + $scope.searchGrid.addingItems.length - $scope.grid.removingItems.length == 0);
-                        if (attrs.required && ($scope.grid.results.length + $scope.searchGrid.addingItems.length - $scope.grid.removingItems.length == 0)) {
-                            return false;
+                    $scope.$on('form:changed', function(){
+                        if (!$scope.attrs.required || $scope.disabled) {
+                            formCtrl[$scope.attrs.name].$setValidity("req", true);
                         }
-                        return true;
-                        // formCtrl['samples'].$setTouched();
-                        // return false;
-
-                    }
-
-
-                    $scope.$on('form:changed', function () {
-                        console.log("scope", $scope);
-                        console.log("element", element);
-                        console.log("attrs", attrs);
-                        console.log("formCtrl", formCtrl);
-                        formCtrl.$pristine = false;
-                        formCtrl['samples'].$setTouched();
-                        // formCtrol['samples'].
-
+                        else if (($scope.grid.results.length + $scope.searchGrid.addingItemIds.length - $scope.grid.removingItemIds.length) == 0) {
+                            formCtrl[$scope.attrs.name].$setValidity("req", false); //using req instead of required because the regular validator still seems to be running and causing issues if they both can set the property ['required']
+                        }
+                        else {
+                            formCtrl[$scope.attrs.name].$setValidity("req", true);
+                        }
                     });
 
                     $scope.$on('form:submit', function () {
-
-                        // if nothing was changed
-                        if ($scope.grid.removingItemIds.length === 0 && $scope.searchGrid.addingItemIds.length === 0) {
-
-                            return;
-
-                        }
+                        $scope.$emit('form:changed');
 
                         if ($scope.parentObject[$scope.bindTo] === undefined) {
                             $scope.parentObject[$scope.bindTo] = {};
