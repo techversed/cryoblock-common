@@ -19,7 +19,8 @@ angular.module('form.oneToManyDirective', [])
                     bindTo: '@',
                     resourceUrl: '@',
                     placeholder: '@',
-                    disabled: '='
+                    disabled: '=',
+                    numRequired: '='
                 },
 
                 controller: function ($scope) {
@@ -45,7 +46,7 @@ angular.module('form.oneToManyDirective', [])
 
                     $scope.toggle = function () {
 
-                        $scope.$emit('form:changed');
+                        $scope.formCtrl.$pristine = false;
                         if ($scope.grid.initResultCount === 0 || $scope.disabled) {
                             return;
                         }
@@ -55,7 +56,7 @@ angular.module('form.oneToManyDirective', [])
                     };
 
                     $scope.toggleAdd = function () {
-                        $scope.$emit('form:changed');
+                        $scope.formCtrl.$pristine = false;
                         if ($scope.disabled) {
                             return;
                         }
@@ -67,21 +68,10 @@ angular.module('form.oneToManyDirective', [])
 
                 link: function ($scope, element, attrs, formCtrl) {
 
-                    $scope.attrs = attrs;
-
-                    $scope.$on('form:changed', function(){
-                        if (!$scope.attrs.required || $scope.disabled) {
-                            formCtrl[$scope.attrs.name].$setValidity("req", true);
-                        }
-                        else if (($scope.grid.results.length + $scope.searchGrid.addingItemIds.length - $scope.grid.removingItemIds.length) == 0) {
-                            formCtrl[$scope.attrs.name].$setValidity("req", false); //using req instead of required because the regular validator still seems to be running and causing issues if they both can set the property ['required']
-                        }
-                        else {
-                            formCtrl[$scope.attrs.name].$setValidity("req", true);
-                        }
-                    });
+                    $scope.formCtrl = formCtrl
 
                     $scope.$on('form:submit', function () {
+
                         $scope.$emit('form:changed');
 
                         if ($scope.parentObject[$scope.bindTo] === undefined) {
@@ -92,6 +82,13 @@ angular.module('form.oneToManyDirective', [])
                         $scope.parentObject[$scope.bindTo].removing = $scope.grid.removingItemIds;
                         $scope.parentObject[$scope.bindTo].adding = $scope.searchGrid.addingItemIds;
 
+                        var totalAfterSave = ($scope.grid.pagination.unpaginatedTotal || 0) - $scope.parentObject[$scope.bindTo].removing.length + $scope.parentObject[$scope.bindTo].adding.length;
+                        if ($scope.numRequired != undefined && totalAfterSave < $scope.numRequired) {
+                            $scope.formCtrl.$setValidity($scope.bindTo, false);
+                            $scope.requiredError = true;
+                        } else {
+                            $scope.formCtrl.$setValidity($scope.bindTo, true);
+                        }
 
                     });
 
