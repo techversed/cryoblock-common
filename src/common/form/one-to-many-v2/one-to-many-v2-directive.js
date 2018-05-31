@@ -45,6 +45,7 @@ angular.module('form.oneToManyDirective', [])
                     $scope.showSelectGrid = false;
 
                     $scope.toggle = function () {
+                        $scope.checkValidity();
 
                         $scope.formCtrl.$pristine = false;
                         if ($scope.grid.initResultCount === 0 || $scope.disabled) {
@@ -55,7 +56,20 @@ angular.module('form.oneToManyDirective', [])
                         $scope.showGrid = $scope.showGrid ? false : true;
                     };
 
+                    $scope.checkValidity = function(){
+                        var totalAfterSave = ($scope.grid.pagination.unpaginatedTotal || 0) - $scope.parentObject[$scope.bindTo].removing.length + $scope.parentObject[$scope.bindTo].adding.length;
+
+                        if ($scope.numRequired != undefined && totalAfterSave < $scope.numRequired) {
+                            $scope.formCtrl[$scope.bindTo].$setValidity("numrequired", false);
+                            $scope.requiredError = true;
+                        } else {
+                            $scope.formCtrl[$scope.bindTo].$setValidity("numrequired", true);
+                        }
+                    };
+
                     $scope.toggleAdd = function () {
+                        $scope.checkValidity();
+
                         $scope.formCtrl.$pristine = false;
                         if ($scope.disabled) {
                             return;
@@ -66,13 +80,13 @@ angular.module('form.oneToManyDirective', [])
 
                 },
 
+
+
                 link: function ($scope, element, attrs, formCtrl) {
 
                     $scope.formCtrl = formCtrl
 
                     $scope.$on('form:submit', function () {
-
-                        $scope.$emit('form:changed');
 
                         if ($scope.parentObject[$scope.bindTo] === undefined) {
                             $scope.parentObject[$scope.bindTo] = {};
@@ -82,13 +96,7 @@ angular.module('form.oneToManyDirective', [])
                         $scope.parentObject[$scope.bindTo].removing = $scope.grid.removingItemIds;
                         $scope.parentObject[$scope.bindTo].adding = $scope.searchGrid.addingItemIds;
 
-                        var totalAfterSave = ($scope.grid.pagination.unpaginatedTotal || 0) - $scope.parentObject[$scope.bindTo].removing.length + $scope.parentObject[$scope.bindTo].adding.length;
-                        if ($scope.numRequired != undefined && totalAfterSave < $scope.numRequired) {
-                            $scope.formCtrl.$setValidity($scope.bindTo, false);
-                            $scope.requiredError = true;
-                        } else {
-                            $scope.formCtrl.$setValidity($scope.bindTo, true);
-                        }
+                        $scope.checkValidity();
 
                     });
 
