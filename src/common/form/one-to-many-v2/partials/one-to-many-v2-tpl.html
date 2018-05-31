@@ -20,6 +20,7 @@
 
  -->
 
+<input name="{{bindTo}}" type="hidden" class="form-control" ng-model="parentObject[bindTo]">
 <div class="one-to-many-container">
 
     <div class="one-to-many-toggler">
@@ -84,8 +85,8 @@
         <grid grid="searchGrid"></grid>
     </div>
 
-    <div ng-messages="formCtrl[name].$error" ng-show="formCtrl.$submitted">
-        <p ng-message="required" class="text-danger">This field is required</p>
+    <div ng-show="formCtrl.$error[bindTo] && formCtrl.$submitted">
+        <p class="text-danger">At least {{numRequired}} item is required</p>
     </div>
 
 
