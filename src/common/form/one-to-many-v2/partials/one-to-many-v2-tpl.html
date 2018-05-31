@@ -86,8 +86,8 @@
     </div>
 
     <div ng-show="formCtrl.$error[bindTo] && formCtrl.$submitted">
-        <p class="text-danger">At least {{numRequired}} item is required</p>
+        <p ng-if="numRequired < 2" class="text-danger">At least {{numRequired}} item is required</p>
+        <p ng-if="numRequired >= 2" class="text-danger">At least {{numRequired}} items are required</p>
     </div>
-
 
 </div>

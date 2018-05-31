@@ -68,7 +68,6 @@ angular.module('form.oneToManyDirective', [])
 
                 link: function ($scope, element, attrs, formCtrl) {
 
-                    $scope.attrs = attrs;
                     $scope.formCtrl = formCtrl
 
                     $scope.$on('form:submit', function () {
@@ -83,7 +82,7 @@ angular.module('form.oneToManyDirective', [])
                         $scope.parentObject[$scope.bindTo].removing = $scope.grid.removingItemIds;
                         $scope.parentObject[$scope.bindTo].adding = $scope.searchGrid.addingItemIds;
 
-                        var totalAfterSave = $scope.grid.pagination.unpaginatedTotal - $scope.parentObject[$scope.bindTo].removing.length + $scope.parentObject[$scope.bindTo].adding.length;
+                        var totalAfterSave = ($scope.grid.pagination.unpaginatedTotal || 0) - $scope.parentObject[$scope.bindTo].removing.length + $scope.parentObject[$scope.bindTo].adding.length;
                         if ($scope.numRequired != undefined && totalAfterSave < $scope.numRequired) {
                             $scope.formCtrl.$setValidity($scope.bindTo, false);
                             $scope.requiredError = true;
