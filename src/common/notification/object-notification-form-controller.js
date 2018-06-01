@@ -3,14 +3,14 @@ angular.module('notification.objectNotificationFormCtrl', [])
     .controller('objectNotificationFormCtrl', ['$scope', 'groupObjectNotification', 'onCreateGroupGrid', 'onUpdateGroupGrid', 'onDeleteGroupGrid', '$cbForm', 'entity', 'objectDescription', 'adminRole', 'url', 'entityDetail',
 
         function ($scope, groupObjectNotification, onCreateGroupGrid, onUpdateGroupGrid, onDeleteGroupGrid, $cbForm, entity, objectDescription, adminRole, url, entityDetail) {
-                //no longer need the description or the url above... we can remove that in the cleanup phase....
+            //no longer need the description or the url above... we can remove that in the cleanup phase....
 
             $scope.groupObjectNotification = groupObjectNotification ? groupObjectNotification : {entityDetail: entityDetail};//This line needs to be changed...
-                        //, url: url, objectDescription: objectDescription // removed from above... we don't need it though I don't think it will cause problems....
             $scope.onCreateGroupGrid = onCreateGroupGrid;
             $scope.onUpdateGroupGrid = onUpdateGroupGrid;
             $scope.onDeleteGroupGrid = onDeleteGroupGrid;
             // $scope.objectDescription = objectDescription;
+                //, url: url, objectDescription: objectDescription // removed from above... we don't need it though I don't think it will cause problems....
 
             $scope.groupObjectNotificationForm = {};
 
