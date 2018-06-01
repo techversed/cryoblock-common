@@ -56,7 +56,7 @@ angular.module('form.oneToManyDirective', [])
                         $scope.showGrid = $scope.showGrid ? false : true;
                     };
 
-                    $scope.checkValidity = function(){
+                    $scope.checkValidity = function() {
                         var totalAfterSave = ($scope.grid.pagination.unpaginatedTotal || 0) - $scope.parentObject[$scope.bindTo].removing.length + $scope.parentObject[$scope.bindTo].adding.length;
 
                         if ($scope.numRequired != undefined && totalAfterSave < $scope.numRequired) {
@@ -77,6 +77,9 @@ angular.module('form.oneToManyDirective', [])
                         $scope.showGrid = false;
                         $scope.showSelectGrid = $scope.showSelectGrid ? false : true;
                     };
+
+                    $scope.grid.setSelectItemCallback($scope.checkValidity);
+                    $scope.searchGrid.setSelectItemCallback($scope.checkValidity);
 
                 },
 
