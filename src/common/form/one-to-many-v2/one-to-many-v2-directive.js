@@ -45,7 +45,6 @@ angular.module('form.oneToManyDirective', [])
                     $scope.showSelectGrid = false;
 
                     $scope.toggle = function () {
-                        $scope.checkValidity();
 
                         $scope.formCtrl.$pristine = false;
                         if ($scope.grid.initResultCount === 0 || $scope.disabled) {
@@ -57,6 +56,11 @@ angular.module('form.oneToManyDirective', [])
                     };
 
                     $scope.checkValidity = function() {
+
+                        if($scope.parentObject[$scope.bindTo] == undefined){
+                            return;
+                        }
+
                         var totalAfterSave = ($scope.grid.pagination.unpaginatedTotal || 0) - $scope.parentObject[$scope.bindTo].removing.length + $scope.parentObject[$scope.bindTo].adding.length;
 
                         if ($scope.numRequired != undefined && totalAfterSave < $scope.numRequired) {
@@ -68,7 +72,6 @@ angular.module('form.oneToManyDirective', [])
                     };
 
                     $scope.toggleAdd = function () {
-                        $scope.checkValidity();
 
                         $scope.formCtrl.$pristine = false;
                         if ($scope.disabled) {
