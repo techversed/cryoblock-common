@@ -19,7 +19,8 @@ angular.module('form.oneToManyDirective', [])
                     bindTo: '@',
                     resourceUrl: '@',
                     placeholder: '@',
-                    disabled: '='
+                    disabled: '=',
+                    numRequired: '='
                 },
 
                 controller: function ($scope) {
@@ -44,7 +45,9 @@ angular.module('form.oneToManyDirective', [])
                     $scope.showSelectGrid = false;
 
                     $scope.toggle = function () {
+                        $scope.checkValidity();
 
+                        $scope.formCtrl.$pristine = false;
                         if ($scope.grid.initResultCount === 0 || $scope.disabled) {
                             return;
                         }
@@ -53,7 +56,21 @@ angular.module('form.oneToManyDirective', [])
                         $scope.showGrid = $scope.showGrid ? false : true;
                     };
 
+                    $scope.checkValidity = function() {
+                        var totalAfterSave = ($scope.grid.pagination.unpaginatedTotal || 0) - $scope.parentObject[$scope.bindTo].removing.length + $scope.parentObject[$scope.bindTo].adding.length;
+
+                        if ($scope.numRequired != undefined && totalAfterSave < $scope.numRequired) {
+                            $scope.formCtrl[$scope.bindTo].$setValidity("numrequired", false);
+                            $scope.requiredError = true;
+                        } else {
+                            $scope.formCtrl[$scope.bindTo].$setValidity("numrequired", true);
+                        }
+                    };
+
                     $scope.toggleAdd = function () {
+                        $scope.checkValidity();
+
+                        $scope.formCtrl.$pristine = false;
                         if ($scope.disabled) {
                             return;
                         }
@@ -61,22 +78,18 @@ angular.module('form.oneToManyDirective', [])
                         $scope.showSelectGrid = $scope.showSelectGrid ? false : true;
                     };
 
+                    $scope.grid.setSelectItemCallback($scope.checkValidity);
+                    $scope.searchGrid.setSelectItemCallback($scope.checkValidity);
+
                 },
+
+
 
                 link: function ($scope, element, attrs, formCtrl) {
 
-                    $scope.$on('form:changed', function () {
-                        formCtrl.$pristine = false;
-                    });
+                    $scope.formCtrl = formCtrl
 
                     $scope.$on('form:submit', function () {
-
-                        // if nothing was changed
-                        if ($scope.grid.removingItemIds.length === 0 && $scope.searchGrid.addingItemIds.length === 0) {
-
-                            return;
-
-                        }
 
                         if ($scope.parentObject[$scope.bindTo] === undefined) {
                             $scope.parentObject[$scope.bindTo] = {};
@@ -85,6 +98,8 @@ angular.module('form.oneToManyDirective', [])
                         $scope.parentObject[$scope.bindTo].parentId = $scope.parentObject.id;
                         $scope.parentObject[$scope.bindTo].removing = $scope.grid.removingItemIds;
                         $scope.parentObject[$scope.bindTo].adding = $scope.searchGrid.addingItemIds;
+
+                        $scope.checkValidity();
 
                     });
 
