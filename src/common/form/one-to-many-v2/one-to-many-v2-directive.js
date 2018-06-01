@@ -45,7 +45,6 @@ angular.module('form.oneToManyDirective', [])
                     $scope.showSelectGrid = false;
 
                     $scope.toggle = function () {
-                        $scope.checkValidity();
 
                         $scope.formCtrl.$pristine = false;
                         if ($scope.grid.initResultCount === 0 || $scope.disabled) {
@@ -54,6 +53,7 @@ angular.module('form.oneToManyDirective', [])
 
                         $scope.showSelectGrid = false;
                         $scope.showGrid = $scope.showGrid ? false : true;
+                        $scope.checkValidity();
                     };
 
                     $scope.checkValidity = function() {
@@ -68,10 +68,11 @@ angular.module('form.oneToManyDirective', [])
                         } else {
                             $scope.formCtrl[$scope.bindTo].$setValidity("numrequired", true);
                         }
+
                     };
 
                     $scope.toggleAdd = function () {
-                        $scope.checkValidity();
+
 
                         $scope.formCtrl.$pristine = false;
                         if ($scope.disabled) {
@@ -83,6 +84,7 @@ angular.module('form.oneToManyDirective', [])
 
                     $scope.grid.setSelectItemCallback($scope.checkValidity);
                     $scope.searchGrid.setSelectItemCallback($scope.checkValidity);
+                    $scope.checkValidity();
 
                 },
 
