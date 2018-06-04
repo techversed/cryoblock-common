@@ -45,14 +45,17 @@ angular.module('grid.gridBuilder', [])
                 //Available overrides
                     //otmPostpend -- allows you to specify text that will be added to the end of the url that is used to build the otm grid
                     //selectPostpend -- allows you to specify text taht will be added to the end of the url that is used to build the select grid.
+                    //selectFilterGroups -- allows you to pass a list of filters that are autoenabled in the form [[filter1: value1], [filter2: value2], [filter3:value3]]
+                    //not yet implemented -- otmFilterGroups
                 buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}) {
 
                     var otmPostpend = overrides.otmPostpend ? overrides.selectPostpend : "";
                     var selectPostpend = overrides.selectPostpend ? overrides.selectPostpend : "";
+                    var selectFilterGroups = overrides.selectFilterGroups ? overrides.selectFilterGroups : {};
 
                     promises = []
                     promises.push(this.buildOTM(url, factoryName, initObject, isEditable, {postpend : otmPostpend}));
-                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {postpend : selectPostpend}));
+                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {postpend : selectPostpend, filterGroups : selectFilterGroups}));
 
                     return $q.all(promises);
 
@@ -60,7 +63,10 @@ angular.module('grid.gridBuilder', [])
 
                 //Possible overrides
                     //postpend -- a string that will be added to the end of the url that is passed in.
+                    //filterGroups -- currently only takes filters of type string.
                 buildSelect: function (url, factoryName, initObject, single, overrides = {}) {
+
+                    console.log("overrides", overrides);
 
                     var postpend = overrides.postpend ? overrides.postpend : "";
 
@@ -99,11 +105,29 @@ angular.module('grid.gridBuilder', [])
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
 
-                    });
-
+                    }).then(this.addFiltersToGrid (grid, overrides['filterGroups']));
                 },
 
-                buildSelectSingle: function (factoryName, overrides) {
+                //Right now this is really only set up to work wiht string type filters.
+                addFiltersToGrid: function (grid, filterOverride){
+                    if (filterOverride != {}) {
+                        var filterObjIndex;
+                        var filterObjectKeys = Object.keys(filterOverride);
+
+                        angular.forEach(grid.filters, function (filter) {
+                            filterObjIndex = filterObjectKeys.indexOf(filter.bindTo);
+                            if(filterObjIndex != -1){
+                                filter.disabled = true;
+                                filter.isVisible = true;
+                                filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0]; // Currently only works with filter type string.
+                                filter.isFiltering = true;
+                            }
+                        });
+                    }
+                    return grid;
+                },
+
+                buildSelectSingle: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
 

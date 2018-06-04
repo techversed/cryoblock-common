@@ -34,6 +34,8 @@ angular.module('grid.gridRelationFilterFactory', [])
 
             GridRelationFilter.prototype = {
 
+                //should add an setSelectedItems option
+
                 setResults: function (results) {
                     this.results = results;
                 },
