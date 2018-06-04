@@ -57,11 +57,7 @@ angular.module('form.oneToManyDirective', [])
 
                     $scope.checkValidity = function() {
 
-                        if($scope.parentObject[$scope.bindTo] == undefined){
-                            return;
-                        }
-
-                        var totalAfterSave = ($scope.grid.pagination.unpaginatedTotal || 0) - $scope.parentObject[$scope.bindTo].removing.length + $scope.parentObject[$scope.bindTo].adding.length;
+                        var totalAfterSave = ($scope.grid.pagination.unpaginatedTotal || 0) - $scope.searchGrid.removingItemIds.length + $scope.grid.addingItemIds.length;
 
                         if ($scope.numRequired != undefined && totalAfterSave < $scope.numRequired) {
                             $scope.formCtrl[$scope.bindTo].$setValidity("numrequired", false);
