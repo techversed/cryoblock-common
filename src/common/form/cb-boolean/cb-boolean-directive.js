@@ -13,7 +13,9 @@ angular.module('form.cbBooleanDirective', [])
                     $scope.toggle = function (bool) {
                         if (!$scope.disabled) {
                             $scope.modelCtrl.$setViewValue(bool);
-                            $scope.onToggle();
+                            if ($scope.onToggle) {
+                                $scope.onToggle();
+                            }
                         }
                     }
 

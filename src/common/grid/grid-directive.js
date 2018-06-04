@@ -86,23 +86,17 @@ angular.module('grid.gridDirective', [])
 
                     $scope.removeItem = function (item) {
 
-                        $scope.$emit('form:changed');
-
                         $scope.grid.removeItem(item);
 
                     };
 
                     $scope.selectItem = function (item) {
 
-                        $scope.$emit('form:changed');
-
                         $scope.grid.selectItem(item);
 
                     };
 
                     $scope.addItem = function (item) {
-
-                        $scope.$emit('form:changed');
 
                         $scope.grid.addItem(item);
 

@@ -70,6 +70,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 this.postCompleteCallback = null;
 
+                this.depletedAllInputSamples = false;
+
             };
 
             ProductionPipelineFactory.prototype = {
@@ -383,9 +385,93 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 },
 
+                downloadSampleImportOutputTemplate: function () {
+
+                    var that = this;
+
+                    var data = {
+                        totalOutputSamples: 1,
+                        outputTemplateType: this.outputTemplateType,
+                        outputSampleDefaults: this.outputSampleDefaults,
+                        hasVaryingOutputSampleTypes: this.hasVaryingOutputSampleTypes
+                    };
+
+                    if (this.outputSampleType) {
+                        data.outputSampleType = this.outputSampleType;
+                    }
+
+                    if (this.outputTemplateType === 'CSV') {
+
+                        $cbResource.create('/production/download-output-template', data).then(function (response) {
+
+                            var blob = new Blob([response.data], {type:'application/csv'});
+
+                            var windowUrl = window.URL || window.webkitURL;
+                            var url = windowUrl.createObjectURL(blob);
+
+                            var filename = 'Sample Import Template.csv';
+
+                            var a = document.createElement('a');
+
+                            a.href = url;
+                            a.download = filename;
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+
+                        });
+
+                    }
+
+                    if (this.outputTemplateType === 'EXCEL') {
+
+                        var xhr = new XMLHttpRequest();
+
+                        xhr.open('POST', API.url + '/production/download-output-template' , true);
+                        xhr.setRequestHeader('Content-type', 'application/json');
+                        xhr.setRequestHeader('X_FILENAME', 'Sample Import Template.xlsx');
+                        xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
+                        xhr.responseType = 'blob';
+
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200) {
+
+                                    var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                                    var blob = new Blob([xhr.response], { type: contentType });
+
+                                    var windowUrl = window.URL || window.webkitURL;
+                                    var url = windowUrl.createObjectURL(blob);
+                                    var filename = 'Sample Import Template.xlsx';
+                                    var a = document.createElement('a');
+
+                                    a.href = url;
+                                    a.download = filename;
+                                    a.click();
+                                    window.URL.revokeObjectURL(url);
+
+                                } else {
+                                    // observer.error(xhr.response);
+                                }
+                            }
+                        };
+
+                        xhr.send(JSON.stringify(data));
+
+                    }
+
+
+                },
+
                 uploadInputTemplate: function () {
                     this.inputFileInput.click();
                 },
+
+                /* This is added */
+                inputsDepleted: function () {
+                    this.depletedAllInputSamples = true;
+                    StepsService.steps(this.name).next();
+                },
+                /* End of what was added */
 
                 uploadOutputTemplate: function () {
                     this.outputFileInput.click();
@@ -554,7 +640,9 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                         angular.forEach(that.outputImportGrid.data, function (sample) {
 
-                            sample.lot = that.requestObject.alias;
+                            if (that.requestObject) {
+                                sample.lot = that.requestObject.alias;
+                            }
 
                             bulkSamples.push(sample);
 
@@ -572,6 +660,13 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         that.resultSampleIds = response.data.sampleIds;
                         that.resultSamples = response.data.samples;
 
+                        // this is a standard sample import not a prod request
+                        if (!that.requestObject) {
+                            that.isUploading = false;
+                            StepsService.steps(that.name).next();
+                            return;
+                        }
+
                         that.requestObject.status = 'Completed';
 
                         var data = {
@@ -584,7 +679,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                             catalog: that.catalogData.catalogName,
                             outputTemplateType: that.outputTemplateType,
                             outputSampleDefaults: that.outputSampleDefaults,
-                            resultSampleIds: that.resultSampleIds
+                            resultSampleIds: that.resultSampleIds,
+                            depletedAllInputSamples: that.depletedAllInputSamples
                         };
 
                         $cbResource.create(that.completeUrl, data).then(function (response) {

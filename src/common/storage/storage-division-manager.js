@@ -261,8 +261,11 @@ angular.module('storage.storageDivisionManager', [])
                 editSelectedSample: function () {
                     var sample = storageDivisionManager.getSelectedSample();
                     sample.skipLocationSelect = true;
-                    sample.division = {id:this.division.id};
-                    this.editSample(sample);
+                    sample.division = {
+                        id: storageDivisionManager.division.id,
+                        canEdit: storageDivisionManager.division.canEdit
+                    };
+                    storageDivisionManager.editSample(sample);
                 },
 
                 editSample: function (sample) {
