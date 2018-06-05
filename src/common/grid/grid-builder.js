@@ -114,17 +114,19 @@ angular.module('grid.gridBuilder', [])
                         var filterObjectKeys = Object.keys(filterOverride);
 
                         angular.forEach(grid.filters, function (filter) {
-                            filterObjIndex = filterObjectKeys.indexOf(filter.bindTo);
+                            filterObjIndex = filterObjectKeys.indexOf(filter.title); //need to use title instead of bind to because there can be multiple realtions bound to the same field on different objects.
+                            console.log(filter);
                             if(filterObjIndex != -1){
                                 filter.disabled = true;
                                 filter.isVisible = true;
                                 filter.isFiltering = true;
 
                                 switch(filter.type){
-                                    case "relation": // not implemented yet
-                                        console.log("that is a relation");
-                                        //selectItem()
-                                        //updateSelectedItemString()
+                                    //find more about implmemeint this in grid=filter-factory.js
+                                    case "relation":
+                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
+                                            filter.selectItem(selectedRelation);
+                                        });
                                         break;
 
                                     case "integer": // not implemented yet
