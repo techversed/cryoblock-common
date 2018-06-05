@@ -104,11 +104,10 @@ angular.module('grid.gridBuilder', [])
                             .disableToggleColumns()
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
-
                     }).then(this.addFiltersToGrid (grid, overrides['filterGroups']));
                 },
 
-                //Right now this is really only set up to work wiht string type filters.
+                //Right now this is really only set up to work wiht enum type filters.
                 addFiltersToGrid: function (grid, filterOverride){
                     if (filterOverride != {}) {
                         var filterObjIndex;
@@ -119,8 +118,43 @@ angular.module('grid.gridBuilder', [])
                             if(filterObjIndex != -1){
                                 filter.disabled = true;
                                 filter.isVisible = true;
-                                filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0]; // Currently only works with filter type string.
                                 filter.isFiltering = true;
+
+                                switch(filter.type){
+                                    case "relation": // not implemented yet
+                                        console.log("that is a relation");
+                                        //selectItem()
+                                        //updateSelectedItemString()
+                                        break;
+
+                                    case "integer": // not implemented yet
+                                        //singlevalue
+                                        //between start
+                                        //between end
+                                        //Maybe some other stuff....
+                                        break;
+
+                                    case "enum":
+                                        filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
+                                        break;
+
+                                    case "string": // not implemented yet
+                                        //handle string stuff
+                                        break;
+
+                                    case "boolean": // not implemented yet
+                                        //handle boolean stuff
+                                        break;
+
+                                    case "deleted": // not implemented yet
+                                        //showDeleted
+                                        break;
+
+                                    case "date": // not implemented yet
+                                        //start and end dates ... ?
+                                        break;
+                                }
+
                             }
                         });
                     }
