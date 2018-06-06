@@ -1,11 +1,11 @@
 angular.module('notification.userObjectNotificationFormCtrl', [])
 
-    .controller('userObjectNotificationFormCtrl', ['$scope', 'userObjectNotification', '$cbForm', 'entity', 'sessionFactory', 'objectDescription', 'url', 'entityDetail',
+    .controller('userObjectNotificationFormCtrl', ['$scope', 'userObjectNotification', '$cbForm', 'sessionFactory', 'entityDetail',
 
-        function ($scope, userObjectNotification, $cbForm, entity, sessionFactory, objectDescription, url, entityDetail) {
+        function ($scope, userObjectNotification, $cbForm, sessionFactory,  entityDetail) {
 
             var loggedInUser = sessionFactory.getLoggedInUser();
-            $scope.userObjectNotification = userObjectNotification ? userObjectNotification : {entityDetail: entityDetail, user: loggedInUser, url: url, objectDescription: objectDescription};
+            $scope.userObjectNotification = userObjectNotification ? userObjectNotification : {entityDetail: entityDetail, user: loggedInUser};
             $scope.userObjectNotificationForm = {};
 
             $scope.cbForm = $cbForm.create()

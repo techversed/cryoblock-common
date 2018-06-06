@@ -6,7 +6,6 @@ angular.module('notification.objectNotificationFormFactory', [])
 
             var objectNotificationFormFactory = {
 
-                //This still needs to be changed to make it work with the entity detail table instead of storing things in the individual records...
                 openAdministratorForm: function (entity, objectDescription, adminRole, url) {
 
                     $uibModal.open({
@@ -17,26 +16,6 @@ angular.module('notification.objectNotificationFormFactory', [])
                         backdrop: 'static',
                         size: 'lg',
                         resolve: {
-
-                            entity: function () {
-
-                                return entity;
-
-                            },
-
-                            //This is no longer needed.
-                            objectDescription: function () {
-
-                                return objectDescription;
-
-                            },
-
-                            //This is no longer needed...
-                            url: function () {
-
-                                return url;
-
-                            },
 
                             adminRole: function () {
 
@@ -105,25 +84,6 @@ angular.module('notification.objectNotificationFormFactory', [])
                         backdrop: 'static',
                         size: 'lg',
                         resolve: {
-
-                            entity: function () { // I don't know if this will be needed in the controller... my prediction is not.
-
-                                return entity;
-
-                            },
-
-                            objectDescription: function () { // this will no longer be needed by the controller since we are handling this here.
-
-                                return objectDescription;
-
-                            },
-
-                            //This is no longer needed...
-                            url: function () { // this will no longer be needed here since we are populating the entity table here.
-
-                                return url;
-
-                            },
 
                             entityDetail: function () {
                                 var data = {

@@ -1,9 +1,8 @@
 angular.module('notification.objectNotificationFormCtrl', [])
 
-    .controller('objectNotificationFormCtrl', ['$scope', 'groupObjectNotification', 'onCreateGroupGrid', 'onUpdateGroupGrid', 'onDeleteGroupGrid', '$cbForm', 'entity', 'objectDescription', 'adminRole', 'url', 'entityDetail',
+    .controller('objectNotificationFormCtrl', ['$scope', 'groupObjectNotification', 'onCreateGroupGrid', 'onUpdateGroupGrid', 'onDeleteGroupGrid', '$cbForm', 'adminRole', 'entityDetail',
 
-        function ($scope, groupObjectNotification, onCreateGroupGrid, onUpdateGroupGrid, onDeleteGroupGrid, $cbForm, entity, objectDescription, adminRole, url, entityDetail) {
-            //no longer need the description or the url above... we can remove that in the cleanup phase....
+        function ($scope, groupObjectNotification, onCreateGroupGrid, onUpdateGroupGrid, onDeleteGroupGrid, $cbForm, adminRole, entityDetail) {
 
             $scope.groupObjectNotification = groupObjectNotification ? groupObjectNotification : {entityDetail: entityDetail};
             $scope.onCreateGroupGrid = onCreateGroupGrid;
