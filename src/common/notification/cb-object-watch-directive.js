@@ -21,6 +21,8 @@ angular.module('notification.cbObjectWatchDirective', [])
                     $scope.loggedInUser = sessionFactory.getLoggedInUser();
                     $scope.userObjectNotification = null;
 
+                    //I will need to rework this....
+
                     var data = {
                         'objectClassName[EQ]': $scope.entity
                     };
@@ -29,16 +31,21 @@ angular.module('notification.cbObjectWatchDirective', [])
 
                         if (response == undefined) {
 
-                            $cbResource.create('/cryoblock/entity-detail', {'objectClassName': $scope.entity, 'objectUrl': $scope.url, 'objectDescription': $scope.objectDescription}).then( function (response) {
+                            response = $cbResource.create('/cryoblock/entity-detail', {'objectClassName': $scope.entity, 'objectUrl': $scope.url, 'objectDescription': $scope.objectDescription}).then( function (response2) {
+
+                                $scope.entityDetail = response2.data;
 
                                 return $cbResource.getOne('/cryoblock/user-object-notification', {
-                                        'entityDetailId[EQ]': response.data.id,
+                                        'entityDetailId[EQ]': response2.data.id,
                                         'userId[EQ]': $scope.loggedInUser.id,
                                         'entityId[EQ]': $scope.entityId
                                 });
 
                             });
 
+                        }
+                        else {
+                            $scope.entityDetail = response;
                         }
 
                         var data = {
@@ -47,17 +54,29 @@ angular.module('notification.cbObjectWatchDirective', [])
                             'userId[EQ]': $scope.loggedInUser.id
                         };
 
-                        $cbResource.getOne('/cryoblock/user-object-notification', data).then(function (response) {
-                            $scope.userObjectNotification = response;
+                        //there are issues with promises around here.
+                        $scope.userObjectNotification = $cbResource.getOne('/cryoblock/user-object-notification', data).then(function (response2) {
+                            // $scope.userObjectNotification = response;
+                            console.log("response2", response2);
+                            if (response2 == undefined){
+                                return response2;
+                                // $scope.userObjectNotification = response2;
+                            }
+                            else {
+                                return response2.data;
+                                // $scope.userObjectNotification = response2.data;
+                            }
                         });
-
                     });
 
                 },
 
                 link: function ($scope, element, attrs) {
 
+
                     $scope.openWatchConfirm = function () {
+
+                        console.log("$scope... not", $scope.userObjectNotification);
 
                         swal({
                             title: "Are you sure?",
@@ -87,6 +106,8 @@ angular.module('notification.cbObjectWatchDirective', [])
                     };
 
                     $scope.openStopWatchConfirm = function () {
+
+                        console.log("$scope... not", $scope.userObjectNotification);
 
                         swal({
                             title: "Are you sure?",

@@ -3,14 +3,9 @@ angular.module('notification.userObjectNotificationFormCtrl', [])
     .controller('userObjectNotificationFormCtrl', ['$scope', 'userObjectNotification', '$cbForm', 'entity', 'sessionFactory', 'objectDescription', 'url', 'entityDetail',
 
         function ($scope, userObjectNotification, $cbForm, entity, sessionFactory, objectDescription, url, entityDetail) {
-                //No longer need description or url above... we can remove that in the cleanup phase...
 
-                console.log("userObjectNotification", userObjectNotification);
             var loggedInUser = sessionFactory.getLoggedInUser();
-            // $scope.userObjectNotification = userObjectNotification ? userObjectNotification : {entityDetail: entityDetail, user: loggedInUser, url: url, objectDescription: objectDescription}; //This will need to be changed a little bit...
-            $scope.userObjectNotification = userObjectNotification;
-            // $scope.objectDescription = objectDescription;
-
+            $scope.userObjectNotification = userObjectNotification ? userObjectNotification : {entityDetail: entityDetail, user: loggedInUser, url: url, objectDescription: objectDescription};
             $scope.userObjectNotificationForm = {};
 
             $scope.cbForm = $cbForm.create()

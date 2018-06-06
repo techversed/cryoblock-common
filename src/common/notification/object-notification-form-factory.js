@@ -1,8 +1,8 @@
 angular.module('notification.objectNotificationFormFactory', [])
 
-    .factory('objectNotificationFormFactory', ['$uibModal', '$cbResource', 'sessionFactory', '$cbGridBuilder',
+    .factory('objectNotificationFormFactory', ['$uibModal', '$cbResource', 'sessionFactory', '$cbGridBuilder', '$q',
 
-        function ($uibModal, $cbResource, sessionFactory, $cbGridBuilder) {
+        function ($uibModal, $cbResource, sessionFactory, $cbGridBuilder, $q) {
 
             var objectNotificationFormFactory = {
 
@@ -44,21 +44,32 @@ angular.module('notification.objectNotificationFormFactory', [])
 
                             },
 
-                            entityDetail: function() {
-                                return $cbResource.getOne('/cryoblock/entity-detail',{'objectClassName[EQ]': entity});
-                            },
-
-                            //repeating the entity detail query here also. I should probably move the lookup and creation into the funciton above. For the time being I will leave it and will finish getting the rest of it working.
-                            groupObjectNotification: function () {
-                                return $cbResource.getOne('/cryoblock/entity-detail',{'objectClassName[EQ]': entity}).then( function (response) {
-                                    if (response == undefined){
-                                        return $cbResource.create('/cryoblock/entity-detail', {'objectClassName': entity, 'objectUrl': url, 'objectDescription': objectDescription}).then( function (response) {
-                                            return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.data.id});
+                            entityDetail: function () {
+                                var data = {
+                                    'objectClassName[EQ]': entity
+                                };
+                                return $cbResource.getOne('/cryoblock/entity-detail', data).then(function(response){
+                                    if (response == undefined) {
+                                        return $cbResource.create('/cryoblock/entity-detail', {'objectClassName': entity, 'objectUrl': url, 'objectDescription': objectDescription}).then( function (ed){
+                                            return ed.data;
                                         });
                                     }
-                                    return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.id});
+                                    else{
+                                        return response;
+                                    }
+                                });
+                            },
 
-                                })
+                            groupObjectNotification: function () {
+
+                                return $cbResource.getOne('/cryoblock/entity-detail',{'objectClassName[EQ]': entity}).then( function (response) {
+                                    if (response == undefined){
+                                        return response;
+                                    }
+                                    else {
+                                        return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.id});
+                                    }
+                                });
                             },
 
                             onCreateGroupGrid: function () {
@@ -95,34 +106,39 @@ angular.module('notification.objectNotificationFormFactory', [])
                         size: 'lg',
                         resolve: {
 
-                            entity: function () {
+                            entity: function () { // I don't know if this will be needed in the controller... my prediction is not.
 
                                 return entity;
 
                             },
 
-                            objectDescription: function () {
+                            objectDescription: function () { // this will no longer be needed by the controller since we are handling this here.
 
                                 return objectDescription;
 
                             },
 
                             //This is no longer needed...
-                            url: function () {
+                            url: function () { // this will no longer be needed here since we are populating the entity table here.
 
                                 return url;
 
                             },
 
-                            //This is no longer needed....
                             entityDetail: function () {
                                 var data = {
                                     'objectClassName[EQ]': entity
                                 };
-                                return $cbResource.getOne('/cryoblock/entity-detail', data);
+                                return $cbResource.getOne('/cryoblock/entity-detail', data).then(function(response){
+                                    if (response ==undefined) {
+                                        return $cbResource.create('/cryoblock/entity-detail', {'objectClassName': entity, 'objectUrl': url, 'objectDescription': objectDescription}).then( function (ed){
+                                            return ed.data;
+                                        });
+                                    }
+
+                                });
                             },
 
-                            // it is really sloppy to repeat this entity deatil query... we will fix that later on... just trying to get it working...
                             userObjectNotification: function () {
 
                                 var loggedInUser = sessionFactory.getLoggedInUser();
@@ -130,26 +146,22 @@ angular.module('notification.objectNotificationFormFactory', [])
                                 var data = {
                                     'objectClassName[EQ]': entity
                                 };
-
                                 return $cbResource.getOne('/cryoblock/entity-detail', data, true).then( function (response) {
-
                                     if (response == undefined){
-                                        return $cbResource.create('/cryoblock/entity-detail', {'objectClassName': entity, 'objectUrl': url, 'objectDescription': objectDescription}).then( function (response) {
-                                            console.log(response);
-                                            return $cbResource.getOne('/cryoblock/user-object-notification', {
-                                                'entityDetailId[EQ]': response.data.id,
-                                                'userId[EQ]': loggedInUser.id,
-                                                'entityId[NULL]': true
-                                            });
-                                        });
+                                        return response;
                                     }
                                     else {
-                                        return $cbResource.getOne('/cryoblock/user-object-notification', {
+
+                                        data={
                                             'entityDetailId[EQ]': response.id,
                                             'userId[EQ]': loggedInUser.id,
                                             'entityId[NULL]': true
-                                        });
+                                        }
+
+                                        return $cbResource.getOne('/cryoblock/user-object-notification', data);
+
                                     }
+
                                 });
 
                             }
