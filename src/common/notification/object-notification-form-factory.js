@@ -135,6 +135,7 @@ angular.module('notification.objectNotificationFormFactory', [])
                                             return ed.data;
                                         });
                                     }
+                                    return response;
 
                                 });
                             },

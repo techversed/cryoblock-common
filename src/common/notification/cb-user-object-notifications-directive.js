@@ -15,7 +15,6 @@ angular.module('notification.cbUserObjectNotificationsDirective', [])
                 },
 
                 link: function ($scope, element, attrs) {
-                    console.log("cb-user-object-notifications-directive.js");
 
                     element.on('click', function () {
                         objectNotificationFormFactory.openUserForm($scope.entity, $scope.objectDescription, $scope.url);

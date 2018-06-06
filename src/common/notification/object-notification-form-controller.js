@@ -9,8 +9,6 @@ angular.module('notification.objectNotificationFormCtrl', [])
             $scope.onCreateGroupGrid = onCreateGroupGrid;
             $scope.onUpdateGroupGrid = onUpdateGroupGrid;
             $scope.onDeleteGroupGrid = onDeleteGroupGrid;
-            // $scope.objectDescription = objectDescription;
-                //, url: url, objectDescription: objectDescription // removed from above... we don't need it though I don't think it will cause problems....
 
             $scope.groupObjectNotificationForm = {};
 
