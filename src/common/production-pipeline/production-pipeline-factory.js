@@ -392,9 +392,13 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     var data = {
                         totalOutputSamples: 1,
                         outputTemplateType: this.outputTemplateType,
-                        outputSampleDefaults: {},
+                        outputSampleDefaults: this.outputSampleDefaults,
                         hasVaryingOutputSampleTypes: this.hasVaryingOutputSampleTypes
                     };
+
+                    if (this.outputSampleType) {
+                        data.outputSampleType = this.outputSampleType;
+                    }
 
                     if (this.outputTemplateType === 'CSV') {
 

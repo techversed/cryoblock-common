@@ -398,6 +398,12 @@ angular.module('grid.gridFactory', [])
                     this.removingItems.splice(this.removingItems.indexOf(item), 1);
                     this.removingItemIds.splice(this.removingItemIds.indexOf(item.id), 1);
 
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(null);
+
+                    }
+
                     return this;
 
                 },
@@ -406,6 +412,12 @@ angular.module('grid.gridFactory', [])
 
                     this.addingItems.splice(this.addingItems.indexOf(item), 1);
                     this.addingItemIds.splice(this.addingItemIds.indexOf(item.id), 1);
+
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(null);
+
+                    }
 
                     return this;
 
