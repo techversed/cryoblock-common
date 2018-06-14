@@ -31,14 +31,11 @@ angular.module('dashboard.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                         redirectTo: 'login'
                                     },
                                 }
-
                             }
                         }
                     }
                 ]
             })
         ;
-
     })
-
 ;
