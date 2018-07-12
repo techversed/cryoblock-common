@@ -17,17 +17,21 @@ angular.module('storage.storageDivisionFormCtrl', [])
                 owner: sessionFactory.getLoggedInUser()
             };
 
+            if(division.hasDimension == undefined){
+                divisionEditorGrids[1].addingItems.push(sessionFactory.getLoggedInUser());
+                divisionEditorGrids[1].addingItemIds.push(sessionFactory.getLoggedInUser().id);
+            }
+
             $scope.sampleTypeGrids = sampleTypeGrids;
             $scope.storageContainerGrids = storageContainerGrids;
             $scope.divisionEditorGrids = divisionEditorGrids;
             $scope.divisionViewerGrids = divisionViewerGrids;
             $scope.divisionGroupViewerGrids = divisionGroupViewerGrids;
-            $scope.divisionGroupEditorGrids = divisionGroupEditorGrids;
+            $scope.divisionGroupEditorGrids = divisionGroupEditorGrids ;
             $scope.ownerGrid = ownerGrid;
 
             $scope.oldPublicEditValue = $scope.division.isPublicEdit;
             $scope.oldPublicViewValue = $scope.division.isPublicView;
-            //changes
             $scope.oldAllStorage = $scope.division.allowAllStorageContainers;
             $scope.oldAllSample = $scope.division.allowAllSampleTypes;
 
@@ -48,6 +52,7 @@ angular.module('storage.storageDivisionFormCtrl', [])
             $scope.close = function () {
 
                 $modalInstance.close();
+                console.log('divisionEditorGrids', divisionEditorGrids);
 
             };
 
