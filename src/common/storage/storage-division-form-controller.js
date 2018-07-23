@@ -7,11 +7,6 @@ angular.module('storage.storageDivisionFormCtrl', [])
             $scope.errors = [];
             $scope.divisionForm = {};
 
-            if (division.id == undefined) {
-                divisionEditorGrids[1].addingItems.push(sessionFactory.getLoggedInUser());
-                divisionEditorGrids[1].addingItemIds.push(sessionFactory.getLoggedInUser().id);
-            }
-
             $scope.division = division ? angular.copy(division) : {
                 allowAllSampleTypes: true,
                 allowAllStorageContainers: true,
@@ -21,6 +16,11 @@ angular.module('storage.storageDivisionFormCtrl', [])
                 parent:{id:1},
                 owner: sessionFactory.getLoggedInUser()
             };
+
+            if ($scope.division.id == undefined) {
+                divisionEditorGrids[1].addingItems.push(sessionFactory.getLoggedInUser());
+                divisionEditorGrids[1].addingItemIds.push(sessionFactory.getLoggedInUser().id);
+            }
 
             $scope.sampleTypeGrids = sampleTypeGrids;
             $scope.storageContainerGrids = storageContainerGrids;
