@@ -65,9 +65,9 @@ angular.module('storage.storageDivisionFormCtrl', [])
                     return;
                 }
 
-                // Check if permissions have changed
                 $scope.permissionsChanged = false;
 
+                //Old method of assessing change was not strict enough --
                 //if($scope.divison.editors !== undefined || $scope.division.groupEditors !== undefined || $scope.division.viewers !== undefined || $scope.division.groupViewers !== undefined || $scope.division.sampleTypes !== undefined || $scope.division.storageContainers !== undefined))
                 if ($scope.division.editors ? ($scope.division.editors['adding'].length != 0 || $scope.division.editors['removing'].length != 0 ) : false
                     || $scope.division.groupEditors ? ($scope.division.groupEditors['adding'].length != 0 || $scope.division.groupEditors['removing'].length != 0) : false
