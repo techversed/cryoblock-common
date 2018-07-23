@@ -7,7 +7,7 @@ angular.module('storage.storageDivisionFormCtrl', [])
             $scope.errors = [];
             $scope.divisionForm = {};
 
-            if(division.hasDimension == undefined){
+            if(division.id == undefined){
                 divisionEditorGrids[1].addingItems.push(sessionFactory.getLoggedInUser());
                 divisionEditorGrids[1].addingItemIds.push(sessionFactory.getLoggedInUser().id);
             }
