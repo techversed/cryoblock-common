@@ -1,0 +1,60 @@
+<div>
+    <h3>{{division.path}} - {{division.description}}</h3>
+    <table id="division-table" storage-box division="division" style="border-spacing: 5px;">
+        <thead>
+            <tr>
+                <td></td>
+                <td
+                    ng-class-odd="'odd'"
+                    ng-class-even="'even'"
+                    ng-repeat="number in columns"
+                    storage-box-heading
+                    column="number"
+                    style="text-align:center;"
+                >
+                    <span class="column-heading">
+                        {{number}}
+                    </span>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                ng-class-odd="'odd'"
+                ng-class-even="'even'"
+                ng-repeat="row in rows"
+            >
+                <td
+                    class="row-head"
+                    ng-class-odd="'odd'"
+                    ng-class-even="'even'"
+                    storage-box-heading
+                    row="row"
+                >
+                    <span class="column-heading">
+                        {{row}}
+                    </span>
+                </td>
+                <td
+                    class="sample-draggable"
+                    ng-class-odd="'odd'"
+                    ng-class-even="'even'"
+                    ng-repeat="column in columns"
+                    sample="sdm.sampleMap[row][column]"
+                    row="row"
+                    column="column"
+                    ng-class="{selected: sdm.selectedCells[row][column], 'has-sample': sdm.sampleMap[row][column]}"
+                    style="border:1px solid gray; height: 60px; width: 60px; text-align: center; font-size: 0.8em;"
+                >
+                    <div class="move"><i class="fa fa-arrows"/></div>
+                    <div
+                        class="cell"
+                        ng-class="{'has-sample': sdm.sampleMap[row][column]}"
+                    >
+                        <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name}}</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
