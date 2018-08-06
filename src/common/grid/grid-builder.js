@@ -112,6 +112,7 @@ angular.module('grid.gridBuilder', [])
                 },
 
                 //Helper function used to implement the overrrides for the various other grid functions -- not intended to be called directly
+                    //Currently there
                 addFiltersToGrid: function (grid, filterOverride){
                     if (filterOverride != {} && filterOverride != undefined) {
                         var filterObjIndex;
@@ -136,20 +137,9 @@ angular.module('grid.gridBuilder', [])
                                         filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
                                         break;
 
-                                    case "integer": // not implemented yet
-                                        break;
+                                    //We only need relation and enum
+                                        //can also implement integer, string, boolean, deleted and date at some point
 
-                                    case "string": // not implemented yet
-                                        break;
-
-                                    case "boolean": // not implemented yet
-                                        break;
-
-                                    case "deleted": // not implemented yet
-                                        break;
-
-                                    case "date": // not implemented yet
-                                        break;
                                 }
 
                             }
