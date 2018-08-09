@@ -1,8 +1,8 @@
 angular.module('grid.gridRelationFilterCtrl', [])
 
-    .controller('gridRelationFilterCtrl', ['$scope', 'API', '$cbResource', '$location',
+    .controller('gridRelationFilterCtrl', ['$scope', 'API', '$cbResource', '$location', 'gridManager',
 
-        function ($scope, API, $cbResource, $location) {
+        function ($scope, API, $cbResource, $location, gridManager) {
 
             var init = function (first) {
 
@@ -19,7 +19,7 @@ angular.module('grid.gridRelationFilterCtrl', [])
 
                 getParams = $location.search();
 
-                if ($scope.grid.bindToState && (first != undefined) && getParams[paramKey]) {
+                if ($scope.grid.bindToState && (first != undefined) && getParams[paramKey] && !gridManager.ignoreUrlParams) {
 
                     $scope.filter.isVisible = true;
 

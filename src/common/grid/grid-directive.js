@@ -1,8 +1,8 @@
 angular.module('grid.gridDirective', [])
 
-    .directive('grid', ['$cbResource', '$location',
+    .directive('grid', ['$cbResource', '$location', 'gridManager',
 
-        function ($cbResource, $location) {
+        function ($cbResource, $location, gridManager) {
 
             return {
 
@@ -22,7 +22,7 @@ angular.module('grid.gridDirective', [])
                     var init = function () {
 
                         var getParams = $location.search();
-                        if ($scope.grid.bindToState && getParams['cSearch'] !== undefined) {
+                        if (!gridManager.ignoreUrlParams && $scope.grid.bindToState && getParams['cSearch'] !== undefined) {
                             $scope.grid.search = getParams['cSearch'];
                         }
 

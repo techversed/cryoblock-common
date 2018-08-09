@@ -1,12 +1,12 @@
 angular.module('grid.gridEnumFilterCtrl', [])
 
-    .controller('gridEnumFilterCtrl', ['$scope', '$location',
+    .controller('gridEnumFilterCtrl', ['$scope', '$location', 'gridManager',
 
-        function ($scope, $location) {
+        function ($scope, $location, gridManager) {
 
             var init = function () {
 
-                if (!$scope.grid.bindToState) {
+                if (!$scope.grid.bindToState || gridManager.ignoreUrlParams) {
                     return;
                 }
 
