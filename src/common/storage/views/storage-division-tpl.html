@@ -60,6 +60,11 @@
                             <i class="fa fa-edit" />
                         </button>
                     </div>
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.print()">
+                            <i class="fa fa-print" />
+                        </button>
+                    </div>
                     <div class="btn-group" uib-dropdown>
                         <button role="button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="sdm.selectedCount != 1 || sdm.selectedEmptyCount != 1">
                             <i class="fa fa-plus" />
@@ -286,7 +291,7 @@
                                                         <td>
                                                             Able To View
                                                         </td>
-                                                        <td ng-if="division.isPublicView || division.isPublicView || division.divisionViewers.length">
+                                                        <td ng-if="division.isPublicView || division.isPublicEdit || division.divisionViewers.length">
                                                             <span ng-if="division.isPublicView || division.isPublicEdit">
                                                                 <i class="fa fa-users text-primary"/>
                                                                 All Users
@@ -309,7 +314,7 @@
                                                                 <i class="fa fa-users text-primary"/>
                                                                 All Users
                                                             </span>
-                                                            <i ng-repeat="divisionEditor in division.divisionEditors" class="user-icon-list">
+                                                            <i ng-if="!division.isPublicEdit" ng-repeat="divisionEditor in division.divisionEditors" class="user-icon-list">
                                                                 <cb-user-avatar user="divisionEditor.user" class="xs" ng-if="divisionEditor.user" uib-tooltip="{{divisionEditor.user.stringLabel}}"></cb-user-avatar>
                                                             </i>
                                                         </td>
@@ -318,7 +323,7 @@
                                                 </table>
                                                 <table class="division-detail-table">
 
-                                                    <tr ng-if="division.divisionGroupEditors.length">
+                                                    <tr ng-if="division.divisionGroupEditors.length && !division.isPublicEdit">
                                                         <td>
                                                             Group Editors
                                                         </td>
@@ -330,7 +335,7 @@
                                                         </td>
                                                     </tr>
 
-                                                    <tr ng-if="division.divisionGroupViewers.length">
+                                                    <tr ng-if="division.divisionGroupViewers.length && !division.isPublicView">
                                                         <td>
                                                             Group Viewers
                                                         </td>
