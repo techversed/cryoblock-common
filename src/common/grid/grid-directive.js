@@ -56,10 +56,12 @@ angular.module('grid.gridDirective', [])
 
                         if ($scope.grid.bindToState && $scope.grid.search) {
                             $location.search('cSearch', $scope.grid.search);
+                            $location.replace();
                         }
 
                         if ($scope.grid.bindToState) {
                             $location.search(params);
+                            $location.replace();
                         }
 
 
