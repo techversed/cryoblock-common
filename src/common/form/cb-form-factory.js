@@ -1,8 +1,8 @@
 angular.module('form.cbFormFactory', [])
 
-    .factory('$cbForm', ['$http', 'API', '$cbResource', '$q', 'toastr', '$localStorage', '$state', '$stateParams',
+    .factory('$cbForm', ['$http', 'API', '$cbResource', '$q', 'toastr', '$localStorage', '$state', '$stateParams', '$location',
 
-        function ($http, API, $cbResource, $q, toastr, $localStorage, $state, $stateParams) {
+        function ($http, API, $cbResource, $q, toastr, $localStorage, $state, $stateParams, $location) {
 
             var CBForm = function () {
 
