@@ -316,7 +316,12 @@ angular.module('form.cbFormFactory', [])
                                     } else {
 
                                         scope.$close();
-                                        $state.go($state.current, $stateParams, {reload:true});
+                                        var previousParams = $location.search();
+                                        $state.go($state.current, $stateParams, {reload:true}).then(function () {
+                                            angular.forEach(previousParams, function (previousParam, key) {
+                                                $location.search(key, previousParam);
+                                            });
+                                        });
 
                                     }
 
