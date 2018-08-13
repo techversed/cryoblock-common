@@ -1,15 +1,9 @@
 <div class="container p-md">
 
-    <h2 class="text-center font-bold m-b-lg">Specify Output Samples</h2>
+    <h2 class="text-center font-bold m-b-lg">Upload Sample Import Template</h2>
 
     <div class="row" ng-if="!config.outputTemplateLoaded">
-        <div class="col-xs-4">
-            <button step-previous class='btn btn-default btn-block'>
-                <i class="fa fa-arrow-left" />
-                Back
-            </button>
-        </div>
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <cb-dropdown
                 cb-dropdown-info
                 name='outputTemplateType'
@@ -17,20 +11,21 @@
                 ng-model="config.outputTemplateType"
                 label="Download Template"
                 items="['EXCEL']"
-                cb-on-select="config.downloadOutputTemplate"
+                cb-on-select="config.downloadSampleImportOutputTemplate"
                 cb-on-select-context="config"
                 icon-class="fa fa-download"
                 required
             >
             </cb-dropdown>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <button ng-click="config.uploadOutputTemplate()" class='btn btn-primary btn-block'>
                 <i class="fa fa-upload" />
                 Upload
             </button>
         </div>
     </div>
+
 
     <div class="row" ng-if="config.outputTemplateLoaded">
         <div ng-if="!config.outputData.hasErrors">

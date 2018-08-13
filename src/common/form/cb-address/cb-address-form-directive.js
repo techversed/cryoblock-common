@@ -90,6 +90,11 @@ angular.module('form.cbAddress.cbAddressFormDirective', [])
                         }
 
                         $scope.addresses[$scope.currentAddressIndex] = $scope.address;
+
+                        if ($scope.currentAddressIndex == 0) {
+                            $scope.setDefault($scope.address);
+                        }
+
                         $scope.toggleAdd();
                         $scope.toggle();
                     };
