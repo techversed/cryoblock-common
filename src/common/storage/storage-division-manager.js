@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest) {
 
             var storageDivisionManager = {
 
@@ -706,6 +706,55 @@ angular.module('storage.storageDivisionManager', [])
                 toggleView: function () {
 
                     this.toggleSearch = this.toggleSearch ? false : true;
+
+                },
+
+                print: function () {
+
+                    var printScope = $rootScope.$new(true);
+
+                    printScope.sampleMap = this.sampleMap;
+                    printScope.rows = [];
+                    printScope.columns = [];
+                    printScope.sdm = this;
+                    printScope.division = this.division;
+
+                    for (var i = 1; i <= this.division.width; i++) {
+                        printScope.columns.push(i);
+                    }
+
+                    for (var i = 65; i < this.division.height + 65; i++) {
+                        printScope.rows.push(String.fromCharCode(i));
+                    }
+
+                    $templateRequest('common/storage/partials/division-print-tpl.html').then(function (html) {
+
+                        var content = null;
+                        var template = angular.element(html);
+
+                        printScope.$$postDigest(function () {
+
+                            var w = 1500, h = 1000;
+
+                            var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
+                            var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
+
+                            var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+                            var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+                            var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+                            var top = ((height / 2) - (h / 2)) + dualScreenTop;
+                            var tab = window.open('', '', 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+                            tab.document.write('<html><head><style>@page { size: landscape; }</style></head><title>Division Print</title><body>' + template[0].outerHTML + '</body></html>');
+                            tab.document.close();
+
+                            tab.print();
+                        });
+
+                        content = $compile(template)(printScope);
+
+                    });
 
                 }
 

@@ -1,8 +1,8 @@
 angular.module('grid.gridBuilder', [])
 
-    .service('$cbGridBuilder', [ '$injector', '$cbResource', '$location', '$q',
+    .service('$cbGridBuilder', [ '$injector', '$cbResource', '$location', '$q', 'gridManager',
 
-        function ($injector, $cbResource, $location, $q) {
+        function ($injector, $cbResource, $location, $q, gridManager) {
 
             var gridBuilder = {
 
@@ -28,7 +28,7 @@ angular.module('grid.gridBuilder', [])
                     ;
 
                     var defaultParams = { cOrderBy: grid.sortingColumn.name, cOrderByDirection: grid.sortDirection};
-                    var params = angular.extend(defaultParams, $location.search());
+                    var params = gridManager.ignoreUrlParams ? defaultParams : angular.extend(defaultParams, $location.search());
 
                     return $cbResource.get(url, params).then(function (response) {
 

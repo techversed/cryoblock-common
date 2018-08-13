@@ -1,8 +1,8 @@
 angular.module('form.cbFormFactory', [])
 
-    .factory('$cbForm', ['$http', 'API', '$cbResource', '$q', 'toastr', '$localStorage', '$state', '$stateParams',
+    .factory('$cbForm', ['$http', 'API', '$cbResource', '$q', 'toastr', '$localStorage', '$state', '$stateParams', '$location',
 
-        function ($http, API, $cbResource, $q, toastr, $localStorage, $state, $stateParams) {
+        function ($http, API, $cbResource, $q, toastr, $localStorage, $state, $stateParams, $location) {
 
             var CBForm = function () {
 
@@ -68,6 +68,13 @@ angular.module('form.cbFormFactory', [])
                  */
                 this.errors = [];
 
+                /**
+                 * Do not refresh the page instead return the saved object
+                 *
+                 * @type {Boolean}
+                 */
+                this.returnSavedObject = false;
+
             };
 
             CBForm.prototype = {
@@ -132,6 +139,19 @@ angular.module('form.cbFormFactory', [])
                 setUploadElement: function (el) {
 
                     this.uploadElement = el;
+
+                    return this;
+
+                },
+
+                /**
+                 * Set return saved object
+                 *
+                 * @param {Boolean} returnSavedObject
+                 */
+                setReturnSavedObject: function (returnSavedObject) {
+
+                    this.returnSavedObject = returnSavedObject;
 
                     return this;
 
@@ -277,6 +297,8 @@ angular.module('form.cbFormFactory', [])
 
                         function (response) {
 
+                            var savedObject = response.data;
+
                             if (that.object.id == undefined) {
                                 that.object.id = response.data.id;
                             }
@@ -286,8 +308,23 @@ angular.module('form.cbFormFactory', [])
                                 function (response) {
                                     var method = that.object.id !== undefined ? 'update' : 'create';
                                     toastr.info(that.type + ' ' + method + 'd successfully');
-                                    scope.$close();
-                                    $state.go($state.current, $stateParams, {reload:true});
+
+                                    if (that.returnSavedObject) {
+
+                                        scope.$close(savedObject);
+
+                                    } else {
+
+                                        scope.$close();
+                                        var previousParams = $location.search();
+                                        $state.go($state.current, $stateParams, {reload:true}).then(function () {
+                                            angular.forEach(previousParams, function (previousParam, key) {
+                                                $location.search(key, previousParam);
+                                            });
+                                        });
+
+                                    }
+
                                 },
 
                                 function (response) {

@@ -1,8 +1,8 @@
 angular.module('grid.gridBooleanFilterCtrl', [])
 
-    .controller('gridBooleanFilterCtrl', ['$scope', '$location',
+    .controller('gridBooleanFilterCtrl', ['$scope', '$location', 'gridManager',
 
-        function ($scope, $location) {
+        function ($scope, $location, gridManager) {
 
             $scope.form = {
                 radioModel: "Any"
@@ -10,7 +10,7 @@ angular.module('grid.gridBooleanFilterCtrl', [])
 
             var init = function () {
 
-                if (!$scope.grid.bindToState) {
+                if (!$scope.grid.bindToState || gridManager.ignoreUrlParams) {
                     return;
                 }
 
