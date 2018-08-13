@@ -1,12 +1,12 @@
 angular.module('grid.gridIntegerFilterCtrl', [])
 
-    .controller('gridIntegerFilterCtrl', ['$scope', '$location',
+    .controller('gridIntegerFilterCtrl', ['$scope', '$location', 'gridManager',
 
-        function ($scope, $location) {
+        function ($scope, $location, gridManager) {
 
             var init = function () {
 
-                if (!$scope.grid.bindToState) {
+                if (!$scope.grid.bindToState || gridManager.ignoreUrlParams) {
                     return;
                 }
 
