@@ -6,7 +6,10 @@ angular.module('grid.gridBuilder', [])
 
             var gridBuilder = {
 
-                //possible overrides: url
+                //Build the grid for an index page.
+                //possible overrides:
+                    //url -- specify a url that is used instead of the one included in the grid factory - Can be useful when you want to use the same grid factory but you want to use an address to a relation's controller instead of the controller for an entity.
+                    //filterGroups -- lets you specify filters to add directly to the grid.
                 buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
@@ -38,37 +41,54 @@ angular.module('grid.gridBuilder', [])
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
 
-                    });
+                    }).then( this.addFiltersToGrid(grid, overrides['filterGroups']));
 
                 },
 
-                buildMTMGrids: function (url, factoryName, initObject, isEditable) {
+                //Build a grid using a grid factory using a linker table. Find the entities that are linked with the specified one
+
+                //Available overrides
+                    //otmPostpend -- allows you to specify text that will be added to the end of the url that is used to build the otm grid
+                    //selectPostpend -- allows you to specify text taht will be added to the end of the url that is used to build the select grid.
+                    //selectFilterGroups -- allows you to pass a list of filters that are autoenabled in the form [[filter1: value1], [filter2: value2], [filter3:value3]]
+                    //not yet implemented -- otmFilterGroups -- might not even implement this.
+
+                buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}) {
+
+                    var otmPostpend = overrides.otmPostpend ? overrides.selectPostpend : "";
+                    var selectPostpend = overrides.selectPostpend ? overrides.selectPostpend : "";
+                    var selectFilterGroups = overrides.selectFilterGroups ? overrides.selectFilterGroups : {};
 
                     promises = []
-                    promises.push(this.buildOTM(url, factoryName, initObject, isEditable));
-                    promises.push(this.buildSelect(url, factoryName, initObject));
+                    promises.push(this.buildOTM(url, factoryName, initObject, isEditable, {postpend : otmPostpend}));
+                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {postpend : selectPostpend, filterGroups : selectFilterGroups}));
 
                     return $q.all(promises);
 
                 },
 
-                buildSelect: function (url, factoryName, initObject, single) {
+                //Possible overrides
+                    //postpend -- a string that will be added to the end of the url that is passed in.
+                    //filterGroups -- currently only takes filters of type string.
+                buildSelect: function (url, factoryName, initObject, single, overrides = {}) {
+
+                    var postpend = overrides.postpend ? overrides.postpend : "";
 
                     var factory = $injector.get(factoryName);
 
                     var grid = factory.create();
 
                     if (initObject && initObject.id) {
-                        url = url + initObject.id
+                        url = url + initObject.id + postpend;
                     } else {
-                        url = url + 0
+                        url = url + 0 + postpend;
                     }
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
-                    grid.allowSelectMany()
+                    grid.allowSelectMany();
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+                    var defaultParams = {cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
 
                     if (single === undefined) {
                         grid.setStaticFilters({'cSelectable' : true});
@@ -88,12 +108,53 @@ angular.module('grid.gridBuilder', [])
                             .disableToggleColumns()
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
-
-                    });
-
+                    }).then(this.addFiltersToGrid (grid, overrides['filterGroups']));
                 },
 
-                buildSelectSingle: function (factoryName, overrides) {
+                //Helper function used to implement the overrrides for the various other grid functions -- not intended to be called directly
+                    //Currently there
+                addFiltersToGrid: function (grid, filterOverride){
+                    if (filterOverride != {} && filterOverride != undefined) {
+                        var filterObjIndex;
+                        var filterObjectKeys = Object.keys(filterOverride);
+
+                        angular.forEach(grid.filters, function (filter) {
+                            filterObjIndex = filterObjectKeys.indexOf(filter.title); //need to use title instead of bind to because there can be multiple realtions bound to the same field on different objects.
+                            console.log(filter);
+                            if(filterObjIndex != -1){
+                                filter.disabled = true;
+                                filter.isVisible = true;
+                                filter.isFiltering = true;
+
+                                switch(filter.type){
+                                    case "relation":
+                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
+                                            filter.selectItem(selectedRelation);
+                                        });
+                                        break;
+
+                                    case "enum":
+                                        filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
+                                        break;
+
+                                    //We only need relation and enum
+                                        //can also implement integer, string, boolean, deleted and date at some point
+
+                                }
+
+                            }
+                        });
+                    }
+                    return grid;
+                },
+
+                //Build a grid for use with forms that allows the user to select one option
+
+                //Possible overrides
+                    //url -- if you would like to use an alternate url post it here.
+                    //filterGroups -- List the filters that will be applied by default.
+
+                buildSelectSingle: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
 
@@ -131,11 +192,16 @@ angular.module('grid.gridBuilder', [])
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
 
-                    });
+                    }).then(this.addFiltersToGrid(grid, overrides['filterGroups']));
 
                 },
 
-                buildOTM: function (url, factoryName, initObject, isEditable) {
+                //Possible overrides
+                    //postpend -- specify a sting that is added to the end of the url that we qery each time.
+
+                buildOTM: function (url, factoryName, initObject, isEditable, overrides = {}) {
+
+                    var postpend = overrides.postpend ? overrides.postpend : "";
 
                     var factory = $injector.get(factoryName);
 
@@ -144,7 +210,7 @@ angular.module('grid.gridBuilder', [])
                     isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
 
                     if (initObject && initObject.id) {
-                        url = url + initObject.id
+                        url = url + initObject.id + postpend;
                     }
 
                     grid
