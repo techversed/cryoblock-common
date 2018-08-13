@@ -120,7 +120,6 @@ angular.module('grid.gridBuilder', [])
 
                         angular.forEach(grid.filters, function (filter) {
                             filterObjIndex = filterObjectKeys.indexOf(filter.title); //need to use title instead of bind to because there can be multiple realtions bound to the same field on different objects.
-                            console.log(filter);
                             if(filterObjIndex != -1){
                                 filter.disabled = true;
                                 filter.isVisible = true;
