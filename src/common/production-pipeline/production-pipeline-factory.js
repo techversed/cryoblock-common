@@ -392,13 +392,9 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     var data = {
                         totalOutputSamples: 1,
                         outputTemplateType: this.outputTemplateType,
-                        outputSampleDefaults: this.outputSampleDefaults,
+                        outputSampleDefaults: {},
                         hasVaryingOutputSampleTypes: this.hasVaryingOutputSampleTypes
                     };
-
-                    if (this.outputSampleType) {
-                        data.outputSampleType = this.outputSampleType;
-                    }
 
                     if (this.outputTemplateType === 'CSV') {
 
@@ -464,6 +460,12 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 uploadInputTemplate: function () {
                     this.inputFileInput.click();
+                },
+
+                setTotalOutputSamples: function(value){
+                    this.totalOutputSamples = value;
+
+                    return this;
                 },
 
                 /* This is added */
@@ -759,5 +761,4 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
     ])
 ;
-
 

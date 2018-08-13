@@ -2,20 +2,18 @@
 
     <div class="normalheader">
         <div class="hpanel">
+            <div id="hbreadcrumb" class="m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a ui-sref="dashboard.main" class="active">Dashboard</a></li>
+                </ol>
+            </div>
             <div class="panel-body">
 
-                <div id="hbreadcrumb" class="pull-right m-t-lg">
-                    <ol class="hbreadcrumb breadcrumb">
-                        <li><a ui-sref="dashboard.main">Dashboard</a></li>
-                        <li class="active">
-                            <span>Profile</span>
-                        </li>
-                    </ol>
-                </div>
+
                 <h2 class="font-light m-b-xs">
-                    Profile
+                    Dashboard
                 </h2>
-                <button ng-click="changePassword()" class="btn btn-primary"><i class="fa fa-lock"/></button>
+                <button ng-click="changePassword()" class="btn btn-primary" title="Change your password"><i class="fa fa-lock"/></button>
                 <small>{{user.username}}'s profile details</small>
             </div>
         </div>
