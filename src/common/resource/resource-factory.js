@@ -1,8 +1,8 @@
 angular.module('cbResource.$cbResource', [])
 
-    .factory('$cbResource', ['$http', 'API', 'toastr', '$q',
+    .factory('$cbResource', ['$http', 'API', 'toastr', '$q', '$injector',
 
-        function ($http, API, toastr, $q) {
+        function ($http, API, toastr, $q, $injector) {
 
             var $cbResource = {
 
@@ -14,6 +14,28 @@ angular.module('cbResource.$cbResource', [])
                         },
                         $cbResource.handleFailure
                     );
+
+                },
+
+                //get a list of elements based upon an array of ids
+                    //it looks like get one resolves all the promises before it returns... I don't know if the way I am handling this really makes sense.
+                getSelectIds: function (url, params, ids, ignoreLoadingBar) {
+
+                    requests = [];
+
+                    //The angular.forEach was messing up this.getOne ... seems to be in a different scope.
+                    for (var i =0; i<ids.length; i++)  {
+                        requests.push(this.getOne(url +'?id[EQ]=' + ids[i], true));
+                    }
+
+                     completed = [];
+                     return $q.all(requests).then(function (testarr){
+                        angular.forEach(testarr, function (test){
+                            completed.push(test);
+                        });
+                        return completed;
+                     });
+
 
                 },
 
