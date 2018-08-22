@@ -24,31 +24,19 @@ angular.module('notification.objectNotificationFormFactory', [])
                             },
 
                             entityDetail: function () {
-                                var data = {
-                                    'objectClassName[EQ]': entity
-                                };
-                                return $cbResource.getOne('/cryoblock/entity-detail', data).then(function(response){
-                                    if (response == undefined) {
-                                        return $cbResource.create('/cryoblock/entity-detail', {'objectClassName': entity, 'objectUrl': url, 'objectDescription': objectDescription}).then( function (ed){
-                                            return ed.data;
-                                        });
-                                    }
-                                    else{
-                                        return response;
-                                    }
-                                });
+
+                                return $cbResource.getOne('/cryoblock/entity-detail', {'objectClassName[EQ]': entity});
+
                             },
 
                             groupObjectNotification: function () {
 
-                                return $cbResource.getOne('/cryoblock/entity-detail',{'objectClassName[EQ]': entity}).then( function (response) {
-                                    if (response == undefined){
-                                        return response;
-                                    }
-                                    else {
-                                        return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.id});
-                                    }
+                                return $cbResource.getOne('/cryoblock/entity-detail', {'objectClassName[EQ]': entity}).then(function (response) {
+
+                                    return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.id});
+
                                 });
+
                             },
 
                             onCreateGroupGrid: function () {
@@ -86,42 +74,18 @@ angular.module('notification.objectNotificationFormFactory', [])
                         resolve: {
 
                             entityDetail: function () {
-                                var data = {
-                                    'objectClassName[EQ]': entity
-                                };
-                                return $cbResource.getOne('/cryoblock/entity-detail', data).then(function(response){
-                                    if (response ==undefined) {
-                                        return $cbResource.create('/cryoblock/entity-detail', {'objectClassName': entity, 'objectUrl': url, 'objectDescription': objectDescription}).then( function (ed){
-                                            return ed.data;
-                                        });
-                                    }
-                                    return response;
 
-                                });
+                                return $cbResource.getOne('/cryoblock/entity-detail', {'objectClassName[EQ]': entity});
+
                             },
 
                             userObjectNotification: function () {
 
                                 var loggedInUser = sessionFactory.getLoggedInUser();
 
-                                var data = {
-                                    'objectClassName[EQ]': entity
-                                };
-                                return $cbResource.getOne('/cryoblock/entity-detail', data, true).then( function (response) {
-                                    if (response == undefined){
-                                        return response;
-                                    }
-                                    else {
+                                return $cbResource.getOne('/cryoblock/entity-detail', {'objectClassName[EQ]': entity}).then( function (response) {
 
-                                        data={
-                                            'entityDetailId[EQ]': response.id,
-                                            'userId[EQ]': loggedInUser.id,
-                                            'entityId[NULL]': true
-                                        }
-
-                                        return $cbResource.getOne('/cryoblock/user-object-notification', data);
-
-                                    }
+                                    return $cbResource.getOne('/cryoblock/user-object-notification', {'entityDetailId[EQ]': response.id, 'userId[EQ]': loggedInUser.id, 'entityId[NULL]': true});
 
                                 });
 
