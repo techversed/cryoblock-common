@@ -7,7 +7,6 @@ angular.module('storage.storageDivisionSearchCtrl', [])
             $scope.sdm = storageDivisionManager;
 
             $scope.grid = divisionGrid;
-            console.log($scope.divisions)
 
 
             $scope.goToDivision = function (division) {

@@ -26,6 +26,7 @@
         </div>
     </div>
 
+
     <div class="row" ng-if="config.outputTemplateLoaded">
         <div ng-if="!config.outputData.hasErrors">
             <div class="alert alert-success" role="alert">
@@ -70,6 +71,8 @@
     </div>
 
 </div>
+
+<sample-import-help></sample-import-help>
 
 <div ng-hide="isUploading">
     <grid ng-if="config.outputImportGrid" grid="config.outputImportGrid"></grid>
