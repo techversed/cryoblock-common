@@ -1,8 +1,8 @@
 angular.module('notification.cbObjectWatchDirective', [])
 
-    .directive('cbObjectWatch', ['$cbResource', 'sessionFactory', 'toastr', '$state', '$stateParams',
+    .directive('cbObjectWatch', ['$cbResource', 'sessionFactory', 'toastr', '$state', '$stateParams', '$q',
 
-        function ($cbResource, sessionFactory, toastr, $state, $stateParams) {
+        function ($cbResource, sessionFactory, toastr, $state, $stateParams, $q) {
 
             return {
 
@@ -23,18 +23,40 @@ angular.module('notification.cbObjectWatchDirective', [])
                     $scope.userObjectNotification = null;
 
                     var data = {
-                        'entity[EQ]': $scope.entity,
-                        'entityId[EQ]': $scope.entityId,
-                        'userId[EQ]': $scope.loggedInUser.id
+                        'objectClassName[EQ]': $scope.entity
                     };
 
-                    $cbResource.getOne('/cryoblock/user-object-notification', data).then(function (response) {
-                        $scope.userObjectNotification = response;
+                    $cbResource.getOne('/cryoblock/entity-detail', data).then(function(response){
+                        if (response == undefined) {
+                            response = $cbResource.create('/cryoblock/entity-detail', {'objectClassName': $scope.entity, 'objectUrl': $scope.url, 'objectDescription': $scope.objectDescription}).then( function (response2) {
+                                $scope.entityDetail = response2.data;
+                                $scope.userObjectNotification = false;
+                            });
+                        }
+                        else {
+                            $scope.entityDetail = response;
+
+                            var data = {
+                                'entityDetailId[EQ]': response.id,
+                                'entityId[EQ]': $scope.entityId,
+                                'userId[EQ]': $scope.loggedInUser.id
+                            };
+
+                            $cbResource.getOne('/cryoblock/user-object-notification', data).then(function (response2) {
+                                if (response2 == undefined){
+                                    $scope.userObjectNotification = false;
+                                }
+                                else {
+                                    $scope.userObjectNotification = true;
+                                }
+                            });
+                        }
                     });
 
                 },
 
                 link: function ($scope, element, attrs) {
+
 
                     $scope.openWatchConfirm = function () {
 
@@ -49,16 +71,13 @@ angular.module('notification.cbObjectWatchDirective', [])
                         }, function() {
 
                             var data = {
-                                entity: $scope.entity,
+                                entityDetail: $scope.entityDetail,
                                 entityId: $scope.entityId,
-                                objectDescription: $scope.objectDescription,
-                                url: $scope.url,
                                 user: $scope.loggedInUser,
                                 onCreate: true,
                                 onUpdate: true,
                                 onDelete: true
                             };
-
                             $cbResource.create('/cryoblock/user-object-notification', data).then(function (response) {
                                 $state.go($state.current, $stateParams, {reload:true});
                                 toastr.success('You are now watching ' + $scope.objectDescription + ' ' + $scope.entityId);
@@ -81,7 +100,7 @@ angular.module('notification.cbObjectWatchDirective', [])
                         }, function() {
 
                             var data = {
-                                'entity[EQ]': $scope.entity,
+                                'entityDetailId[EQ]': $scope.entityDetail.id,
                                 'entityId[EQ]': $scope.entityId,
                                 'userId[EQ]': $scope.loggedInUser.id
                             };
