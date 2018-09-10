@@ -1,12 +1,16 @@
 angular.module('grid.gridBuilder', [])
 
-    .service('$cbGridBuilder', [ '$injector', '$cbResource', '$location', '$q',
+    .service('$cbGridBuilder', [ '$injector', '$cbResource', '$location', '$q', 'gridManager',
 
-        function ($injector, $cbResource, $location, $q) {
+        function ($injector, $cbResource, $location, $q, gridManager) {
 
             var gridBuilder = {
 
-                buildIndex: function (factoryName) {
+                //Build the grid for an index page.
+                //possible overrides:
+                    //url -- specify a url that is used instead of the one included in the grid factory - Can be useful when you want to use the same grid factory but you want to use an address to a relation's controller instead of the controller for an entity.
+                    //filterGroups -- lets you specify filters to add directly to the grid.
+                buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
 
@@ -18,53 +22,73 @@ angular.module('grid.gridBuilder', [])
 
                     }
 
+                    var url = overrides.url != undefined ? overrides.url : factory.url;
+
                     grid
                         .setActionTemplate(factory.actionTemplate)
-                        .setResourceUrl(factory.url)
-                        .setBindToState(true)
+                        .setResourceUrl(url)
+                        .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
                     ;
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC'};
-                    var params = angular.extend(defaultParams, $location.search());
+                    var defaultParams = { cOrderBy: grid.sortingColumn.name, cOrderByDirection: grid.sortDirection};
+                    var params = gridManager.ignoreUrlParams ? defaultParams : angular.extend(defaultParams, $location.search());
 
-                    return $cbResource.get(factory.url, params).then(function (response) {
+                    return $cbResource.get(url, params).then(function (response) {
 
                         return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
+                            .setInitResultCount(response.unpaginatedTotal)
                         ;
 
-                    });
+                    }).then( this.addFiltersToGrid(grid, overrides['filterGroups']));
 
                 },
 
-                buildMTMGrids: function (url, factoryName, initObject, isEditable) {
+                //Build a grid using a grid factory using a linker table. Find the entities that are linked with the specified one
+
+                //Available overrides
+                    //otmPostpend -- allows you to specify text that will be added to the end of the url that is used to build the otm grid
+                    //selectPostpend -- allows you to specify text taht will be added to the end of the url that is used to build the select grid.
+                    //selectFilterGroups -- allows you to pass a list of filters that are autoenabled in the form [[filter1: value1], [filter2: value2], [filter3:value3]]
+                    //not yet implemented -- otmFilterGroups -- might not even implement this.
+
+                buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}) {
+
+                    var otmPostpend = overrides.otmPostpend ? overrides.selectPostpend : "";
+                    var selectPostpend = overrides.selectPostpend ? overrides.selectPostpend : "";
+                    var selectFilterGroups = overrides.selectFilterGroups ? overrides.selectFilterGroups : {};
 
                     promises = []
-                    promises.push(this.buildOTM(url, factoryName, initObject, isEditable));
-                    promises.push(this.buildSelect(url, factoryName, initObject));
+                    promises.push(this.buildOTM(url, factoryName, initObject, isEditable, {postpend : otmPostpend}));
+                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {postpend : selectPostpend, filterGroups : selectFilterGroups}));
 
                     return $q.all(promises);
 
                 },
 
-                buildSelect: function (url, factoryName, initObject, single) {
+                //Possible overrides
+                    //postpend -- a string that will be added to the end of the url that is passed in.
+                    //filterGroups -- currently only takes filters of type string.
+                buildSelect: function (url, factoryName, initObject, single, overrides = {}) {
+
+                    var postpend = overrides.postpend ? overrides.postpend : "";
 
                     var factory = $injector.get(factoryName);
 
                     var grid = factory.create();
 
                     if (initObject && initObject.id) {
-                        url = url + initObject.id
+                        url = url + initObject.id + postpend;
                     } else {
-                        url = url + 0
+                        url = url + 0 + postpend;
                     }
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
-                    grid.allowSelectMany()
+                    grid.allowSelectMany();
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+                    var defaultParams = {cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
 
                     if (single === undefined) {
                         grid.setStaticFilters({'cSelectable' : true});
@@ -82,13 +106,54 @@ angular.module('grid.gridBuilder', [])
                             .disableHover()
                             .setPerPage(3)
                             .disableToggleColumns()
+                            .setInitResultCount(response.unpaginatedTotal)
                         ;
-
-                    });
-
+                    }).then(this.addFiltersToGrid (grid, overrides['filterGroups']));
                 },
 
-                buildSelectSingle: function (factoryName) {
+                //Helper function used to implement the overrrides for the various other grid functions -- not intended to be called directly
+                    //Currently there
+                addFiltersToGrid: function (grid, filterOverride){
+                    if (filterOverride != {} && filterOverride != undefined) {
+                        var filterObjIndex;
+                        var filterObjectKeys = Object.keys(filterOverride);
+
+                        angular.forEach(grid.filters, function (filter) {
+                            filterObjIndex = filterObjectKeys.indexOf(filter.title); //need to use title instead of bind to because there can be multiple realtions bound to the same field on different objects.
+                            if(filterObjIndex != -1){
+                                filter.disabled = true;
+                                filter.isVisible = true;
+                                filter.isFiltering = true;
+
+                                switch(filter.type){
+                                    case "relation":
+                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
+                                            filter.selectItem(selectedRelation);
+                                        });
+                                        break;
+
+                                    case "enum":
+                                        filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
+                                        break;
+
+                                    //We only need relation and enum
+                                        //can also implement integer, string, boolean, deleted and date at some point
+
+                                }
+
+                            }
+                        });
+                    }
+                    return grid;
+                },
+
+                //Build a grid for use with forms that allows the user to select one option
+
+                //Possible overrides
+                    //url -- if you would like to use an alternate url post it here.
+                    //filterGroups -- List the filters that will be applied by default.
+
+                buildSelectSingle: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
 
@@ -98,15 +163,21 @@ angular.module('grid.gridBuilder', [])
 
                     }
 
+                    var url = factory.url;
+
+                    if (overrides && overrides.url) {
+                        url = overrides.url;
+                    }
+
                     var grid = factory.create();
 
-                    grid.setResourceUrl(factory.url);
+                    grid.setResourceUrl(url);
                     grid.hideAllFilters();
                     grid.allowSelect()
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
 
-                    return $cbResource.get(factory.url, defaultParams).then(function (response) {
+                    return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
 
@@ -120,11 +191,16 @@ angular.module('grid.gridBuilder', [])
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
 
-                    });
+                    }).then(this.addFiltersToGrid(grid, overrides['filterGroups']));
 
                 },
 
-                buildOTM: function (url, factoryName, initObject, isEditable) {
+                //Possible overrides
+                    //postpend -- specify a sting that is added to the end of the url that we qery each time.
+
+                buildOTM: function (url, factoryName, initObject, isEditable, overrides = {}) {
+
+                    var postpend = overrides.postpend ? overrides.postpend : "";
 
                     var factory = $injector.get(factoryName);
 
@@ -133,7 +209,7 @@ angular.module('grid.gridBuilder', [])
                     isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
 
                     if (initObject && initObject.id) {
-                        url = url + initObject.id
+                        url = url + initObject.id + postpend;
                     }
 
                     grid

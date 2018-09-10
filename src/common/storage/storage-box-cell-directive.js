@@ -83,10 +83,8 @@ angular.module('storage.storageBoxCellDirective', [])
                             $scope.sample = $scope.sdm.sampleMap[$scope.row][$scope.column];
                         }
 
-                        if ($scope.sample) {
+                        if ($scope.sample && $scope.sampleTypeIconMapping[$scope.sample.sampleType.name] !== undefined) {
                             element.find('div.cell').css({'background-image': 'url("/images/' + $scope.sampleTypeIconMapping[$scope.sample.sampleType.name] + '")'});
-                        } else {
-                            element.find('div.cell').css({'background-image': 'none'});
                         }
 
                     };

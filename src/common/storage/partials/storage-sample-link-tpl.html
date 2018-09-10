@@ -1,0 +1,28 @@
+<form class="form-horizontal">
+
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Move Sample to Division {{division.title}}</h4>
+        <small>{{sample.name}}</small>
+    </div>
+
+    <cb-form form="cbForm">
+
+        <div class="modal-body">
+
+            <cb-form-group label="Choose sample" name="sample">
+                <div class="col-sm-10">
+                    <one-to-one name="sample" show-grid="true" grid="sampleGrid" ng-model="sample" bind-to="sample" parent-object="sample" resource-url="/sample" placeholder="Link Sample.." required></one-to-one>
+                </div>
+            </cb-form-group>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" ng-disabled="!sample" ng-click="submit()">Move Sample</button>
+            <button type="button" class="btn btn-default" ng-click="close()">Cancel</button>
+        </div>
+
+    </cb-form>
+
+</form>

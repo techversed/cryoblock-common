@@ -1,16 +1,4 @@
-<div class="container p-md" ng-show="isUploading">
-    <p class="text-center">
-        <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
-    </p>
-</div>
-
-<div class="container p-md" ng-show="config.isUploading">
-    <p class="text-center">
-        <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
-    </p>
-</div>
-
-<div class="container p-md" ng-hide="isUploading">
+<div class="container p-md">
 
     <h2 class="text-center font-bold m-b-lg">Update Input Samples</h2>
 
@@ -21,29 +9,33 @@
                 Back
             </button>
         </div>
+
         <div class="col-xs-4">
-            <button ng-click="config.downloadInputTemplate()" class='btn btn-info btn-block'>
-                <i class="fa fa-download" />
-                Download Template
-            </button>
+            <cb-dropdown
+                cb-dropdown-info
+                name='inputTemplateType'
+                bind-to="name"
+                ng-model="config.inputTemplateType"
+                label="Download Template"
+                items="['EXCEL']"
+                cb-on-select="config.onSelectInputTemplateType"
+                cb-on-select-context="config"
+                icon-class="fa fa-download"
+                required
+            >
+            </cb-dropdown>
         </div>
         <div class="col-xs-4">
             <button ng-click="config.uploadInputTemplate()" class='btn btn-primary btn-block'>
                 <i class="fa fa-upload" />
                 Upload
             </button>
-        </div>
-    </div>
+            <div> <br /> </div>
+            <button ng-click="config.inputsDepleted()" class='btn btn-default btn-block'>
+                <i class="fa fa-angle-double-right" />
+                Depleted All Inputs (Skip Template)
+            </button>
 
-    <div class="row" ng-if="config.inputTemplateLoaded">
-        <div ng-if="!config.importData.hasErrors">
-            <p class="text-center"><i class="fa fa-check fa-3x text-success"/></p>
-            <p class="text-center fa-1-2x">Your CSV is valid! Click next to select sample storage locations or click back if you need to reupload your CSV.</p>
-        </div>
-
-        <div ng-if="config.importData.hasErrors">
-            <p class="text-center"><i class="fa fa-exclamation-triangle fa-3x text-danger"/></p>
-            <p class="text-center fa-1-2x">Your CSV is invalid. Please review the errors below, update your CSV and reupload.</p>
         </div>
     </div>
 
@@ -68,7 +60,31 @@
         </div>
     </div>
 
+    <div class="container p-md" ng-show="config.isUploading">
+        <p class="text-center">
+            <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+        </p>
+    </div>
+
+    <div class="row m-t-xl" ng-if="config.inputTemplateLoaded && !config.isUploading">
+        <div ng-if="!config.importData.hasErrors">
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check fa-2x text-success"/>
+                <strong class="m-l-sm" style="font-size:1.1em;">Your CSV is valid! Click next to select sample storage locations or click back if you need to reupload your CSV.</strong>
+            </div>
+        </div>
+
+        <div ng-if="config.importData.hasErrors">
+            <div class="alert alert-danger" role="alert">
+                <i class="fa fa-exclamation-triangle fa-2x text-danger"/>
+                <strong class="m-l-sm" style="font-size:1.1em;">Your CSV is invalid. Please review the errors below, update your CSV and reupload.</strong>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<sample-import-help></sample-import-help>
 
 <div ng-hide="config.isUploading">
     <grid ng-if="config.inputImportGrid" grid="config.inputImportGrid"></grid>

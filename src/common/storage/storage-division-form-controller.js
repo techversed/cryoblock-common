@@ -17,16 +17,23 @@ angular.module('storage.storageDivisionFormCtrl', [])
                 owner: sessionFactory.getLoggedInUser()
             };
 
+            if ($scope.division.id == undefined) {
+                divisionEditorGrids[1].addingItems.push(sessionFactory.getLoggedInUser());
+                divisionEditorGrids[1].addingItemIds.push(sessionFactory.getLoggedInUser().id);
+            }
+
             $scope.sampleTypeGrids = sampleTypeGrids;
             $scope.storageContainerGrids = storageContainerGrids;
             $scope.divisionEditorGrids = divisionEditorGrids;
             $scope.divisionViewerGrids = divisionViewerGrids;
             $scope.divisionGroupViewerGrids = divisionGroupViewerGrids;
-            $scope.divisionGroupEditorGrids = divisionGroupEditorGrids;
+            $scope.divisionGroupEditorGrids = divisionGroupEditorGrids ;
             $scope.ownerGrid = ownerGrid;
 
             $scope.oldPublicEditValue = $scope.division.isPublicEdit;
             $scope.oldPublicViewValue = $scope.division.isPublicView;
+            $scope.oldAllStorage = $scope.division.allowAllStorageContainers;
+            $scope.oldAllSample = $scope.division.allowAllSampleTypes;
 
             if ($scope.division.parentId) {
                 $scope.division.parent = {id: $scope.division.parentId};
@@ -44,10 +51,6 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
             $scope.close = function () {
 
-                if ($scope.divisionForm.$pristine === false) {
-                    console.log('not pristine');
-                }
-
                 $modalInstance.close();
 
             };
@@ -62,13 +65,21 @@ angular.module('storage.storageDivisionFormCtrl', [])
                     return;
                 }
 
-                // Check if permissions have changed
                 $scope.permissionsChanged = false;
-                if ($scope.division.editors !== undefined || $scope.division.groupEditors !== undefined || $scope.division.viewers !== undefined || $scope.division.groupViewers !== undefined) {
+
+                //Old method of assessing change was not strict enough --
+                //if($scope.divison.editors !== undefined || $scope.division.groupEditors !== undefined || $scope.division.viewers !== undefined || $scope.division.groupViewers !== undefined || $scope.division.sampleTypes !== undefined || $scope.division.storageContainers !== undefined))
+                if ($scope.division.editors ? ($scope.division.editors['adding'].length != 0 || $scope.division.editors['removing'].length != 0 ) : false
+                    || $scope.division.groupEditors ? ($scope.division.groupEditors['adding'].length != 0 || $scope.division.groupEditors['removing'].length != 0) : false
+                    || $scope.division.viewers ? ($scope.division.viewers['adding'].length != 0 || $scope.division.viewers['removing'].length != 0) : false
+                    || $scope.division.groupViewers ? ($scope.division.groupViewers['adding'].length != 0 || $scope.division.groupViewers['removing'].length != 0) : false
+                    || $scope.division.sampleTypes ? ($scope.division.sampleTypes['adding'].length != 0 || $scope.division.sampleTypes['removing'].length != 0) : false
+                    || $scope.division.storageContainers ? ($scope.division.storageContainers['adding'].length != 0 || $scope.division.storageContainers['removing'].length != 0) : false)
+                {
                     $scope.permissionsChanged = true;
                 }
 
-                if ($scope.division.id !== undefined && ($scope.oldPublicViewValue !== $scope.division.isPublicView || $scope.oldPublicEditValue !== $scope.division.isPublicEdit)) {
+                if ($scope.division.id !== undefined && ($scope.oldPublicViewValue !== $scope.division.isPublicView || $scope.oldPublicEditValue !== $scope.division.isPublicEdit || $scope.oldAllSample !== $scope.division.allowAllSampleTypes || $scope.oldAllStorage !== $scope.division.allowAllStorageContainers)) {
                     $scope.permissionsChanged = true;
                 }
 
@@ -76,7 +87,7 @@ angular.module('storage.storageDivisionFormCtrl', [])
 
                     swal({
                         title: "Are you sure?",
-                        text: "You are changing the permissions of this division. All children permissions within this division will be overridden.",
+                        text: "You are changing the permissions/sample types/containers of this division. All children settings within this division will be overridden.",
                         type: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#DD6B55",

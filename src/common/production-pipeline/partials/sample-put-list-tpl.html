@@ -1,0 +1,38 @@
+<table class="table" style="width: 100%; border-collapse: collapse;font-size:11px;">
+    <thead>
+        <tr>
+            <th style="text-align: center; border-bottom: 2px solid gray;">ID</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Catalog</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Description</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Sample Type</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Division</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Division Row</th>
+            <th style="text-align: center; border-bottom: 2px solid gray;">Division Column</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr ng-repeat="sample in samples">
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
+                    {{sample.id}}
+                </td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
+                    {{sample.catalog.name}}
+                </td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
+                    {{sample.description}}
+                </td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
+                    {{sample.sampleType.stringLabel}}
+                </td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
+                    {{sample.division.stringLabel}}
+                </td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
+                    {{sample.divisionRow}}
+                </td>
+                <td style="text-align: center; border-bottom: 1px solid #b8b8b8;">
+                    {{sample.divisionColumn}}
+                </td>
+            </tr>
+    </tbody>
+</table>

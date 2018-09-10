@@ -11,10 +11,8 @@
         </tr>
 
         <tr>
-            <td>
-                Allowed Sample Types
-            </td>
-            <td>
+            <td>Allowed Sample Types</td>
+            <td ng-if="division.allowAllSampleTypes || division.divisionSampleTypes.length">
                 <span ng-if="division.allowAllSampleTypes">
                     <i class="fa fa-check-circle text-primary"/>
                     Any Sample Type Allowed
@@ -23,13 +21,14 @@
                     <sample-type-icon sample-type="divisionSampleTypes.sampleType" class="xs" ng-if="divisionSampleTypes.sampleType" uib-tooltip="{{divisionSampleTypes.sampleType.name}}"></sample-type-icon>
                 </i>
             </td>
+            <td ng-if="!division.allowAllSampleTypes && !division.divisionSampleTypes.length">Not Configured</td>
         </tr>
 
         <tr>
             <td>
                 Allowed Storage Containers
             </td>
-            <td>
+            <td ng-if="division.allowAllStorageContainers || division.divisionStorageContainers.length">
                 <span ng-if="division.allowAllStorageContainers">
                     <i class="fa fa-check-circle text-primary"/>
                     Any Storage Container Allowed
@@ -39,13 +38,14 @@
                     <span ng-if="$index != (division.divisionStorageContainers.length - 1)">,</span>
                 </span>
             </td>
+            <td ng-if="!division.allowAllStorageContainers && !division.divisionStorageContainers.length">Not Configured</td>
         </tr>
 
         <tr>
             <td>
                 Able To View
             </td>
-            <td>
+            <td ng-if="division.isPublicView || division.isPublicEdit || division.divisionViewers.length">
                 <span ng-if="division.isPublicView || division.isPublicEdit">
                     <i class="fa fa-users text-primary"/>
                     All Users
@@ -54,24 +54,28 @@
                     <cb-user-avatar user="divisionViewers.user" class="xs" ng-if="divisionViewers.user" uib-tooltip="{{divisionViewers.user.stringLabel}}"></cb-user-avatar>
                 </i>
             </td>
+            <td ng-if="!division.isPublicView && !division.isPublicEdit && !division.divisionViewers.length">
+                <span><i class="text-danger fa fa-lock m-r-xs"/>Restricted</span>
+            </td>
         </tr>
 
         <tr>
             <td>
                 Able To Edit
             </td>
-            <td>
+            <td ng-if="division.isPublicEdit || division.divisionEditors.length">
                 <span ng-if="division.isPublicEdit">
                     <i class="fa fa-users text-primary"/>
                     All Users
                 </span>
-                <i ng-repeat="divisionEditors in division.divisionEditors" class="user-icon-list">
-                    <cb-user-avatar user="divisionEditors.user" class="xs" ng-if="divisionEditors.user" uib-tooltip="{{divisionEditors.user.stringLabel}}"></cb-user-avatar>
+                <i ng-if="!division.isPublicEdit" ng-repeat="divisionEditor in division.divisionEditors" class="user-icon-list">
+                    <cb-user-avatar user="divisionEditor.user" class="xs" ng-if="divisionEditor.user" uib-tooltip="{{divisionEditor.user.stringLabel}}"></cb-user-avatar>
                 </i>
             </td>
+            <td ng-if="!division.isPublicEdit && !division.divisionEditors.length">Not Configured</td>
         </tr>
 
-        <tr ng-if="division.divisionGroupEditors.length">
+        <tr ng-if="division.divisionGroupEditors.length && !division.isPublicEdit">
             <td>
                 Group Editors
             </td>
@@ -83,7 +87,7 @@
             </td>
         </tr>
 
-        <tr ng-if="division.divisionGroupViewers.length">
+        <tr ng-if="division.divisionGroupViewers.length && !division.isPublicView">
             <td>
                 Group Viewers
             </td>

@@ -18,7 +18,11 @@ angular.module('storage', [
     'storage.routes',
     'storage.storageTitleDirective',
     'storage.sampleTypeIconDirective',
+    'storage.storageDivisionSearchCtrl',
+    'storage.storageDivisionRowActionsCtrl',
+    'storage.storageDivisionGridFactory',
     'storage.catalog',
+    'storage.storageSampleLinkCtrl',
     'storage.cbBoxGridInfoDirective'
 ]);
 

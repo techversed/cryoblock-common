@@ -56,9 +56,15 @@ angular.module('storage.storageFactory', [])
 
                 getDivisionChildren2: function (parentId) {
 
-                    var url = API.url + '/storage/division?parentId[EQ]=' + parentId;
+                    var req = {
+                        method: 'GET',
+                        url: API.url + '/storage/division?parentId[EQ]=' + parentId,
+                        headers: {
+                            'X-CARBON-SERIALIZATION-GROUPS': 'sampleTypes,containers,viewers,groupViewers,editors,groupEditors'
+                        }
+                    };
 
-                    var promise = $http.get(url).then(function (response) {
+                    var promise = $http(req).then(function (response) {
                         return response.data;
                     });
 
@@ -105,14 +111,14 @@ angular.module('storage.storageFactory', [])
 
                 },
 
-                moveSamples: function (sampleMoveMap) {
+                moveSamples: function (sampleMoveMap, division) {
 
                     var data = sampleMoveMap.map(function (map) {
-                        return {
-                            sampleId: map.sample.id,
-                            row: map.row,
-                            column: map.column
-                        }
+                        var sample = angular.copy(map.sample);
+                        sample.division = {id: division.id};
+                        sample.divisionRow = map.row;
+                        sample.divisionColumn = map.column;
+                        return sample;
                     });
 
                     return $cbResource.create('/storage/sample/storage-move', data);

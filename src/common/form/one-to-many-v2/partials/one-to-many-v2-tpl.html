@@ -20,6 +20,7 @@
 
  -->
 
+<input name="{{bindTo}}" type="hidden" class="form-control" ng-model="parentObject[bindTo]">
 <div class="one-to-many-container">
 
     <div class="one-to-many-toggler">
@@ -82,6 +83,11 @@
 
     <div class="animated fadeIn" ng-show="showSelectGrid">
         <grid grid="searchGrid"></grid>
+    </div>
+
+    <div ng-show="formCtrl[bindTo].$error['numrequired'] && formCtrl.$submitted">
+        <p ng-if="numRequired < 2" class="text-danger">At least {{numRequired}} item is required</p>
+        <p ng-if="numRequired >= 2" class="text-danger">At least {{numRequired}} items are required</p>
     </div>
 
 </div>

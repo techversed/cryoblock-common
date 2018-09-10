@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$stateParams',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $stateParams) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest) {
 
             var storageDivisionManager = {
 
@@ -34,6 +34,10 @@ angular.module('storage.storageDivisionManager', [])
 
                 navigationStates: ['pending', 'initializing', 'initialized'],
 
+                toggleSearch: false,
+
+                initSampleId: null,
+
                 initialize: function (division) {
 
                     this.division = division;
@@ -44,9 +48,11 @@ angular.module('storage.storageDivisionManager', [])
                     this.selectedSampleCount = 0;
                     this.sampleMap = this.getSampleMap();
                     this.expandToDivision(this.division);
+                    this.toggleSearch = false;
 
-                    if ($stateParams.sampleId) {
-                        this.toggleSampleId($stateParams.sampleId);
+                    if (this.initSampleId) {
+                        this.toggleSampleId(this.initSampleId);
+                        this.initSampleId = null;
                     }
                 },
 
@@ -115,6 +121,7 @@ angular.module('storage.storageDivisionManager', [])
                     return map;
 
                 },
+
                 addCell: function (cellScope) {
                     var row = cellScope.row;
                     var column = cellScope.column;
@@ -168,8 +175,6 @@ angular.module('storage.storageDivisionManager', [])
 
                 toggle: function (row, column) {
 
-                    console.log(row, column);
-                    console.log(this.selectedCells);
                     if (this.selectedCells[row] && this.selectedCells[row][column]) {
                         this.selectedCount -= 1;
                         if (this.cellScopes[row][column].sample) {
@@ -219,6 +224,14 @@ angular.module('storage.storageDivisionManager', [])
                     }
                 },
 
+                getSingleSelectedRowColumn: function () {
+                    for (row in this.selectedCells) {
+                        for (column in this.selectedCells[row]) {
+                            return [row, column];
+                        }
+                    }
+                },
+
                 getSelectedSamples: function () {
                     var samples = [];
                     for (row in this.selectedCells) {
@@ -247,19 +260,182 @@ angular.module('storage.storageDivisionManager', [])
 
                 editSelectedSample: function () {
                     var sample = storageDivisionManager.getSelectedSample();
+                    sample.skipLocationSelect = true;
+                    sample.division = {
+                        id: storageDivisionManager.division.id,
+                        canEdit: storageDivisionManager.division.canEdit
+                    };
+                    storageDivisionManager.editSample(sample);
+                },
+
+                editSample: function (sample) {
                     sampleFormFactory.openSampleFormModal(sample);
                 },
 
                 setSelectedDivision: function (division) {
-                    // this.selectedDivision.active = false;
                     this.selectedDivision = division;
                 },
 
-                delete: function () {
+                delete: function (samples) {
 
-                    var samples = this.getSelectedSamples();
+                    var samples = samples != undefined ? samples : this.getSelectedSamples();
                     storageFormFactory.openSampleStorageRemoveModal(samples);
 
+                },
+
+                openSampleStorageLinkModal: function () {
+
+                    if (this.division.canEdit === false) {
+
+                        swal({
+                            title: "Sorry,",
+                            text: "You do not have permission to edit this division.",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {});
+
+                        return $q.reject();
+                    }
+
+                    var samples = {};
+
+                    division = this.division
+                    selectedCells = this.selectedCells
+
+                    $modal.open({
+                        templateUrl: 'common/storage/partials/storage-sample-link-tpl.html',
+                        controller: 'storageSampleLinkCtrl',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'lg',
+                        resolve: {
+
+                            samples: function () {
+
+                                return samples;
+                            },
+
+                            sampleGrid: function ($cbGridBuilder) {
+
+                                return $cbGridBuilder.buildSelectSingle('sampleGridFactory', {
+                                    url: '/storage/sample?status[EQ]=Available',
+                                }).then(function (grid) {
+                                    angular.forEach(grid.filters, function (filter) {
+                                        if (filter.bindTo == 'status') {
+                                            filter.disabled = true;
+                                            filter.isVisible = true;
+                                            filter.selectionString = 'Available';
+                                            filter.isFiltering = true;
+                                        }
+                                    });
+
+                                    return grid;
+
+                                });
+
+                            },
+
+                            selectedCells: function () {
+
+                                return selectedCells;
+
+                            },
+
+                            division: function () {
+
+                                return division;
+
+                            },
+
+                            callBack: function () {
+
+                                return function (samples) {
+
+                                    $state.go($state.current, $stateParams, {reload:true});
+
+                                 };
+
+                            }
+
+                        }
+                    });
+
+                },
+
+                moveSample: function () {
+
+                    var samples = this.getSelectedSamples();
+                    storageFormFactory.openStorageSampleMove(samples, this.division);
+
+                },
+
+                createSample: function () {
+
+                    if (this.division.canEdit === false) {
+
+                        swal({
+                            title: "Sorry,",
+                            text: "You do not have permission to edit this division.",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {});
+
+                        return $q.reject();
+                    }
+
+                    if (!this.division.hasDimension) {
+                        sampleFormFactory.openSampleFormModal({
+                            division: this.division,
+                            skipLocationSelect: true,
+                            status: 'Available'
+                        });
+                        return;
+                    }
+
+                    var selectedRowColumn = this.getSingleSelectedRowColumn();
+                    sampleFormFactory.openSampleFormModal({
+                        division: this.division,
+                        divisionRow: selectedRowColumn[0],
+                        divisionColumn: selectedRowColumn[1],
+                        status: 'Available',
+                        skipLocationSelect: true
+                    });
+
+                },
+
+                addDivision: function () {
+
+                    if (this.division.canEdit === false) {
+
+                        swal({
+                            title: "Sorry,",
+                            text: "You do not have permission to edit this division.",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {});
+
+                        return $q.reject();
+                    }
+
+                    storageFormFactory.openDivisionFormModal({parent: {id: this.division.id}});
+
+                },
+
+                editDivision: function (division, returnState) {
+
+                    storageFormFactory.openDivisionFormModal(division);
+
+                },
+
+                deleteDivision: function (division) {
+                    storageFormFactory.openDeleteForm(division);
                 },
 
                 makeGhosts: function () {
@@ -275,7 +451,7 @@ angular.module('storage.storageDivisionManager', [])
 
                         originalEl = scope.element;
                         cellEl = angular.element(originalEl).find('.cell');
-                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.name +'</span></div></div>');
+                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.catalog.name +'</span></div></div>');
                         newEl.css({
                             'width': originalEl.offsetWidth + 'px',
                             'height': originalEl.offsetHeight + 'px',
@@ -423,7 +599,7 @@ angular.module('storage.storageDivisionManager', [])
                         return $q.reject();
                     }
 
-                    return storageFormFactory.openStorageSampleMove(sampleMoveMap).then(function () {
+                    return storageFormFactory.openStorageSampleMove(sampleMoveMap, this.division).then(function () {
 
                         angular.forEach(sampleMoveMap, function (map) {
 
@@ -525,6 +701,61 @@ angular.module('storage.storageDivisionManager', [])
 
                     this.pageX = pageX;
                     this.pageY = pageY;
+                },
+
+                toggleView: function () {
+
+                    this.toggleSearch = this.toggleSearch ? false : true;
+
+                },
+
+                print: function () {
+
+                    var printScope = $rootScope.$new(true);
+
+                    printScope.sampleMap = this.sampleMap;
+                    printScope.rows = [];
+                    printScope.columns = [];
+                    printScope.sdm = this;
+                    printScope.division = this.division;
+
+                    for (var i = 1; i <= this.division.width; i++) {
+                        printScope.columns.push(i);
+                    }
+
+                    for (var i = 65; i < this.division.height + 65; i++) {
+                        printScope.rows.push(String.fromCharCode(i));
+                    }
+
+                    $templateRequest('common/storage/partials/division-print-tpl.html').then(function (html) {
+
+                        var content = null;
+                        var template = angular.element(html);
+
+                        printScope.$$postDigest(function () {
+
+                            var w = 1500, h = 1000;
+
+                            var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
+                            var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
+
+                            var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+                            var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+                            var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+                            var top = ((height / 2) - (h / 2)) + dualScreenTop;
+                            var tab = window.open('', '', 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+                            tab.document.write('<html><head><style>@page { size: landscape; }</style></head><title>Division Print</title><body>' + template[0].outerHTML + '</body></html>');
+                            tab.document.close();
+
+                            tab.print();
+                        });
+
+                        content = $compile(template)(printScope);
+
+                    });
+
                 }
 
             };

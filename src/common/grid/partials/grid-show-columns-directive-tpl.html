@@ -13,20 +13,20 @@
 
             </li>
 
-            <li role="menuitem" ng-repeat="column in visibleColumns | filter : searchText" ng-click="selectItem(column)" class="grid-filter-item">
-                <a href="" class="grid-filter-item-detail" ng-click="toggleColumn(column)">
-                    <input ng-model="column.isVisible" type="checkbox" class="grid-filter-check" ng-checked="column.isVisible" ng-disabled="column.isPrimary"></input>
+            <li role="menuitem" ng-repeat="column in visibleColumns | filter : searchText" class="grid-filter-item">
+                <label class="grid-filter-item-detail">
+                    <input ng-change="toggleColumn(column)" ng-model="column.isVisible" type="checkbox" class="grid-filter-check" ng-checked="column.isVisible" ng-disabled="column.isPrimary"></input>
                     <span ng-bind="column.header"></span>
-                </a>
+                </label>
             </li>
 
             <li class="divider" ng-if="hiddenColumns.length"></li>
 
-            <li role="menuitem" ng-repeat="column in hiddenColumns | filter: searchText" ng-click="toggleColumn(column)" class="grid-filter-item">
-                <a href="" class="grid-filter-item-detail">
-                    <input ng-model="column.isVisible" type="checkbox" class="grid-filter-check" ng-checked="column.isVisible"></input>
+            <li role="menuitem" ng-repeat="column in hiddenColumns | filter: searchText" class="grid-filter-item">
+                <label class="grid-filter-item-detail">
+                    <input ng-change="toggleColumn(column)" ng-model="column.isVisible" type="checkbox" class="grid-filter-check" ng-checked="column.isVisible"></input>
                     <span ng-bind="column.header"></span>
-                </a>
+                </label>
             </li>
 
 

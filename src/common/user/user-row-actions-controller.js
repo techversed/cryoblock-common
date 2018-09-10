@@ -1,8 +1,8 @@
 angular.module('user.userRowActionsCtrl', [])
 
-    .controller('userRowActionsCtrl', ['$scope', 'userFormFactory', 'sessionFactory',
+    .controller('userRowActionsCtrl', ['$scope', 'userFormFactory', 'sessionFactory', '$uibModal',
 
-        function ($scope, userFormFactory, sessionFactory) {
+        function ($scope, userFormFactory, sessionFactory, $modal) {
 
             $scope.canDisable = true;
             if ($scope.result.id === sessionFactory.getLoggedInUser().id) {
@@ -11,6 +11,13 @@ angular.module('user.userRowActionsCtrl', [])
             }
             if (!$scope.result.enabled) {
                 $scope.canDisable = false;
+            }
+
+
+            $scope.canReset = false;
+
+            if (sessionFactory.hasRole('ROLE_ADMIN')) {
+                $scope.canReset = true;
             }
 
             $scope.edit = function (user) {
@@ -24,6 +31,25 @@ angular.module('user.userRowActionsCtrl', [])
                 userFormFactory.openDisableModal(user);
 
             };
+
+            $scope.changePassword = function () {
+                $modal.open({
+                    templateUrl: 'common/user/partials/user-change-password-tpl.html',
+                    controller: 'adminResetPasswordCtrl',
+                    windowClass: 'inmodal',
+                    keyboard: false,
+                    backdrop: 'static',
+                    resolve: {
+
+                        user: function () {
+
+                            return $scope.result;
+
+                        }
+
+                    }
+                });
+            }
         }
 
     ])

@@ -1,63 +1,29 @@
 angular.module('notification.objectNotificationFormCtrl', [])
 
-    .controller('objectNotificationFormCtrl', ['$scope', '$uibModalInstance', '$cbResource', 'toastr', 'objectNotification', 'objectType', 'groupGrid',
+    .controller('objectNotificationFormCtrl', ['$scope', 'groupObjectNotification', 'onCreateGroupGrid', 'onUpdateGroupGrid', 'onDeleteGroupGrid', '$cbForm', 'adminRole', 'entityDetail',
 
-        function ($scope, $uibModalInstance, $cbResource, toastr, objectNotification, objectType, groupGrid) {
+        function ($scope, groupObjectNotification, onCreateGroupGrid, onUpdateGroupGrid, onDeleteGroupGrid, $cbForm, adminRole, entityDetail) {
 
-            $scope.objectType = objectType;
-            $scope.objectNotificationForm = {};
-            $scope.objectNotification = objectNotification ? objectNotification : {objectType: objectType};
+            $scope.groupObjectNotification = groupObjectNotification ? groupObjectNotification : {entityDetail: entityDetail};
+            $scope.onCreateGroupGrid = onCreateGroupGrid;
+            $scope.onUpdateGroupGrid = onUpdateGroupGrid;
+            $scope.onDeleteGroupGrid = onDeleteGroupGrid;
 
-            $scope.onCreateGroupGrid = angular.copy(groupGrid);
-            $scope.onUpdateGroupGrid = angular.copy(groupGrid);
-            $scope.onDeleteGroupGrid = angular.copy(groupGrid);
+            $scope.groupObjectNotificationForm = {};
 
-            $scope.searchGroups = function (search) {
+            $scope.cbForm = $cbForm.create()
+                .setType('Administrator Notification')
+                .setObject($scope.groupObjectNotification)
+                .setUrl('/cryoblock/group-object-notification')
+                .setObjectClass('Carbon\\ApiBundle\\Entity\\GroupObjectNotification')
+            ;
 
-                return $cbResource.get('/group', {cSearch:search}).then(function (response) {
-                    return response.data;
-                });
-
-
+            $scope.close = function (){
+                $scope.cbForm.close($scope.groupObjectNotificationForm, $scope);
             };
 
-            $scope.close = function () {
-
-                if ($scope.objectNotificationForm.$pristine === false) {
-                    console.log('not pristine');
-
-                }
-
-                $uibModalInstance.close();
-
-            };
-
-            $scope.submit = function (isValid) {
-
-                var method = $scope.objectNotification.id !== undefined ? 'update' : 'create';
-
-                var url = method === 'update'
-                    ? '/object-notification?id[EQ]=' + $scope.objectNotification.id
-                    : '/object-notification'
-                ;
-
-                $cbResource[method](url, $scope.objectNotification).then(
-
-                    function (response) {
-
-                        toastr.info('Sample notifications updated successfully');
-                        $scope.close();
-
-                    },
-
-                    function (response) {
-
-                        $scope.errors = response.data;
-
-                    }
-
-                );
-
+            $scope.save = function () {
+                $scope.cbForm.save($scope.groupObjectNotificationForm, $scope);
             };
 
         }

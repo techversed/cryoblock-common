@@ -16,9 +16,6 @@ angular.module('productionPipeline.productionPipelineDirective', [])
 
                 controller: function ($scope) {
 
-                    console.log($scope.config);
-
-
                 }
 
             };

@@ -1,0 +1,79 @@
+<div class="container p-md">
+
+    <h2 class="text-center font-bold m-b-lg">Upload Sample Import Template</h2>
+
+    <div class="row" ng-if="!config.outputTemplateLoaded">
+        <div class="col-xs-6">
+            <cb-dropdown
+                cb-dropdown-info
+                name='outputTemplateType'
+                bind-to="name"
+                ng-model="config.outputTemplateType"
+                label="Download Template"
+                items="['EXCEL']"
+                cb-on-select="config.downloadSampleImportOutputTemplate"
+                cb-on-select-context="config"
+                icon-class="fa fa-download"
+                required
+            >
+            </cb-dropdown>
+        </div>
+        <div class="col-xs-6">
+            <button ng-click="config.uploadOutputTemplate()" class='btn btn-primary btn-block'>
+                <i class="fa fa-upload" />
+                Upload
+            </button>
+        </div>
+    </div>
+
+
+    <div class="row" ng-if="config.outputTemplateLoaded">
+        <div ng-if="!config.outputData.hasErrors">
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check fa-2x text-success"/>
+                <strong class="m-l-sm" style="font-size:1.1em;">Your CSV is valid! Click next to select sample storage locations or click back if you need to reupload your CSV.</strong>
+            </div>
+        </div>
+
+        <div ng-if="config.outputData.hasErrors">
+            <div class="alert alert-danger" role="alert">
+                <i class="fa fa-exclamation-triangle fa-2x text-danger"/>
+                <strong class="m-l-sm" style="font-size:1.1em;">Your CSV is invalid. Please review the errors below, update your CSV and reupload.</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-if="config.outputTemplateLoaded">
+        <div class="col-xs-4">
+            <button step-previous class='btn btn-default btn-block'>
+                <i class="fa fa-arrow-left" />
+                Back
+            </button>
+        </div>
+        <div class="col-xs-4">
+            <button ng-click="config.uploadOutputTemplate()" class='btn btn-info btn-block'>
+                <i class="fa fa-upload" />
+                Reupload
+            </button>
+        </div>
+        <div class="col-xs-4">
+            <button step-next class='btn btn-primary btn-block' ng-disabled="config.outputData.hasErrors">
+                <i class="fa fa-arrow-right" />
+                Next
+            </button>
+        </div>
+    </div>
+
+    <div class="container p-md" ng-show="config.isUploading">
+        <p class="text-center">
+            <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
+        </p>
+    </div>
+
+</div>
+
+<sample-import-help></sample-import-help>
+
+<div ng-hide="isUploading">
+    <grid ng-if="config.outputImportGrid" grid="config.outputImportGrid"></grid>
+</div>

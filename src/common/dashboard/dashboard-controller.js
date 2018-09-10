@@ -1,6 +1,8 @@
 angular.module('dashboard.dashboardCtrl', [])
-    .controller('dashboardCtrl', ['$scope',
-        function ($scope) {
+    .controller('dashboardCtrl', ['$scope', '$state',
+        function ($scope, $state) {
+
+            $state.go('profile.index');
 
             $scope.userName = 'Example user';
             $scope.helloText = 'Welcome in SeedProject';

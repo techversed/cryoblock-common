@@ -1,12 +1,12 @@
 angular.module('grid.gridDeletedFilterCtrl', [])
 
-    .controller('gridDeletedFilterCtrl', ['$scope', '$location',
+    .controller('gridDeletedFilterCtrl', ['$scope', '$location', 'gridManager',
 
-        function ($scope, $location) {
+        function ($scope, $location, gridManager) {
 
             var init = function () {
 
-                if (!$scope.grid.bindToState) {
+                if (!$scope.grid.bindToState || gridManager.ignoreUrlParams) {
                     return;
                 }
 
@@ -15,7 +15,6 @@ angular.module('grid.gridDeletedFilterCtrl', [])
 
                 if (initParam !== undefined) {
 
-                    console.log(initParam);
                     if (!initParam) {
                         return;
                     }
