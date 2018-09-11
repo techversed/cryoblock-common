@@ -7,5 +7,6 @@ angular.module('profile', [
     'profile.profileActivityDirective',
     'profile.profileFormFactory',
     'profile.profileFormCtrl',
-    'profile.changePasswordCtrl'
+    'profile.changePasswordCtrl',
+    'profile.profileActivityGridFactory'
 ]);
