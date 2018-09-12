@@ -3,7 +3,7 @@ angular.module('profile.profileActivityGridFactory', [])
     .factory('profileActivityGridFactory', ['gridFactory', '$cbResource', '$location', '$injector', 'sessionFactory',
 
         function (gridFactory, $cbResource, $location, $injector, sessionFactory) {
-
+            // console.log(data)
             var activityGridFactory = {
 
                 url: '/log-entry',
@@ -13,12 +13,13 @@ angular.module('profile.profileActivityGridFactory', [])
                         header: 'Object Id',
                         bindTo: 'objectId',
                         name: 'objectId',
-                        isVisible: true
+                        isVisible: true,
+                        sref: '{{result.object}}({id:result.objectId})'
                     },
                     {
                         header: 'Object',
-                        bindTo: 'objectClass',
-                        name: 'objectClass',
+                        bindTo: 'objectName',
+                        name: 'objectName',
                         isVisible: true
                     },
                     {
@@ -29,19 +30,13 @@ angular.module('profile.profileActivityGridFactory', [])
                     },
                     {
                         header: 'Time',
-                        bindTo: 'loggedAt',
+                        bindTo: 'loggedAt | date:\'MMM d, y\'',
                         name: 'loggedAt',
                         isVisible: true
                     },
                     {
-                        header: 'Version',
-                        bindTo: 'version',
-                        name: 'version',
-                        isVisible: true
-                    },
-                    {
                         header: 'Data',
-                        bindTo: 'data',
+                        bindTo: 'data.description',
                         name: 'data',
                         isVisible: true
                     },
@@ -63,10 +58,9 @@ angular.module('profile.profileActivityGridFactory', [])
 
                 ],
                 create: function () {
-
                     var grid = gridFactory.create()
                         .addColumns(this.columns)
-                        .sortColumn(this.columns[1], 'DESC')
+                        .sortColumn(this.columns[3], 'DESC')
                         .addFilters(this.filters)
                     ;
                     return grid;

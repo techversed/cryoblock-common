@@ -4,7 +4,6 @@ angular.module('profile', [
     'profile.routes',
     'profile.profileFactory',
     'profile.profileAvatarDirective',
-    'profile.profileActivityDirective',
     'profile.profileFormFactory',
     'profile.profileFormCtrl',
     'profile.changePasswordCtrl',
