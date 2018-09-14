@@ -3,6 +3,8 @@ angular.module('common.commonCtrl', [])
 
         function ($scope, sessionFactory, navigationInitializer) {
 
+            $scope.workingSet = [{"text": "testing"},{"text": "testing"},{"text": "testing"},{"text": "testing"},{"text": "testing"},{"text": "testing"},{"text": "testing"}];
+
             navigationInitializer.initialize();
 
             this.logout = function () {
