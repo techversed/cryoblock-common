@@ -1,7 +1,7 @@
 angular.module('common.commonCtrl', [])
-    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', '$cbResource',
+    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', '$cbResource', '$cbGridBuilder',
 
-        function ($scope, sessionFactory, navigationInitializer, $cbResource) {
+        function ($scope, sessionFactory, navigationInitializer, $cbResource, $cbGridBuilder) {
             $scope.workingSet = {'id': 1111, 'catalog':{'stringLabel': 'asdlkjsdflkjsdflsdfjlsdkfjlsldkslkjfldkjsflksdjflksdjflkdjsflkjfjsldkfjlsdkfjlsdkjflskdjflskdjflskdjflksdjflksdjflskdjfldksjflksdfjlksdjflksdjlkjsdlfkjskdjfklsdjflksdjfsldfjskdfjlsdkfj'}}
 
             console.log(sessionFactory.getLoggedInUser()['id']);
@@ -18,6 +18,10 @@ angular.module('common.commonCtrl', [])
                     $scope.loading = false;
                 });
             };
+
+            $cbGridBuilder.buildIndex('sampleGridFactory').then( function (response){
+                $scope.grid = response;
+            });
 
             navigationInitializer.initialize();
 
