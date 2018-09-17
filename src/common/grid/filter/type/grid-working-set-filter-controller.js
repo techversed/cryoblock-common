@@ -6,6 +6,10 @@ angular.module('grid.gridWorkingSetFilterCtrl', [])
 
             var init = function (first) {
 
+                if($scope.filter.selectedItems.length == 0){
+                    $scope.selectItem(sessionFactory.getLoggedInUser());
+                }
+
                 var url = $scope.filter.resourceUrl;
 
                 var params = {};
@@ -72,6 +76,8 @@ angular.module('grid.gridWorkingSetFilterCtrl', [])
                     });
 
                 }
+
+                $scope.$emit('grid.refresh');
 
             };
 

@@ -40,6 +40,8 @@ angular.module('grid.gridWorkingSetFilterFactory', [])
 
                 selectItem: function (item) {
 
+                    console.log("testing");
+
                     this.selectedItems.push(item);
 
                     this.results.splice(this.results.indexOf(item), 1);
@@ -47,6 +49,8 @@ angular.module('grid.gridWorkingSetFilterFactory', [])
                     this.isFiltering = true;
 
                     this.updateSelectedItemsString();
+
+                    // $scope.$emit('grid.refresh');
 
                 },
 
