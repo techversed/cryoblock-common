@@ -42,9 +42,11 @@ angular.module('grid.gridWorkingSetFilterFactory', [])
 
                     console.log("testing");
 
-                    this.selectedItems.push(item);
+                    if(this.selectedItems.indexOf(item) == -1){
+                        this.selectedItems.push(item);
+                        this.results.splice(this.results.indexOf(item), 1);
+                    }
 
-                    this.results.splice(this.results.indexOf(item), 1);
 
                     this.isFiltering = true;
 

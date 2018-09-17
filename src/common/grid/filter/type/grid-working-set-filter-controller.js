@@ -93,7 +93,7 @@ angular.module('grid.gridWorkingSetFilterCtrl', [])
             $scope.selectItem = function (item) {
                 console.log($scope.filter.selectedItems);
                 $scope.filter.selectItem(item);
-                init();
+                // init();
                 $scope.$emit('grid.refresh');
             };
 
