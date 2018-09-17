@@ -27,6 +27,9 @@ angular.module('grid.gridFilterFactory', [])
                     },
                     'date': {
                         'factory': 'gridDateFilterFactory'
+                    },
+                    'workingSet':{
+                        'factory': 'gridWorkingSetFilterFactory'
                     }
                 },
 

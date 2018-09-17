@@ -20,7 +20,7 @@ angular.module('grid.gridWorkingSetFilterFactory', [])
 
                 this.controllerName = 'gridWorkingSetFilterCtrl';
 
-                this.templateUrl = 'common/grid/filter/type/partials/grid-relation-filter-tpl.html';
+                this.templateUrl = 'common/grid/filter/type/partials/grid-working-set-filter-tpl.html';
 
                 this.isVisible = false;
 

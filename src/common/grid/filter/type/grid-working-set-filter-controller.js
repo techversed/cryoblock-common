@@ -80,12 +80,12 @@ angular.module('grid.gridWorkingSetFilterCtrl', [])
             };
 
             $scope.search = function () {
-
                 init();
 
             };
 
             $scope.selectItem = function (item) {
+                console.log($scope.filter.selectedItems);
                 $scope.filter.selectItem(item);
                 init();
                 $scope.$emit('grid.refresh');
