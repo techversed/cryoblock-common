@@ -10,7 +10,17 @@ angular.module('common.commonCtrl', [])
                 $scope.workingSet = response['data'];
             });
 
-            this.refreshWorkingSet = function(){
+            this.refreshWorkingSet1 = function(){
+                $scope.loading = true;
+                $cbResource.get('/storage/working-set-sample/user/194', {}, true).then(function (response) {
+                    $scope.workingSet = response['data'];
+                    console.log("refreshed");
+                    $scope.loading = false;
+                });
+            };
+
+
+            this.refreshWorkingSet2 = function(){
                 $scope.loading = true;
                 $cbResource.get('/storage/working-set-sample/user/194', {}, true).then(function (response) {
                     $scope.workingSet = response['data'];
