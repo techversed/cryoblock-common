@@ -67,6 +67,7 @@ angular.module('grid.gridBuilder', [])
 
                 },
 
+// Filter Groups
                 //Possible overrides
                     //postpend -- a string that will be added to the end of the url that is passed in.
                     //filterGroups -- currently only takes filters of type string.
@@ -135,6 +136,12 @@ angular.module('grid.gridBuilder', [])
                                     case "enum":
                                         filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
                                         break;
+
+                                    case "workingSet":
+                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
+                                            filter.selectItem(selectedRelation);
+                                        });
+                                        break
 
                                     //We only need relation and enum
                                         //can also implement integer, string, boolean, deleted and date at some point
