@@ -22,11 +22,16 @@ angular.module('common.commonCtrl', [])
 
             this.refreshWorkingSet2 = function(){
                 $scope.loading = true;
-                $cbResource.get('/storage/working-set-sample/user/194', {}, true).then(function (response) {
-                    $scope.workingSet = response['data'];
-                    console.log("refreshed");
-                    $scope.loading = false;
+                $cbGridBuilder.buildIndex('sampleGridFactory').then( function (response){
+                    $scope.grid = response;
                 });
+
+                // $cbResource.get('/storage/working-set-sample/user/194', {}, true).then(function (response) {
+                //     $scope.grid = response['data'];
+                //     console.log("refreshed");
+                //     $scope.loading = false;
+                // });
+
             };
 
             $cbGridBuilder.buildIndex('sampleGridFactory').then( function (response){
