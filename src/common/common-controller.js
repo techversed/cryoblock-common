@@ -21,10 +21,11 @@ angular.module('common.commonCtrl', [])
             //   }
             // })
 
-            $scope.workingSet = {'id': 1111, 'catalog':{'stringLabel': 'asdlkjsdflkjsdflsdfjlsdkfjlsldkslkjfldkjsflksdjflksdjflkdjsflkjfjsldkfjlsdkfjlsdkjflskdjflskdjflskdjflksdjflksdjflskdjfldksjflksdfjlksdjflksdjlkjsdlfkjskdjfklsdjflksdjfsldfjskdfjlsdkfj'}}
+            // $scope.workingSet = {'id': 1111, 'catalog':{'stringLabel': 'asdlkjsdflkjsdflsdfjlsdkfjlsldkslkjfldkjsflksdjflksdjflkdjsflkjfjsldkfjlsdkfjlsdkjflskdjflskdjflskdjflksdjflksdjflskdjfldksjflksdfjlksdjflksdjlkjsdlfkjskdjfklsdjflksdjfsldfjskdfjlsdkfj'}}
 
             // console.log(sessionFactory.getLoggedInUser()['id']);
             // $scope.workingSet = [{"text": "testing"},{"text": "testing"},{"text": "testing"},{"text": "testing"},{"text": "testing"},{"text": "testing"},{"text": "testing"}];
+
             $cbResource.get('/storage/working-set-sample/user/194', {}, true).then(function (response) {
                 $scope.workingSet = response['data'];
             });
@@ -33,7 +34,7 @@ angular.module('common.commonCtrl', [])
                 $scope.loading = true;
                 $cbResource.get('/storage/working-set-sample/user/194', {}, true).then(function (response) {
                     $scope.workingSet = response['data'];
-                    console.log("refreshed");
+                    // console.log("refreshed");
                     $scope.loading = false;
                 });
             };
@@ -42,11 +43,15 @@ angular.module('common.commonCtrl', [])
                 // $scope.loading = true;
                 var returnedList = [];
 
-                console.log(sessionFactory.getLoggedInUser());
+                // console.log(sessionFactory.getLoggedInUser());
                 returnedList.push(sessionFactory.getLoggedInUser());
 
                 $cbGridBuilder.buildIndex('sampleGridFactory', {selectFilterGroups : {'Working Set': returnedList}}).then( function (response) {
-                    $scope.grid = response;
+
+                    if ($scope.grid == response){
+                        // console.log("testing");
+                        $scope.grid = response;
+                    }
                 });
 
                 // $cbResource.get('/storage/working-set-sample/user/194', {}, true).then(function (response) {
