@@ -1,9 +1,11 @@
 angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'API',
+    .controller('profileCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'activities', 'API',
 
-        function ($scope, $localStorage, $modal, user, API) {
+        function ($scope, $localStorage, $modal, user, activities, API) {
 
             $scope.user = user;
+            $scope.activities = activities;
+            console.log($scope.activities)
 
             $scope.hasAvatar = function () {
                 return typeof $scope.user.avatar_attachment !== 'undefined';
