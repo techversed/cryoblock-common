@@ -1,5 +1,5 @@
 <div class="btn-group" uib-dropdown keyboard-nav>
-    <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectedItemsString}}" uib-dropdown-toggle ng-class="{filtering: filter.isFiltering}">
+    <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectedItemsString}}" uib-dropdown-toggle ng-class="{filtering: filter.isFiltering, disabled:filter.disabled}">
         {{filter.title}} : {{ filter.selectedItemsString }}
         <span class="caret"></span>
         <i class="fa fa-close grid-filter-toggle" ng-click="toggleFilter($event)" />

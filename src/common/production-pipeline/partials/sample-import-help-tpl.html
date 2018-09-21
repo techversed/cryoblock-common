@@ -1,0 +1,52 @@
+<div class="panel-body no-padding">
+    <div class="grid-responsive-table">
+        <div class="grid-overflow">
+            <table class="table table-striped table-align-center">
+                <thead>
+                    <tr>
+                        <th> Project</th>
+                        <th> Catalog</th>
+                        <th> Description </th>
+                        <th> Sample Type </th>
+                        <th> Status </th>
+                        <th> Lot </th>
+                        <th> Storage Container </th>
+                        <th> Donor </th>
+                        <th> Target </th>
+                        <th> Tags </th>
+                        <th> Concentration </th>
+                        <th> Concentration Units </th>
+                        <th> Volume </th>
+                        <th> Volume Units </th>
+                        <th> Mass </th>
+                        <th> Division </th>
+                        <th> Division Row </th>
+                        <th> Division Column </th>
+                    </tr>
+                </thead>
+                </tbody>
+                    <tr>
+                        <td><a ui-sref="project.index" target="_blank"> Project ID </a></td>
+                        <td><a ui-sref="catalog.index" target="_blank"> Catalog Name (new or existing catalog) </a></td>
+                        <td> Description (any string) </td>
+                        <td><a ui-sref="sample_type.index" target="_blank"> Sample Type (exact name) </a></td>
+                        <td> Status (dropdown) </td>
+                        <td> Lot (group samples) </td>
+                        <td> Storage Container (dropdown) </td>
+                        <td><a ui-sref="donor.index" target="_blank"> Donor ID (number) </a></td>
+                        <td><a ui-sref="target.index" target="_blank"> Target ID (number) </a></td>
+                        <td><a ui-sref="tag.index" target="_blank"> Tag ID numbers i.e. (1,2,3) </a></td>
+                        <td> Concentration (decimal) </td>
+                        <td> Concentration units (dropdown) </td>
+                        <td> Volume (decimal) </td>
+                        <td> Volume units (dropdown) </td>
+                        <td> Mass (decimal) </td>
+                        <td><a ui-sref="storage.division.detail({id:1})" target="_blank"> Division ID (in URL on box page) </a></td>
+                        <td> Division Row (A,B,C) </td>
+                        <td> Division Column (1,2,3) </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

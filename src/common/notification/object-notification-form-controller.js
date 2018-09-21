@@ -1,14 +1,13 @@
 angular.module('notification.objectNotificationFormCtrl', [])
 
-    .controller('objectNotificationFormCtrl', ['$scope', 'groupObjectNotification', 'onCreateGroupGrid', 'onUpdateGroupGrid', 'onDeleteGroupGrid', '$cbForm', 'entity', 'objectDescription', 'adminRole', 'url',
+    .controller('objectNotificationFormCtrl', ['$scope', 'groupObjectNotification', 'onCreateGroupGrid', 'onUpdateGroupGrid', 'onDeleteGroupGrid', '$cbForm', 'adminRole', 'entityDetail',
 
-        function ($scope, groupObjectNotification, onCreateGroupGrid, onUpdateGroupGrid, onDeleteGroupGrid, $cbForm, entity, objectDescription, adminRole, url) {
+        function ($scope, groupObjectNotification, onCreateGroupGrid, onUpdateGroupGrid, onDeleteGroupGrid, $cbForm, adminRole, entityDetail) {
 
-            $scope.groupObjectNotification = groupObjectNotification ? groupObjectNotification : {entity: entity, url: url, objectDescription: objectDescription};
+            $scope.groupObjectNotification = groupObjectNotification ? groupObjectNotification : {entityDetail: entityDetail};
             $scope.onCreateGroupGrid = onCreateGroupGrid;
             $scope.onUpdateGroupGrid = onUpdateGroupGrid;
             $scope.onDeleteGroupGrid = onDeleteGroupGrid;
-            $scope.objectDescription = objectDescription;
 
             $scope.groupObjectNotificationForm = {};
 
