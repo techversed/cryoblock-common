@@ -14,7 +14,7 @@ angular.module('profile.profileActivityGridFactory', [])
                         bindTo: 'objectId',
                         name: 'objectId',
                         isVisible: true,
-                        sref: '{{result.object}}({id:result.objectId})'
+                        templateUrl: 'common/profile/partials/profile-grid-id-tpl.html'
                     },
                     {
                         header: 'Object',
