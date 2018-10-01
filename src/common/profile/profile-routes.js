@@ -59,13 +59,13 @@ angular.module('profile.routes', [])
                                         }).then(function (entityDetailResult) {
                                             var edMap = {};
                                             angular.forEach(entityDetailResult.data, function (entityDetail) {
-                                                edMap[entityDetail.objectClassName] = entityDetail;
+                                                edMap[entityDetail.objectDescription] = entityDetail;
                                                 console.log(entityDetail)
                                             });
 
                                             for (var resultIndex = 0; resultIndex < grid.results.length; resultIndex++) {
-                                                console.log(grid.results[resultIndex]);
                                                 grid.results[resultIndex].entityDetail = edMap[grid.results[resultIndex].objectClass];
+                                                console.log(grid.results[resultIndex]);
                                             }
                                             console.log(grid.results);
 
