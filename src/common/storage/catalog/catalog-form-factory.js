@@ -41,19 +41,19 @@ angular.module('storage.catalog.catalogFormFactory', [])
 
                 openDeleteForm: function (catalog, returnState) {
 
-                    $cbFormHelper.openForm("delete", "Collaboration", catalog.id, '/storage/catalog', returnState);
+                    $cbFormHelper.openForm("delete", "Catalog", catalog.id, '/storage/catalog', returnState);
 
                 },
 
                 openRestoreForm: function (catalog, returnState) {
 
-                    $cbFormHelper.openForm("restore", "Collaboration", catalog.id, '/storage/catalog', returnState);
+                    $cbFormHelper.openForm("restore", "Catalog", catalog.id, '/storage/catalog', returnState);
 
                 },
 
                 openPurgeForm: function (catalog, returnState) {
 
-                    $cbFormHelper.openForm("purge", "Collaboration", catalog.id, '/storage/catalog', returnState);
+                    $cbFormHelper.openForm("purge", "Catalog", catalog.id, '/storage/catalog', returnState);
 
                 }
 
