@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest', 'API', '$localStorage',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest, API, $localStorage) {
 
             var storageDivisionManager = {
 
@@ -280,6 +280,50 @@ angular.module('storage.storageDivisionManager', [])
 
                     var samples = samples != undefined ? samples : this.getSelectedSamples();
                     storageFormFactory.openSampleStorageRemoveModal(samples);
+
+                },
+
+                // I have decided not to support CSV here -- we are just going to use excel
+                downloadDivisionUpdateTemplate: function () {
+
+                    var that = this;
+
+                    var id = this.division.id;
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', API.url + '/storage/division/'+id+'/excel-download' , true);
+                    xhr.setRequestHeader('Content-type', 'application/json');
+                    xhr.setRequestHeader('X_FILENAME', 'Division ' + id + ' Update Samples Template.xlsx');
+                    xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
+                    xhr.responseType = 'blob';
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+
+                                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                                var blob = new Blob([xhr.response], { type: contentType });
+
+                                var windowUrl = window.URL || window.webkitURL;
+                                var url = windowUrl.createObjectURL(blob);
+                                var filename = 'Division ' + id + ' Update Samples Template.xlsx';
+                                var a = document.createElement('a');
+
+                                a.href = url;
+                                a.download = filename;
+                                a.click();
+                                window.URL.revokeObjectURL(url);
+
+                            } else {
+                                // observer.error(xhr.response);
+                            }
+                        }
+                    };
+
+                    xhr.send();
+
+
 
                 },
 
