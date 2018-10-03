@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest', 'API', '$localStorage', 'sessionFactory',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest', 'API', '$localStorage',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest, API, $localStorage, sessionFactory) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest, API, $localStorage) {
 
             var storageDivisionManager = {
 
@@ -19,8 +19,6 @@ angular.module('storage.storageDivisionManager', [])
                 selectedSampleCount: 0,
 
                 selectedEmptyCount: 0,
-
-                inventoryAdmin: sessionFactory.hasRole('ROLE_INVENTORY_ADMIN'),
 
                 isDragging: false,
 
