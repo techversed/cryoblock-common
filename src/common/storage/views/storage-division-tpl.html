@@ -65,6 +65,11 @@
                             <i class="fa fa-print" />
                         </button>
                     </div>
+                    <div class="btn-group" role="group" >
+                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()" ng-if="inventoryAdmin" ng-disabled="division.usedSlots==0">
+                            <i class="fa fa-table" />
+                        </button>
+                    </div>
                     <div class="btn-group" uib-dropdown>
                         <button role="button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="sdm.selectedCount != 1 || sdm.selectedEmptyCount != 1">
                             <i class="fa fa-plus" />
@@ -82,11 +87,6 @@
                     <div class="btn-group" role="group">
                         <button role="button" type="button" class="btn btn-danger" ng-click="sdm.delete()" ng-disabled="sdm.selectedSampleCount < 1 || !division.canEdit">
                             <i class="fa fa-trash" />
-                        </button>
-                    </div>
-                    <div class="btn-group" role="group" >
-                        <button role="button" type="button" class="btn btn-danger" ng-click="sdm.downloadDivisionUpdateTemplate()" ng-if="inventoryAdmin">
-                            <i class="fa fa-table" />
                         </button>
                     </div>
                 </div>
