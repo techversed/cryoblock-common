@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="row division-action-bar m-b-none" ng-if="division.hasDimension">
+<div class="row division-action-bar m-b-none" ng-if="division.hasDimension">
             <div class="col-sm-4">
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" uib-dropdown>
@@ -65,8 +65,8 @@
                             <i class="fa fa-print" />
                         </button>
                     </div>
-                    <div class="btn-group" role="group" >
-                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()" ng-if="inventoryAdmin" ng-disabled="division.usedSlots==0">
+                    <div class="btn-group" role="group" ng-if="inventoryAdmin">
+                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()"  ng-disabled="division.usedSlots==0">
                             <i class="fa fa-table" />
                         </button>
                     </div>
