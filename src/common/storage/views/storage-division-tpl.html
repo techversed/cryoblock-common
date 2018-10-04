@@ -65,8 +65,8 @@
                             <i class="fa fa-print" />
                         </button>
                     </div>
-                    <div class="btn-group" role="group" >
-                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()" ng-if="inventoryAdmin" ng-disabled="division.usedSlots==0">
+                    <div class="btn-group" role="group" ng-if="inventoryAdmin">
+                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()"  ng-disabled="division.usedSlots==0">
                             <i class="fa fa-table" />
                         </button>
                     </div>
