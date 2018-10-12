@@ -44,6 +44,9 @@ angular.module('grid.gridDirective', [])
 
                     $scope.refresh = function () {
 
+                        $scope.grid.refreshCount += 1;
+                        var currentRefreshCounter = $scope.grid.refreshCount;
+
                         if ($scope.grid.data) {
 
                             $scope.grid.turnPage();
@@ -76,11 +79,12 @@ angular.module('grid.gridDirective', [])
                         $scope.previousParams = cloned_params;
 
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
-
-                            $scope.grid
-                                .setResults(response.data)
-                                .setPaginationFromResponse(response)
-                            ;
+                            if (currentRefreshCounter == $scope.grid.refreshCount) {
+                                $scope.grid
+                                    .setResults(response.data)
+                                    .setPaginationFromResponse(response)
+                                ;
+                            }
 
                         });
 
