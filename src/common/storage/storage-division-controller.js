@@ -1,11 +1,7 @@
 angular.module('storage.storageDivisionCtrl', [])
-//'childrenResponse',
     .controller('storageDivisionCtrl', ['$scope', 'division',  '$window', '$timeout', 'storageFormFactory', 'storageDivisionManager', 'divisionGrid', 'sessionFactory',
+        function ($scope, division, $window, $timeout, storageFormFactory, storageDivisionManager, divisionGrid, sessionFactory) {
 
-        //childrenResponse,
-        function ($scope, division,  $window, $timeout, storageFormFactory, storageDivisionManager, divisionGrid, sessionFactory) {
-
-  //          $scope.children = childrenResponse.data;
             $scope.division = division;
 
             $scope.inventoryAdmin = sessionFactory.hasRole('ROLE_INVENTORY_ADMIN');
