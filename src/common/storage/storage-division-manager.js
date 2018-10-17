@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest', 'API', '$localStorage', 'toastr', '$cbResource',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest, API, $localStorage, toastr, $cbResource) {
 
             var storageDivisionManager = {
 
@@ -38,6 +38,8 @@ angular.module('storage.storageDivisionManager', [])
 
                 initSampleId: null,
 
+                clonedSample: null,
+
                 initialize: function (division) {
 
                     this.division = division;
@@ -49,6 +51,7 @@ angular.module('storage.storageDivisionManager', [])
                     this.sampleMap = this.getSampleMap();
                     this.expandToDivision(this.division);
                     this.toggleSearch = false;
+                    this.clonedSample = null;
 
                     if (this.initSampleId) {
                         this.toggleSampleId(this.initSampleId);
@@ -283,7 +286,55 @@ angular.module('storage.storageDivisionManager', [])
 
                 },
 
+                // I have decided not to support CSV here -- we are just going to use excel
+                downloadDivisionUpdateTemplate: function () {
+
+                    var that = this;
+
+                    var id = this.division.id;
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', API.url + '/storage/division/'+id+'/excel-download' , true);
+                    xhr.setRequestHeader('Content-type', 'application/json');
+                    xhr.setRequestHeader('X_FILENAME', 'Division ' + id + ' Update Samples Template.xlsx');
+                    xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
+                    xhr.responseType = 'blob';
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+
+                                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                                var blob = new Blob([xhr.response], { type: contentType });
+
+                                var windowUrl = window.URL || window.webkitURL;
+                                var url = windowUrl.createObjectURL(blob);
+                                var filename = 'Division ' + id + ' Update Samples Template.xlsx';
+                                var a = document.createElement('a');
+
+                                a.href = url;
+                                a.download = filename;
+                                a.click();
+                                window.URL.revokeObjectURL(url);
+
+                            } else {
+                                // observer.error(xhr.response);
+                            }
+                        }
+                    };
+
+                    xhr.send();
+
+
+
+                },
+
                 openSampleStorageLinkModal: function () {
+
+                    if (this.selectedCount != 1 || sdm.selectedEmptyCount != 1) {
+                        return;
+                    }
 
                     if (this.division.canEdit === false) {
 
@@ -373,6 +424,10 @@ angular.module('storage.storageDivisionManager', [])
                 },
 
                 createSample: function () {
+
+                    if (this.selectedCount != 1 || sdm.selectedEmptyCount != 1) {
+                        return;
+                    }
 
                     if (this.division.canEdit === false) {
 
@@ -755,6 +810,64 @@ angular.module('storage.storageDivisionManager', [])
                         content = $compile(template)(printScope);
 
                     });
+
+                },
+
+                cloneSample: function () {
+
+                    if (this.selectedSampleCount != 1 || this.selectedEmptyCount != 0) {
+                        return;
+                    }
+
+                    this.clonedSample = this.getSelectedSample();
+
+                    toastr.info('Sample ' + this.clonedSample.id + ' cloned successfully.');
+
+                },
+
+                pasteSample: function () {
+
+                    if (!this.clonedSample) {
+                        return;
+                    }
+
+                    var clonedSample = this.clonedSample;
+                    var samplesToCreate = [];
+                    var that = this;
+
+                    angular.forEach(this.selectedCells, function (columns, row) {
+
+                        angular.forEach(columns, function (c, column) {
+
+                            var sampleToCreate = {divisionId: clonedSample.divisionId, divisionRow: row, divisionColumn: column};
+                            samplesToCreate.push(sampleToCreate);
+
+                        });
+
+                    });
+
+                    swal({
+                        title: "Are you Sure?",
+                        text: "Cloning sample " + clonedSample.id + " will duplicate all values including concentration and volume.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                    }, function() {
+
+                        $cbResource.create('/storage/sample/' + clonedSample.id + ' /clone', samplesToCreate).then(function () {
+                            toastr.info('Sample ' + clonedSample.id + ' pasted successfully.');
+                            $state.go($state.current, $stateParams, {reload:true});
+                            that.clonedSample = null;
+                        });
+
+                    });
+
+                },
+
+                cloneInDimensionless: function (sample) {
+
+                    storageFormFactory.openCloneInDimensionless(sample, this.division);
 
                 }
 

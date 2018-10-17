@@ -1,0 +1,36 @@
+<div id="sample-move-confirm-container">
+
+    <form name="storageCopyDimensionless" method="get" class="form-horizontal" ng-submit="confirm(storageCopyDimensionless)" novalidate>
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Copy Sample</h4>
+        </div>
+
+        <div class="modal-body align-center">
+
+            <p class="d-table center-block"><i class="fa fa-clone fa-5x text-warning" /></p>
+
+            <p>Select how many copies between (1 - 20) of sample {{sample.id}} - {{sample.catalog.name}} you would like to make in division {{division.id}} - {{division.title}}</p>
+
+            <p class="text-warning">Cloning this sample will duplicate all values including concentration and volume.</p>
+
+            <cb-form-group label="Count" name="copyCount">
+                <div class="col-sm-10">
+                    <input name="copyCount" type="number" class="form-control" ng-model="formProps.copyCount" min="1" max="20" required>
+                    <div style="text-align: left" ng-messages="storageCopyDimensionless.copyCount.$error" ng-show="storageCopyDimensionless.$submitted">
+                        <p ng-message="max" class="text-danger">Value should be between 1 and 20</p>
+                        <p ng-message="min" class="text-danger">Value should be between 1 and 20</p>
+                    </div>
+                </div>
+            </cb-form-group>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"> Confirm</button>
+            <button type="button" class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+        </div>
+
+    </form>
+
+</div>
