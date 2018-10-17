@@ -51,6 +51,7 @@ angular.module('storage.storageDivisionManager', [])
                     this.sampleMap = this.getSampleMap();
                     this.expandToDivision(this.division);
                     this.toggleSearch = false;
+                    this.clonedSample = null;
 
                     if (this.initSampleId) {
                         this.toggleSampleId(this.initSampleId);
@@ -861,6 +862,12 @@ angular.module('storage.storageDivisionManager', [])
                         });
 
                     });
+
+                },
+
+                cloneInDimensionless: function (sample) {
+
+                    storageFormFactory.openCloneInDimensionless(sample, this.division);
 
                 }
 
