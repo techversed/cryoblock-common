@@ -7,6 +7,9 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <li ng-click="sdm.cloneInDimensionless(sample)">
+                    <a class="dropdown-item text-danger" ><i class="fa fa-clone m-r-xs" />Copy sample in this division</a>
+                </li>
                 <li ng-click="sdm.delete([sample])">
                     <a class="dropdown-item text-danger" ><i class="fa fa-trash m-r-xs" />Delete</a>
                 </li>
