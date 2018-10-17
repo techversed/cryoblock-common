@@ -72,11 +72,11 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                             },
 
-                                            childrenResponse: function (storageFactory, $stateParams) {
+                                            // childrenResponse: function (storageFactory, $stateParams) {
 
-                                                return storageFactory.getDivisionChildren2($stateParams.id);
+                                            //     return storageFactory.getDivisionChildren2($stateParams.id);
 
-                                            },
+                                            // },
 
                                             divisionGrid: function ($cbGridBuilder) {
 
