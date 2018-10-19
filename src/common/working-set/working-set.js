@@ -1,5 +1,5 @@
 angular.module('workingSet', [
-    'workingSet.workingSetDirective',
-    'workingSet.workingSetFactory',
-    'workingSet.workingSetRowDirective'
+    'workingSet.workingSetDirective'
+    // 'workingSet.workingSetFactory',
+    // 'workingSet.workingSetRowDirective'
 ]);
