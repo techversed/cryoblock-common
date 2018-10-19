@@ -1,0 +1,77 @@
+<div>
+
+    <button ng-click="refresh()">Refresh</button>
+    <button ng-click="selectAll()">Select All</button>
+    <button ng-click="deselectAll()">Deselect All</button>
+    <br />
+    <br />
+
+    <div ng-if="loading == true" > Loading please wait </div>
+    <div ng-if="data">
+        <ul  ng-repeat="entry in data" >
+            <tr><td><input ng-model="entry.selected" type="checkbox"></input> &nbsp</td><td>{{entry.id}}</td></tr>
+        </ul>
+
+    </div>
+
+    <br />
+    <button>Remove from working set</button>
+    <button>Deplete</button>
+    <button>Attach to request</button>
+    <button>Create outgoing Vim </button>
+    <button>Excel Export</button>
+    <button>Add an attachment</button>
+
+    <!-- This section has been moved from its old location in the navbar to this directive where it will ultimately live -->
+    <!--
+    <script>
+
+                        // Make it possible for use to keep the working set menu open
+                        $('.dropdown.keep-open').on({
+                            "shown.bs.dropdown": function() {
+
+                                this.closable = true;
+
+                            },
+                            "click": function() {
+
+                                this.closable = false;
+
+                            },
+                            "hide.bs.dropdown": function() {
+
+                                if(this.closable == false){
+                                    this.closable = true;
+                                    return false;
+                                }
+
+                                else return true;
+
+                            }
+                        });
+
+                    </script>
+
+                    <li class="dropdown keep-open" id="dLabel">
+                        <a href="" class="dropdown-toggle" ng-click="main.refreshWorkingSet1()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Working Set<span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="width: 300px;" aria-labelledby="dLabel">
+
+                            <li>
+                                <div class="container">
+                                    <div class="row>"><button>Select All</button><button>Export Bulk Update</button><button>Production</button></div>
+                                </div>
+                            </li>
+
+                            <li ng-if="!workingSet || loading">
+                                <i class="text-primary fa fa-1x fa-circle-o-notch fa-spin"/> Checking working set
+                            </li>
+
+                            <li ng-if="workingSet" ng-repeat="entry in workingSet" ng-bind-html-unsafe="opt.text">
+                                <div style="margin-right: 10px; margin-left: 10px;"><a ui-sref="sample.detail({'id': entry.id})" ui-sref-opts="{reload:true, inherit:false}" href=""> {{ entry.id }} </a> {{entry.catalog.stringLabel}}</div>
+                            </li>
+                        </ul>
+
+                    </li>
+-->
+
+</div>

@@ -1,19 +1,7 @@
 angular.module('common.commonCtrl', [])
-    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', '$cbResource', '$cbGridBuilder',
+    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer',
 
-        function ($scope, sessionFactory, navigationInitializer, $cbResource, $cbGridBuilder) {
-
-            $cbResource.get('/storage/working-set-sample/user/194', {}, true).then(function (response) {
-                $scope.workingSet = response['data'];
-            });
-
-            this.refreshWorkingSet1 = function(){
-                $scope.loading = true;
-                $cbResource.get('/storage/working-set-sample/user/194', {}, true).then(function (response) {
-                    $scope.workingSet = response['data'];
-                    $scope.loading = false;
-                });
-            };
+        function ($scope, sessionFactory, navigationInitializer) {
 
             navigationInitializer.initialize();
 
