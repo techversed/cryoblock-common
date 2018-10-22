@@ -1,15 +1,14 @@
 angular.module('workingSet.workingSetManager', [])
 
-    .service('workingSetManager', ['sessionFactory', '$cbResource',
+    .service('workingSetManager', ['$scope', 'sessionFactory', '$cbResource', '$provide',
 
-        function (sessionFactory, $cbResource) {
+        function ($scope, sessionFactory, $cbResource) {
 
             var workingSetManager = {
 
                 loading: false,
 
                 data: [{'id': 1}],
-
 
                 deselectAll: function() {
                     this.data = this.data.map(function(entity){
@@ -25,9 +24,16 @@ angular.module('workingSet.workingSetManager', [])
                     });
                 },
 
+                handleReponse: function (response){
+                    console.log(this.data);
+                    this.loading = false;
+                },
+
                 refresh: function () {
                     // this.data = this.data;
                     // return;
+                    $scope.test = "asdf";
+                    console.log("scope.test", $scope.test);
 
                     console.log("running");
 
@@ -38,6 +44,10 @@ angular.module('workingSet.workingSetManager', [])
                     this.loading = true;
                     // var data = this.data;
                     var that = this;
+
+                    console.log("1");
+                    $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(that.handleReponse);
+                    console.log("1");
 
                     $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(function (response) {
 
