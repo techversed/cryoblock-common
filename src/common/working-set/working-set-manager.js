@@ -1,12 +1,14 @@
 angular.module('workingSet.workingSetManager', [])
 
-    .service('workingSetManager', ['$scope', 'sessionFactory', '$cbResource', '$provide',
+    .factory('workingSetManager', ['sessionFactory', '$cbResource', '$rootScope',
 
-        function ($scope, sessionFactory, $cbResource) {
+        function (sessionFactory, $cbResource, $rootScope ) {
 
             var workingSetManager = {
 
                 loading: false,
+
+                // scope: $rootScope.$new(),
 
                 data: [{'id': 1}],
 
@@ -25,15 +27,20 @@ angular.module('workingSet.workingSetManager', [])
                 },
 
                 handleReponse: function (response){
-                    console.log(this.data);
+                    console.log("here is the stuff", data);
                     this.loading = false;
                 },
 
                 refresh: function () {
+                    // $scope.testing = "testing";
+                    // console.log($scope.testing);
+
                     // this.data = this.data;
                     // return;
-                    $scope.test = "asdf";
-                    console.log("scope.test", $scope.test);
+                    // $scope.test = "asdf";
+                    // console.log("scope.test", $scope.test);
+
+
 
                     console.log("running");
 
@@ -46,7 +53,7 @@ angular.module('workingSet.workingSetManager', [])
                     var that = this;
 
                     console.log("1");
-                    $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(that.handleReponse);
+                    console.log($cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(that.handleReponse));
                     console.log("1");
 
                     $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(function (response) {
