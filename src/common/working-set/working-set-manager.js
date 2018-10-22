@@ -10,7 +10,10 @@ angular.module('workingSet.workingSetManager', [])
 
                 // scope: $rootScope.$new(),
 
-                data: [{'id': 1}],
+                data: [{'id': 1}]
+            };
+
+            workingSetManager.prototype = {
 
                 deselectAll: function() {
                     this.data = this.data.map(function(entity){
