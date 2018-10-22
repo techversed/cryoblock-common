@@ -12,7 +12,6 @@ angular.module('workingSet.workingSetManager', [])
 
                 data: [{'id': 1}],
 
-
                 deselectAll: function() {
                     this.data = this.data.map(function(entity){
                         entity.selected = false;
@@ -32,78 +31,55 @@ angular.module('workingSet.workingSetManager', [])
                     this.loading = false;
                 },
 
+                ngOnInit: function () {
+                    console.log("init");
+                },
 
-
-// Had to move this to the directive that we are dealing with.
                 refresh: function () {
-                    console.log('workingSetManager', workingSetManager);
-                    // this.data = this.data;
-                    // return;
 
-                    // if(this.loading == true){
-                    //     return;
-                    // }
+                    if (this.loading == true){
+                        return;
+                    }
+                    this.loading = true;
 
-                    // this.loading = true;
-                    // // var data = this.data;
-                    // var that = this;
+                    $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(function (response) {
 
-                    // console.log("1");
-                    // $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(that.handleReponse);
-                    // console.log("1");
+                        var resData = response['data'];
+                        var scopeData = workingSetManager.data;
 
-                    // console.log($cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(function (response) {
-                    //     return response.data;
-                    //     // console.log("this.data", data);
-                    //     // return
+                        if (scopeData.length > 0 && resData.length > 0) {
 
-                    //     // return 0;
-                    //     // console.log("1");
-                    //     // return [{'id': "ballz"}];
+                            var scopeDataIds = scopeData.map(function (entry) {
+                                return entry.id;
+                            });
 
-                    //     console.log("response.data", response.data);
-                    //     var resData = response['data'] ? response['data'] : [];
-                    //     var scopeData = that.data ? that.data : [];
+                            var resDataIds = resData.map(function (entry) {
+                                return entry.id;
+                            });
 
-                    //     console.log("resData", resData);
-                    //     console.log("2");
+                            scopeData = scopeData.filter(function (entry) {
+                                return resDataIds.indexOf(entry.id) != -1;
+                            });
 
-                    //     if (scopeData.length > 0 && resData.length > 0) {
-                    //         console.log("3");
-                    //         var scopeDataIds = scopeData.map(function (entry) {
-                    //             return entry.id;
-                    //         });
+                            resData = resData.filter(function (entry) {
+                                return scopeDataIds.indexOf(entry.id) == -1;
+                            });
 
-                    //         var resDataIds = resData.map(function (entry) {
-                    //             return entry.id;
-                    //         });
+                        }
 
-                    //         scopeData = scopeData.filter(function (entry) {
-                    //             return resDataIds.indexOf(entry.id) != -1;
-                    //         });
+                        if (resData.length > 0) {
+                            resData = resData.map(function (entry) {
+                                entry.selected = false;
+                                return entry;
+                            });
 
-                    //         resData = resData.filter(function (entry) {
-                    //             return scopeDataIds.indexOf(entry.id) == -1;
-                    //         });
-                    //         console.log("4");
-                    //     }
+                        }
 
-                    //         console.log("4");
-                    //     if (resData.length > 0) {
-                    //         console.log("4");
-                    //         resData = resData.map(function (entry) {
-                    //             entry.selected = false;
-                    //             return entry;
-                    //         });
+                        workingSetManager.data = scopeData.concat(resData);
+                        workingSetManager.loading = false;
+                        return;
 
-                    //         return scopeData.concat(resData);
-                    //     }
-                    //     else return scopeData;
-
-                    // }));
-
-                    // console.log(this.data);
-                    // this.loading = false;
+                    });
 
                 },
 
@@ -121,6 +97,8 @@ angular.module('workingSet.workingSetManager', [])
                 }
 
             };
+
+            workingSetManager.refresh();
 
             return workingSetManager;
 

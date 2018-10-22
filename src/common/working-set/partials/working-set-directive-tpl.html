@@ -1,8 +1,8 @@
 <div ng-if="wsm.collapsed">
 
-    <button ng-click="wsm.refresh()">Refresh</button>
-    <button ng-click="wsm.selectAll()">Select All</button>
-    <button ng-click="wsm.deselectAll()">Deselect All</button>
+    <button class="btn btn-success" ng-click="wsm.refresh()">Refresh</button>
+    <button class="btn btn-success" ng-click="wsm.selectAll()">Select All</button>
+    <button class="btn btn-success" ng-click="wsm.deselectAll()">Deselect All</button>
     <br />
     <br />
 
@@ -15,27 +15,30 @@
     </div>
 
     <br />
-    <button>Remove from working set</button>
-    <button>Deplete</button>
-    <button>Attach to request</button>
-    <button>Create outgoing Vim </button>
-    <button>Excel Export</button>
-    <button>Add an attachment</button>
-    <div>
+    <button class="btn btn-primary">Remove from working set</button>
+    <button class="btn btn-primary">Deplete</button>
+    <button class="btn btn-primary">Attach to request</button>
+    <button class="btn btn-primary">Create outgoing Vim </button>
+    <button class="btn btn-primary">Excel Export</button>
+    <button class="btn btn-primary">Add an attachment</button>
+
+    <div class='col-xs-2'>
         <cb-dropdown
                 cb-dropdown-info
-                name='inputTemplateType'
+                name='requestStartDropdown'
                 bind-to="name"
-                ng-model="config.inputTemplateType"
+                ng-model=""
                 label="Start A Request"
                 items="['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification']"
                 cb-on-select="createRequest"
-                cb-on-select-context="config"
                 icon-class="fa fa-download"
                 required
             >
         </cb-dropdown>
     </div>
+<!--
+                cb-on-select-context="config"
+-->
 
     <!-- This section has been moved from its old location in the navbar to this directive where it will ultimately live -->
     <!--
