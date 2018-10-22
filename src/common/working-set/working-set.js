@@ -1,5 +1,6 @@
 angular.module('workingSet', [
-    'workingSet.workingSetDirective'
+    'workingSet.workingSetDirective',
+    'workingsSet.workingSetManager'
     // 'workingSet.workingSetFactory',
     // 'workingSet.workingSetRowDirective'
 ]);
