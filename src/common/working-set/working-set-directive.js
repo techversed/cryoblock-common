@@ -1,8 +1,8 @@
 angular.module('workingSet.workingSetDirective', [])
 
-    .directive('workingSet',['sessionFactory', '$cbResource', 'workingSetManager',
+    .directive('workingSet',['sessionFactory', '$cbResource', 'workingSetManager', '$q',
 
-        function (sessionFactory, $cbResource, workingSetManager) {
+        function (sessionFactory, $cbResource, workingSetManager, $q) {
 
             return {
 
@@ -13,13 +13,15 @@ angular.module('workingSet.workingSetDirective', [])
 
                 },
 
+                //Might not even need a link funciton
                 link: function ($scope, element, attrs) {
-                    $scope.wsm = workingSetManager;
+                    // $scope.wsm = workingSetManager;
 
                 },
 
                 controller: function ($scope) {
                     console.log("testing1");
+                    $scope.wsm = workingSetManager;
                     // console.log(sessionFactory.getLoggedInUser().id);
                     // $scope.loading = false;
 
@@ -45,51 +47,51 @@ angular.module('workingSet.workingSetDirective', [])
                     //     console.log(ent);
                     // }
 
-                    // $scope.refresh = function() {
-                    //     if($scope.loading == true){
-                    //         return;
-                    //     }
+                    $scope.refresh = function() {
+                        if($scope.wsm.loading == true){
+                            return;
+                        }
 
-                    //     $scope.loading = true;
+                        $scope.wsm.loading = true;
 
-                    //     $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(function (response) {
-                    //         var resData = response['data'];
-                    //         var scopeData;
+                        $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(function (response) {
+                            var resData = response['data'];
+                            var scopeData;
 
-                    //         if ($scope.data == undefined) {
-                    //             console.log("it was undefined");
-                    //              scopeData = [{"id":1}];
-                    //         }
-                    //         else {
-                    //             scopeData = $scope.data
-                    //         }
+                            if ($scope.wsm.data == undefined) {
+                                console.log("it was undefined");
+                                 scopeData = [{"id":1}];
+                            }
+                            else {
+                                scopeData = $scope.wsm.data
+                            }
 
-                    //         var scopeDataIds = scopeData.map(function(entry){
-                    //             return entry.id
-                    //         });
+                            var scopeDataIds = scopeData.map(function(entry){
+                                return entry.id
+                            });
 
-                    //         var resDataIds = resData.map(function(entry){
-                    //             return entry.id
-                    //         });
+                            var resDataIds = resData.map(function(entry){
+                                return entry.id
+                            });
 
-                    //         scopeData = scopeData.filter(function(entry){
-                    //             return resDataIds.indexOf(entry.id)!=-1;
-                    //         });
+                            scopeData = scopeData.filter(function(entry){
+                                return resDataIds.indexOf(entry.id)!=-1;
+                            });
 
-                    //         resData = resData.filter(function(entry){
-                    //             return scopeDataIds.indexOf(entry.id)==-1;
-                    //         });
+                            resData = resData.filter(function(entry){
+                                return scopeDataIds.indexOf(entry.id)==-1;
+                            });
 
-                    //         resData = resData.map(function(entry){
-                    //             entry.selected = false;
-                    //             return entry;
-                    //         });
+                            resData = resData.map(function(entry){
+                                entry.selected = false;
+                                return entry;
+                            });
 
-                    //         $scope.data = scopeData.concat(resData);
-                    //         $scope.loading = false;
-                    //     });
-                    // };
-                    // $scope.refresh();
+                            $scope.wsm.data = scopeData.concat(resData);
+                            $scope.wsm.loading = false;
+                        });
+                    };
+                    $scope.refresh();
 
                     // $scope.refreshWorkingSet1 = function(){
                     //     $scope.loading = true;
