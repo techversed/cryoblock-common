@@ -18,7 +18,7 @@ angular.module('workingSet.workingSetDirective', [])
 
                 },
 
-                controller: function ($scope, $rootScope) {
+                controller: function ($scope) {
                     console.log("testing1");
                     // console.log(sessionFactory.getLoggedInUser().id);
                     // $scope.loading = false;
