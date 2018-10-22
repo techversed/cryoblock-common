@@ -35,6 +35,10 @@ angular.module('workingSet.workingSetDirective', [])
                         });
                     }
 
+                    $scope.createRequest = function(ent){
+                        console.log(ent);
+                    }
+
                     $scope.refresh = function() {
                         if($scope.loading == true){
                             return;

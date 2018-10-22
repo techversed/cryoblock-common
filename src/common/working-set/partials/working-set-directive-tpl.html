@@ -9,7 +9,7 @@
     <div ng-if="loading == true" > Loading please wait </div>
     <div ng-if="data">
         <ul  ng-repeat="entry in data" >
-            <tr><td><input ng-model="entry.selected" type="checkbox"></input> &nbsp</td><td>{{entry.id}}</td></tr>
+            <tr><td><input ng-model="entry.selected" type="checkbox"></input> &nbsp</td><td>{{entry.id}}</td><td> - {{entry.catalog.name}}</td> <td> - {{entry.description}}</td></tr>
         </ul>
 
     </div>
@@ -21,6 +21,21 @@
     <button>Create outgoing Vim </button>
     <button>Excel Export</button>
     <button>Add an attachment</button>
+    <div>
+        <cb-dropdown
+                cb-dropdown-info
+                name='inputTemplateType'
+                bind-to="name"
+                ng-model="config.inputTemplateType"
+                label="Start A Request"
+                items="['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification']"
+                cb-on-select="createRequest"
+                cb-on-select-context="config"
+                icon-class="fa fa-download"
+                required
+            >
+        </cb-dropdown>
+    </div>
 
     <!-- This section has been moved from its old location in the navbar to this directive where it will ultimately live -->
     <!--
