@@ -15,20 +15,16 @@ angular.module('workingSet.workingSetDirective', [])
 
                 //Might not even need a link funciton
                 link: function ($scope, element, attrs) {
-                    // $scope.wsm = workingSetManager;
 
                 },
 
                 controller: function ($scope) {
                     console.log("testing1");
                     $scope.wsm = workingSetManager;
+                    $scope.temp = "";
 
                 }
 
-                // link: function ($scope, element, attrs, formCtrl) {
-                    // $scope.formCtrl = formCtrl;
-                    // console.log("testing2");
-                // }
             };
         }
     ])

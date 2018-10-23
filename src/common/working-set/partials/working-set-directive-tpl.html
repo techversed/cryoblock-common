@@ -8,34 +8,47 @@
 
     <div ng-if="wsm.loading == true" > Loading please wait </div>
     <div ng-if="wsm.data">
-        <ul  ng-repeat="entry in wsm.data" >
-            <tr><td><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input> &nbsp</td><td>{{entry.id}}</td><td> - {{entry.catalog.name}}</td> <td> - {{entry.description}}</td></tr>
+        <ul>
+            <li ng-repeat="entry in wsm.data"><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input> &nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</li>
         </ul>
 
     </div>
 
     <br />
+
+    <table>
+        <tr>
+            <td ng-repeat="entry in wsm.buttons">
+
+                <button class="btn btn-primary" ng-click="entry.action()" ng-if="entry.type == 'button'">{{entry.text}}</button>
+            </td>
+        </tr>
+    </table>
+
+<!--
     <button class="btn btn-primary">Remove from working set</button>
     <button class="btn btn-primary">Deplete</button>
-    <button class="btn btn-primary">Attach to request</button>
-    <button class="btn btn-primary">Create outgoing Vim </button>
     <button class="btn btn-primary">Excel Export</button>
-    <button class="btn btn-primary">Add an attachment</button>
-
+    <button class="btn btn-primary">Add attachment</button>
+-->
+<!--
     <div class='col-xs-2'>
         <cb-dropdown
                 cb-dropdown-info
                 name='requestStartDropdown'
                 bind-to="name"
-                ng-model=""
+                ng-model="temp"
                 label="Start A Request"
-                items="['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification']"
+                items="['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification', 'Outgoing VIM']"
                 cb-on-select="createRequest"
                 icon-class="fa fa-download"
-                required
             >
         </cb-dropdown>
     </div>
+-->
+
+
+<!-- I don't know if we are making this a dropdown or an expandable region -- This stylesheet excperpt + code  should allow us to keep a dropdown open when there are click events within the dropdown -- Don't know if we are going to end up doing that..-->
 <!--
                 cb-on-select-context="config"
 -->
