@@ -1,8 +1,8 @@
 angular.module('workingSet.workingSetManager', [])
 
-    .service('workingSetManager', ['sessionFactory', '$cbResource',
+    .service('workingSetManager', ['sessionFactory', '$cbResource', '$injector',
 
-        function (sessionFactory, $cbResource) {
+        function (sessionFactory, $cbResource, $injector) {
 
             var workingSetManager = {
 
@@ -40,7 +40,10 @@ angular.module('workingSet.workingSetManager', [])
                     {
                         "text": "Remove from set",
                         "type": "button",
+
                         "action": function () {
+                            var formFactory = $injector.get('sampleFormFactory');
+                            formFactory.openSampleFormModal();
                             console.log("Removing from set");
                         }
                     },
@@ -77,6 +80,10 @@ angular.module('workingSet.workingSetManager', [])
                             {
                                 "text": 'Human Specimen',
                                 "type": "dropdownItem",
+                                "factory": null,
+                                "getFactory": function () {
+                                    return $injector.get('humanSpecimenFormFactory');
+                                },
                                 "action": function () {
                                     console.log("action 1");
                                 }
@@ -84,6 +91,7 @@ angular.module('workingSet.workingSetManager', [])
                             {
                                 "text": 'PBMC',
                                 "type": "dropdownItem",
+                                "service": undefined,
                                 "action": function () {
                                     console.log("action 2");
                                 }
@@ -91,6 +99,7 @@ angular.module('workingSet.workingSetManager', [])
                             {
                                 "text": 'DNA Purification',
                                 "type": "dropdownItem",
+                                "service": undefined,
                                 "action": function () {
                                     console.log("action 3");
                                 }
@@ -98,12 +107,14 @@ angular.module('workingSet.workingSetManager', [])
                             {
                                 "text": 'Protein Expression',
                                 "type": "dropdownItem",
+                                "service": undefined,
                                 "action": function () {
                                     console.log("action 4");
                                 }
                             },
                             {
                                 "text": 'Protein / Hybridoma Purification',
+                                "service": undefined,
                                 "type": "dropdownItem",
                                 "action": function () {
                                     console.log("action 5");
@@ -112,6 +123,7 @@ angular.module('workingSet.workingSetManager', [])
                             {
                                 "text": 'Outgoing VIM',
                                 "type": "dropdownItem",
+                                "service": undefined,
                                 "action": function () {
                                     console.log("action 6");
                                 }
@@ -119,42 +131,6 @@ angular.module('workingSet.workingSetManager', [])
                         ]
                     }
                 ],
-
-                dropdownNameList: function (item) {
-
-                    var temp = item.dropdownActions.map( function (i) {
-                        return "'" + i.text + "'";
-                    });
-
-                    return '"[' + temp.toString + ']"';
-
-                },
-
-                // dropdownNameToAction: function (menu, item, argumentList) {
-
-                //     var men = this.buttons.filter(
-                //         function (level1) {
-                //             return level1.text == menu
-                //         }
-                //     );
-
-                //     if (men.length != 1){
-                //         return false;
-                //     }
-
-                //     var itm = men.filter(
-                //         function (level2) {
-                //             return level1.text == item
-                //         }
-                //     )
-
-                //     if (itm.length!= 1){
-                //         return false;
-                //     }
-
-                //     return itm.action(argumentList);
-
-                // },
 
 
                 // Add a new button action to the group of buttons -- there is a common set of buttons but cetain implementations may want to have more functionality which is not in common.

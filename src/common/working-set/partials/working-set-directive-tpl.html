@@ -34,50 +34,6 @@
         </tr>
     </table>
 
-<!--
-<cb-dropdown ng-if="entry.type == 'dropdown'"
-cb-dropdown-info
-name={{entry.text.replace(/\s+/g, '');}}
-ng-model="temp"
-label={{entry.text}}
-items={{entry.dropdownActionsText}}
->
-</cb-dropdown>
--->
-
-<!--
-<li role="menuitem" ng-repeat="item in items" ng-click="selectItem(item)">
-<a>{{item[bindTo] || item}}</a>
-</li>
--->
-
-<!--
-
-    <button class="btn btn-primary">Remove from working set</button>
-    <button class="btn btn-primary">Deplete</button>
-    <button class="btn btn-primary">Excel Export</button>
-    <button class="btn btn-primary">Add attachment</button>
-
--->
-<!--
-
-    <div class='col-xs-2'>
-        <cb-dropdown
-                cb-dropdown-info
-                name='requestStartDropdown'
-                bind-to="name"
-                ng-model="temp"
-                label="Start A Request"
-                items="['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification', 'Outgoing VIM']"
-                cb-on-select="createRequest"
-                icon-class="fa fa-download"
-            >
-        </cb-dropdown>
-    </div>
-
--->
-
-
 <!-- I don't know if we are making this a dropdown or an expandable region -- This stylesheet excperpt + code  should allow us to keep a dropdown open when there are click events within the dropdown -- Don't know if we are going to end up doing that..-->
 <!--
                 cb-on-select-context="config"
