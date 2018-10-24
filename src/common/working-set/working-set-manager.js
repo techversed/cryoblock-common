@@ -17,6 +17,7 @@ angular.module('workingSet.workingSetManager', [])
                 // Action -- The function that should be called
                 // Action List -- If you are using a dropdown this will add support
                     // Actions should all take a list of samples as an argument. The directive which uses this service should automatically get the list of selected samples and call a given function on that sample when an option is clicked.
+                    // Actions should return boolen values to indicate whether or not the action was successful.
 
 
                 // buttons: [
@@ -42,8 +43,7 @@ angular.module('workingSet.workingSetManager', [])
                         "action": function () {
                             console.log("Removing from set");
                         }
-                    }
-                    ,
+                    },
                     {
                         "text": "Deplete",
                         "type": "button",
@@ -71,45 +71,46 @@ angular.module('workingSet.workingSetManager', [])
                         "action:": function () {
                             console.log("Start Request");
                         },
+                        "dropdownActionsText": "['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification', 'Outgoing VIM']",
                         "dropdownActions":
                         [
                             {
-                                "name": 'Human Specimen',
+                                "text": 'Human Specimen',
                                 "type": "dropdownItem",
                                 "action": function () {
                                     console.log("action 1");
                                 }
                             },
                             {
-                                "name": 'PBMC',
+                                "text": 'PBMC',
                                 "type": "dropdownItem",
                                 "action": function () {
                                     console.log("action 2");
                                 }
                             },
                             {
-                                "name": 'DNA Purification',
+                                "text": 'DNA Purification',
                                 "type": "dropdownItem",
                                 "action": function () {
                                     console.log("action 3");
                                 }
                             },
                             {
-                                "name": 'Protein Expression',
+                                "text": 'Protein Expression',
                                 "type": "dropdownItem",
                                 "action": function () {
                                     console.log("action 4");
                                 }
                             },
                             {
-                                "name": 'Protein / Hybridoma Purification',
+                                "text": 'Protein / Hybridoma Purification',
                                 "type": "dropdownItem",
                                 "action": function () {
                                     console.log("action 5");
                                 }
                             },
                             {
-                                "name": 'Outgoing VIM',
+                                "text": 'Outgoing VIM',
                                 "type": "dropdownItem",
                                 "action": function () {
                                     console.log("action 6");
@@ -118,6 +119,42 @@ angular.module('workingSet.workingSetManager', [])
                         ]
                     }
                 ],
+
+                dropdownNameList: function (item) {
+
+                    var temp = item.dropdownActions.map( function (i) {
+                        return "'" + i.text + "'";
+                    });
+
+                    return '"[' + temp.toString + ']"';
+
+                },
+
+                // dropdownNameToAction: function (menu, item, argumentList) {
+
+                //     var men = this.buttons.filter(
+                //         function (level1) {
+                //             return level1.text == menu
+                //         }
+                //     );
+
+                //     if (men.length != 1){
+                //         return false;
+                //     }
+
+                //     var itm = men.filter(
+                //         function (level2) {
+                //             return level1.text == item
+                //         }
+                //     )
+
+                //     if (itm.length!= 1){
+                //         return false;
+                //     }
+
+                //     return itm.action(argumentList);
+
+                // },
 
 
                 // Add a new button action to the group of buttons -- there is a common set of buttons but cetain implementations may want to have more functionality which is not in common.
