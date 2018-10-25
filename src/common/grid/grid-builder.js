@@ -67,7 +67,7 @@ angular.module('grid.gridBuilder', [])
 
                 },
 
-// Filter Groups
+                // Filter Groups
                 //Possible overrides
                     //postpend -- a string that will be added to the end of the url that is passed in.
                     //filterGroups -- currently only takes filters of type string.

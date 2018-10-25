@@ -85,7 +85,8 @@ angular.module('workingSet.workingSetManager', [])
                                     return $injector.get('humanSpecimenFormFactory');
                                 },
                                 "action": function () {
-                                    console.log("action 1");
+                                    var factory = $injector.get('humanSpecimenFormFactory');
+                                    return factory.openFormModal();
                                 }
                             },
                             {
@@ -93,7 +94,8 @@ angular.module('workingSet.workingSetManager', [])
                                 "type": "dropdownItem",
                                 "service": undefined,
                                 "action": function () {
-                                    console.log("action 2");
+                                    var factory = $injector.get('pbmcFormFactory');
+                                    return factory.openFormModal();
                                 }
                             },
                             {
@@ -101,7 +103,8 @@ angular.module('workingSet.workingSetManager', [])
                                 "type": "dropdownItem",
                                 "service": undefined,
                                 "action": function () {
-                                    console.log("action 3");
+                                    var factory = $injector.get('dnaFormFactory');
+                                    return factory.openFormModal();
                                 }
                             },
                             {
@@ -109,7 +112,8 @@ angular.module('workingSet.workingSetManager', [])
                                 "type": "dropdownItem",
                                 "service": undefined,
                                 "action": function () {
-                                    console.log("action 4");
+                                    var factory = $injector.get('proteinExpressionFormFactory');
+                                    return factory.openFormModal();
                                 }
                             },
                             {
@@ -117,7 +121,8 @@ angular.module('workingSet.workingSetManager', [])
                                 "service": undefined,
                                 "type": "dropdownItem",
                                 "action": function () {
-                                    console.log("action 5");
+                                    var factory = $injector.get('proteinPurificationFormFactory');
+                                    return factory.openFormModal();
                                 }
                             },
                             {
@@ -125,7 +130,8 @@ angular.module('workingSet.workingSetManager', [])
                                 "type": "dropdownItem",
                                 "service": undefined,
                                 "action": function () {
-                                    console.log("action 6");
+                                    var factory = $injector.get('vimFormFactory');
+                                    return factory.openFormModal();
                                 }
                             }
                         ]
@@ -138,11 +144,11 @@ angular.module('workingSet.workingSetManager', [])
 
                 },
 
-                getSelected: function(){
-
+                getSelected: function(entry){
+                    return this.data.filter( function () {
+                        return (this.selected == true);
+                    });
                 },
-
-
 
                 deselectAll: function() {
                     this.data = this.data.map(function(entity){
@@ -196,7 +202,6 @@ angular.module('workingSet.workingSetManager', [])
                             resData = resData.filter(function (entry) {
                                 return scopeDataIds.indexOf(entry.id) == -1;
                             });
-
                         }
 
                         if (resData.length > 0) {
@@ -204,7 +209,6 @@ angular.module('workingSet.workingSetManager', [])
                                 entry.selected = false;
                                 return entry;
                             });
-
                         }
 
                         workingSetManager.data = scopeData.concat(resData);
@@ -219,18 +223,14 @@ angular.module('workingSet.workingSetManager', [])
                     this.refresh();
                 },
 
-                createRequest: function () {
-                    console.log("create request");
-                },
-
                 addSample: function () {
-                    console.log("add sample");
-
+                    entry.selected = false;
+                    workingSetManager.push(entry);
                 }
 
             };
 
-            workingSetManager.refresh();
+            workingSetManager.initialize();
 
             return workingSetManager;
 
