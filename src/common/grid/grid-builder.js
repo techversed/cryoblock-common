@@ -136,6 +136,12 @@ angular.module('grid.gridBuilder', [])
                                         filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
                                         break;
 
+                                    case "boolean":
+                                        filter.form = {};
+                                        filter.form.radioModel = "Yes";
+                                        filter.updateSelectionString();
+                                        break;
+
                                     //We only need relation and enum
                                         //can also implement integer, string, boolean, deleted and date at some point
 
