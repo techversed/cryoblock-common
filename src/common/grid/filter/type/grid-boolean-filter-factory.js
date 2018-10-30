@@ -74,6 +74,7 @@ angular.module('grid.gridBooleanFilterFactory', [])
                 },
 
                 getParams: function () {
+                    console.log(this.form);
                     console.log('get params');
 
                     this.updateSelectionString();

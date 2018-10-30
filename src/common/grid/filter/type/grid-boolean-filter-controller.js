@@ -3,6 +3,7 @@ angular.module('grid.gridBooleanFilterCtrl', [])
     .controller('gridBooleanFilterCtrl', ['$scope', '$location', 'gridManager',
 
         function ($scope, $location, gridManager) {
+            console.log($scope);
 
             $scope.form = {
                 radioModel: "Any"

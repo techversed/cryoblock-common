@@ -138,7 +138,8 @@ angular.module('grid.gridBuilder', [])
 
                                     case "boolean":
                                         filter.form = {};
-                                        filter.form.radioModel = "Yes";
+                                        // filter.form.radioModel = "Yes";
+                                        filter.setFromState("1");
                                         // filter.updateSelectionString();
                                         break;
 
