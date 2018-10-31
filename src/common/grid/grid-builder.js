@@ -137,10 +137,12 @@ angular.module('grid.gridBuilder', [])
                                         break;
 
                                     case "boolean":
-                                        filter.form = {};
+                                        filter.form = {
+                                            radioModel: "Yes"
+                                        };
                                         // filter.form.radioModel = "Yes";
-                                        filter.setFromState("1");
-                                        // filter.updateSelectionString();
+                                        // filter.setFromState("1");
+                                        filter.updateSelectionString();
                                         break;
 
                                     //We only need relation and enum

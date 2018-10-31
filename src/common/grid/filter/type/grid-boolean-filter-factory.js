@@ -40,7 +40,7 @@ angular.module('grid.gridBooleanFilterFactory', [])
                     console.log(this.form.radioModel);
                     if (this.form.radioModel == undefined || this.form.radioModel == 'Any') {
                         this.form.radioModel = 'Yes';
-                        // this.updateSelectionString();
+                        this.updateSelectionString();
                         this.selectionString = 'Yes';
                         this.isFiltering = false;
                     }
