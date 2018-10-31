@@ -138,11 +138,11 @@ angular.module('grid.gridBuilder', [])
 
                                     case "boolean":
                                         filter.form = {
-                                            radioModel: "Yes"
                                         };
-                                        // filter.form.radioModel = "Yes";
+                                        filter.form.radioModel = "Yes";
                                         // filter.setFromState("1");
                                         filter.updateSelectionString();
+                                        filter.refresh();
                                         break;
 
                                     //We only need relation and enum
@@ -161,6 +161,7 @@ angular.module('grid.gridBuilder', [])
                 //Possible overrides
                     //url -- if you would like to use an alternate url post it here.
                     //filterGroups -- List the filters that will be applied by default.
+                    //filterParams -- object {key: value} will be joined with default params to create the initial search string...
 
                 buildSelectSingle: function (factoryName, overrides = {}) {
 
@@ -183,9 +184,12 @@ angular.module('grid.gridBuilder', [])
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
                     grid.allowSelect()
+                    grid = this.addFiltersToGrid(grid,overrides['filterGroups']);
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+                    // var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+                    var defaultParams = grid.getRequestParams();
 
+                    // this.addFiltersToGrid(grid, overrides['filterGroups']);
                     return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
@@ -200,7 +204,7 @@ angular.module('grid.gridBuilder', [])
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
 
-                    }).then(this.addFiltersToGrid(grid, overrides['filterGroups']));
+                    });//.then(this.addFiltersToGrid(grid, overrides['filterGroups']));
 
                 },
 

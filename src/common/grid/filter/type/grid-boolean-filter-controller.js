@@ -11,11 +11,18 @@ angular.module('grid.gridBooleanFilterCtrl', [])
 
             var init = function () {
 
+                console.log(gridManager.ignoreUrlParams);
+                console.log("!bintostate", !$scope.grid.bindToState);
                 if (!$scope.grid.bindToState || gridManager.ignoreUrlParams) {
+                    // $scope.form.radioModel = "Yes";
+                    // $scope.filter.updateSelectionString();
+                    // $scope.filter.isFiltering = true;
+                    // $scope.refresh();
                     return;
                 }
 
                 var getParams = $location.search();
+                console.log("getParams", getParams);
 
                 var boolParam = getParams[$scope.filter.filterProperty + '[EQ]'];
 
@@ -30,8 +37,6 @@ angular.module('grid.gridBooleanFilterCtrl', [])
 
             }
 
-            $scope.filter.form = $scope.form;
-
             $scope.refresh = function () {
 
                 $scope.filter.refresh();
@@ -40,7 +45,7 @@ angular.module('grid.gridBooleanFilterCtrl', [])
             };
 
             $scope.update = function () {
-
+                console.log("update");
                 $scope.$emit('grid.refresh');
 
             };
@@ -52,6 +57,16 @@ angular.module('grid.gridBooleanFilterCtrl', [])
                 $scope.$emit('grid.filterToggle');
                 $scope.$emit('grid.refresh');
             };
+
+            // If the user is not manually setting up filter
+            console.log("scope.filter.form", $scope.filter.form);
+            console.log("scope.filter.form", !$scope.filter.form);
+            if(!$scope.filter.form){
+                $scope.filter.form = $scope.form;
+            }
+            else {
+                $scope.filter.refresh();
+            }
 
             init();
 
