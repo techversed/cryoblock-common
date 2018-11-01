@@ -35,6 +35,10 @@ angular.module('storage.storageDivisionFormCtrl', [])
             $scope.oldAllStorage = $scope.division.allowAllStorageContainers;
             $scope.oldAllSample = $scope.division.allowAllSampleTypes;
 
+            // If cascade is true then then division listener on the bakckend will grab the request and cascade all insertions and deletiosn to the children of the node
+            // If casecade is false then the division listener will trample the settings of the previous division with the new settings.
+            $scope.division.cascade = true;
+
             if ($scope.division.parentId) {
                 $scope.division.parent = {id: $scope.division.parentId};
             }

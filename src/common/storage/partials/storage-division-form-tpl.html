@@ -68,7 +68,6 @@
 
             </cb-form-group>
 
-
             <div ng-if="!division.allowAllSampleTypes">
                 <cb-form-group label="Allowed Sample Types" name="sampleTypes" tooltip="Select the sample types that this division will allow.">
                     <div class="col-sm-10">
@@ -151,6 +150,14 @@
                         </div>
                     </cb-form-group>
                 </div>
+
+                <cb-form-group label="Propagation Behavior " ng-if="division.id" name="cascade" tooltip="Cascade will perform any additions or deletions on the children of the affected division. Trample will set the properties of the chilren to those of the parent">
+
+                    <div class="col-sm-10">
+                        <cb-boolean cb-boolean-primary ng-model="division.cascade" true-text="Cascade" false-text="Trample"></cb-boolean>
+                    </div>
+
+                </cb-form-group>
 
             </div>
 
