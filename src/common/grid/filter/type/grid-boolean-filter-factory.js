@@ -18,10 +18,7 @@ angular.module('grid.gridBooleanFilterFactory', [])
 
                 this.isFiltering = false;
 
-                // this.form = null;
-                this.form = {
-                    radioModel: "Any"
-                };
+                this.form = null;
 
                 this.formMapping = {
                     "Yes": "1",
@@ -50,7 +47,6 @@ angular.module('grid.gridBooleanFilterFactory', [])
                 },
 
                 updateSelectionString: function () {
-                    console.log("update selection string");
                     if (!!this.form.radioModel && this.form.radioModel != "Any") {
 
                         this.selectionString = this.form.radioModel;
@@ -76,22 +72,18 @@ angular.module('grid.gridBooleanFilterFactory', [])
                 },
 
                 getParams: function () {
-                    console.log(this.form);
-                    console.log('get params');
 
                     this.updateSelectionString();
 
                     var params = {};
 
                     if (this.form.radioModel === "Any") {
-                        console.log("params", params);
 
                         return params;
 
                     }
 
                     params[this.filterProperty + "[EQ]"] = this.formMapping[this.form.radioModel];
-
 
                     return params;
 
