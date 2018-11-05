@@ -65,6 +65,8 @@ angular.module('grid.gridFactory', [])
 
                 this.selectItemCallback = null;
 
+                this.decorator = null;
+
             };
 
             Grid.prototype = {
@@ -78,6 +80,12 @@ angular.module('grid.gridFactory', [])
                 },
 
                 setResults: function (results, initial) {
+
+                    if (this.decorator) {
+
+                        results = this.decorator.decorate(results);
+
+                    }
 
                     this.results = results;
 
@@ -493,6 +501,14 @@ angular.module('grid.gridFactory', [])
                 setBindToState: function (bindToState) {
                     this.bindToState = bindToState;
                     return this;
+                },
+
+                setDecorator: function (decorator) {
+
+                    this.decorator = decorator;
+
+                    return this;
+
                 }
 
             }

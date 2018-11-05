@@ -1,9 +1,9 @@
 angular.module('profile.profileActivityGridFactory', [])
 
-    .factory('profileActivityGridFactory', ['gridFactory', '$cbResource', '$location', '$injector', 'sessionFactory',
+    .factory('profileActivityGridFactory', ['gridFactory', '$cbResource', '$location', '$injector', 'sessionFactory', 'profileGridDecorator',
 
-        function (gridFactory, $cbResource, $location, $injector, sessionFactory) {
-            // console.log(data)
+        function (gridFactory, $cbResource, $location, $injector, sessionFactory, profileGridDecorator) {
+
             var activityGridFactory = {
 
                 url: '/log-entry',
@@ -57,11 +57,13 @@ angular.module('profile.profileActivityGridFactory', [])
                     },
 
                 ],
+
                 create: function () {
                     var grid = gridFactory.create()
                         .addColumns(this.columns)
                         .sortColumn(this.columns[3], 'DESC')
                         .addFilters(this.filters)
+                        .setDecorator(profileGridDecorator)
                     ;
                     return grid;
                 }
