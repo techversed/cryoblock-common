@@ -18,6 +18,8 @@ angular.module('grid.gridBooleanFilterCtrl', [])
                     // $scope.filter.updateSelectionString();
                     // $scope.filter.isFiltering = true;
                     // $scope.refresh();
+
+
                     return;
                 }
 
@@ -36,6 +38,11 @@ angular.module('grid.gridBooleanFilterCtrl', [])
                 }
 
             }
+
+            $scope.watch(filter.form.radioModel, function(){
+                    $scope.form.radioModel = $scope.filter.form.radioModel;
+                    $scope.filter.isFiltering = true;
+            })
 
             $scope.refresh = function () {
 
