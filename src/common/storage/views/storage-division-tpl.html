@@ -65,19 +65,36 @@
                             <i class="fa fa-print" />
                         </button>
                     </div>
+                    <div class="btn-group" role="group">
+                        <button ng-if="!sdm.clonedSample" ng-class="{'btn-default': !sdm.clonedSample, 'btn-primary': sdm.clonedSample}" ng-disabled="sdm.selectedSampleCount != 1 || sdm.selectedEmptyCount != 0" role="button" type="button" class="btn" ng-click="sdm.cloneSample()">
+                            <i class="fa fa-clone" />
+                        </button>
+                        <button ng-if="sdm.clonedSample" tooltip-placement="top" uib-tooltip="{{ 'Cloned sample ' + sdm.clonedSample.id + ' - ' + sdm.clonedSample.catalog.name}}" ng-class="{'btn-default': !sdm.clonedSample, 'btn-primary': sdm.clonedSample}" ng-disabled="!sdm.clonedSample && sdm.selectedSampleCount != 1 || !sdm.clonedSample &&  sdm.selectedEmptyCount != 0" role="button" type="button" class="btn" ng-click="sdm.cloneSample()">
+                            <i class="fa fa-clone" />
+                        </button>
+                    </div>
                     <div class="btn-group" uib-dropdown>
-                        <button role="button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="sdm.selectedCount != 1 || sdm.selectedEmptyCount != 1">
+                        <button role="button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="sdm.selectedCount == 0 || sdm.selectedEmptyCount < 1 || sdm.selectedSampleCount > 0">
                             <i class="fa fa-plus" />
                         </button>
                         <ul uib-dropdown-menu class="dropdown-menu pull-right" role="menu" aria-labelledby="single-button">
-                            <li role="menuitem">
+                            <li role="menuitem" ng-class="{disabled: sdm.selectedCount != 1 || sdm.selectedEmptyCount != 1}">
                                 <a ng-click="sdm.openSampleStorageLinkModal()"><i class="fa fa-arrow-right m-r-xs"/>Move Sample</a>
                             </li>
                             <li class="divider"></li>
-                            <li role="menuitem">
+                            <li role="menuitem" ng-class="{disabled: sdm.selectedCount != 1 || sdm.selectedEmptyCount != 1}">
                                 <a ng-click="sdm.createSample()"><i class="fa fa-plus m-r-xs"/>Create Sample</a>
                             </li>
+                            <li class="divider"></li>
+                            <li role="menuitem" ng-class="{disabled: !sdm.clonedSample}">
+                                <a ng-click="sdm.pasteSample()"><i class="fa fa-paste m-r-xs"/>Paste Sample</a>
+                            </li>
                         </ul>
+                    </div>
+                    <div class="btn-group" role="group" ng-if="inventoryAdmin">
+                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()" ng-disabled="division.usedSlots==0">
+                            <i class="fa fa-table" />
+                        </button>
                     </div>
                     <div class="btn-group" role="group">
                         <button role="button" type="button" class="btn btn-danger" ng-click="sdm.delete()" ng-disabled="sdm.selectedSampleCount < 1 || !division.canEdit">

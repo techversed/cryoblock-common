@@ -164,7 +164,35 @@ angular.module('storage.storageFormFactory', [])
 
                     cbFormHelper.openForm("purge", "Division", division.id, '/storage/division', returnState);
 
-                }
+                },
+
+                openCloneInDimensionless: function (sample, division) {
+
+                    $modal.open({
+                        templateUrl: 'common/storage/partials/storage-copy-dimensionless-tpl.html',
+                        controller: 'storageCopyDimensionlessCtrl',
+                        windowClass: 'inmodal',
+                        keyboard: false,
+                        backdrop: 'static',
+                        size: 'md',
+                        resolve: {
+
+                            sample: function () {
+
+                                return sample;
+
+                            },
+
+                            division: function () {
+
+                                return division;
+
+                            }
+
+                        }
+                    });
+
+                },
 
             };
 
