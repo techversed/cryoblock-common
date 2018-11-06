@@ -4,9 +4,6 @@ angular.module('grid.gridBooleanFilterCtrl', [])
 
         function ($scope, $location, gridManager) {
 
-            $scope.form = {
-                radioModel: "Any"
-            };
 
             var init = function () {
 
@@ -25,10 +22,6 @@ angular.module('grid.gridBooleanFilterCtrl', [])
                     $scope.filter.setFromState(boolParam);
                     $scope.filter.updateSelectionString();
                 }
-            }
-
-            if(!$scope.filter.form){
-                $scope.filter.form = $scope.form;
             }
 
             $scope.refresh = function () {
