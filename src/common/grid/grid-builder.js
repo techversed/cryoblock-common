@@ -180,8 +180,9 @@ angular.module('grid.gridBuilder', [])
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
-                    grid.allowSelect()
+                    grid.allowSelect();
                     grid = this.addFiltersToGrid(grid,overrides['filterGroups']);
+                    grid.setPerPage(3);
 
                     // var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
                     var defaultParams = grid.getRequestParams();
@@ -196,7 +197,6 @@ angular.module('grid.gridBuilder', [])
                             .setPaginationFromResponse(response)
                             .disableHyperlinks()
                             .disableHover()
-                            .setPerPage(3)
                             .disableToggleColumns()
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
