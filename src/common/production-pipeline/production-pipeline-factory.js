@@ -56,6 +56,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 this.inputTemplateType = null;
 
+                this.outputSequenceDefaults = null;
+
                 this.outputSampleDefaults = null;
 
                 this.completeUrl = '/production/complete';
@@ -176,6 +178,14 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 setOutputSampleDefaults: function (outputSampleDefaults) {
 
                     this.outputSampleDefaults = outputSampleDefaults;
+
+                    return this;
+
+                },
+
+                setOutputSequenceDefaults: function (outputSequenceDefaults) {
+
+                    this.outputSequenceDefaults = outputSequenceDefaults;
 
                     return this;
 
