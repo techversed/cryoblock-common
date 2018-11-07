@@ -1,7 +1,9 @@
 <div class="form-group" ng-class="{'has-error': formCtrl[name].$invalid && formCtrl.$submitted }">
-    <label class="col-sm-2 control-label">
-        {{label}}
-        <i ng-if="tooltip" class="fa fa-question-circle" tooltip-placement="right-top" uib-tooltip="{{tooltip}}" />
-    </label>
-    <ng-transclude></ng-transclude>
+    <div class="row">
+        <label class="col-sm-2 control-label">
+            {{label}}:<b ng-if='formCtrl[name].$validators["required"]'>*</b>
+            <i ng-if="tooltip" class="fa fa-question-circle" tooltip-placement="right-top" uib-tooltip="{{tooltip}}" />
+        </label>
+        <ng-transclude></ng-transclude>
+    </div>
 </div>

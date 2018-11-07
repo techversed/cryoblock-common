@@ -37,7 +37,7 @@
                                 ng-model="grid.search"
                                 typeahead-wait-ms="1000"
                                 ng-change="refresh()"
-                                ng-model-options="{debounce: 300}"
+                                ng-model-options="{debounce: 600}"
                                 onkeydown="if (event.keyCode == 13) { return false; }"
                             />
                             <span class="input-group-btn" ng-click="refresh()">

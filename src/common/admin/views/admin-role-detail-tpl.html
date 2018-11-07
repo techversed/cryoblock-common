@@ -23,7 +23,7 @@
 
         <div class="row">
 
-            <div class="col-sm-4">
+            <div class="col-sm-12">
                 <div class="hpanel">
                     <div class="panel-heading">
                         <div class="panel-tools">
@@ -35,36 +35,12 @@
                     <div class="panel-body no-padding">
                         <table class="table-detail">
                             <tr>
-                                <td>Id</td>
-                                <td>{{role.id}}</td>
+                                <td class="col-sm-1">Id</td>
+                                <td class="col-sm-11">{{role.id}}</td>
                             </tr>
                             <tr>
                                 <td>Name</td>
                                 <td>{{role.role}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="hpanel">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        <i class="fa fa-calendar"></i>
-                        Dates
-                    </div>
-                    <div class="panel-body no-padding">
-                        <table class="table-detail">
-                            <tr>
-                                <td>Created At</td>
-                                <td>{{role.createdAt | date:'medium'}}</td>
-                            </tr>
-                            <tr>
-                                <td>Last Updated At</td>
-                                <td>{{role.updatedAt | date:'medium'}}</td>
                             </tr>
                         </table>
                     </div>
