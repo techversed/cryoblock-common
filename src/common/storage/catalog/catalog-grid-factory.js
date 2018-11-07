@@ -24,7 +24,7 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         bindTo: 'name',
                         name: 'name',
                         isSortable: true,
-                        sref: 'sample.detail({id:result.id})'
+                        sref: 'catalog.detail({id:result.id})'
                     },
                 ],
 
