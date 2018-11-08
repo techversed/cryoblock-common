@@ -27,22 +27,22 @@ angular.module('profile.profileGridDecorator', [])
                         'AppBundle\\Entity\\Storage\\Tag': 'tag',
                         'AppBundle\\Entity\\People\\Collaboration': 'people_collaboration',
                         'AppBundle\\Entity\\Record\\Mta': 'mta',
-                        'AppBundle\\Entity\\Storage\\Division': 'storage.divison',
+                        'AppBundle\\Entity\\Storage\\Division': 'storage.division',
                         'AppBundle\\Entity\\Record\\Grant': 'grant',
                         'AppBundle\\Entity\\Project\\Project': 'project',
                         'Carbon\\ApiBundle\\Entity\\User': 'admin.user',
                         'AppBundle\\Entity\\Record\\Report': 'report',
                         'AppBundle\\Entity\\Record\\Cda': 'cda',
-                        'AppBundle\\Entity\\Storage\\Target': 'target',
+                        'AppBUndle\\Entity\\Storage\\Target': 'target',
                         'AppBundle\\Entity\\Donor\\Donor': 'donor'
                     };
 
                     var appName = {
                         'AppBundle\\Entity\\Production\\Pbmc\\Request': 'PBMC Request',
-                        'AppBundle\\Entity\\Production\\Dna\\Request': 'DNA Purification Request Request',
                         'AppBundle\\Entity\\Production\\HumanSpecimen\\Request': 'Human Specimen Request',
                         'AppBundle\\Entity\\Production\\ProteinExpression\\Request': 'Protein Expression Request',
                         'AppBundle\\Entity\\Production\\ProteinPurification\\Request': 'Protein Purification Request',
+                        'AppBundle\\Entity\\Production\\Dna\\Request': 'DNA Purification Request',
                         'AppBundle\\Entity\\SEEQ\\Run': 'Seeq Run',
                         'AppBundle\\Entity\\Storage\\Sample': 'Sample',
                         'AppBundle\\Entity\\SEEQ\\Pipeline': 'Seeq Pipeline',
@@ -63,7 +63,7 @@ angular.module('profile.profileGridDecorator', [])
                         'Carbon\\ApiBundle\\Entity\\User': 'User',
                         'AppBundle\\Entity\\Record\\Report': 'Report',
                         'AppBundle\\Entity\\Record\\Cda': 'CDA',
-                        'AppBundle\\Entity\\Storage\\Target': 'Target',
+                        'AppBUndle\\Entity\\Storage\\Target': 'Target',
                         'AppBundle\\Entity\\Donor\\Donor': 'Donor'
                     };
 
@@ -73,13 +73,17 @@ angular.module('profile.profileGridDecorator', [])
                         result.objectName = appName[result.objectClass];
 
                         var tmp =  result.objectClass.split('\\');
+                        console.log(tmp);
+                        console.log(tmp[tmp.length-1]);
 
-                        if (tmp[tmp.length-1] == "Request"){
-                            result.objectClass = tmp[tmp.length-2] + " " + tmp[tmp.length-1];
-                        }
-                        else{
-                            result.objectClass = tmp[tmp.length-1];
-                        }
+                        // if (tmp[tmp.length-1] == "Request"){
+                        //     console.log("this");
+                        //     result.objectName = tmp[tmp.length-2] + " " + tmp[tmp.length-1];
+                        // }
+                        // else{
+                        //     console.log("that");
+                        //     result.objectName = tmp[tmp.length-1];
+                        // }
 
                     });
 
