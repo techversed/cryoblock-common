@@ -33,7 +33,7 @@ angular.module('profile.profileGridDecorator', [])
                         'Carbon\\ApiBundle\\Entity\\User': 'admin.user',
                         'AppBundle\\Entity\\Record\\Report': 'report',
                         'AppBundle\\Entity\\Record\\Cda': 'cda',
-                        'AppBUndle\\Entity\\Storage\\Target': 'target',
+                        'AppBundle\\Entity\\Storage\\Target': 'target',
                         'AppBundle\\Entity\\Donor\\Donor': 'donor'
                     };
 
@@ -63,7 +63,7 @@ angular.module('profile.profileGridDecorator', [])
                         'Carbon\\ApiBundle\\Entity\\User': 'User',
                         'AppBundle\\Entity\\Record\\Report': 'Report',
                         'AppBundle\\Entity\\Record\\Cda': 'CDA',
-                        'AppBUndle\\Entity\\Storage\\Target': 'Target',
+                        'AppBundle\\Entity\\Storage\\Target': 'Target',
                         'AppBundle\\Entity\\Donor\\Donor': 'Donor'
                     };
 
@@ -71,19 +71,6 @@ angular.module('profile.profileGridDecorator', [])
 
                         result.object = lookup[result.objectClass];
                         result.objectName = appName[result.objectClass];
-
-                        var tmp =  result.objectClass.split('\\');
-                        console.log(tmp);
-                        console.log(tmp[tmp.length-1]);
-
-                        // if (tmp[tmp.length-1] == "Request"){
-                        //     console.log("this");
-                        //     result.objectName = tmp[tmp.length-2] + " " + tmp[tmp.length-1];
-                        // }
-                        // else{
-                        //     console.log("that");
-                        //     result.objectName = tmp[tmp.length-1];
-                        // }
 
                     });
 
