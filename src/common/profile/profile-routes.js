@@ -41,8 +41,8 @@ angular.module('profile.routes', [])
                                     grid: function ($cbGridBuilder, sessionFactory)  {
                                         var url;
                                         var username = sessionFactory.getLoggedInUser().username;
-                                        url = {'url': '/log-entry?username[EQ]=' + username}
-                                        return $cbGridBuilder.buildIndex('profileActivityGridFactory', url);
+                                        overrides = {'url': '/log-entry?username[EQ]=' + username, 'bindToState': false};
+                                        return $cbGridBuilder.buildIndex('profileActivityGridFactory', overrides);
                                     }
 
                                 }

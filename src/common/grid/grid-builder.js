@@ -8,8 +8,9 @@ angular.module('grid.gridBuilder', [])
 
                 //Build the grid for an index page.
                 //possible overrides:
-                    //url -- specify a url that is used instead of the one included in the grid factory - Can be useful when you want to use the same grid factory but you want to use an address to a relation's controller instead of the controller for an entity.
-                    //filterGroups -- lets you specify filters to add directly to the grid.
+                    // url -- specify a url that is used instead of the one included in the grid factory - Can be useful when you want to use the same grid factory but you want to use an address to a relation's controller instead of the controller for an entity.
+                    // filterGroups -- lets you specify filters to add directly to the grid.
+                    // bindToState -- can be used to turn off the bindToState property if not provided bindToState will default to true.
                 buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);

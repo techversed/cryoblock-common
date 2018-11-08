@@ -33,18 +33,19 @@ angular.module('profile.profileGridDecorator', [])
                         'Carbon\\ApiBundle\\Entity\\User': 'admin.user',
                         'AppBundle\\Entity\\Record\\Report': 'report',
                         'AppBundle\\Entity\\Record\\Cda': 'cda',
+                        'AppBundle\\Entity\\Storage\\Target': 'target',
                         'AppBundle\\Entity\\Donor\\Donor': 'donor'
                     };
 
                     var appName = {
-                        'AppBundle\\Entity\\Production\\Pbmc\\Request': 'PBMC',
-                        'AppBundle\\Entity\\Production\\HumanSpecimen\\Request': 'Human Specimen',
+                        'AppBundle\\Entity\\Production\\Pbmc\\Request': 'PBMC Request',
+                        'AppBundle\\Entity\\Production\\Dna\\Request': 'DNA Purification Request Request',
+                        'AppBundle\\Entity\\Production\\HumanSpecimen\\Request': 'Human Specimen Request',
+                        'AppBundle\\Entity\\Production\\ProteinExpression\\Request': 'Protein Expression Request',
+                        'AppBundle\\Entity\\Production\\ProteinPurification\\Request': 'Protein Purification Request',
                         'AppBundle\\Entity\\SEEQ\\Run': 'Seeq Run',
                         'AppBundle\\Entity\\Storage\\Sample': 'Sample',
-                        'AppBundle\\Entity\\Production\\ProteinExpression\\Request': 'Protein Expression',
-                        'AppBundle\\Entity\\Production\\ProteinPurification\\Request': 'Protein Purification',
                         'AppBundle\\Entity\\SEEQ\\Pipeline': 'Seeq Pipeline',
-                        'AppBundle\\Entity\\Production\\Dna\\Request': 'DNA',
                         'AppBundle\\Entity\\Record\\Vim': 'VIM',
                         'AppBundle\\Entity\\Record\\Travel': 'Travel',
                         'AppBundle\\Entity\\People\\Institution': 'Institution',
@@ -62,6 +63,7 @@ angular.module('profile.profileGridDecorator', [])
                         'Carbon\\ApiBundle\\Entity\\User': 'User',
                         'AppBundle\\Entity\\Record\\Report': 'Report',
                         'AppBundle\\Entity\\Record\\Cda': 'CDA',
+                        'AppBundle\\Entity\\Storage\\Target': 'Target',
                         'AppBundle\\Entity\\Donor\\Donor': 'Donor'
                     };
 
