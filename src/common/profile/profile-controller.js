@@ -5,6 +5,7 @@ angular.module('profile.profileCtrl', [])
 
             $scope.user = user;
             $scope.grid = grid;
+            $scope.userBool = userBool;
 
             // $scope.bool =
 
