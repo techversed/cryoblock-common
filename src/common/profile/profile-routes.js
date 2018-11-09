@@ -49,6 +49,49 @@ angular.module('profile.routes', [])
 
                             }
                         }
+                    },
+                    {
+                        url: '/:id',
+                        name: 'detail',
+                        pageTitle: 'Profile',
+                        security: {
+                            roles: ['ROLE_USER'],
+                        },
+                        views: {
+                            content: {
+                                templateUrl: 'common/profile/views/profile-tpl.html',
+                                controller: 'profileCtrl',
+                                resolve: {
+
+                                    user: function (sessionFactory, profileFactory) {
+
+                                        if (sessionFactory.isLoggedInUser()) {
+
+                                            return sessionFactory.refreshUser();
+
+                                        }
+
+                                        // $cbResourace.getOne('users'
+                                        // if (sessionFactory.isLoggedInUser()) {
+
+                                        //     return sessionFactory.refreshUser();
+
+                                        // }
+
+                                    },
+
+                                    // and user from above
+                                    grid: function ($cbGridBuilder, sessionFactory)  {
+                                        var url;
+                                        var username = sessionFactory.getLoggedInUser().username; // Use the user from above instead of the one on session.
+                                        overrides = {'url': '/log-entry?username[EQ]=' + username, 'bindToState': false};
+                                        return $cbGridBuilder.buildIndex('profileActivityGridFactory', overrides);
+                                    }
+
+                                }
+
+                            }
+                        }
                     }
                 ]
             })

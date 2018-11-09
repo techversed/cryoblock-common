@@ -30,7 +30,7 @@ angular.module('profile.profileGridDecorator', [])
                         'AppBundle\\Entity\\Storage\\Division': 'storage.division',
                         'AppBundle\\Entity\\Record\\Grant': 'grant',
                         'AppBundle\\Entity\\Project\\Project': 'project',
-                        'Carbon\\ApiBundle\\Entity\\User': 'admin.user',
+                        'Carbon\\ApiBundle\\Entity\\User': 'profile',
                         'AppBundle\\Entity\\Record\\Report': 'report',
                         'AppBundle\\Entity\\Record\\Cda': 'cda',
                         'AppBundle\\Entity\\Storage\\Target': 'target',
