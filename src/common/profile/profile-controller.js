@@ -1,10 +1,12 @@
 angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'API', 'profileFormFactory', 'grid',
+    .controller('profileCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'API', 'profileFormFactory', 'grid', 'userBool',
 
-        function ($scope, $localStorage, $modal, user, API, profileFormFactory, grid) {
+        function ($scope, $localStorage, $modal, user, API, profileFormFactory, grid, userBool) {
 
             $scope.user = user;
             $scope.grid = grid;
+
+            // $scope.bool =
 
             $scope.edit = profileFormFactory.openFormModal;
 
