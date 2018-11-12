@@ -87,7 +87,7 @@ angular.module('form.oneToManyDirective', [])
 
                 link: function ($scope, element, attrs, formCtrl) {
 
-                    $scope.formCtrl = formCtrl
+                    $scope.formCtrl = formCtrl;
 
                     $scope.$on('form:submit', function () {
 
