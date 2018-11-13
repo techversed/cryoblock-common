@@ -332,7 +332,7 @@ angular.module('storage.storageDivisionManager', [])
 
                 openSampleStorageLinkModal: function () {
 
-                    if (this.selectedCount != 1 || this.selectedEmptyCount != 1) {
+                    if (this.hasDimension && (this.selectedCount != 1 || this.selectedEmptyCount != 1)) {
                         return;
                     }
 
