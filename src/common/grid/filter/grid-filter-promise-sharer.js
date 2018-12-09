@@ -12,6 +12,7 @@ angular.module('grid.gridFilterPromiseSharer' , [])
                 addPromise: function (url, params) {
                     //addPromise
                     var that = this;
+
                     if (that.promiseMap[url+params] == undefined) {
 
                         that.promiseMap[url+params] = $cbResource.get(url, params);
