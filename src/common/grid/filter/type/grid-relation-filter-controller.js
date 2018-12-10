@@ -1,8 +1,8 @@
 angular.module('grid.gridRelationFilterCtrl', [])
 
-    .controller('gridRelationFilterCtrl', ['$scope', 'API', '$cbResource', '$location', 'gridManager', 'gridFilterPromiseSharer',
+    .controller('gridRelationFilterCtrl', ['$scope', 'API', '$cbResource', '$location', 'gridManager', '$gridFilterPromiseSharer',
 
-        function ($scope, API, $cbResource, $location, gridManager, gridFilterPromiseSharer) {
+        function ($scope, API, $cbResource, $location, gridManager, $gridFilterPromiseSharer) {
 
             var init = function (first) {
 
@@ -67,7 +67,7 @@ angular.module('grid.gridRelationFilterCtrl', [])
 
                     // Carpooling
 
-                    gridFilterPromiseSharer.addPromise(url,params).then(function (response) {
+                    $gridFilterPromiseSharer.addPromise(url,params).then(function (response) {
                         $scope.filter.setResults(response.data);
                     });
 

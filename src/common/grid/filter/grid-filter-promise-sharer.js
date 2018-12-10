@@ -1,5 +1,5 @@
 angular.module('grid.gridFilterPromiseSharer' , [])
-    .service('gridFilterPromiseSharer', ['$cbResource',
+    .service('$gridFilterPromiseSharer', ['$cbResource',
 
         /*
             If mutiple grids in the same page are requesting the same list this service can be used in order to ensure that only one request needs to be made for that resource.
