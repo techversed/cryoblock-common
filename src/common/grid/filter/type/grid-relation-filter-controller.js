@@ -65,16 +65,12 @@ angular.module('grid.gridRelationFilterCtrl', [])
 
                     }
 
-                    // Carpooling
-
                     $gridFilterPromiseSharer.addPromise(url,params).then(function (response) {
                         $scope.filter.setResults(response.data);
                     });
 
                     // $cbResource.get(url, params).then(function (response) {
-
                     //     $scope.filter.setResults(response.data);
-
                     // });
 
                 }
