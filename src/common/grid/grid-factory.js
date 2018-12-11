@@ -455,21 +455,21 @@ angular.module('grid.gridFactory', [])
 
                 },
 
-                setSelectedItems: function (items, skip) {
+                // This is still not finished.
+                setSelectedItems: function (items) {
+
+                    var that = this;
 
                     angular.forEach(items, function(item) {
-                        this.selectedItem = item;
-                        this.search = '';
+                        that.addingItems.push(item);
+                        that.addingItemIds.push(item.id);
 
-                        console.log(item);
-                        if (this.selectItemCallback && skip === undefined) {
-
-                            this.selectItemCallback(item);
-
+                        if (that.selectItemCallback) {
+                            that.selectItemCallback(item);
                         }
+                    });
 
-                        return this;
-                    })
+                    return that;
 
                 },
 

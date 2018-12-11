@@ -36,17 +36,19 @@ angular.module('workingSet.workingSetManager', [])
                 //     }
                 // ],
 
+                // Add the top button in at some point
                 buttons: [
-                    {
-                        "text": "Remove from set",
-                        "type": "button",
+                    // {
+                    //     "text": "Remove from set",
+                    //     "type": "button",
 
-                        "action": function () {
-                            var formFactory = $injector.get('sampleFormFactory');
-                            formFactory.openSampleFormModal();
-                            console.log("Removing from set");
-                        }
-                    },
+                    //     "action": function () {
+                    //         var formFactory = $injector.get('sampleFormFactory');
+                    //         formFactory.openSampleFormModal();
+                    //         console.log("Removing from set");
+                    //     }
+                    // },
+
                     {
                         "text": "Deplete",
                         "type": "button",

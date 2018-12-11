@@ -1,7 +1,7 @@
 angular.module('common.commonCtrl', [])
-    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', 'workingSetFactory',
+    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', 'workingSetFormFactory',
 
-        function ($scope, sessionFactory, navigationInitializer, workingSetFactory) {
+        function ($scope, sessionFactory, navigationInitializer, workingSetFormFactory) {
 
             navigationInitializer.initialize();
 
@@ -13,7 +13,7 @@ angular.module('common.commonCtrl', [])
 
             this.workingSet = function () {
 
-                workingSetFactory.openFormModal();
+                workingSetFormFactory.openFormModal();
 
             }
 

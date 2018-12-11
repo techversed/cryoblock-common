@@ -1,16 +1,16 @@
 
-angular.module('workingSet.workingSetCtrl', [])
+angular.module('workingSet.workingSetFormCtrl', [])
 
-    .controller('workingSetCtrl', ['$scope', '$uibModalInstance', 'workingSet', '$cbResource', 'toastr', 'callback', '$cbForm', 'workingSetManager',
+    .controller('workingSetFormCtrl', ['$scope', '$uibModalInstance', '$cbResource', 'toastr', 'callback', '$cbForm', 'workingSetManager',
 
-        function ($scope, $modalInstance, workingSet, $cbResource, toastr, callback, $cbForm, workingSetManager) {
+        function ($scope, $uibModalInstance, $cbResource, toastr, callback, $cbForm, workingSetManager) {
 
-            $scope.workingSet = workingSet ? angular.copy(workingSet) : {};
+
             $scope.wsm = workingSetManager;
+            $scope.workingSet = $scope.wsm.data;
             $scope.workingSetForm = {};
 
-            $scope.cbForm = $cbForm.create()
-            ;
+            $scope.cbForm = $cbForm.create();
 
             $scope.close = function (){
 

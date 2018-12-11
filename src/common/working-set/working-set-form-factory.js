@@ -1,6 +1,6 @@
-angular.module('workingSet.workingSetFactory', [])
+angular.module('workingSet.workingSetFormFactory', [])
 
-    .factory('workingSetFactory', ['$uibModal', '$state', '$stateParams', '$cbResource', '$cbGridBuilder', 'toastr', 'cbFormHelper',
+    .factory('workingSetFormFactory', ['$uibModal', '$state', '$stateParams', '$cbResource', '$cbGridBuilder', 'toastr', 'cbFormHelper',
 
         function ($uibModal, $state, $stateParams, $cbResource, $cbGridBuilder, toastr, $cbFormHelper) {
 
@@ -9,8 +9,8 @@ angular.module('workingSet.workingSetFactory', [])
                 openFormModal: function (workingSet) {
 
                     $uibModal.open({
-                        templateUrl: 'common/working-set/partials/working-set-modal-tpl.html',
-                        controller: 'workingSetCtrl',
+                        templateUrl: 'common/working-set/partials/working-set-form-modal-tpl.html',
+                        controller: 'workingSetFormCtrl',
                         windowClass: 'inmodal',
                         keyboard: false,
                         backdrop: 'static',

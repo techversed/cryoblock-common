@@ -53,8 +53,10 @@ angular.module('grid.gridBuilder', [])
                     // selectFilterGroups -- allows you to pass a list of filters that are autoenabled in the form [[filter1: value1], [filter2: value2], [filter3:value3]]
                     // not yet implemented -- otmFilterGroups -- might not even implement this.
                 buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}, initialSelection) {
-console.log(1)
+                    console.log(1)
+
                     console.log(initialSelection)
+
                     var otmPostpend = overrides.otmPostpend ? overrides.selectPostpend : "";
                     var selectPostpend = overrides.selectPostpend ? overrides.selectPostpend : "";
                     var selectFilterGroups = overrides.selectFilterGroups ? overrides.selectFilterGroups : {};
@@ -71,7 +73,7 @@ console.log(1)
                 // Possible overrides
                     // Postpend -- a string that will be added to the end of the url that is passed in.
                     // FilterGroups -- currently only takes filters of type string.
-                buildSelect: function (url, factoryName, initObject, single, overrides = {}, initialSelection) {
+                buildSelect: function (url, factoryName, initObject, single, overrides = {}, initialSelection = []) {
 
                     var postpend = overrides.postpend ? overrides.postpend : "";
 
@@ -95,8 +97,10 @@ console.log(1)
                         grid.setStaticFilters({'cSelectable' : true});
                         defaultParams['cSelectable'] = true;
                     }
-                    console.log(2)
-                    console.log(initialSelection)
+
+                    console.log(2);
+                    console.log(initialSelection);
+
                     return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
