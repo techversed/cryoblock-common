@@ -5,20 +5,19 @@ angular.module('workingSet.workingSetFormCtrl', [])
 
         function ($scope, $uibModalInstance, $cbResource, toastr, callback, $cbForm, workingSetManager) {
 
+            // $scope.workingSet = $scope.wsm.data;
 
             $scope.wsm = workingSetManager;
-            // $scope.workingSet = $scope.wsm.data;
             $scope.workingSetForm = {};
 
             $scope.cbForm = $cbForm.create();
 
             $scope.close = function (){
 
-                $scope.cbForm.close($scope.workingSetForm,$scope);
+                $scope.cbForm.close($scope.workingSetForm, $scope, {'skipConfirm': true});
             };
 
 
         }
-
     ])
 ;

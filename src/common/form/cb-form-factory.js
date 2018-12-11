@@ -182,9 +182,14 @@ angular.module('form.cbFormFactory', [])
                  * @param  {Form} form
                  * @param  {Scope} scope the controller scope
                  */
-                close: function (form, scope) {
+                close: function (form, scope, overrides = {}) {
 
                     if (this.isSaving || this.isUploading) {
+                        return;
+                    }
+
+                    if (overrides.skipConfirm != undefined ? overrides.skipConfirm == true : false){
+                        scope.$close();
                         return;
                     }
 

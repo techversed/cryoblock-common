@@ -20,7 +20,7 @@
                     <div ng-if="wsm.loading == true" > Loading please wait </div>
                     <div ng-if="wsm.data">
                         <ul>
-                            <li ng-repeat="entry in wsm.data"><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input> &nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</li>
+                            <li ng-repeat="entry in wsm.data" class="grid-filter-item" ng-click="console.log(entry)"><label class="strong"><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input><span>&nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</span></label></li>
                         </ul>
                     </div>
 
