@@ -40,12 +40,12 @@ angular.module('storage.storageDivisionFormCtrl', [])
             }
 
             $scope.acceptedHeights = [];
-            for (var i = 1; i <= 20; i++) {
+            for (var i = 1; i <= 30; i++) {
                 $scope.acceptedHeights.push(i);
             }
 
             $scope.acceptedWidths = [];
-            for (var i = 1; i <= 20; i++) {
+            for (var i = 1; i <= 30; i++) {
                 $scope.acceptedWidths.push(i);
             }
 

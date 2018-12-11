@@ -234,7 +234,7 @@
                                     </div>
                                     <div class="add-sample">Add a Child Division to {{division.title}}</div>
                                 </li>
-                                <li ng-repeat="division in children | orderBy:'lft' " class="list-item">
+                                <li ng-repeat="division in division.children | orderBy:'lft' " class="list-item">
                                     <div class="row-column-container">
                                         <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x list-icon"/>
                                         <i ng-if="division.hasDimension" class="fa fa-th fa-2x list-icon"/>
