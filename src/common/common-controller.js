@@ -1,13 +1,19 @@
 angular.module('common.commonCtrl', [])
-    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer',
+    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', 'workingSetFactory',
 
-        function ($scope, sessionFactory, navigationInitializer) {
+        function ($scope, sessionFactory, navigationInitializer, workingSetFactory) {
 
             navigationInitializer.initialize();
 
             this.logout = function () {
 
                 sessionFactory.logout();
+
+            }
+
+            this.workingSet = function () {
+
+                workingSetFactory.openFormModal();
 
             }
 

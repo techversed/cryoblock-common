@@ -52,15 +52,16 @@ angular.module('grid.gridBuilder', [])
                     // selectPostpend -- allows you to specify text taht will be added to the end of the url that is used to build the select grid.
                     // selectFilterGroups -- allows you to pass a list of filters that are autoenabled in the form [[filter1: value1], [filter2: value2], [filter3:value3]]
                     // not yet implemented -- otmFilterGroups -- might not even implement this.
-                buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}) {
-
+                buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}, initialSelection) {
+console.log(1)
+                    console.log(initialSelection)
                     var otmPostpend = overrides.otmPostpend ? overrides.selectPostpend : "";
                     var selectPostpend = overrides.selectPostpend ? overrides.selectPostpend : "";
                     var selectFilterGroups = overrides.selectFilterGroups ? overrides.selectFilterGroups : {};
 
                     promises = []
                     promises.push(this.buildOTM(url, factoryName, initObject, isEditable, {postpend : otmPostpend}));
-                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {postpend : selectPostpend, filterGroups : selectFilterGroups}));
+                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {postpend : selectPostpend, filterGroups : selectFilterGroups}, initialSelection));
 
                     return $q.all(promises);
 
@@ -70,7 +71,7 @@ angular.module('grid.gridBuilder', [])
                 // Possible overrides
                     // Postpend -- a string that will be added to the end of the url that is passed in.
                     // FilterGroups -- currently only takes filters of type string.
-                buildSelect: function (url, factoryName, initObject, single, overrides = {}) {
+                buildSelect: function (url, factoryName, initObject, single, overrides = {}, initialSelection) {
 
                     var postpend = overrides.postpend ? overrides.postpend : "";
 
@@ -94,7 +95,8 @@ angular.module('grid.gridBuilder', [])
                         grid.setStaticFilters({'cSelectable' : true});
                         defaultParams['cSelectable'] = true;
                     }
-
+                    console.log(2)
+                    console.log(initialSelection)
                     return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
@@ -107,6 +109,7 @@ angular.module('grid.gridBuilder', [])
                             .setPerPage(3)
                             .disableToggleColumns()
                             .setInitResultCount(response.unpaginatedTotal)
+                            .setSelectedItems(initialSelection)
                         ;
                     }).then(this.addFiltersToGrid (grid, overrides['filterGroups']));
                 },
@@ -136,19 +139,17 @@ angular.module('grid.gridBuilder', [])
                                         filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
                                         break;
 
-<<<<<<< HEAD
                                     case "workingSet":
                                         angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
                                             filter.selectItem(selectedRelation);
                                         });
-                                        break
-=======
+                                        break;
+
                                     case "boolean":
                                         filter.form = {
                                         };
                                         filter.setModel(filterOverride[filterObjectKeys[filterObjIndex]]);
                                         break;
->>>>>>> 604de9545db71acc01fd0be7165bc56cb8c2dce1
 
                                     //We only need relation and enum
                                         //can also implement integer, string, boolean, deleted and date at some point
@@ -164,14 +165,11 @@ angular.module('grid.gridBuilder', [])
                 //Build a grid for use with forms that allows the user to select one option
 
                 //Possible overrides
-<<<<<<< HEAD
                     // Url -- if you would like to use an alternate url post it here.
                     // FilterGroups -- List the filters that will be applied by default.
-=======
                     //url -- if you would like to use an alternate url post it here.
                     //filterGroups -- List the filters that will be applied by default.
                     //filterParams -- object {key: value} will be joined with default params to create the initial search string...
->>>>>>> 604de9545db71acc01fd0be7165bc56cb8c2dce1
 
                 buildSelectSingle: function (factoryName, overrides = {}) {
 

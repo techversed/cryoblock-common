@@ -1,4 +1,6 @@
 angular.module('workingSet', [
     'workingSet.workingSetDirective',
-    'workingSet.workingSetManager'
+    'workingSet.workingSetManager',
+    'workingSet.workingSetFactory',
+    'workingSet.workingSetCtrl'
 ]);

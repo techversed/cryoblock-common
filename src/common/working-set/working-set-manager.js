@@ -77,25 +77,26 @@ angular.module('workingSet.workingSetManager', [])
                         "dropdownActionsText": "['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification', 'Outgoing VIM']",
                         "dropdownActions":
                         [
-                            {
-                                "text": 'Human Specimen',
-                                "type": "dropdownItem",
-                                "factory": null,
-                                "getFactory": function () {
-                                    return $injector.get('humanSpecimenFormFactory');
-                                },
-                                "action": function () {
-                                    var factory = $injector.get('humanSpecimenFormFactory');
-                                    return factory.openFormModal();
-                                }
-                            },
+                            // HS request has no input samples
+                            // {
+                            //     "text": 'Human Specimen',
+                            //     "type": "dropdownItem",
+                            //     "factory": null,
+                            //     "getFactory": function () {
+                            //         return $injector.get('humanSpecimenFormFactory');
+                            //     },
+                            //     "action": function () {
+                            //         var factory = $injector.get('humanSpecimenFormFactory');
+                            //         return factory.openFormModal();
+                            //     }
+                            // },
                             {
                                 "text": 'PBMC',
                                 "type": "dropdownItem",
                                 "service": undefined,
                                 "action": function () {
                                     var factory = $injector.get('pbmcFormFactory');
-                                    return factory.openFormModal();
+                                    return factory.openFormModal({}, workingSetManager.data);
                                 }
                             },
                             {
