@@ -10,7 +10,7 @@ angular.module('workingSet.workingSetManager', [])
 
                 collapsed: true,
 
-                data: [{'id': 1}],
+                data: [],
 
                 // Text -- What should be displayed on this button?
                 // Type -- Text, Dropdown
@@ -18,7 +18,6 @@ angular.module('workingSet.workingSetManager', [])
                 // Action List -- If you are using a dropdown this will add support
                     // Actions should all take a list of samples as an argument. The directive which uses this service should automatically get the list of selected samples and call a given function on that sample when an option is clicked.
                     // Actions should return boolen values to indicate whether or not the action was successful.
-
 
                 // buttons: [
                 //     {
@@ -226,10 +225,12 @@ angular.module('workingSet.workingSetManager', [])
                     this.refresh();
                 },
 
-                addSample: function () {
+                addSample: function (entry) {
                     entry.selected = false;
-                    workingSetManager.push(entry);
+                    workingSetManager.data.push(entry);
                 }
+
+                // Add a remove function
 
             };
 

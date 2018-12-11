@@ -7,7 +7,7 @@ angular.module('workingSet.workingSetFormCtrl', [])
 
 
             $scope.wsm = workingSetManager;
-            $scope.workingSet = $scope.wsm.data;
+            // $scope.workingSet = $scope.wsm.data;
             $scope.workingSetForm = {};
 
             $scope.cbForm = $cbForm.create();
