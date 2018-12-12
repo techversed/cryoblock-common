@@ -10,6 +10,53 @@
 
         <div class="modal-body">
             <cb-form form="cbForm">
+
+            <!--
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">Active</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                  </li>
+                </ul>
+                <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-samples-tab" data-toggle="tab" href="#nav-samples" role="tab" aria-controls="nav-samples" aria-selected="true">Samples</a>
+                    <a class="nav-item nav-link" id="nav-requests-tab" data-toggle="tab" href="#nav-requests" role="tab" aria-controls="nav-requests" aria-selected="false">Requests</a>
+                    <a class="nav-item nav-link" id="nav-brooks-actions-tab" data-toggle="tab" href="#nav-brooks-actions" role="tab" aria-controls="nav-brooks-actions" aria-selected="false">Brooks Actions</a>
+                  </div>
+                </nav>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-samples" role="tabpanel" aria-labelledby="nav-samples-tab">Samples</div>
+                    <div class="tab-pane fade" id="nav-requests" role="tabpanel" aria-labelledby="nav-requests-tab">Requests</div>
+                    <div class="tab-pane fade" id="nav-brooks-actions" role="tabpanel" aria-labelledby="nav-brooks-actions-tab">Brooks Actions</div>
+                </div>
+            -->
+
+            <!--
+                <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-samples-tab" data-toggle="tab" href="#nav-samples" role="tab" aria-controls="nav-samples" aria-selected="true">Samples</a>
+                    <a class="nav-item nav-link" id="nav-requests-tab" data-toggle="tab" href="#nav-requests" role="tab" aria-controls="nav-requests" aria-selected="false">Requests</a>
+                    <a class="nav-item nav-link" id="nav-brooks-actions-tab" data-toggle="tab" href="#nav-brooks-actions" role="tab" aria-controls="nav-brooks-actions" aria-selected="false">Brooks Actions</a>
+                  </div>
+                </nav>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-samples" role="tabpanel" aria-labelledby="nav-samples-tab">Samples</div>
+                    <div class="tab-pane fade" id="nav-requests" role="tabpanel" aria-labelledby="nav-requests-tab">Requests</div>
+                    <div class="tab-pane fade" id="nav-brooks-actions" role="tabpanel" aria-labelledby="nav-brooks-actions-tab">Brooks Actions</div>
+                </div>
+            -->
+
                 <div ng-if="wsm.collapsed">
                     <button class="btn btn-success" ng-click="wsm.refresh()">Refresh</button>
                     <button class="btn btn-success" ng-click="wsm.selectAll()">Select All</button>
@@ -21,8 +68,8 @@
                     <div >
                         <ul ng-if="wsm.data">
                             <li ng-if="wsm.loading == true" > <i class="text-primary fa fa-circle-o-notch fa-spin"/> Loading please wait</li>
-                            <li ng-if="wsm.data.keys.length ==0">Working set currently empty</li>
-                            <li ng-repeat="entry in wsm.data" class="grid-filter-item" ng-click="console.log(entry)"><label class='col-sm-9'><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input><span>&nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</span></label></li>
+                            <li ng-if="wsm.data.length==0">Working set currently empty</li>
+                            <li ng-repeat="entry in wsm.data" class="grid-filter-item" ng-click="console.log(entry)"><label><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input><span>&nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</span></label></li>
                         </ul>
                     </div>
 

@@ -98,9 +98,7 @@ angular.module('grid.gridBuilder', [])
                         defaultParams['cSelectable'] = true;
                     }
 
-                    console.log(2);
-                    console.log(initialSelection);
-
+                    console.log("made it here with url: ", url);
                     return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
@@ -250,6 +248,7 @@ angular.module('grid.gridBuilder', [])
                     if (!initObject || !initObject.id) {
                         return grid;
                     }
+                    console.log("if this is working as expected it should never get to this point.");
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:cPerPage};
 
@@ -262,6 +261,7 @@ angular.module('grid.gridBuilder', [])
                         ;
 
                     });
+
 
                 }
 

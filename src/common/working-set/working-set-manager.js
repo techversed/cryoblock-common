@@ -1,5 +1,11 @@
 angular.module('workingSet.workingSetManager', [])
 
+    /*
+
+        There is some code in here which should really be moved to the crowelab section of this -- individual implementation specific code does not belong in common ...
+
+    */
+
     .service('workingSetManager', ['sessionFactory', '$cbResource', '$injector',
 
         function (sessionFactory, $cbResource, $injector) {
@@ -10,7 +16,10 @@ angular.module('workingSet.workingSetManager', [])
 
                 collapsed: true,
 
+                // Long term we should move towards data being a map to arrays for the various types of objects that could be held in a working set.
                 data: [],
+
+                ids: [],
 
                 // Text -- What should be displayed on this button?
                 // Type -- Text, Dropdown
@@ -19,6 +28,7 @@ angular.module('workingSet.workingSetManager', [])
                     // Actions should all take a list of samples as an argument. The directive which uses this service should automatically get the list of selected samples and call a given function on that sample when an option is clicked.
                     // Actions should return boolen values to indicate whether or not the action was successful.
 
+                // Button example
                 // buttons: [
                 //     {
                 //         "text": "text",
@@ -37,6 +47,7 @@ angular.module('workingSet.workingSetManager', [])
 
                 // Add the top button in at some point
                 buttons: [
+
                     // {
                     //     "text": "Remove from set",
                     //     "type": "button",
@@ -47,6 +58,7 @@ angular.module('workingSet.workingSetManager', [])
                     //         console.log("Removing from set");
                     //     }
                     // },
+
 
                     {
                         "text": "Deplete",
@@ -97,7 +109,7 @@ angular.module('workingSet.workingSetManager', [])
                                 "service": undefined,
                                 "action": function () {
                                     var factory = $injector.get('pbmcFormFactory');
-                                    return factory.openFormModal({}, workingSetManager.data);
+                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
                                 }
                             },
                             {
@@ -140,15 +152,22 @@ angular.module('workingSet.workingSetManager', [])
                     }
                 ],
 
-
                 // Add a new button action to the group of buttons -- there is a common set of buttons but cetain implementations may want to have more functionality which is not in common.
                 addButtonAction: function () {
 
                 },
 
+                recomputeIds: function () {
+
+                    this.ids = this.data.map( function (entry) {
+                        return entry.id;
+                    });
+
+                },
+
                 getSelected: function(entry){
-                    return this.data.filter( function () {
-                        return (this.selected == true);
+                    return workingSetManager.data.filter( function (entry) {
+                        return (entry.selected == true);
                     });
                 },
 
@@ -215,6 +234,8 @@ angular.module('workingSet.workingSetManager', [])
 
                         workingSetManager.data = scopeData.concat(resData);
                         workingSetManager.loading = false;
+
+                        workingSetManager.recomputeIds();
                         return;
 
                     });
@@ -226,11 +247,28 @@ angular.module('workingSet.workingSetManager', [])
                 },
 
                 addSample: function (entry) {
+
+                    // We should really be registering a callback here which would check to see if the operation was successful -- this could lead the interface to think that things were stored in their working set when they actually were not.
+                    $cbResource.create('/storage/working-set-add-id/' + sessionFactory.getLoggedInUser().id + '/' + entry.id, {});
+
                     entry.selected = false;
                     workingSetManager.data.push(entry);
-                }
+                    workingSetManager.recomputeIds();
+
+                },
 
                 // Add a remove function
+                removeSample: function (entry) {
+
+                    // We should really check the outcome of this call before we do anything to the actual array
+                    $cbResource.delete('/storage/working-set-remove-id/' + sessionFactory.getLoggedInUser().id + '/' + entry.id, {});
+
+                    workingSetManager.data = workingSetManager.data.filter( function (item) {
+                        return item.id != entry.id;
+                    });
+
+                    workingSetManager.recomputeIds();
+                }
 
             };
 
