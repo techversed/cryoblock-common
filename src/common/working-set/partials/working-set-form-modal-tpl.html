@@ -17,10 +17,12 @@
                     <br />
                     <br />
 
-                    <div ng-if="wsm.loading == true" > Loading please wait </div>
-                    <div ng-if="wsm.data">
-                        <ul>
-                            <li ng-repeat="entry in wsm.data" class="grid-filter-item" ng-click="console.log(entry)"><label class="strong"><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input><span>&nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</span></label></li>
+
+                    <div >
+                        <ul ng-if="wsm.data">
+                            <li ng-if="wsm.loading == true" > <i class="text-primary fa fa-circle-o-notch fa-spin"/> Loading please wait</li>
+                            <li ng-if="wsm.data.keys.length ==0">Working set currently empty</li>
+                            <li ng-repeat="entry in wsm.data" class="grid-filter-item" ng-click="console.log(entry)"><label class='col-sm-9'><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input><span>&nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</span></label></li>
                         </ul>
                     </div>
 
