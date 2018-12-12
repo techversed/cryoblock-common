@@ -82,10 +82,14 @@ angular.module('grid.gridBuilder', [])
                     var grid = factory.create();
 
                     if (initObject && initObject.id) {
+                        console.log("did the first thing");
                         url = url + initObject.id + postpend;
                     } else {
+                        console.log("did the second thing");
                         url = url + 0 + postpend;
                     }
+
+                    console.log("url: ", url);
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
@@ -99,6 +103,9 @@ angular.module('grid.gridBuilder', [])
                     }
 
                     console.log("made it here with url: ", url);
+
+                    grid = this.addFiltersToGrid (grid, overrides['filterGroups']);
+
                     return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
@@ -113,7 +120,9 @@ angular.module('grid.gridBuilder', [])
                             .setInitResultCount(response.unpaginatedTotal)
                             .setSelectedItems(initialSelection)
                         ;
-                    }).then(this.addFiltersToGrid (grid, overrides['filterGroups']));
+                    });
+                    //
+                    // .then(this.addFiltersToGrid (grid, overrides['filterGroups']));
                 },
 
                 // Helper function used to implement the overrrides for the various other grid functions -- not intended to be called directly
@@ -248,7 +257,6 @@ angular.module('grid.gridBuilder', [])
                     if (!initObject || !initObject.id) {
                         return grid;
                     }
-                    console.log("if this is working as expected it should never get to this point.");
 
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:cPerPage};
 
