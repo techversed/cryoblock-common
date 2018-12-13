@@ -118,7 +118,7 @@ angular.module('workingSet.workingSetManager', [])
                                 "service": undefined,
                                 "action": function () {
                                     var factory = $injector.get('dnaFormFactory');
-                                    return factory.openFormModal();
+                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
                                 }
                             },
                             {
@@ -127,7 +127,7 @@ angular.module('workingSet.workingSetManager', [])
                                 "service": undefined,
                                 "action": function () {
                                     var factory = $injector.get('proteinExpressionFormFactory');
-                                    return factory.openFormModal();
+                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
                                 }
                             },
                             {
@@ -136,7 +136,7 @@ angular.module('workingSet.workingSetManager', [])
                                 "type": "dropdownItem",
                                 "action": function () {
                                     var factory = $injector.get('proteinPurificationFormFactory');
-                                    return factory.openFormModal();
+                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
                                 }
                             },
                             {
@@ -145,7 +145,7 @@ angular.module('workingSet.workingSetManager', [])
                                 "service": undefined,
                                 "action": function () {
                                     var factory = $injector.get('vimFormFactory');
-                                    return factory.openFormModal();
+                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
                                 }
                             }
                         ]

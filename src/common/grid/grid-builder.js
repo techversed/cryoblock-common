@@ -49,7 +49,7 @@ angular.module('grid.gridBuilder', [])
                         .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
                     ;
 
-                    var defaultParams = { cOrderBy: grid.sortingColumn.name, cOrderByDirection: grid.sortDirection};
+                    var defaultParams = {cOrderBy: grid.sortingColumn.name, cOrderByDirection: grid.sortDirection};
                     var params = gridManager.ignoreUrlParams ? defaultParams : angular.extend(defaultParams, $location.search());
 
                     return $cbResource.get(url, params).then(function (response) {
@@ -59,7 +59,6 @@ angular.module('grid.gridBuilder', [])
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
                     }).then( this.addFiltersToGrid(grid, overrides['filterGroups']));
-
                 },
 
                 // Build a grid using a grid factory using a linker table. Find the entities that are linked with the specified one
@@ -165,8 +164,6 @@ angular.module('grid.gridBuilder', [])
                     // var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
                     var defaultParams = grid.getRequestParams();
 
-                    grid = this.addFiltersToGrid(grid, overrides['filterGroups']);
-
                     return $cbResource.get(url, defaultParams).then(function (response) {
                         grid.perPageOptions = [3, 10, 25];
                         return grid
@@ -178,7 +175,6 @@ angular.module('grid.gridBuilder', [])
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
                     });
-                    // .then(this.addFiltersToGrid(grid, overrides['filterGroups']));
                 },
 
                 //Possible overrides
