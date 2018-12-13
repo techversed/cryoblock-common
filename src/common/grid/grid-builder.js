@@ -1,8 +1,31 @@
+/*
+    Written by Andre Branchizio
+
+    This service can be used to create instances of the grid class which are customized for the various form and display elements within the cryoblock codebase.
+
+    Functions which are allowed to be called from user space should all return promises.
+
+        Build index: Builds a grid that can be used in the index page -- simply takes the url from the grid factory class and fetches the paginated results
+
+        BuildMTMGrids:
+
+        BuildSelectSingle:
+
+        BuildSelect:
+
+        BuildOTM:
+
+    Things which we might want to change going forwards --
+    Add filters to grids should probably be moved into the grid factory...
+
+*/
+
 angular.module('grid.gridBuilder', [])
 
     .service('$cbGridBuilder', [ '$injector', '$cbResource', '$location', '$q', 'gridManager',
 
         function ($injector, $cbResource, $location, $q, gridManager) {
+
 
             var gridBuilder = {
 
@@ -51,19 +74,18 @@ angular.module('grid.gridBuilder', [])
                     // otmPostpend -- allows you to specify text that will be added to the end of the url that is used to build the otm grid
                     // selectPostpend -- allows you to specify text taht will be added to the end of the url that is used to build the select grid.
                     // selectFilterGroups -- allows you to pass a list of filters that are autoenabled in the form [[filter1: value1], [filter2: value2], [filter3:value3]]
+                    // Initial selection -- what objects should be selected by default when the selection grid is returned.
                     // not yet implemented -- otmFilterGroups -- might not even implement this.
-                buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}, initialSelection) {
-                    console.log(1)
-
-                    console.log(initialSelection)
+                buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}) {
 
                     var otmPostpend = overrides.otmPostpend ? overrides.selectPostpend : "";
                     var selectPostpend = overrides.selectPostpend ? overrides.selectPostpend : "";
                     var selectFilterGroups = overrides.selectFilterGroups ? overrides.selectFilterGroups : {};
+                    var is = overrides.initialSelection ? overrides.initialSelection : [];
 
                     promises = []
                     promises.push(this.buildOTM(url, factoryName, initObject, isEditable, {postpend : otmPostpend}));
-                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {postpend : selectPostpend, filterGroups : selectFilterGroups}, initialSelection));
+                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {initialSelection: is, postpend : selectPostpend, filterGroups : selectFilterGroups}));
 
                     return $q.all(promises);
 
@@ -81,12 +103,18 @@ angular.module('grid.gridBuilder', [])
 
                     var grid = factory.create();
 
+                    var initialSelection = overrides.initialSelection ? overrides.initialSelection : [];
+
                     if (initObject && initObject.id) {
+
                         console.log("did the first thing");
                         url = url + initObject.id + postpend;
+
                     } else {
+
                         console.log("did the second thing");
                         url = url + 0 + postpend;
+
                     }
 
                     console.log("url: ", url);
@@ -106,6 +134,8 @@ angular.module('grid.gridBuilder', [])
 
                     grid = this.addFiltersToGrid (grid, overrides['filterGroups']);
 
+                    console.log("url: ", url);
+
                     return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
@@ -121,56 +151,6 @@ angular.module('grid.gridBuilder', [])
                             .setSelectedItems(initialSelection)
                         ;
                     });
-                    //
-                    // .then(this.addFiltersToGrid (grid, overrides['filterGroups']));
-                },
-
-                // Helper function used to implement the overrrides for the various other grid functions -- not intended to be called directly
-                    // Currently there
-                addFiltersToGrid: function (grid, filterOverride){
-                    if (filterOverride != {} && filterOverride != undefined) {
-                        var filterObjIndex;
-                        var filterObjectKeys = Object.keys(filterOverride);
-
-                        angular.forEach(grid.filters, function (filter) {
-                            filterObjIndex = filterObjectKeys.indexOf(filter.title); //need to use title instead of bind to because there can be multiple realtions bound to the same field on different objects.
-                            if(filterObjIndex != -1){
-                                filter.disabled = true;
-                                filter.isVisible = true;
-                                filter.isFiltering = true;
-
-                                switch(filter.type){
-                                    case "relation":
-                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
-                                            filter.selectItem(selectedRelation);
-                                        });
-                                        break;
-
-                                    case "enum":
-                                        filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
-                                        break;
-
-                                    case "workingSet":
-                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
-                                            filter.selectItem(selectedRelation);
-                                        });
-                                        break;
-
-                                    case "boolean":
-                                        filter.form = {
-                                        };
-                                        filter.setModel(filterOverride[filterObjectKeys[filterObjIndex]]);
-                                        break;
-
-                                    //We only need relation and enum
-                                        //can also implement integer, string, boolean, deleted and date at some point
-
-                                }
-
-                            }
-                        });
-                    }
-                    return grid;
                 },
 
                 //Build a grid for use with forms that allows the user to select one option
@@ -181,7 +161,6 @@ angular.module('grid.gridBuilder', [])
                     //url -- if you would like to use an alternate url post it here.
                     //filterGroups -- List the filters that will be applied by default.
                     //filterParams -- object {key: value} will be joined with default params to create the initial search string...
-
                 buildSelectSingle: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
@@ -223,7 +202,8 @@ angular.module('grid.gridBuilder', [])
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
 
-                    });//.then(this.addFiltersToGrid(grid, overrides['filterGroups']));
+                    });
+                    // .then(this.addFiltersToGrid(grid, overrides['filterGroups']));
 
                 },
 
@@ -271,13 +251,59 @@ angular.module('grid.gridBuilder', [])
                     });
 
 
-                }
+                },
 
+
+// THIS FUNCTION SHOULD ONLY BE CALLED FROM THIS FILE -- Do not explicitly call this from user space -- it is likely to be moved to the grid factory instead of its current location.
+                // Helper function used to implement the overrrides for the various other grid functions -- not intended to be called directly
+                    // Currently there
+                addFiltersToGrid: function (grid, filterOverride){
+                    if (filterOverride != {} && filterOverride != undefined) {
+                        var filterObjIndex;
+                        var filterObjectKeys = Object.keys(filterOverride);
+
+                        angular.forEach(grid.filters, function (filter) {
+                            filterObjIndex = filterObjectKeys.indexOf(filter.title); //need to use title instead of bind to because there can be multiple realtions bound to the same field on different objects.
+                            if(filterObjIndex != -1){
+                                filter.disabled = true;
+                                filter.isVisible = true;
+                                filter.isFiltering = true;
+
+                                switch(filter.type){
+                                    case "relation":
+                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
+                                            filter.selectItem(selectedRelation);
+                                        });
+                                        break;
+
+                                    case "enum":
+                                        filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
+                                        break;
+
+                                    case "workingSet":
+                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
+                                            filter.selectItem(selectedRelation);
+                                        });
+                                        break;
+
+                                    case "boolean":
+                                        filter.form = {
+                                        };
+                                        filter.setModel(filterOverride[filterObjectKeys[filterObjIndex]]);
+                                        break;
+
+                                    //We only need relation and enum
+                                        //can also implement integer, string, boolean, deleted and date at some point
+
+                                }
+                            }
+                        });
+                    }
+                    return grid;
+                }
             };
 
             return gridBuilder
-
         }
-
     ])
 ;

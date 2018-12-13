@@ -458,18 +458,21 @@ angular.module('grid.gridFactory', [])
                 // This is still not finished.
                 setSelectedItems: function (items) {
 
-                    var that = this;
+                    if (items.length ==0) {
+                        return this;
+                    }
+
 
                     angular.forEach(items, function(item) {
-                        that.addingItems.push(item);
-                        that.addingItemIds.push(item.id);
+                        this.addingItems.push(item);
+                        this.addingItemIds.push(item.id);
 
-                        if (that.selectItemCallback) {
-                            that.selectItemCallback(item);
+                        if (this.selectItemCallback) {
+                            this.selectItemCallback(item);
                         }
                     });
 
-                    return that;
+                    return this;
 
                 },
 
