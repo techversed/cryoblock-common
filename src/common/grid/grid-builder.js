@@ -1,4 +1,5 @@
 /*
+
     Written by Andre Branchizio
 
     This service can be used to create instances of the grid class which are customized for the various form and display elements within the cryoblock codebase.
@@ -21,11 +22,9 @@
 */
 
 angular.module('grid.gridBuilder', [])
-
     .service('$cbGridBuilder', [ '$injector', '$cbResource', '$location', '$q', 'gridManager',
 
         function ($injector, $cbResource, $location, $q, gridManager) {
-
 
             var gridBuilder = {
 
@@ -36,13 +35,10 @@ angular.module('grid.gridBuilder', [])
                 buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
-
                     var grid = factory.create();
 
                     if (factory.url === undefined) {
-
                         throw Error('No url property found on grid ' + factoryName);
-
                     }
 
                     var url = overrides.url != undefined ? overrides.url : factory.url;
@@ -57,13 +53,11 @@ angular.module('grid.gridBuilder', [])
                     var params = gridManager.ignoreUrlParams ? defaultParams : angular.extend(defaultParams, $location.search());
 
                     return $cbResource.get(url, params).then(function (response) {
-
                         return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
-
                     }).then( this.addFiltersToGrid(grid, overrides['filterGroups']));
 
                 },
@@ -83,41 +77,30 @@ angular.module('grid.gridBuilder', [])
                     var selectFilterGroups = overrides.selectFilterGroups ? overrides.selectFilterGroups : {};
                     var is = overrides.initialSelection ? overrides.initialSelection : [];
 
-                    promises = []
+                    promises = [];
                     promises.push(this.buildOTM(url, factoryName, initObject, isEditable, {postpend : otmPostpend}));
                     promises.push(this.buildSelect(url, factoryName, initObject, undefined, {initialSelection: is, postpend : selectPostpend, filterGroups : selectFilterGroups}));
 
                     return $q.all(promises);
-
                 },
 
                 // Filter Groups
                 // Possible overrides
                     // Postpend -- a string that will be added to the end of the url that is passed in.
                     // FilterGroups -- currently only takes filters of type string.
-                buildSelect: function (url, factoryName, initObject, single, overrides = {}, initialSelection = []) {
+                buildSelect: function (url, factoryName, initObject, single, overrides = {}) {
 
                     var postpend = overrides.postpend ? overrides.postpend : "";
-
-                    var factory = $injector.get(factoryName);
-
-                    var grid = factory.create();
-
                     var initialSelection = overrides.initialSelection ? overrides.initialSelection : [];
 
+                    var factory = $injector.get(factoryName);
+                    var grid = factory.create();
+
                     if (initObject && initObject.id) {
-
-                        console.log("did the first thing");
                         url = url + initObject.id + postpend;
-
                     } else {
-
-                        console.log("did the second thing");
                         url = url + 0 + postpend;
-
                     }
-
-                    console.log("url: ", url);
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
@@ -130,11 +113,7 @@ angular.module('grid.gridBuilder', [])
                         defaultParams['cSelectable'] = true;
                     }
 
-                    console.log("made it here with url: ", url);
-
                     grid = this.addFiltersToGrid (grid, overrides['filterGroups']);
-
-                    console.log("url: ", url);
 
                     return $cbResource.get(url, defaultParams).then(function (response) {
 
@@ -166,9 +145,7 @@ angular.module('grid.gridBuilder', [])
                     var factory = $injector.get(factoryName);
 
                     if (factory.url === undefined) {
-
                         throw Error('No url property found on grid ' + factoryName);
-
                     }
 
                     var url = factory.url;
@@ -188,11 +165,10 @@ angular.module('grid.gridBuilder', [])
                     // var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
                     var defaultParams = grid.getRequestParams();
 
-                    // this.addFiltersToGrid(grid, overrides['filterGroups']);
+                    grid = this.addFiltersToGrid(grid, overrides['filterGroups']);
+
                     return $cbResource.get(url, defaultParams).then(function (response) {
-
                         grid.perPageOptions = [3, 10, 25];
-
                         return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
@@ -201,10 +177,8 @@ angular.module('grid.gridBuilder', [])
                             .disableToggleColumns()
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
-
                     });
                     // .then(this.addFiltersToGrid(grid, overrides['filterGroups']));
-
                 },
 
                 //Possible overrides
@@ -221,6 +195,9 @@ angular.module('grid.gridBuilder', [])
 
                     if (initObject && initObject.id) {
                         url = url + initObject.id + postpend;
+                    }
+                    else {
+                        url = url + 0 + postpend;
                     }
 
                     grid
@@ -241,16 +218,13 @@ angular.module('grid.gridBuilder', [])
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:cPerPage};
 
                     return $cbResource.get(url, defaultParams).then(function (response) {
-
+                        console.log("got the otm back");
                         return grid
                             .setPaginationFromResponse(response)
                             .setResults(response.data)
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
-
                     });
-
-
                 },
 
 
@@ -302,7 +276,6 @@ angular.module('grid.gridBuilder', [])
                     return grid;
                 }
             };
-
             return gridBuilder
         }
     ])
