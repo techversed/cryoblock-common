@@ -159,7 +159,7 @@ angular.module('workingSet.workingSetManager', [])
 
                 addWorkingSet: function (name, buttons) {
 
-                }
+                },
 
 
                 // Add a new button action to the group of buttons -- there is a common set of buttons but cetain implementations may want to have more functionality which is not in common.
