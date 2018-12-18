@@ -214,7 +214,6 @@ angular.module('grid.gridBuilder', [])
                     var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:cPerPage};
 
                     return $cbResource.get(url, defaultParams).then(function (response) {
-                        console.log("got the otm back");
                         return grid
                             .setPaginationFromResponse(response)
                             .setResults(response.data)

@@ -44,20 +44,21 @@ angular.module('workingSet.workingSetManager', [])
 
             var workingSetManager = {
 
-                sets: [], // This is computed each time a new working set is added and provides quick access to the the working set form.
+                sets: [],
 
                 setMetadata: {},
 
                 selectedSet: "",
 
-                loading: {},
+                // We can move loading into the setMetadata object instead of keeping it here
+                // loading: {},
 
                 // Migt not even need this -- working set is in a modal now and there is a selected set which is sidplaye dinstead of having a single collapsed variable.
                 collapsed: true,
 
-                data: {},
+                // data: {},
 
-                ids: {},
+                // ids: {},
 
                 buttons: {},
 
@@ -66,18 +67,32 @@ angular.module('workingSet.workingSetManager', [])
                     // append name to sets.
                     // if there is not a currently selected set then you should select it.
 
-                    workingSetManager.sets.push(name);
-                    workingSetManager.data[name] = [];
-                    workingSetManager.ids[name] = [];
-                    workingSetManager.loading[name] = false;
+                    // workingSetManager.sets.push(name);
+                    // workingSetManager.data[name] = [];
+                    // workingSetManager.ids[name] = [];
+                    // workingSetManager.loading[name] = false;
+
+                    workingSetManager.setMetadata[name] = setMetadata;
+                    workingSetManager.setMetadata[name]['loading'] = false;
+                    workingSetManager.setMetadata[name]['ids'] = [];
+                    workingSetManager.setMetadata[name]['data'] = [];
+                    workingSetManager.setMetadata[name]['buttons'] = setButtons;
 
                     if (workingSetManager.selectedSet == "") {
                         workingSetManager.changeSelectedSet(name);
                         // workingSetManager.selectedSet = name;
                     }
 
-                    workingSetManager.buttons[name] = setButtons; // This will change since we will be moving to using a map in the near future.
+                    // workingSetManager.buttons[name] = setButtons; // This will change since we will be moving to using a map in the near future.
+                    workingSetManager.buildSetsList();
+                    workingSetManager.refresh();
                 },
+
+                buildSetsList: function() {
+                    workingSetManager.sets = Object.keys(workingSetManager.setMetadata);
+                    return workingSetManager.sets;
+                },
+
 
                 // Add a new button action to the group of buttons -- there is a common set of buttons but cetain implementations may want to have more functionality which is not in common.
                 // We might not even support this if we are going to be able to add all of the buttons for a given type of working set within a single operation.
@@ -85,46 +100,47 @@ angular.module('workingSet.workingSetManager', [])
                     console.log('workingSetManager: add button action is not currently implemented');
                 },
 
+                // Should work
                 recomputeIds: function (set = "Samples") {
-                    this.ids[set] = this.data[set].map( function (entry) {
+                    workingSetManager.setMetadata[set].ids = workingSetManager.setMetadata[set].data.map( function (entry) {
                         return entry.id;
                     });
                 },
 
-                // This will need to be changed
+                // Should work
                 getSelected: function(set = "Samples"){
-                    return workingSetManager.data[set].filter( function (entry) {
+                    return workingSetManager.setMetadata[set].data.filter( function (entry) {
                         return (entry.selected == true);
                     });
                 },
 
-                // This will need to be changed.
+                // Should work
                 deselectAll: function(set = 'Samples') {
-                    this.data[set] = this.data[set].map(function(entity){
+                    workingSetManager.setMetadata[set].data = workingSetManager[set].data.map(function(entity){
                         entity.selected = false;
                         return entity;
                     });
                 },
 
-                // This will need to be changed
+                // Should work
                 selectAll: function(set = "Samples") {
-                    this.data[set] = this.data[set].map(function(entity){
+                    workingSetManager.setMetadata[set].data = workingSetManager.setMetadata[set].data.map(function (entity) {
                         entity.selected = true;
                         return entity;
                     });
                 },
 
-                // This may need further changes -- may need to check the url instead of passing in the set -- I am actually not sure if I am able to do it this way.
+                // Needs changes
                 handleReponse: function (response, set="Samples"){
-                    this.loading[set] = false;
+                    workingSetManager.setMetadata[set].loading = false;
                 },
 
-                // I don't remember why I started writing this ... not a part of my current vision
+                // I don't think that this will be needed in the final version after all.
                 ngOnInit: function () {
                     console.log("init");
                 },
 
-                // This still needs to be changed extensively --
+                // Needs changes
                 refresh: function () {
 
                     if (this.loading == true){
@@ -135,7 +151,7 @@ angular.module('workingSet.workingSetManager', [])
                     $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(function (response) {
 
                         var resData = response['data'];
-                        var scopeData = workingSetManager.data['Samples'];
+                        var scopeData = workingSetManager.setMetadata['Samples'].data;
 
                         if (scopeData.length > 0 && resData.length > 0) {
 
@@ -163,8 +179,8 @@ angular.module('workingSet.workingSetManager', [])
                             });
                         }
 
-                        workingSetManager.data['Samples'] = scopeData.concat(resData);
-                        workingSetManager.loading = false;
+                        workingSetManager.setMetadata['Samples'].data = scopeData.concat(resData);
+                        workingSetManager.setMetadata['Samples'].loading = false;
 
                         workingSetManager.recomputeIds();
                         return;
@@ -172,23 +188,27 @@ angular.module('workingSet.workingSetManager', [])
                     });
                 },
 
+                // This might not really be needed if all that initialize is going to do is refresh it...
                 initialize: function () {
-                    this.refresh();
+                    workingSetManager.refresh();
                 },
 
-                //
+                // Needs changes
                 addSample: function (entry) {
+
+                    var set = 'Samples'; // This will be changed in the final version of this -- not sure if we will be passing it in or if we will just be using the currently selected set or exactly how that will work but we will need to decide upon something.
 
                     // We should really be registering a callback here which would check to see if the operation was successful -- this could lead the interface to think that things were stored in their working set when they actually were not.
                     $cbResource.create('/storage/working-set-add-id/' + sessionFactory.getLoggedInUser().id + '/' + entry.id, {});
 
                     entry.selected = false;
-                    workingSetManager.data['Samples'].push(entry);
+                    //workingSetManager.data['Samples'].push(entry);
+                    workingSetManager[set].data.push(entry);
                     workingSetManager.recomputeIds();
 
                 },
 
-                // This should be changed to be generic so that it can remove an entity from any type of working set.
+                // Needs changes
                 removeSample: function (entry) {
 
                     // We should really check the outcome of this call before we do anything to the actual array
@@ -202,7 +222,7 @@ angular.module('workingSet.workingSetManager', [])
 
                 },
 
-                //
+                // Should be good to go
                 changeSelectedSet: function (setToSelect){
                     workingSetManager.selectedSet = setToSelect;
                 }
@@ -303,7 +323,8 @@ angular.module('workingSet.workingSetManager', [])
                     }
                 ];
 
-            var metadata = {};
+            var metadata = {'refresh':'/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, 'add': '/storage/working-set-add-id/' + sessionFactory.getLoggedInUser().id + '/', 'remove': '/storage/working-set-remove-id/' + sessionFactory.getLoggedInUser().id + '/'};
+
             // '/storage/working-set-sample/user/'
             // '/storage/working-set-add-id/'
             // '/storage/working-set-remove-id/'
