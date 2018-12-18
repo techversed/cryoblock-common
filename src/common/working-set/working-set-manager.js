@@ -1,5 +1,4 @@
 /*
-
         There is some code in here which should really be moved to the crowelab section of this -- individual implementation specific code does not belong in common ...
 
         Background on buttons and actions
@@ -32,7 +31,6 @@
 
 
         // Still need to make it so that the user can provide a refresh url for each of the types of enties that are provided.
-
 */
 
 angular.module('workingSet.workingSetManager', [])
@@ -46,14 +44,13 @@ angular.module('workingSet.workingSetManager', [])
 
             var workingSetManager = {
 
-                sets: [],
+                sets: [], // This is computed each time a new working set is added and provides quick access to the the working set form.
+
+                setMetadata: {},
 
                 selectedSet: "",
 
                 loading: {},
-
-                // false,
-
 
                 // Migt not even need this -- working set is in a modal now and there is a selected set which is sidplaye dinstead of having a single collapsed variable.
                 collapsed: true,
@@ -64,7 +61,7 @@ angular.module('workingSet.workingSetManager', [])
 
                 buttons: {},
 
-                addWorkingSet: function (name, setButtons) {
+                addWorkingSet: function (name, setButtons, setMetadata) {
 
                     // append name to sets.
                     // if there is not a currently selected set then you should select it.
@@ -117,14 +114,17 @@ angular.module('workingSet.workingSetManager', [])
                     });
                 },
 
-                handleReponse: function (response){
-                    this.loading = false;
+                // This may need further changes -- may need to check the url instead of passing in the set -- I am actually not sure if I am able to do it this way.
+                handleReponse: function (response, set="Samples"){
+                    this.loading[set] = false;
                 },
 
+                // I don't remember why I started writing this ... not a part of my current vision
                 ngOnInit: function () {
                     console.log("init");
                 },
 
+                // This still needs to be changed extensively --
                 refresh: function () {
 
                     if (this.loading == true){
@@ -176,6 +176,7 @@ angular.module('workingSet.workingSetManager', [])
                     this.refresh();
                 },
 
+                //
                 addSample: function (entry) {
 
                     // We should really be registering a callback here which would check to see if the operation was successful -- this could lead the interface to think that things were stored in their working set when they actually were not.
@@ -201,6 +202,7 @@ angular.module('workingSet.workingSetManager', [])
 
                 },
 
+                //
                 changeSelectedSet: function (setToSelect){
                     workingSetManager.selectedSet = setToSelect;
                 }
@@ -301,11 +303,23 @@ angular.module('workingSet.workingSetManager', [])
                     }
                 ];
 
-            workingSetManager.addWorkingSet("Samples", sampleButtons);
+            var metadata = {};
+            // '/storage/working-set-sample/user/'
+            // '/storage/working-set-add-id/'
+            // '/storage/working-set-remove-id/'
 
-            workingSetManager.refresh();
+            workingSetManager.addWorkingSet("Samples", sampleButtons, metadata);
 
-            console.log(workingSetManager);
+            // workingSetManager.refresh();
+            // We refresh it at the end of adding buttons so we do not need to refresh it here.
+
+            // console.log(Array.from(workingSetManager.buttons.keys));
+
+            // This is how we get keys -- we can have an object that stores all of the urls for the types of requests that we use to create and manage a working set.
+
+            console.log(Object.keys(workingSetManager.buttons));
+
+            // console.log(workingSetManager);
             return workingSetManager;
 
         }
