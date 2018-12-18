@@ -12,6 +12,7 @@
             <cb-form form="cbForm">
 
                 <!-- select the set that you would like to change -->
+
                 <div>
                     <button ng-repeat="set in wsm.sets" class="btn btn-success" ng-click="wsm.changeSelectedSet(set)">{{set}}</button>
 
@@ -23,46 +24,36 @@
                     <br />
                 </div>
 
-                <div ng-if="wsm.selectedSet == 'Samples'">
+                <div ng-repeat="set in wsm.sets" ng-if="wsm.selectedSet == set">
 
-                    <div ng-if="wsm.collapsed">
-
-                        <div >
-                            <ul ng-if="wsm.data">
-                                <li ng-if="wsm.loading == true" > <i class="text-primary fa fa-circle-o-notch fa-spin"/> Loading please wait</li>
-                                <li ng-if="wsm.data.length==0">Working set currently empty</li>
-                                <li ng-repeat="entry in wsm.data" class="grid-filter-item" ng-click="console.log(entry)"><label><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input><span>&nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</span></label></li>
-                            </ul>
-                        </div>
-
-                        <br />
-
-                        <table>
-                            <tr>
-                                <td ng-repeat="entry in wsm.buttons">
-                                    <button class="btn btn-primary" ng-click="entry.action()" ng-if="entry.type == 'button'">{{entry.text}}</button>
-                                    <div uib-dropdown is-open="false">
-                                        <button ng-if="entry.type == 'dropdown'" type="button" class="btn btn-block" ng-class="buttonClass" uib-dropdown-toggle>
-                                            <i ng-if="iconClass != undefined" class="{{iconClass}}" />
-                                            <span ng-if="!isFormCtrl">{{entry.text}}</span>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul uib-dropdown-menu class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
-                                            <li ng-repeat="dropdownSelection in entry.dropdownActions"><a ng-click="dropdownSelection.action()">{{dropdownSelection.text}}</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                    <div >
+                        <ul ng-if="wsm.data[set]">
+                            <li ng-if="wsm.loading == true" > <i class="text-primary fa fa-circle-o-notch fa-spin"/> Loading please wait</li>
+                            <li ng-if="wsm.data[set].length==0">Working set currently empty</li>
+                            <li ng-repeat="entry in wsm.data[set]" class="grid-filter-item" ng-click="console.log(entry)"><label><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input><span>&nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</span></label></li>
+                        </ul>
                     </div>
-                </div>
 
-                <div ng-if="wsm.selectedSet == 'Storage Divisions'">
-                    Storage Divisions
-                </div>
+                    <br />
 
-                <div ng-if="wsm.selectedSet == 'Requests'">
-                    Requests
+                    <table>
+                        <tr>
+                            <td ng-repeat="entry in wsm.buttons[set]">
+                                <button class="btn btn-primary" ng-click="entry.action()" ng-if="entry.type == 'button'">{{entry.text}}</button>
+                                <div uib-dropdown is-open="false">
+                                    <button ng-if="entry.type == 'dropdown'" type="button" class="btn btn-block" ng-class="buttonClass" uib-dropdown-toggle>
+                                        <i ng-if="iconClass != undefined" class="{{iconClass}}" />
+                                        <span ng-if="!isFormCtrl">{{entry.text}}</span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul uib-dropdown-menu class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
+                                        <li ng-repeat="dropdownSelection in entry.dropdownActions"><a ng-click="dropdownSelection.action()">{{dropdownSelection.text}}</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
                 </div>
 
             </cb-form>
