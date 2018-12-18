@@ -1,5 +1,4 @@
 <form name="workingSetForm" method="get" class="form-horizontal" ng-submit="save(workingSetForm.$valid)" novalidate autocomplete="off">
-    <!-- We are going to remove the form functionality from this at some point -->
 
     <div id="working-set-form-container">
 
@@ -10,8 +9,6 @@
 
         <div class="modal-body">
             <cb-form form="cbForm">
-
-                <!-- select the set that you would like to change -->
 
                 <div>
                     <button ng-repeat="set in wsm.sets" class="btn btn-success" ng-click="wsm.changeSelectedSet(set)">{{set}}</button>
@@ -27,10 +24,10 @@
                 <div ng-repeat="set in wsm.sets" ng-if="wsm.selectedSet == set">
 
                     <div >
-                        <ul ng-if="wsm.data[set]">
-                            <li ng-if="wsm.loading == true" > <i class="text-primary fa fa-circle-o-notch fa-spin"/> Loading please wait</li>
-                            <li ng-if="wsm.data[set].length==0">Working set currently empty</li>
-                            <li ng-repeat="entry in wsm.data[set]" class="grid-filter-item" ng-click="console.log(entry)"><label><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input><span>&nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</span></label></li>
+                        <ul ng-if="wsm.setMetadata[set].data">
+                            <li ng-if="wsm.setMetadata[set].loading == true" > <i class="text-primary fa fa-circle-o-notch fa-spin"/> Loading please wait</li>
+                            <li ng-if="wsm.setMetadata[set].data.length==0">Working set currently empty</li>
+                            <li ng-repeat="entry in wsm.setMetadata[set].data" class="grid-filter-item" ng-click="console.log(entry)"><label><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input><span>&nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</span></label></li>
                         </ul>
                     </div>
 
@@ -38,7 +35,7 @@
 
                     <table>
                         <tr>
-                            <td ng-repeat="entry in wsm.buttons[set]">
+                            <td ng-repeat="entry in wsm.setMetadata[set].buttons">
                                 <button class="btn btn-primary" ng-click="entry.action()" ng-if="entry.type == 'button'">{{entry.text}}</button>
                                 <div uib-dropdown is-open="false">
                                     <button ng-if="entry.type == 'dropdown'" type="button" class="btn btn-block" ng-class="buttonClass" uib-dropdown-toggle>
