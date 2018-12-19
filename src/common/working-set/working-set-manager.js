@@ -69,7 +69,6 @@ angular.module('workingSet.workingSetManager', [])
                     return workingSetManager.sets;
                 },
 
-                // Not finished
                 addButtonAction: function () {
                     console.log('workingSetManager: add button action is not currently implemented');
                 },
@@ -87,6 +86,7 @@ angular.module('workingSet.workingSetManager', [])
                 },
 
                 deselectAll: function() {
+                    var selectedSet = workingSetManager.selectedSet;
                     workingSetManager.setMetadata[selectedSet].data = workingSetManager.setMetadata[selectedSet].data.map(function (entity) {
                         entity.selected = false;
                         return entity;
@@ -94,6 +94,7 @@ angular.module('workingSet.workingSetManager', [])
                 },
 
                 selectAll: function() {
+                    var selectedSet = workingSetManager.selectedSet;
                     workingSetManager.setMetadata[selectedSet].data = workingSetManager.setMetadata[selectedSet].data.map(function (entity) {
                         entity.selected = true;
                         return entity;
@@ -113,49 +114,50 @@ angular.module('workingSet.workingSetManager', [])
                 // This still needs to be changed to be more generic
                 refresh: function () {
 
-                    var set = "Samples";
+                    angular.forEach(workingSetManager.sets, function (set) {
 
-                    if (workingSetManager.setMetadata[set]['loading'] == true){
-                        return;
-                    }
-
-                    workingSetManager.setMetadata[set]['loading'] = true;
-
-                    $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(function (response) {
-
-                        var resData = response['data'];
-                        var scopeData = workingSetManager.setMetadata[set].data;
-
-                        if (scopeData.length > 0 && resData.length > 0) {
-
-                            var scopeDataIds = scopeData.map(function (entry) {
-                                return entry.id;
-                            });
-
-                            var resDataIds = resData.map(function (entry) {
-                                return entry.id;
-                            });
-
-                            scopeData = scopeData.filter(function (entry) {
-                                return resDataIds.indexOf(entry.id) != -1;
-                            });
-
-                            resData = resData.filter(function (entry) {
-                                return scopeDataIds.indexOf(entry.id) == -1;
-                            });
+                        if (workingSetManager.setMetadata[set]['loading'] == true){
+                            return;
                         }
 
-                        if (resData.length > 0) {
-                            resData = resData.map(function (entry) {
-                                entry.selected = false;
-                                return entry;
-                            });
-                        }
+                        workingSetManager.setMetadata[set]['loading'] = true;
 
-                        workingSetManager.setMetadata[set].data = scopeData.concat(resData);
-                        workingSetManager.setMetadata[set].loading = false;
-                        workingSetManager.recomputeIds();
-                        return;
+                        $cbResource.get('/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, {}, true).then(function (response) {
+
+                            var resData = response['data'];
+                            var scopeData = workingSetManager.setMetadata[set].data;
+
+                            if (scopeData.length > 0 && resData.length > 0) {
+
+                                var scopeDataIds = scopeData.map(function (entry) {
+                                    return entry.id;
+                                });
+
+                                var resDataIds = resData.map(function (entry) {
+                                    return entry.id;
+                                });
+
+                                scopeData = scopeData.filter(function (entry) {
+                                    return resDataIds.indexOf(entry.id) != -1;
+                                });
+
+                                resData = resData.filter(function (entry) {
+                                    return scopeDataIds.indexOf(entry.id) == -1;
+                                });
+                            }
+
+                            if (resData.length > 0) {
+                                resData = resData.map(function (entry) {
+                                    entry.selected = false;
+                                    return entry;
+                                });
+                            }
+
+                            workingSetManager.setMetadata[set].data = scopeData.concat(resData);
+                            workingSetManager.setMetadata[set].loading = false;
+                            workingSetManager.recomputeIds();
+                            return;
+                        });
                     });
                 },
 
@@ -164,126 +166,135 @@ angular.module('workingSet.workingSetManager', [])
                     workingSetManager.refresh();
                 },
 
-                // Needs changes
-                addSample: function (entry) {
+                addItem: function (set = "", entry) {
 
-                    var set = 'Samples'; // This will be changed in the final version of this -- not sure if we will be passing it in or if we will just be using the currently selected set or exactly how that will work but we will need to decide upon something.
-                    $cbResource.create('/storage/working-set-add-id/' + sessionFactory.getLoggedInUser().id + '/' + entry.id, {}); // We should really be registering a callback here which would check to see if the operation was successful -- this could lead the interface to think that things were stored in their working set when they actually were not.
+                    if (set == "") {
+                        set = workingSetManager.selectedSet;
+                    }
+
+                    $cbResource.create(workingSetManager.setMetadata[set]['add']+entry.id, {});
 
                     entry.selected = false;
+
                     workingSetManager.setMetadata[set].data.push(entry);
                     workingSetManager.recomputeIds();
                 },
 
-                // Needs changes
-                removeSample: function (entry) {
+                removeItem: function (set = "", entry) {
+
+                    if (set = "") {
+                        set = workingSetManager.selectedSet;
+                    }
 
                     // We should really check the outcome of this call before we do anything to the actual array
-                    $cbResource.delete('/storage/working-set-remove-id/' + sessionFactory.getLoggedInUser().id + '/' + entry.id, {});
+                    // $cbResource.delete('/storage/working-set-remove-id/' + sessionFactory.getLoggedInUser().id + '/' + entry.id, {});
+                    $cbResource.delete(workingSetManager.setMetadata[set]['remove'] + entry.id, {});
 
-                    workingSetManager.data = workingSetManager.data.filter( function (item) {
+                    workingSetManager.setMetadata[set].data = workingSetManager.setMetadata[set].data.filter( function (item) {
                         return item.id != entry.id;
                     });
 
                     workingSetManager.recomputeIds();
+
                 },
 
                 // Should be good to go
                 changeSelectedSet: function (setToSelect){
                     workingSetManager.selectedSet = setToSelect;
                 }
+
             };
 
             // This will be moved outside of common going forwards
             var sampleButtons = [
-                    {
-                        "text": "Remove from set",
-                        "type": "button",
-                        "action": function () {
-                            console.log("Removing from set");
-                            angular.forEach(workingSetManager.getSelected(), function (entry){
-                                workingSetManager.removeSample(entry);
-                            })
-                        }
-                    },
-                    {
-                        "text": "Deplete",
-                        "type": "button",
-                        "action": function () {
-                            console.log("depleting this sample");
-                        }
-                    },
-                    {
-                        "text": "Excel Export",
-                        "type": "button",
-                        "action": function () {
-                            console.log("Excel Export");
-                        }
-                    },
-                    {
-                        "text": "Add Attachment",
-                        "type": "button",
-                        "action": function () {
-                            console.log("Add attachment");
-                        }
-                    },
-                    {
-                        "text": "Start Request",
-                        "type": "dropdown",
-                        "action:": function () {
-                            console.log("Start Request");
-                        },
-                        "dropdownActionsText": "['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification', 'Outgoing VIM']",
-                        "dropdownActions":
-                        [
-                            {
-                                "text": 'PBMC',
-                                "type": "dropdownItem",
-                                "service": undefined,
-                                "action": function () {
-                                    var factory = $injector.get('pbmcFormFactory');
-                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
-                                }
-                            },
-                            {
-                                "text": 'DNA Purification',
-                                "type": "dropdownItem",
-                                "service": undefined,
-                                "action": function () {
-                                    var factory = $injector.get('dnaFormFactory');
-                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
-                                }
-                            },
-                            {
-                                "text": 'Protein Expression',
-                                "type": "dropdownItem",
-                                "service": undefined,
-                                "action": function () {
-                                    var factory = $injector.get('proteinExpressionFormFactory');
-                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
-                                }
-                            },
-                            {
-                                "text": 'Protein / Hybridoma Purification',
-                                "service": undefined,
-                                "type": "dropdownItem",
-                                "action": function () {
-                                    var factory = $injector.get('proteinPurificationFormFactory');
-                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
-                                }
-                            },
-                            {
-                                "text": 'Outgoing VIM',
-                                "type": "dropdownItem",
-                                "service": undefined,
-                                "action": function () {
-                                    var factory = $injector.get('vimFormFactory');
-                                    return factory.openFormModal(undefined, workingSetManager.getSelected());
-                                }
-                            }
-                        ]
+                {
+                    "text": "Remove from set",
+                    "type": "button",
+                    "action": function () {
+                        console.log("Removing from set");
+                        angular.forEach(workingSetManager.getSelected(), function (entry){
+                            workingSetManager.removeSample(entry);
+                        });
                     }
-                ];
+                },
+                {
+                    "text": "Deplete",
+                    "type": "button",
+                    "action": function () {
+                        console.log("depleting this sample");
+                    }
+                },
+                {
+                    "text": "Excel Export",
+                    "type": "button",
+                    "action": function () {
+                        console.log("Excel Export");
+                    }
+                },
+                {
+                    "text": "Add Attachment",
+                    "type": "button",
+                    "action": function () {
+                        console.log("Add attachment");
+                    }
+                },
+                {
+                    "text": "Start Request",
+                    "type": "dropdown",
+                    "action:": function () {
+                        console.log("Start Request");
+                    },
+                    "dropdownActionsText": "['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification', 'Outgoing VIM']",
+                    "dropdownActions":
+                    [
+                        {
+                            "text": 'PBMC',
+                            "type": "dropdownItem",
+                            "service": undefined,
+                            "action": function () {
+                                var factory = $injector.get('pbmcFormFactory');
+                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                            }
+                        },
+                        {
+                            "text": 'DNA Purification',
+                            "type": "dropdownItem",
+                            "service": undefined,
+                            "action": function () {
+                                var factory = $injector.get('dnaFormFactory');
+                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                            }
+                        },
+                        {
+                            "text": 'Protein Expression',
+                            "type": "dropdownItem",
+                            "service": undefined,
+                            "action": function () {
+                                var factory = $injector.get('proteinExpressionFormFactory');
+                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                            }
+                        },
+                        {
+                            "text": 'Protein / Hybridoma Purification',
+                            "service": undefined,
+                            "type": "dropdownItem",
+                            "action": function () {
+                                var factory = $injector.get('proteinPurificationFormFactory');
+                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                            }
+                        },
+                        {
+                            "text": 'Outgoing VIM',
+                            "type": "dropdownItem",
+                            "service": undefined,
+                            "action": function () {
+                                var factory = $injector.get('vimFormFactory');
+                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                            }
+                        }
+                    ]
+                }
+            ];
 
             var metadata = {'refresh':'/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, 'add': '/storage/working-set-add-id/' + sessionFactory.getLoggedInUser().id + '/', 'remove': '/storage/working-set-remove-id/' + sessionFactory.getLoggedInUser().id + '/'};
 
