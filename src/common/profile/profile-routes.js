@@ -29,13 +29,13 @@ angular.module('profile.routes', [])
                                 resolve: {
 
                                     user: function (sessionFactory, profileFactory) {
-
                                         if (sessionFactory.isLoggedInUser()) {
-
                                             return sessionFactory.refreshUser();
-
                                         }
+                                    },
 
+                                    userBool: function() {
+                                        return true;
                                     },
 
                                     grid: function ($cbGridBuilder, sessionFactory)  {
@@ -62,40 +62,24 @@ angular.module('profile.routes', [])
                                 templateUrl: 'common/profile/views/profile-tpl.html',
                                 controller: 'profileCtrl',
                                 resolve: {
-
-                                    user: function (sessionFactory, profileFactory) {
-
-                                        if (sessionFactory.isLoggedInUser()) {
-
-                                            return sessionFactory.refreshUser();
-
-                                        }
-
-                                        // $cbResourace.getOne('users'
-                                        // if (sessionFactory.isLoggedInUser()) {
-
-                                        //     return sessionFactory.refreshUser();
-
-                                        // }
-
+                                    user: function ($cbResource, $stateParams) {  // sessionFactory, profileFactory,
+                                        return $cbResource.getOne('/user?id[EQ]=' + $stateParams.id);
                                     },
-
-                                    // and user from above
-                                    grid: function ($cbGridBuilder, sessionFactory)  {
+                                    userBool: function(sessionFactory, $stateParams){
+                                        return (sessionFactory.getLoggedInUser().id == $stateParams.id);
+                                    },
+                                    grid: function ($cbGridBuilder, sessionFactory, user)  {
                                         var url;
-                                        var username = sessionFactory.getLoggedInUser().username; // Use the user from above instead of the one on session.
+                                        var username = user.username; // Use the user from above instead of the one on session.
                                         overrides = {'url': '/log-entry?username[EQ]=' + username, 'bindToState': false};
                                         return $cbGridBuilder.buildIndex('profileActivityGridFactory', overrides);
                                     }
-
                                 }
-
                             }
                         }
                     }
                 ]
             })
         ;
-
     })
 ;
