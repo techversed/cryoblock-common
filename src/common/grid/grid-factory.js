@@ -84,9 +84,7 @@ angular.module('grid.gridFactory', [])
                 setResults: function (results, initial) {
 
                     if (this.decorator) {
-
                         results = this.decorator.decorate(results);
-
                     }
 
                     this.results = results;
@@ -106,7 +104,6 @@ angular.module('grid.gridFactory', [])
                 setData: function (data) {
 
                     this.data = data;
-
                     this.turnPage();
 
                     return this;
@@ -130,6 +127,7 @@ angular.module('grid.gridFactory', [])
                     this.pagination.startIndex = startIndex + 1;
 
                     this.pagination.stopIndex = startIndex + this.results.length;
+                    // This is going to end up being a problem.
 
                     this.pagination.paginatedTotal = this.results.length;
                     this.pagination.unpaginatedTotal = this.data.length;
@@ -192,7 +190,9 @@ angular.module('grid.gridFactory', [])
                 },
 
                 hideAllFilters:function () {
+
                     var that = this;
+
                     this.filters.map(function (filter) {
                         filter.isVisible = false;
                     });
@@ -506,11 +506,9 @@ angular.module('grid.gridFactory', [])
                 },
 
                 setDecorator: function (decorator) {
-
                     this.decorator = decorator;
 
                     return this;
-
                 }
 
             }

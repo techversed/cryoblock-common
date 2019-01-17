@@ -160,7 +160,6 @@ angular.module('grid.gridBuilder', [])
                     //url -- if you would like to use an alternate url post it here.
                     //filterGroups -- List the filters that will be applied by default.
                     //filterParams -- object {key: value} will be joined with default params to create the initial search string...
-
                 buildSelectSingle: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
