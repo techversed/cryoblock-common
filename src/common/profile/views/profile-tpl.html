@@ -35,13 +35,15 @@
                 <div class="panel-body float-e-margins">
 
                     <button ng-if="userBool" ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
+
                     <div class="row">
                         <div class="col-lg-12">
                             <!-- Profile picture -->
                             <div class="avatar-container align-center">
-                                <div class="avatar" ng-click="uploadPhoto()">
-                                    <profile-avatar></profile-avatar>
-                                    <div class="img-circle avatar-edit animated pulse"></div>
+                                <div class="avatar" ng-click="!userBool || uploadPhoto()">
+                                    <img ng-if="!hasAvatar()" class="img-circle" src="images/avatar.jpg"></img>
+                                    <img ng-if="hasAvatar()" class="img-circle" ng-src="{{avatarSrc}}"></img>
+                                    <div ng-if="userBool"  class="img-circle avatar-edit animated pulse"></div>
                                 </div>
                             </div>
                             <div class="m-t-md user-info">
