@@ -33,7 +33,9 @@ angular.module('profile.profileActivityGridFactory', [])
                         bindTo: 'loggedAt | date:\'MMM d, y\'',
                         name: 'loggedAt',
                         isVisible: true
-                    },
+                    }
+                    /*
+                    ,
                     {
                         header: 'Data',
                         bindTo: 'data.description',
@@ -46,6 +48,7 @@ angular.module('profile.profileActivityGridFactory', [])
                         name: 'username',
                         isVisible: true
                     },
+                    */
 
                 ],
 

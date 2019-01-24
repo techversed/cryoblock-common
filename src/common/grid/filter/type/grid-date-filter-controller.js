@@ -43,8 +43,12 @@ angular.module('grid.gridDateFilterCtrl', [])
                     $scope.filter.updateSelectionString();
 
                 }
-
             }
+
+            $scope.doTheThing = function($event) {
+                console.log("the thing");
+            }
+
 
             $scope.refresh = function () {
 
