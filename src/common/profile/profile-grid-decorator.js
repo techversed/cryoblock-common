@@ -34,7 +34,8 @@ angular.module('profile.profileGridDecorator', [])
                         'AppBundle\\Entity\\Record\\Report': 'report',
                         'AppBundle\\Entity\\Record\\Cda': 'cda',
                         'AppBundle\\Entity\\Storage\\Target': 'target',
-                        'AppBundle\\Entity\\Donor\\Donor': 'donor'
+                        'AppBundle\\Entity\\Donor\\Donor': 'donor',
+                        'Carbon\\ApiBundle\\Entity\\Comment': 'comment'
                     };
 
                     var appName = {
@@ -64,7 +65,8 @@ angular.module('profile.profileGridDecorator', [])
                         'AppBundle\\Entity\\Record\\Report': 'Report',
                         'AppBundle\\Entity\\Record\\Cda': 'CDA',
                         'AppBundle\\Entity\\Storage\\Target': 'Target',
-                        'AppBundle\\Entity\\Donor\\Donor': 'Donor'
+                        'AppBundle\\Entity\\Donor\\Donor': 'Donor',
+                        'Carbon\\ApiBundle\\Entity\\Comment': 'Comment'
                     };
 
                     angular.forEach(results, function (result) {
