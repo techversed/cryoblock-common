@@ -7,9 +7,8 @@
 
     <ul uib-dropdown-menu class="dropdown-menu integer" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
 
-        <div ng-form="dateFilterForm" ng-keypress='doTheThing()'>
+        <div ng-form="dateFilterForm">
 
-<!--
             <li role="menuitem">
 
                 <input type="radio" name="type" value="single" ng-model="filter.selectedType"></input>
@@ -25,45 +24,19 @@
 
             </li>
 
--->
-<!--
             <li role="menuitem">
--->
-<!--
-                <input type="radio" name="type" value="between" ng-model="filter.selectedType"></input>
--->
 
-                <!--
+                <input type="radio" name="type" value="between" ng-model="filter.selectedType"></input>
+
+                <strong style="margin-left: 10px;">>=</strong>
 
                 <input class="between form-control" is-open="focus" ng-focus="focus=true" close-on-date-selection="false" datepicker-append-to-body="true" type="text" uib-datepicker-popup ng-model="filter.betweenStart" close-text="Close" />
 
-                -->
-
-
-                <!--
-
-                <strong style="margin-left: 10px;"><=</strong>
-
-                -->
-
-                <input style="width: 125px" type="date"></input> <small><=x<=</small><input style="width: 125px" type="date"></input>
-
-                <!--
-
                 <strong style="margin-right: 6px;"><=</strong>
-
-                -->
-
-
-                <!--
 
                 <input class="between form-control" is-open="focus2" ng-focus="focus2=true" close-on-date-selection="false" datepicker-append-to-body="true" type="text" uib-datepicker-popup ng-model="filter.betweenEnd" close-text="Close" />
 
-                -->
-
-<!--
             </li>
--->
         </div>
 
         <li role="menuitem">
