@@ -1,8 +1,8 @@
 angular.module('storage.catalog.catalogGridFactory', [])
 
-    .factory('catalogGridFactory', ['gridFactory', '$cbResource',
+    .factory('catalogGridFactory', ['gridFactory',
 
-        function (gridFactory, $cbResource) {
+        function (gridFactory) {
 
             var catalogGridFactory = {
 
