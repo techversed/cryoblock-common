@@ -21,6 +21,9 @@ angular.module('comment.cbCommentDirective', [])
                         : '/images/avatar.jpg'
                     ;
 
+                    $scope.urlStart = API.url + '/attachment/';
+                    $scope.urlStop = '/download';
+
                     $scope.canEdit = false;
                     if ($scope.comment.createdById === $scope.loggedInUser.id) {
                         $scope.canEdit = true;
@@ -75,6 +78,8 @@ angular.module('comment.cbCommentDirective', [])
                             completeSingle: false,
                             hint: function (cm, test1, test2) {
 
+                                console.log("trying to get a hint");
+
                                 completion = cm.state.completionActive;
 
                                 var startPos = {
@@ -97,6 +102,7 @@ angular.module('comment.cbCommentDirective', [])
                                             displayText: user.username + ' ( ' + user.fullName + ' )'
                                         });
                                     });
+
                                     // var cursor = cm.getCursor(), line = cm.getLine(cursor.line);
 
                                     return {

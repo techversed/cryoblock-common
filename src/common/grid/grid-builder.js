@@ -34,15 +34,25 @@ angular.module('grid.gridBuilder', [])
                     var defaultParams = { cOrderBy: grid.sortingColumn.name, cOrderByDirection: grid.sortDirection};
                     var params = gridManager.ignoreUrlParams ? defaultParams : angular.extend(defaultParams, $location.search());
 
-                    return $cbResource.get(url, params).then(function (response) {
+                    var that = this
 
-                        return grid
+                    $cbResource.get(url, params).then(function (response) {
+
+                        grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
+                        //that.addFiltersToGrid
+                        that.addFiltersToGrid(grid, overrides['filterGroups']);
 
-                    }).then( this.addFiltersToGrid(grid, overrides['filterGroups']));
+                    });//.then( );
+
+
+                    // This is a good start...
+                    // These grid changes should start allowing grid requets to be less sequential and more all at once.
+
+                    return grid;
 
                 },
 
