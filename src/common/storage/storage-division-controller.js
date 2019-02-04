@@ -1,6 +1,8 @@
 angular.module('storage.storageDivisionCtrl', [])
-    .controller('storageDivisionCtrl', ['$scope', 'division',  '$window', '$timeout', 'storageDivisionManager', 'divisionGrid', 'sessionFactory', '$stateParams',
-        function ($scope, division, $window, $timeout, storageDivisionManager, divisionGrid, sessionFactory, $stateParams) {
+
+    .controller('storageDivisionCtrl', ['$scope', 'division',  '$window', 'storageDivisionManager', 'divisionGrid', 'sessionFactory', '$stateParams',
+
+        function ($scope, division, $window, storageDivisionManager, divisionGrid, sessionFactory, $stateParams) {
 
             if ($stateParams.selectedSampleId) {
                 // console.log("scope.testing", $scope.testing);

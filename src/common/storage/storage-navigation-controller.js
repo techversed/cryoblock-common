@@ -1,8 +1,8 @@
 angular.module('storage.storageNavigationCtrl', [])
 
-    .controller('storageNavigationCtrl', ['$scope', 'divisions', '$state', 'storageFormFactory', '$uibModal', '$cbResource', 'sessionFactory', '$q', 'storageFactory', 'storageDivisionManager',
+    .controller('storageNavigationCtrl', ['$scope', 'divisions', '$state', 'storageFormFactory', '$uibModal', 'sessionFactory', '$q', 'storageFactory', 'storageDivisionManager',
 
-        function ($scope, divisions, $state, storageFormFactory, $uibModal, $cbResource, sessionFactory, $q, storageFactory, storageDivisionManager) {
+        function ($scope, divisions, $state, storageFormFactory, $uibModal, sessionFactory, $q, storageFactory, storageDivisionManager) {
 
             $scope.sdm = storageDivisionManager;
 

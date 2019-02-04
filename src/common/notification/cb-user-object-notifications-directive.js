@@ -1,8 +1,8 @@
 angular.module('notification.cbUserObjectNotificationsDirective', [])
 
-    .directive('cbUserObjectNotifications', ['objectNotificationFormFactory', 'objectNotificationFormFactory',
+    .directive('cbUserObjectNotifications', ['objectNotificationFormFactory',
 
-        function (objectNotificationFormFactory, objectNotificationFormFactory) {
+        function (objectNotificationFormFactory) {
 
             return {
 

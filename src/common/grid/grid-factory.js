@@ -18,6 +18,8 @@ angular.module('grid.gridFactory', [])
 
                 this.filters = [];
 
+                this.loading = true;
+
                 this.actionTemplate = null;
 
                 this.resourceUrl = null;
@@ -82,6 +84,8 @@ angular.module('grid.gridFactory', [])
                 },
 
                 setResults: function (results, initial) {
+
+                    this.loading = false;
 
                     if (this.decorator) {
                         results = this.decorator.decorate(results);

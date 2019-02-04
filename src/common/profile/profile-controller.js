@@ -1,12 +1,11 @@
 angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$localStorage', '$uibModal', 'user', 'API', 'profileFormFactory', 'grid', 'userBool',
+    .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'grid', 'userBool',
 
-        function ($scope, $localStorage, $modal, user, API, profileFormFactory, grid, userBool) {
+        function ($scope, $modal, user, API, profileFormFactory, grid, userBool) {
 
             $scope.user = user;
             $scope.grid = grid;
-            console.log("returning user bool");
-            console.log(userBool);
+
             $scope.userBool = userBool; // User Bool true of the user is going to their own profile page -- false if not--
 
             // $scope.bool =

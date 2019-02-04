@@ -12,7 +12,6 @@ angular.module('storage.storageBoxCellDirective', [])
                     $scope.element = element[0];
                     $scope.sdm = storageDivisionManager;
 
-
                     // responsive calculations
                     var resizeCell = function (event, data) {
 

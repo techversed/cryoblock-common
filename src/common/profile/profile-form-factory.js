@@ -1,8 +1,8 @@
 angular.module('profile.profileFormFactory', [])
 
-    .factory('profileFormFactory', ['$uibModal', '$state', '$stateParams', '$cbResource', 'userGridFactory', '$cbGridBuilder',
+    .factory('profileFormFactory', ['$uibModal', '$state', '$stateParams', '$cbResource', '$cbGridBuilder',
 
-        function ($uibModal, $state, $stateParams, $cbResource, userGridFactory, $cbGridBuilder) {
+        function ($uibModal, $state, $stateParams, $cbResource, $cbGridBuilder) {
 
             var profileFormFactory = {
 

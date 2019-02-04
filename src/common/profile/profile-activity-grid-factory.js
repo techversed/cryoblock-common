@@ -1,8 +1,8 @@
 angular.module('profile.profileActivityGridFactory', [])
 
-    .factory('profileActivityGridFactory', ['gridFactory', '$cbResource', '$location', '$injector', 'sessionFactory', 'profileGridDecorator',
+    .factory('profileActivityGridFactory', ['gridFactory', 'profileGridDecorator',
 
-        function (gridFactory, $cbResource, $location, $injector, sessionFactory, profileGridDecorator) {
+        function (gridFactory, profileGridDecorator) {
 
             var activityGridFactory = {
 

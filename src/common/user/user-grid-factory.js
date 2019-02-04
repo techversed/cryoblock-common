@@ -1,8 +1,8 @@
 angular.module('user.userGridFactory', [])
 
-    .factory('userGridFactory', ['gridFactory', '$cbResource', '$location', '$injector',
+    .factory('userGridFactory', ['gridFactory',
 
-        function (gridFactory, $cbResource, $location, $injector) {
+        function (gridFactory) {
 
             var userGridFactory = {
 

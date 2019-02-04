@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionGridFactory', [])
 
-    .factory('storageDivisionGridFactory', ['gridFactory', '$cbResource', '$location', '$injector',
+    .factory('storageDivisionGridFactory', ['gridFactory',
 
-        function (gridFactory, $cbResource, $location, $injector) {
+        function (gridFactory) {
 
             var storageDivisionGridFactory = {
 
