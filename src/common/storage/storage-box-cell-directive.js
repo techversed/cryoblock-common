@@ -27,7 +27,6 @@ angular.module('storage.storageBoxCellDirective', [])
 
                         element.css('padding-bottom', floor + 'px');
 
-
                         var percentage = data == undefined ? 75 : data.percentage;
 
                         var baseFont = storageBoxCtrl.division.width < 10 ? 0.7 : 0.6;
