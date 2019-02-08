@@ -2,8 +2,27 @@ angular.module('login.loginCtrl', [])
     .controller('loginCtrl', ['$scope', '$state', 'sessionFactory', 'toastr', 'loginParams', 'redirectService',
         function ($scope, $state, sessionFactory, toastr, loginParams, redirectService) {
 
+            /*
+
+
+            */
+
             if (sessionFactory.getLoggedInUser()) {
-                $state.go('profile.index');
+
+                if (sessionFactory.hasRole('ROLE_USER'))
+                {
+                    $state.go('profile.index');
+                }
+                else
+                {
+                    $state.go('order.index');
+                }
+            }
+
+            else {
+
+                console.log("The call to sessionFactory.getLoggedInUser() failed");
+
             }
 
             $scope.loginParams = loginParams;
@@ -20,7 +39,8 @@ angular.module('login.loginCtrl', [])
 
                         } else {
 
-                            $state.go('sample.index');
+                            // $state.go('sample.index');
+                            $state.go('order.index');
 
                         }
 
