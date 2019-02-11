@@ -3,7 +3,7 @@ angular.module('login.loginCtrl', [])
         function ($scope, $state, sessionFactory, toastr, loginParams, redirectService) {
 
             /*
-
+                In the long term we need to change this to not depend upon the user using common.
 
             */
 
@@ -13,16 +13,13 @@ angular.module('login.loginCtrl', [])
                 {
                     $state.go('profile.index');
                 }
-                else
+                else if (sessionFactory.hasRole('ROLE_UNDERGRAD_STUDENT_WORKER'))
                 {
                     $state.go('order.index');
                 }
             }
-
             else {
-
                 console.log("The call to sessionFactory.getLoggedInUser() failed");
-
             }
 
             $scope.loginParams = loginParams;
@@ -34,14 +31,13 @@ angular.module('login.loginCtrl', [])
                     function (response) {
 
                         if (redirectService.redirectToState) {
-
                             $state.go(redirectService.redirectToState, redirectService.redirectToStateParams);
-
-                        } else {
-
-                            // $state.go('sample.index');
+                        }
+                        else if (sessionFactory.hasRole('ROLE_USER')) {
+                            $state.go('sample.index');
+                        }
+                        else if (sessionFactory.hasRole('ROLE_UNDERGRAD_STUDENT_WORKER') {
                             $state.go('order.index');
-
                         }
 
                     },
