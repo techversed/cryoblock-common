@@ -3,7 +3,8 @@ angular.module('login.loginCtrl', [])
         function ($scope, $state, sessionFactory, toastr, loginParams, redirectService) {
 
             /*
-                In the long term we need to change this to not depend upon the user using common.
+                This file has a temporary way of handling redirection -- 'ROLE_UNDERGRAD_STUDENT_WORKER' should honestly be specific to the crowelab -- it would be a good idea to add the ability to have various roles which each have a default path that they can follow.
+                I want to handle it like this in the short term due to the fact that we just need to make progress at this point.
 
             */
 
