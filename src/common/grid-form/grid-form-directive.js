@@ -1,4 +1,4 @@
-angular.module('gridform.gridFormDirective', [])
+angular.module('gridForm.gridFormDirective', [])
 
     .directive('gridForm', ['$cbResource', '$location', 'gridManager',
 

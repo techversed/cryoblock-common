@@ -1,6 +1,6 @@
-angular.module('gridform.gridformFactory', [])
+angular.module('gridForm.gridFormFactory', [])
 
-    .factory('gridformFactory', ['gridColumnFactory', 'gridFilterFactory', '$location',
+    .factory('gridFormFactory', ['gridFormColumnFactory', 'gridFilterFactory', '$location',
 
         function (gridColumnFactory, gridFilterFactory, $location) {
 
@@ -13,18 +13,18 @@ angular.module('gridform.gridformFactory', [])
                     // multirelation -- Dropdown list
 
                 this.columns = [
-                    {id: "id", required: true, type:"text", required: "true/false", validators:["list of functions"]},
-                    {id: "id", required: true, type:"enum", require: "true/false", validInputs=["list", "of", "possible", "inputs"], validators: ["List of functions"]}
-                    {id: "id", required: true, type:"singlerelation", required: "true/false", backendUrl:'path to url', validators: ["list of functions"]},
-                    {id: "id", required: true, type:"multirelation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl:'path to url', validators: ["List of functions"]},
+                    {id: "id", required: true, type: "text", required: "true/false", validators: ["list of functions"]},
+                    {id: "id", required: true, type: "enum", require: "true/false", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
+                    {id: "id", required: true, type: "singlerelation", required: "true/false", backendUrl: 'path to url', validators: ["list of functions"]},
+                    {id: "id", required: true, type: "multirelation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl: 'path to url', validators: ["List of functions"]},
                 ];
 
                 this.rows = [
-                    {id: 1, collapsed: false, object: {}},
-                    {id: 2, collapsed: false, object: {}},
-                    {id: 3, collapsed: false, object: {}},
-                    {id: 4, collapsed: false, object: {}},
-                    {id: 5, collapsed: false, object: {}}
+                    {id: 1, collapsed: false, deleted: false, object: {}},
+                    {id: 2, collapsed: false, deleted: false, object: {}},
+                    {id: 3, collapsed: false, deleted: false, object: {}},
+                    {id: 4, collapsed: false, deleted: false, object: {}},
+                    {id: 5, collapsed: false, deleted: false, object: {}}
                 ];
 
                 // Want to make it possible to group rows in the best way possible. -- could set it up to group by sample id for instance.
@@ -36,15 +36,12 @@ angular.module('gridform.gridformFactory', [])
 
 
 /*
-
                 headers = columns -- gather all together and create headers
                 // table
                     //foreach columns <th ... >
                     //foreach
 
                 // /table
-*/
-
 
                 // this.results = [];
 
@@ -107,32 +104,36 @@ angular.module('gridform.gridformFactory', [])
 
                 // this.selectItemCallback = null;
 
+*/
+
             };
 
             Gridform.prototype = {
 
                 // Copies an existing object and creates a row for it in this table
-                addRowFromObject = function(){
+                addRowFromObject: function(){
 
                 },
 
                 // Takes a list of objects and adds a row for each one -- might be a good idea to copy them bofore adding them so that you don't change the initial object
-                addRowsFromObjects = function () {
+                addRowsFromObjects: function () {
 
 
                 },
 
                 // This should take a template and a controller and make it so that the given row actions were all possible on the current gridform.
-                addRowActions = function (templatePath, controller) {
+                addRowActions: function (templatePath, controller) {
 
                 },
 
-                addRow = function () {
+                // Add an element to the gridform
+                addRow: function () {
 
 
                 },
 
-                removeRow = function () {
+                // Remove an element from the grid form
+                removeRow: function () {
 
 
                 },

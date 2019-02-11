@@ -1,10 +1,6 @@
-angular.module('gridform.gridFormColumnFactory', [])
+angular.module('gridForm.gridFormColumnFactory', [])
 
     .factory('gridFormColumnFactory', [
-
-        /*
-            a
-        */
 
         function () {
 
