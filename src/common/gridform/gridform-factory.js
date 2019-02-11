@@ -1,0 +1,592 @@
+angular.module('gridform.gridformFactory', [])
+
+    .factory('gridformFactory', ['gridColumnFactory', 'gridFilterFactory', '$location',
+
+        function (gridColumnFactory, gridFilterFactory, $location) {
+
+            var GridForm = function () {
+
+                // Valid input types
+                    // text -- freetext
+                    // enum -- dropdown
+                    // sinelerelation -- linked to things on the backend
+                    // multirelation -- Dropdown list
+
+                this.columns = [
+                    {id: "id", required: true, type:"text", required: "true/false", validators:["list of functions"]},
+                    {id: "id", required: true, type:"enum", require: "true/false", validInputs=["list", "of", "possible", "inputs"], validators: ["List of functions"]}
+                    {id: "id", required: true, type:"singlerelation", required: "true/false", backendUrl:'path to url', validators: ["list of functions"]},
+                    {id: "id", required: true, type:"multirelation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl:'path to url', validators: ["List of functions"]},
+                ];
+
+                this.rows = [
+                    {id: 1, collapsed: false, object: {}},
+                    {id: 2, collapsed: false, object: {}},
+                    {id: 3, collapsed: false, object: {}},
+                    {id: 4, collapsed: false, object: {}},
+                    {id: 5, collapsed: false, object: {}}
+                ];
+
+                // Want to make it possible to group rows in the best way possible. -- could set it up to group by sample id for instance.
+                this.rowOrdering = [1,2,3,4,5,6,7,8,9,10];
+
+
+
+
+
+
+/*
+
+                headers = columns -- gather all together and create headers
+                // table
+                    //foreach columns <th ... >
+                    //foreach
+
+                // /table
+*/
+
+
+                // this.results = [];
+
+                // this.initResultCount = 0;
+
+                // this.data = null;
+
+                // this.refreshCount = 0;
+
+                // this.columns = [];
+
+                // this.filters = [];
+
+                // this.actionTemplate = null;
+
+                // this.resourceUrl = null;
+
+                // this.sortingColumn = null;
+
+                // this.sortDirection = null;
+
+                // this.pagination = {
+                //     page: 1,
+                //     perPage: 5
+                // };
+
+                // this.search = '';
+
+                // this.showFilters = true;
+
+                // this.hidePagination = false;
+
+                // this.staticFilters = [];
+
+                // this.isEditable = false;
+
+                // this.isSelectable = false;
+
+                // this.isManySelectable = false;
+
+                // this.removingItems = [];
+
+                // this.removingItemIds = [];
+
+                // this.addingItems = [];
+
+                // this.addingItemIds = [];
+
+                // this.selectedItem = null;
+
+                // this.allowToggleColumns = true;
+
+                // this.noResultString = 'No Results';
+
+                // this.isHoverable = true;
+
+                // this.showHyperLinks = true;
+
+                // this.bindToState = false;
+
+                // this.selectItemCallback = null;
+
+            };
+
+            Gridform.prototype = {
+
+                // Copies an existing object and creates a row for it in this table
+                addRowFromObject = function(){
+
+                },
+
+                // Takes a list of objects and adds a row for each one -- might be a good idea to copy them bofore adding them so that you don't change the initial object
+                addRowsFromObjects = function () {
+
+
+                },
+
+                // This should take a template and a controller and make it so that the given row actions were all possible on the current gridform.
+                addRowActions = function (templatePath, controller) {
+
+                },
+
+                addRow = function () {
+
+
+                },
+
+                removeRow = function () {
+
+
+                },
+
+                // We may want to add a method for people to add any special validators that they may want
+                // addObjectValidators = function () {
+
+
+                // }
+
+
+                // funciton addRowActions(){}; // Add row actions that work for everything in the gridform
+                // function addRow(){}; // Add an empty row to the grid form which can be filled with anything that mathces the column headers.
+                // funciton removeRow(){}; // Drop a selected row from the grid form.
+
+            //     perPageOptions: [10, 25, 50, 100],
+
+            //     create: function () {
+
+            //         return new Grid();
+
+            //     },
+
+            //     setResults: function (results, initial) {
+
+            //         this.results = results;
+
+            //         return this;
+
+            //     },
+
+            //     setInitResultCount: function (initResultCount) {
+
+            //         this.initResultCount = initResultCount;
+
+            //         return this;
+
+            //     },
+
+            //     setData: function (data) {
+
+            //         this.data = data;
+
+            //         this.turnPage();
+
+            //         return this;
+
+            //     },
+
+            //     setPage: function (page) {
+
+            //         this.pagination.page = page;
+
+            //         return this;
+
+            //     },
+
+            //     turnPage: function () {
+
+            //         var startIndex = ((this.pagination.page - 1) * this.pagination.perPage);
+
+            //         this.results = this.data.slice(startIndex, startIndex + this.pagination.perPage);
+
+            //         this.pagination.startIndex = startIndex + 1;
+
+            //         this.pagination.stopIndex = startIndex + this.results.length;
+
+            //         this.pagination.paginatedTotal = this.results.length;
+            //         this.pagination.unpaginatedTotal = this.data.length;
+
+            //         return this;
+
+            //     },
+
+            //     setPerPage: function (perPage) {
+
+            //         this.pagination.perPage = perPage;
+
+            //         return this;
+            //     },
+
+            //     addColumns: function (columns) {
+
+            //         var that = this;
+            //         columns.map(function (column) {
+            //             that.addColumn(column);
+            //         });
+
+            //         return this;
+
+            //     },
+
+            //     addColumn: function (column) {
+
+            //         this.columns.push(gridColumnFactory.create(column));
+
+            //         return this;
+
+            //     },
+
+            //     addFilters: function (filters) {
+
+            //         var that = this;
+            //         filters.map(function (filter) {
+            //             that.addFilter(filter);
+            //         });
+
+            //         return this;
+
+            //     },
+
+            //     addFilter: function (filter) {
+
+            //         this.filters.push(gridFilterFactory.create(filter));
+
+            //         return this;
+
+            //     },
+
+            //     hideFilters: function () {
+
+            //         this.showFilters = false;
+
+            //         return this;
+
+            //     },
+
+            //     hideAllFilters:function () {
+            //         var that = this;
+            //         this.filters.map(function (filter) {
+            //             filter.isVisible = false;
+            //         });
+
+            //         return this;
+            //     },
+
+            //     allowEdit: function () {
+
+            //         this.isEditable = true;
+
+            //         return this;
+
+            //     },
+
+            //     disallowEdit: function () {
+
+            //         this.isEditable = false;
+
+            //         return this;
+
+            //     },
+
+            //     disablePagination: function () {
+
+            //         this.hidePagination = true;
+
+            //         return this;
+
+            //     },
+
+            //     allowSelect: function () {
+
+            //         this.isSelectable = true;
+
+            //         return this;
+
+            //     },
+
+            //     allowSelectMany: function () {
+
+            //         this.isManySelectable = true;
+
+            //         return this;
+
+            //     },
+
+            //     setStaticFilters: function (staticFilters) {
+
+            //         this.staticFilters = staticFilters;
+
+            //         return this;
+
+            //     },
+
+            //     setActionTemplate: function (actionTemplate) {
+
+            //         this.actionTemplate = actionTemplate;
+
+            //         return this;
+
+            //     },
+
+            //     setPaginationFromResponse: function (response) {
+
+            //         this.pagination = {
+            //             hasNextPage: response.hasNextPage,
+            //             page: response.page,
+            //             paginatedTotal: response.paginatedTotal,
+            //             perPage: response.perPage,
+            //             unpaginatedTotal: response.unpaginatedTotal,
+            //         };
+
+            //         this.pagination.startIndex = this.getStartIndex();
+            //         this.pagination.stopIndex = this.getStopIndex();
+
+            //         return this;
+
+            //     },
+
+            //     setPagination: function (pagination) {
+
+            //         this.pagination = pagination;
+
+            //         return this;
+
+            //     },
+
+            //     getStartIndex: function () {
+
+            //         return this.pagination.perPage * this.pagination.page - this.pagination.perPage + 1;
+
+            //     },
+
+            //     getStopIndex: function () {
+
+            //         return this.pagination.perPage * this.pagination.page - this.pagination.perPage + this.pagination.paginatedTotal;
+
+            //     },
+
+            //     disableToggleColumns: function () {
+
+            //         this.allowToggleColumns = false;
+
+            //         return this;
+
+            //     },
+
+            //     toggleColumn: function (column) {
+
+            //         column.isVisible = column.isVisible ? false : true;
+
+            //     },
+
+            //     sortColumn: function (sortColumn, direction, init) {
+
+            //         var getParams = $location.search();
+
+            //         if (init == undefined) {
+
+            //             if (getParams['cOrderBy'] !== undefined) {
+            //                 sortColumn = {name: getParams['cOrderBy']};
+            //             }
+
+            //             if (getParams['cOrderByDirection'] !== undefined) {
+            //                 direction = getParams['cOrderByDirection'];
+            //             }
+
+            //         }
+
+            //         var that = this;
+            //         this.columns.map(function (column) {
+
+            //             if (column.name === sortColumn.name) {
+
+            //                 column.sortDirection = direction;
+
+            //                 that.sortingColumn = column;
+            //                 that.sortDirection = direction;
+
+            //             }
+            //             else {
+
+            //                 column.sortDirection = column.sort.NONE;
+
+            //             }
+
+
+            //         });
+
+            //         return this;
+
+            //     },
+
+            //     setResourceUrl: function (resourceUrl) {
+
+            //         this.resourceUrl = resourceUrl;
+
+            //         return this;
+
+            //     },
+
+            //     getRequestParams: function () {
+
+            //         var params = {};
+
+            //         if (this.sortingColumn) {
+            //             params['cOrderBy'] = this.sortingColumn.name;
+            //         }
+
+            //         if (this.sortDirection) {
+            //             params['cOrderByDirection'] = this.sortDirection;
+            //         }
+
+            //         if (this.search != '') {
+            //             params['cSearch'] = this.search;
+            //         }
+
+            //         angular.forEach(this.staticFilters, function (value, key) {
+            //             params[key] = value;
+            //         });
+
+            //         this.filters.map(function (filter) {
+            //             angular.forEach(filter.getParams(), function (value, key) {
+            //                 params[key] = value;
+            //             });
+            //         });
+
+            //         params['cPerPage'] = this.pagination.perPage;
+            //         params['cPage'] = this.pagination.page;
+
+            //         return params;
+
+            //     },
+
+            //     removeItem: function (item) {
+
+            //         this.removingItems.push(item);
+            //         this.removingItemIds.push(item.id);
+
+            //         if (this.selectItemCallback) {
+
+            //             this.selectItemCallback(item);
+
+            //         }
+
+            //         return this;
+
+            //     },
+
+            //     restoreRemovedItem: function (item) {
+
+            //         this.removingItems.splice(this.removingItems.indexOf(item), 1);
+            //         this.removingItemIds.splice(this.removingItemIds.indexOf(item.id), 1);
+
+            //         if (this.selectItemCallback) {
+
+            //             this.selectItemCallback(null);
+
+            //         }
+
+            //         return this;
+
+            //     },
+
+            //     removeAddingItem: function (item) {
+
+            //         this.addingItems.splice(this.addingItems.indexOf(item), 1);
+            //         this.addingItemIds.splice(this.addingItemIds.indexOf(item.id), 1);
+
+            //         if (this.selectItemCallback) {
+
+            //             this.selectItemCallback(null);
+
+            //         }
+
+            //         return this;
+
+            //     },
+
+            //     addItem: function (item) {
+
+            //         this.addingItems.push(item);
+            //         this.addingItemIds.push(item.id);
+
+            //         if (this.selectItemCallback) {
+
+            //             this.selectItemCallback(item);
+
+            //         }
+
+            //         return this;
+
+            //     },
+
+            //     selectItem: function (item, skip) {
+
+            //         this.selectedItem = item;
+            //         this.search = '';
+
+            //         if (this.selectItemCallback && skip === undefined) {
+
+            //             this.selectItemCallback(item);
+
+            //         }
+
+            //         return this;
+
+            //     },
+
+            //     unselectItem: function (item) {
+
+            //         this.selectedItem = null;
+
+            //         if (this.selectItemCallback) {
+
+            //             this.selectItemCallback(null);
+
+            //         }
+
+            //         return this;
+
+            //     },
+
+            //     setSelectItemCallback: function (callback) {
+
+            //         this.selectItemCallback = callback;
+
+            //         return this;
+
+            //     },
+
+            //     setNoResultString: function (noResultString) {
+            //         this.noResultString = noResultString;
+            //         return this;
+            //     },
+
+            //     disableHover: function () {
+            //         this.isHoverable = false;
+            //         return this;
+            //     },
+
+            //     disableHyperlinks: function () {
+            //         this.showHyperLinks = false;
+            //         return this;
+            //     },
+
+            //     setBindToState: function (bindToState) {
+            //         this.bindToState = bindToState;
+            //         return this;
+            //     }
+
+            }
+
+            GridForm.create = function () {
+
+                return new GridForm();
+
+            };
+
+            return GridForm;
+
+        }
+
+    ])
+;
+
+
