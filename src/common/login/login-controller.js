@@ -36,7 +36,7 @@ angular.module('login.loginCtrl', [])
                         else if (sessionFactory.hasRole('ROLE_USER')) {
                             $state.go('sample.index');
                         }
-                        else if (sessionFactory.hasRole('ROLE_UNDERGRAD_STUDENT_WORKER') {
+                        else if (sessionFactory.hasRole('ROLE_UNDERGRAD_STUDENT_WORKER')) {
                             $state.go('order.index');
                         }
 
