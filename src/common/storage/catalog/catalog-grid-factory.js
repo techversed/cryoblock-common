@@ -34,6 +34,12 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         title: 'Name',
                         filterProperty: 'name',
                         isVisible: false
+                    },
+                    {
+                        type: 'deleted',
+                        title: 'Show Deleted',
+                        filterProperty: 'cShowDeleted',
+                        isVisible: false
                     }
                 ],
 
