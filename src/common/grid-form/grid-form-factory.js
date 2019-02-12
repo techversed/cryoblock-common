@@ -1,13 +1,11 @@
 angular.module('gridForm.gridFormFactory', [])
 
-    .factory('gridFormFactory', ['gridFilterFactory', '$location',
+    .factory('gridFormFactory', [
 
-        function (gridFilterFactory, $location) {
+        function () {
 
             /*
-
                 In the end this is not goint to contain gridColumnFactory...
-
             */
 
             var GridForm = function () {
@@ -18,7 +16,6 @@ angular.module('gridForm.gridFormFactory', [])
                     // sinelerelation -- linked to things on the backend
                     // multirelation -- Dropdown list
 
-
                 // For everything type, validators, sorting operator, sortable
 
                 // I don't know if we want to use fieldname or bindTo as the name of the field that we want to grab.
@@ -26,7 +23,7 @@ angular.module('gridForm.gridFormFactory', [])
 
                 this.columns = [
                     {id: "id", header: "Thing1", field: "Field1", default: "default value for that column when a new object is created", required: true, fieldName: "asdf", type: "text", validators: ["list of functions"], sortingOperator: function () {}, sortable:true},
-                    {id: "id", header: "Thing2", field: "Field2", required: true, fieldName: "asdf", type: "enum", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
+                    {id: "id", header: "Thing2", field: "Field2", required: true, fieldName: "asdf", type: "dropdown", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
                     {id: "id", header: "Thing3", field: "Field3", required: true, fieldName: "asdf", type: "singlerelation", backendUrl: 'path to url', validators: ["list of functions"]},
                     {id: "id", header: "Thing4", field: "Field4", required: true, fieldName: "asdf", type: "multirelation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl: 'path to url', validators: ["List of functions"]},
                 ];
@@ -75,15 +72,15 @@ angular.module('gridForm.gridFormFactory', [])
                 // Add an element to the gridform
                 addEmptyRow: function () {
                     // For each column set default value for that field.
-
                 },
 
                 // We will implement this sutf later.
-
                 // This should take a template and a controller and make it so that the given row actions were all possible on the current gridform.
                 addRowActions: function (templatePath, controller) {
 
                 },
+
+                // Submit action
 
                 // Remove an element from the grid form
                 removeRow: function () {

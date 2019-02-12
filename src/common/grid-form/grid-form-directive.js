@@ -19,7 +19,13 @@ angular.module('gridForm.gridFormDirective', [])
 
                     this.gridForm = $scope.gridForm;
 
+
+
                     var init = function () {
+
+                        $scope.dumpDataModel = function () {
+                            console.log($scope.gridForm.rows);
+                        }
 
                         console.log("doing the init portion of the work right now");
                         $scope.genders = ['test1', 'test2', 'test3', 'test4'];

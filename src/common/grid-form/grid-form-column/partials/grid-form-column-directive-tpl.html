@@ -1,8 +1,6 @@
 
 <!-- select the type of child directive is needed -->
-<div>
-    <grid-form-dropdown-column ng-if="true"></grid-form-dropdown-column>
-    <grid-form-multi-relation-column ng-if="true"></grid-form-multi-relation-column>
-    <grid-form-single-relation-column ng-if="true"></grid-form-single-relation-column>
-    <grid-form-text-column ng-if="true"></grid-form-text-column>
-</div>
+<grid-form-dropdown-column ng-if="column.type == 'dropdown'" obj='data'></grid-form-dropdown-column>
+<grid-form-multi-relation-column ng-if="column.type == 'multirelation'" obj='data'></grid-form-multi-relation-column>
+<grid-form-single-relation-column ng-if="column.type == 'singlerelation'" obj='data'></grid-form-single-relation-column>
+<grid-form-text-column ng-if="column.type == 'text'" obj='data'></grid-form-text-column>

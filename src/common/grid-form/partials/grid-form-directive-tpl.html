@@ -11,30 +11,16 @@
     <!-- For each entity look at each column and use the correct directive for the type of entity -->
     <tr ng-repeat="row in gridForm.rowOrdering">
         <td ng-repeat="col in gridForm.columns">
-                {{gridForm.rows[row]['entity'][col['field']]}}<input></input>
+                <grid-form-column column="col" value="gridForm.rows[row]['entity'][col['field']]"></grid-form-column>
         </td>
     </tr>
 
 </table>
 
 
-
-
-
-
-<!-- Some experimental stuff that will be removed before too long -->
-<div>
-    <cb-dropdown name="gender" ng-model="asdf" label="Dropdown example" items="genders" required></cb-dropdown>
-</div>
-
-
-<!-- Notes that will be removed once I am done building this features -->
-<!--
-
-    ng-repeat columns
-
-    ng-repeat rows
-        ng-repeat columns
-            gridColumnDirective type=X required=X minRequired=X maxRequired=X backendUrl=X (for suggestions) on relations validators=X
-
--->
+<br />
+<br />
+<br />
+<br />
+<br />
+<a ng-click="dumpDataModel()"> Dump the datamodel to ensure that it is being modified.</a>

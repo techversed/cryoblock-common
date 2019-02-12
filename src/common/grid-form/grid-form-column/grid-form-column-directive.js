@@ -1,79 +1,36 @@
 angular.module('gridForm.gridFormColumn.gridFormColumnDirective', [])
-    .directive('grdiFormColumn', [
+    .directive('gridFormColumn', [
 
         function () {
 
             return {
 
                 scope: {
-                    gridForm: '='
+                    column: "=",
+                    data: "="
                 },
 
                 restrict: 'E',
 
-                templateUrl: 'common/grid-form/grid-form-column/partials/grid-form-directive-tpl.html',
+                templateUrl: 'common/grid-form/grid-form-column/partials/grid-form-column-directive-tpl.html',
 
                 controller: function ($scope) {
-                    console.log("testing");
 
-                    this.gridForm = $scope.gridForm;
+                    console.log("Column directive");
+
 
                     var init = function () {
 
-                        console.log("doing the init portion of the work right now");
-                        $scope.genders = ['test1', 'test2', 'test3', 'test4'];
+                        console.log($scope.col);
+
+                        console.log("Currently in the init function for the column directive.");
 
                     };
 
                     init();
 
                 }
-
             };
-
         }
-
-]);
-
-
-
-/*
-angular.module('gridForm.gridFormDirective', [])
-
-    .directive('gridForm', ['$cbResource', '$location', 'gridManager',
-
-        function ($cbResource, $location, gridManager) {
-
-            return {
-
-                scope: {
-                    gridForm: '='
-                },
-
-                restrict: 'E',
-
-                templateUrl: 'common/grid-form/partials/grid-form-directive-tpl.html',
-
-                controller: function ($scope) {
-                    console.log("testing");
-
-                    this.gridForm = $scope.gridForm;
-
-                    var init = function () {
-
-                        console.log("doing the init portion of the work right now");
-                        $scope.genders = ['test1', 'test2', 'test3', 'test4'];
-
-                    };
-
-                    init();
-
-                }
-
-            };
-
-        }
-
-    ])
-;
-*/
+    ]
+);
