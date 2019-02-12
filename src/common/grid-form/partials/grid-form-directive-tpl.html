@@ -1,21 +1,34 @@
+<!-- The table that contains the forms -->
 <table>
 
+    <!-- The header row for the table -->
     <tr>
-        <th ng-repeat="col in gridForm.columns"> <center> {{col.header}} </center> </th> <!-- ng-repeat for each column -->
+        <th ng-repeat="col in gridForm.columns"> <!-- ng-repeat for each column -->
+            <center> {{col.header}} </center>
+        </th>
     </tr>
 
-    <tr ng-repeat="row in gridForm.rowOrdering"> <!-- ng repeat for each element in the odered array -->
-        <td ng-repeat="col in gridForm.columns">{{gridForm.rows[row]['entity'][col['field']]}}<input></input></td> <!-- ng repeat for each colunn -->
+    <!-- For each entity look at each column and use the correct directive for the type of entity -->
+    <tr ng-repeat="row in gridForm.rowOrdering">
+        <td ng-repeat="col in gridForm.columns">
+                {{gridForm.rows[row]['entity'][col['field']]}}<input></input>
+        </td>
     </tr>
 
 </table>
 
+
+
+
+
+
+<!-- Some experimental stuff that will be removed before too long -->
 <div>
     <cb-dropdown name="gender" ng-model="asdf" label="Dropdown example" items="genders" required></cb-dropdown>
 </div>
 
 
-
+<!-- Notes that will be removed once I am done building this features -->
 <!--
 
     ng-repeat columns

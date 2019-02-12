@@ -1,8 +1,8 @@
 angular.module('gridForm.gridFormFactory', [])
 
-    .factory('gridFormFactory', ['gridFormColumnFactory', 'gridFilterFactory', '$location',
+    .factory('gridFormFactory', ['gridFilterFactory', '$location',
 
-        function (gridColumnFactory, gridFilterFactory, $location) {
+        function (gridFilterFactory, $location) {
 
             /*
 

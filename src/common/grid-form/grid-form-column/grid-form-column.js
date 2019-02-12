@@ -1,11 +1,7 @@
 angular.module('gridForm.gridFormColumn',[
-    'gridForm.gridFormColumn.gridFormColumnFactory',
-    'gridForm.gridFormColumn.gridFormDropdownColumnFactory',
-    'gridForm.gridFormColumn.gridFormDropdownColumnCtrl',
-    'gridForm.gridFormColumn.gridFormMultiRelationColumnCtrl',
-    'gridForm.gridFormColumn.gridFormMultiRelationColumnFactory',
-    'gridForm.gridFormColumn.gridFormSingleRelationColumnFactory',
-    'gridForm.gridFormColumn.gridFormSingleRelationColumnCtrl',
-    'gridForm.gridFormColumn.gridFormTextColumnCtrl',
-    'gridForm.gridFormColumn.gridFormTextColumnFactory'
+    'gridForm.gridFormColumn.gridFormDropdownColumnDirective',
+    'gridForm.gridFormColumn.gridFormMultiRelationColumnDirective',
+    'gridForm.gridFormColumn.gridFormSingleRelationColumnDirective',
+    'gridForm.gridFormColumn.gridFormColumnDirective',
+    'gridForm.gridFormColumn.gridFormTextColumnDirective'
 ]);
