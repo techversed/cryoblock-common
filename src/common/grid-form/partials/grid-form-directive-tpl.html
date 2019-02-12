@@ -1,0 +1,27 @@
+<table>
+
+    <tr>
+        <th ng-repeat="col in gridForm.columns"> <center> {{col.header}} </center> </th> <!-- ng-repeat for each column -->
+    </tr>
+
+    <tr ng-repeat="row in gridForm.rowOrdering"> <!-- ng repeat for each element in the odered array -->
+        <td ng-repeat="col in gridForm.columns">{{gridForm.rows[row]['entity'][col['field']]}}<input></input></td> <!-- ng repeat for each colunn -->
+    </tr>
+
+</table>
+
+<div>
+    <cb-dropdown name="gender" ng-model="asdf" label="Dropdown example" items="genders" required></cb-dropdown>
+</div>
+
+
+
+<!--
+
+    ng-repeat columns
+
+    ng-repeat rows
+        ng-repeat columns
+            gridColumnDirective type=X required=X minRequired=X maxRequired=X backendUrl=X (for suggestions) on relations validators=X
+
+-->

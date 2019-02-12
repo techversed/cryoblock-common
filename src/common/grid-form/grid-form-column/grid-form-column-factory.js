@@ -1,4 +1,4 @@
-angular.module('gridForm.gridFormColumnFactory', [])
+angular.module('gridForm.gridFormColumn.gridFormColumnFactory', [])
 
     .factory('gridFormColumnFactory', [
 
