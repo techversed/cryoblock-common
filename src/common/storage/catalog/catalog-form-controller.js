@@ -1,15 +1,15 @@
 angular.module('storage.catalog.catalogFormCtrl', [])
+    .controller('catalogFormCtrl', ['$scope', '$uibModalInstance', 'catalog', '$cbResource', 'toastr', 'callback', '$cbForm',
 
-    .controller('catalogFormCtrl', ['$scope', 'catalog', '$cbResource', '$cbForm',
-
-        function ($scope, catalog, $cbResource,  $cbForm) {
+        function ($scope, $modalInstance, catalog, $cbResource, toastr, callback, $cbForm) {
 
             $scope.catalog = catalog ? angular.copy(catalog) : {};
-            $scope.catalogForm = {};
 
             $scope.catalogBoolOnToggle = function(){
                 $scope.sample.catalog = undefined;
             }
+
+            $scope.catalogForm = {};
 
             $scope.cbForm = $cbForm.create()
                 .setType('Catalog')
@@ -19,16 +19,12 @@ angular.module('storage.catalog.catalogFormCtrl', [])
             ;
 
             $scope.close = function () {
-                $scope.cbForm.close($scope.sampleForm, $scope);
+                $scope.cbForm.close($scope.catalogForm, $scope);
             };
 
             $scope.save = function () {
-
-                $scope.cbForm.save($scope.sampleForm, $scope);
-
+                $scope.cbForm.save($scope.catalogForm, $scope);
             };
-
         }
-
     ])
 ;

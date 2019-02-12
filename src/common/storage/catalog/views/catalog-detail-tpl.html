@@ -11,10 +11,30 @@
         </div>
         <div class="hpanel">
             <div class="panel-body">
-                <button ng-click="edit(sample)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
-                <h2 class="font-light m-b-xs inline">
-                  Catalog Item {{catalog.id}} - {{catalog.name}}
-                </h2>
+
+                <div class="panel-actions">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-sm btn-default" ng-click="edit(catalog)"><i class="fa fa-edit"/></button>
+                        <div class="btn-group panel-more-actions" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog"/>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li cb-object-watch entity-id="catalog.id" entity="AppBundle\Entity\Storage\Catalog" object-description="Catalog" url="/storage/catalog"></li>
+                                <li>
+                                    <a class="dropdown-item" ng-click="delete(catalog, 'catalog.index')"><i class="fa fa-trash m-r-xs" />Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-t">
+                    <h2 class="font-light m-b-xs inline">
+                      Catalog Item {{catalog.id}} - {{catalog.name}}
+                    </h2>
+                </div>
             </div>
         </div>
     </div>
