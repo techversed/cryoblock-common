@@ -23,6 +23,7 @@ angular.module('storage', [
     'storage.storageDivisionGridFactory',
     'storage.catalog',
     'storage.storageSampleLinkCtrl',
-    'storage.cbBoxGridInfoDirective'
+    'storage.cbBoxGridInfoDirective',
+    'storage.storageCopyDimensionlessCtrl'
 ]);
 

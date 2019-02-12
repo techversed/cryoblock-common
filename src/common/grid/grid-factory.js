@@ -12,6 +12,8 @@ angular.module('grid.gridFactory', [])
 
                 this.data = null;
 
+                this.refreshCount = 0;
+
                 this.columns = [];
 
                 this.filters = [];

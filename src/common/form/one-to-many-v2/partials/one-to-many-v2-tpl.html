@@ -85,9 +85,9 @@
         <grid grid="searchGrid"></grid>
     </div>
 
-    <div ng-show="formCtrl[bindTo].$error['numrequired'] && formCtrl.$submitted">
-        <p ng-if="numRequired < 2" class="text-danger">At least {{numRequired}} item is required</p>
-        <p ng-if="numRequired >= 2" class="text-danger">At least {{numRequired}} items are required</p>
+    <div ng-if="numRequired">
+        <p ng-class="{'text-danger': formCtrl[bindTo].$error['numrequired'] && formCtrl.$submitted }" ng-if="numRequired < 2">At least {{numRequired}} item is required</p>
+        <p ng-class="{'text-danger': formCtrl[bindTo].$error['numrequired'] && formCtrl.$submitted }" ng-if="numRequired >= 2">At least {{numRequired}} items are required</p>
     </div>
 
 </div>
