@@ -26,6 +26,12 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         isSortable: true,
                         sref: 'catalog.detail({id:result.id})'
                     },
+                    {
+                        header: 'Merged Into',
+                        name: 'mergedInto',
+                        bindTo: 'mergedInto.name',
+                        sref: 'catalog.detail({id:result.mergedInto.id})'
+                    }
                 ],
 
                 filters: [

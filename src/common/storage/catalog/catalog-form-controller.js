@@ -1,7 +1,7 @@
 angular.module('storage.catalog.catalogFormCtrl', [])
-    .controller('catalogFormCtrl', ['$scope', '$uibModalInstance', 'catalog', '$cbResource', 'toastr', 'callback', '$cbForm',
+    .controller('catalogFormCtrl', ['$scope', 'catalog', 'toastr', 'callback', '$cbForm',
 
-        function ($scope, $modalInstance, catalog, $cbResource, toastr, callback, $cbForm) {
+        function ($scope, catalog, toastr, callback, $cbForm) {
 
             $scope.catalog = catalog ? angular.copy(catalog) : {};
 
