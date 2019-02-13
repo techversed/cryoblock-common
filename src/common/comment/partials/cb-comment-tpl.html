@@ -4,7 +4,7 @@
         <table class="comment-container">
             <tr>
                 <td class="comment-content" ng-hide="isEditing">
-                    <img class="comment-profile-img ng-scope" ng-src="{{avatarSrc}}">
+                    <img class="comment-profile-img ng-scope" ng-src="{{comment.createdBy.avatarAttachment !== undefined ? urlStart + comment.createdBy.avatarAttachment.id + urlStop : '/images/avatar.jpg'}}">
                     <div class="comment-username">{{comment.createdBy.fullName}}</div>
                     <div class="comment-content-text" ng-bind-html="markdownHtml"></div>
                     <div class="comment-actions">
