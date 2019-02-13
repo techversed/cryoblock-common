@@ -1,8 +1,8 @@
 angular.module('navigation.navigationCtrl', [])
-    .controller('navigationCtrl', ['$scope', 'sessionFactory', '$localStorage',
-        function ($scope, sessionFactory, $localStorage) {
+    .controller('navigationCtrl', ['$scope', 'sessionFactory',
+        function ($scope, sessionFactory) {
 
-            var user = $localStorage.User;
+            var user = sessionFactory.getLoggedInUser;
 
             $scope.userName = user.username;
             $scope.helloText = 'Welcome in SeedProject';
