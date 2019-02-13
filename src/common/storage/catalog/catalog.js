@@ -5,5 +5,6 @@ angular.module('storage.catalog', [
     'storage.catalog.catalogFormCtrl',
     'storage.catalog.catalogCtrl',
     'storage.catalog.catalogFormFactory',
-    'storage.catalog.catalogRowActionsCtrl'
+    'storage.catalog.catalogRowActionsCtrl',
+    'storage.catalog.catalogIndexCtrl'
 ]);

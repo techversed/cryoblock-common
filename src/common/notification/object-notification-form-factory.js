@@ -1,8 +1,8 @@
 angular.module('notification.objectNotificationFormFactory', [])
 
-    .factory('objectNotificationFormFactory', ['$uibModal', '$cbResource', 'sessionFactory', '$cbGridBuilder', '$q',
+    .factory('objectNotificationFormFactory', ['$uibModal', '$cbResource', 'sessionFactory', '$cbGridBuilder',
 
-        function ($uibModal, $cbResource, sessionFactory, $cbGridBuilder, $q) {
+        function ($uibModal, $cbResource, sessionFactory, $cbGridBuilder) {
 
             var objectNotificationFormFactory = {
 

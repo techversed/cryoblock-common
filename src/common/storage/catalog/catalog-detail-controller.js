@@ -1,9 +1,10 @@
 angular.module('storage.catalog.catalogDetailCtrl', [])
+    .controller('catalogDetailCtrl', ['$scope', 'catalog', 'grids', '$window', 'catalogFormFactory',
 
-    .controller('catalogDetailCtrl', ['$scope', 'catalog', 'grids', 'catalogFormFactory',
+        function ($scope, catalog, grids, $window, catalogFormFactory) {
 
-        function ($scope, catalog, grids, catalogFormFactory) {
-
+            $window.scroll(0,0);
+          
             $scope.catalog = catalog;
 
             $scope.grids = grids;
