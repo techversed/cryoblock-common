@@ -7,6 +7,8 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
             /*
 
                 Need to add a way to create a new a new entry if a name does not exist.
+                Allow the user to select one of a certain type of object.
+                Boolean to allow for the creation of new objects.
 
             */
 

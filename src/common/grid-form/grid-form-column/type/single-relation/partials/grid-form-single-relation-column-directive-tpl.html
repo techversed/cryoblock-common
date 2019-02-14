@@ -1,11 +1,88 @@
 <div>
-    single-relation
+
+    <!--
+        A textbox at the top of a list.
+        A list should appear once the textbox is focused.
+
+
+    -->
 
 <!--
     <one-to-one ng-model="testing" ></one-to-one>
 -->
 
-    <!-- <one-to-one name="catalog" grid="catalogGrid" ng-model="sample.catalog" parent-object="sample" bind-to="catalog" placeholder="Link Catalog.." required></one-to-one> -->
+    <!--
+        <one-to-one name="catalog" grid="catalogGrid" ng-model="sample.catalog" parent-object="sample" bind-to="catalog" placeholder="Link Catalog.." required></one-to-one>
+    -->
+<!--
+    <input> </input>
+-->
 
+    <!-- still need to add a dropdown -->
+
+
+    <!-- THIS IS THE STANDARD STUFF FROM THE FORM THE GRID FILTER CLASS COMB OVER IT AND MAKE CHANGES -->
+
+    <div class="btn-group" uib-dropdown keyboard-nav>
+
+<!--
+        <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectedItemsString}}" uib-dropdown-toggle>
+            Selected Element{{ filter.selectedItemsString }} <span class="caret"></span>
+        </button>
+-->
+
+        <div class="form-group grid-filter-search">
+            <input
+                ng-model="form.search"
+                ng-change="search()"
+                ng-model-options="{debounce:300}"
+                class="form-control"
+            >
+            </input>
+        </div>
+
+        <ul uib-dropdown-menu class="dropdown-menu" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()" >
+
+<!--
+            <li>
+-->
+
+
+<!--
+            </li>
+-->
+
+            <!-- This is going to stay where it is -->
+            <li role="menuitem" ng-repeat="item in filter.selectedItems" ng-click="removeItem(item)">
+                <a href="#" class="grid-filter-item-detail">
+                    <input type="checkbox" checked="checked" class="grid-filter-check"></input>
+                    <span ng-bind="item.{{filter.bindTo}}"></span>
+                </a>
+            </li>
+
+            <li class="divider" ng-if="filter.selectedItems.length"></li>
+
+            <!-- THIS SECTION HAS THE INPUTS FOR EACH SAMPLE -->
+
+            <li role="menuitem" ng-repeat="result in filter.results" ng-click="selectItem(result)" class="grid-filter-item">
+                <a href="#" class="grid-filter-item-detail">
+                    <input type="checkbox" class="grid-filter-check"></input>
+                    <span ng-bind="result.{{filter.bindTo}}"></span>
+                </a>
+            </li>
+
+            <!-- asdfasdf -->
+
+            <li role="menuitem" ng-if="filter.results.length === 0">
+                <a href="#" class="grid-filter-item-detail">No Results</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- asdfasdf -->
 
 </div>
+<!--ng-if="filter.type === 'relation'"-->
+
+
