@@ -15,11 +15,7 @@ angular.module('gridForm.gridFormColumn.gridFormMultiRelationColumnDirective',[]
 
                 controller: function ($scope) {
 
-                    console.log("testing");
-
                     var init = function () {
-
-                        console.log("doing the init portion of the work right now");
 
                     };
 

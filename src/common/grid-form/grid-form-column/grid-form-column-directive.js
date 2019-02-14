@@ -7,7 +7,8 @@ angular.module('gridForm.gridFormColumn.gridFormColumnDirective', [])
 
                 scope: {
                     column: "=",
-                    data: "="
+                    data: "=",
+                    field: "="
                 },
 
                 restrict: 'E',
@@ -17,7 +18,6 @@ angular.module('gridForm.gridFormColumn.gridFormColumnDirective', [])
                 controller: function ($scope) {
 
                     console.log("Column directive");
-
 
                     var init = function () {
 

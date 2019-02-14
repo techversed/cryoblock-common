@@ -1,5 +1,7 @@
 angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
+
     .directive('gridFormDropdownColumn', [
+
         function () {
 
             return {
@@ -14,12 +16,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                 controller: function ($scope) {
 
-                    console.log("testing");
-
-
                     var init = function () {
-
-                        console.log("doing the init portion of the work right now");
 
                     };
 
