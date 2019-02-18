@@ -11,6 +11,8 @@
     minrequired
     maxrequired
 
+    selectMultiple -- true or false. checkbox or radio buttons
+
 */
 
 angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])

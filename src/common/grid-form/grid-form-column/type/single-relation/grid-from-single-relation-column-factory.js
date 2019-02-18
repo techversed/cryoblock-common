@@ -31,11 +31,7 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnFactory', []
 
             };
 
-
-
-
             return gridFormSingleRelationColumn;
-
 
         }
 ]);

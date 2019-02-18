@@ -37,15 +37,28 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
 
                     };
 
+                    $scope.selectItem = function (item) {
+
+                        console.log("item", item);
+                        console.log("Selecting a new item");
+                        $scope.selectedThing.name = item;
+
+                        console.log("selectedThing", $scope.selectedThing);
+                    }
+
                     $scope.testScript = function (){
                         console.log("testing");
                     };
 
                     $scope.stopClickPropagation = function (actionevent) {
-                        // console.log("stopping the click from propagating");
-                        // console.log("event:", actionevent);
+                        console.log("stopping the click from propagating");
+                        console.log("event:", actionevent);
                         actionevent.stopPropagation();
                     };
+
+                    $scope.testing = function () {
+                        console.log('testing');
+                    }
 
                     init();
 
