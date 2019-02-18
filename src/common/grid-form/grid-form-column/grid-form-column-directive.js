@@ -1,3 +1,12 @@
+/*
+    Grid form column directive
+    Written by Taylor Jones
+
+    The purpose of this directive is to act as a layer of abstraction between the GridForm class and all of the various types of columns that are/will_be supported in the final implementation.
+
+
+*/
+
 angular.module('gridForm.gridFormColumn.gridFormColumnDirective', [])
     .directive('gridFormColumn', [
 

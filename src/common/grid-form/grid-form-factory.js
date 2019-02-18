@@ -1,3 +1,12 @@
+/*
+    This factory creates all of the fields which will be handled in the grid form directive.
+    Use of the factory allows for us to create a new class similar to cbGridBuilder or cbResource which abstracts away the details and makes this directive usable within your average controller.
+
+
+
+
+*/
+
 angular.module('gridForm.gridFormFactory', [])
     .factory('gridFormFactory', [
         function () {
@@ -6,6 +15,7 @@ angular.module('gridForm.gridFormFactory', [])
 
                 The purpose of this class is to make it so that objects can be created or updated in a bulk fashion -- this is going to serve as an alternative to the excel download and upload at some point although both will still be supported.
                     This change makes sense due to the fact that a large number of people are frustraded with having to constantly download and reupload excel sheets -- this should make things move more quickly and should also let us support bulk completion of requests.
+
             */
 
             var GridForm = function () {

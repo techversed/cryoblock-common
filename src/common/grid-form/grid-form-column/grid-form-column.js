@@ -1,3 +1,10 @@
+/*
+    This module offers a collection of classes which are used to support GridForm columns
+
+
+*/
+
+
 angular.module('gridForm.gridFormColumn',[
     'gridForm.gridFormColumn.gridFormDropdownColumnDirective',
     'gridForm.gridFormColumn.gridFormMultiRelationColumnDirective',
@@ -7,9 +14,3 @@ angular.module('gridForm.gridFormColumn',[
     'gridForm.gridFormColumn.gridFormSingleRelationColumnFactory',
     'gridForm.gridFormColumn.gridFormTextColumnDirective'
 ]);
-
-/*
-
-
-
-*/

@@ -1,4 +1,14 @@
-<div class="btn-group grid-form-text-area-dropdown" uib-dropdown keyboard-nav>
+<!--
+    Under construction
+
+
+
+    It appears as though the dropdown is closing not due to a failure to stop the proagation of the click event but rather due to a failure to maintain focus on the indended element.
+-->
+
+
+
+<div class="btn-group grid-form-text-area-dropdown" uib-dropdown keyboard-nav ng-click="stopClickPropagation($event)">
 
     <input
         ng-model="form.search"
@@ -9,40 +19,34 @@
 
     </input>
 
-    <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="test-area" role="menu"  ng-click="$event.stopPropagation()" >
+    <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="test-area" role="menu"  ng-click="stopClickPropagation($event)" >
 
-<!--
-        <li role="menuitem" ng-repeat="item in suggestionList" >
-            <a class="grid-filter-item-detail">
-                <input type="radio" name="selectedItem" value="item" / >
-                <span ng-bind="item"></span>
-            </a>
-        </li>
--->
-    <!--
-        If there is one selected pull it up to the top
-
--->
-
-        <li class="divider" ng-if="filter.selectedItems.length"></li>
-
-    <!--
-        display all that are not selected
-    -->
-
-        <li role="menuitem" ng-repeat="item in suggestionList" >
-            <a class="grid-filter-item-detail">
-                <input type="radio" name="selectedItem" value="item" / >
-                <span ng-bind="item"></span>
+        <li role="menuitem" ng-repeat="item in suggestionList" ng-click="stopClickPropagation($event)">
+            <a ng-click="stopClickPropagation($event)">
+                <input type="radio" name="thatThing" ng-model="selectedThing.name" value="item" ng-click="stopClickPropagation($event)">
+                    {{item}}
+                </input>
             </a>
         </li>
 
     </ul>
+
 </div>
+
+<!--
+class="grid-filter-item-detail"
+
+
+                <input type="radio" ng-model="selectedThing" name="itemOfThisType" value="item" ng-value="item" />
+-->
 
 <!-- This is going to stay where it is -->
 
 <!--
+
+
+    <span ng-bind="item"></span>
+
             We have not yet added the add or remove item functionality.
             ng-click="removeItem(item)"
 
@@ -57,4 +61,24 @@
                 <span ng-bind="item"></span>
             </a>
         </li>
+-->
+
+<!--
+        display all that are not selected
+-->
+
+<!--
+        <li role="menuitem" ng-repeat="item in suggestionList" >
+            <a class="grid-filter-item-detail">
+                <input type="radio" name="selectedItem" value="item" / >
+                <span ng-bind="item"></span>
+            </a>
+        </li>
+-->
+
+<!--
+        If there is one selected pull it up to the top
+
+
+    <li class="divider" ng-if="filter.selectedItems.length"></li>
 -->
