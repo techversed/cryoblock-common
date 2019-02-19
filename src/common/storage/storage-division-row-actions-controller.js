@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionRowActionsCtrl', [])
 
-    .controller('storageDivisionRowActionsCtrl', ['$scope', 'storageFormFactory', 'sessionFactory',
+    .controller('storageDivisionRowActionsCtrl', ['$scope', 'storageFormFactory',
 
-        function ($scope, storageFormFactory, sessionFactory) {
+        function ($scope, storageFormFactory) {
 
             $scope.edit = function (division) {
 

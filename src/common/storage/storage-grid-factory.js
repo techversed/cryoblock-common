@@ -4,6 +4,11 @@ angular.module('storage.storageGridFactory', [])
 
         function (gridFactory, sampleTypeGridFactory, storageFactory, storageContainerGridFactory, $cbResource) {
 
+            /*
+                Outstanding issues:
+                    We need to fix the settings on the sample creation suggested divisions.
+            */
+
             var storageGridFactory = {
 
                 url: '/storage/division',
@@ -50,22 +55,38 @@ angular.module('storage.storageGridFactory', [])
                     return gridFactory.create()
                         .addColumns(this.columns)
                         .addFilters(this.filters)
-                        .sortColumn(this.columns[0], 'DESC')
+                        // .sortColumn(this.columns[0], 'DESC')
                     ;
                 },
+
+                /*
+                    There are some problems with this -- the first set of results which get returned is different from the results from subsequent pages of results.
+
+                        // Fixed the problem where the number of results in a grid is set to 3 -- it will stil
+
+                        // Order by should not be set. -- we will also need to disable this.
+
+                        // For some reason it is taking on the default params for a grid after the first request -- I still don't fully understand the problem but we are ok moving forwards with this I think.
+
+
+                */
 
                 getDivisionMatchGrid: function (sampleTypeId, storageContainerId) {
 
                     var grid = this.create();
+
                     var url = '/storage/division/match/' + sampleTypeId + '/' + storageContainerId;
-                    var defaultParams = { cPerPage:3 };
+                    var defaultParams = { cPerPage:25 }; // Change this
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
                     grid.allowSelect()
-                    grid.perPageOptions = [3, 10, 25];
+                    // grid.perPageOptions = [3, 10, 25];
+                    grid.perPageOptions = [25,50,100];
+                    grid.setPagination({page: 1, perPage: 25});
+                    grid.setPerPage(25);
 
-                    if (!sampleTypeId && ! storageContainerId) {
+                    if (!sampleTypeId && !storageContainerId) {
                         return grid;
                     }
 
@@ -75,10 +96,11 @@ angular.module('storage.storageGridFactory', [])
 
                         return grid
                             .setResults(response.data)
-                            .setPaginationFromResponse(response)
+                            // .setPaginationFromResponse(response)
+                            // .getRequestParams(response)
                             .disableHyperlinks()
                             .disableHover()
-                            .setPerPage(3)
+                            .setPerPage(25)
                             .disableToggleColumns()
                             .setInitResultCount(response.unpaginatedTotal)
                         ;

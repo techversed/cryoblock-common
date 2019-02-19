@@ -26,7 +26,7 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
                         views: {
                             content: {
                                 templateUrl: 'common/storage/catalog/views/catalog-index-tpl.html',
-                                controller: 'catalogCtrl',
+                                controller: 'catalogIndexCtrl',
                                 resolve: {
 
                                     grid: function ($cbGridBuilder) {

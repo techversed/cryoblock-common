@@ -1,8 +1,8 @@
 angular.module('storage.catalog.catalogGridFactory', [])
 
-    .factory('catalogGridFactory', ['gridFactory', '$cbResource',
+    .factory('catalogGridFactory', ['gridFactory',
 
-        function (gridFactory, $cbResource) {
+        function (gridFactory) {
 
             var catalogGridFactory = {
 
@@ -26,6 +26,12 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         isSortable: true,
                         sref: 'catalog.detail({id:result.id})'
                     },
+                    {
+                        header: 'Merged Into',
+                        name: 'mergedInto',
+                        bindTo: 'mergedInto.name',
+                        sref: 'catalog.detail({id:result.mergedInto.id})'
+                    }
                 ],
 
                 filters: [
@@ -33,6 +39,12 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         type: 'string',
                         title: 'Name',
                         filterProperty: 'name',
+                        isVisible: false
+                    },
+                    {
+                        type: 'deleted',
+                        title: 'Show Deleted',
+                        filterProperty: 'cShowDeleted',
                         isVisible: false
                     }
                 ],

@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionFormCtrl', [])
 
-    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'sampleTypeGrids', 'storageContainerGrids', '$uibModalInstance', '$cbResource', 'toastr', 'callback', 'divisionEditorGrids', 'divisionViewerGrids', '$state', 'ownerGrid', 'sessionFactory', 'divisionGroupEditorGrids', 'divisionGroupViewerGrids', 'storageDivisionManager',
+    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'sampleTypeGrids', 'storageContainerGrids', '$uibModalInstance', '$cbResource', 'toastr', 'callback', 'divisionEditorGrids', 'divisionViewerGrids', 'sessionFactory', 'divisionGroupEditorGrids', 'divisionGroupViewerGrids', 'storageDivisionManager',
 
-        function ($scope, division, sampleTypeGrids, storageContainerGrids, $modalInstance, $cbResource, toastr, callback, divisionEditorGrids, divisionViewerGrids, $state, ownerGrid, sessionFactory, divisionGroupEditorGrids, divisionGroupViewerGrids, storageDivisionManager) {
+        function ($scope, division, sampleTypeGrids, storageContainerGrids, $modalInstance, $cbResource, toastr, callback, divisionEditorGrids, divisionViewerGrids, sessionFactory, divisionGroupEditorGrids, divisionGroupViewerGrids, storageDivisionManager) {
 
             $scope.errors = [];
             $scope.divisionForm = {};
@@ -13,8 +13,7 @@ angular.module('storage.storageDivisionFormCtrl', [])
                 hasDimension: true,
                 isPublicEdit: false,
                 isPublicView: true,
-                parent:{id:1},
-                owner: sessionFactory.getLoggedInUser()
+                parent:{id:1}
             };
 
             if ($scope.division.id == undefined) {
@@ -28,7 +27,6 @@ angular.module('storage.storageDivisionFormCtrl', [])
             $scope.divisionViewerGrids = divisionViewerGrids;
             $scope.divisionGroupViewerGrids = divisionGroupViewerGrids;
             $scope.divisionGroupEditorGrids = divisionGroupEditorGrids ;
-            $scope.ownerGrid = ownerGrid;
 
             $scope.oldPublicEditValue = $scope.division.isPublicEdit;
             $scope.oldPublicViewValue = $scope.division.isPublicView;
