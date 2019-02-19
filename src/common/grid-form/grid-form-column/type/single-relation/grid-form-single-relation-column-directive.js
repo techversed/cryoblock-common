@@ -6,6 +6,10 @@
     Boolean to allow for the creation of new objects.
 
     column -- bind to
+
+
+    // Make is to that the top element is highlighted -- can press arrow key to move it down...
+
 */
 
 angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', [])
@@ -29,11 +33,18 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
 
                         // $scope.catalog = {};
                         // $scope.sample = {'catalog': {}};
+
                         console.log("Running the init funciton in the grid form single relation column directive.");
 
                         $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
 
-                        $scope.selectedThing = {'name': 'asdf1'};
+                        $scope.highlightedThing = 'asdf3';
+
+                        // Is the index of the currently highlighted option -- only comes into play if the hightlighted thing does not appear in the list or has not been moved from its default setting
+                        $scope.highlightedNumber = 0;
+
+                        $scope.selectedThing = {};
+                        $scope.selectedThing.name = 'asdf1';
 
                     };
 
@@ -44,13 +55,15 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
                         $scope.selectedThing.name = item;
 
                         console.log("selectedThing", $scope.selectedThing);
-                    }
+                    };
 
                     $scope.testScript = function (){
-                        console.log("testing");
+                        console.log($scope.selectedThing);
                     };
 
                     $scope.stopClickPropagation = function (actionevent) {
+
+                        console.log($scope.selectedThing);
                         console.log("stopping the click from propagating");
                         console.log("event:", actionevent);
                         actionevent.stopPropagation();
@@ -58,7 +71,7 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
 
                     $scope.testing = function () {
                         console.log('testing');
-                    }
+                    };
 
                     init();
 
@@ -68,7 +81,7 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
     ]
 );
 
-    //Graveyard
+// Graveyard
 /*
 $scope.suggestionList =
                         [
@@ -81,4 +94,4 @@ $scope.suggestionList =
 
 
 
-*.
+*/

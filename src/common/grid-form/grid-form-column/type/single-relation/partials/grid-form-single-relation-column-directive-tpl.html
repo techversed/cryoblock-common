@@ -4,7 +4,7 @@
     It appears as though the dropdown is closing not due to a failure to stop the proagation of the click event but rather due to a failure to maintain focus on the indended element.
 -->
 
-<div class="btn-group grid-form-text-area-dropdown" uib-dropdown keyboard-nav ng-click="stopClickPropagation($event)">
+<div class="btn-group grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
 
     <input
         ng-model="form.search"
@@ -15,21 +15,40 @@
 
     </input>
 
-    <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="test-area" role="menu"  ng-click="stopClickPropagation($event)" >
+    <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-click="testScript()">
 
-        <li role="menuitem" ng-repeat="item in suggestionList" ng-click="selectItem(item)">
-            <a tabindex="0">
-                <input type="radio" ng-model="selectedThing.name" value="item" tabindex="-1">
-                    {{item}}
-                </input>
-            </a>
+        <li role="menuitem" ng-repeat="item in suggestionList" tabindex="0">
+            <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" /> <span class="grid-form-dropdown-input-spacer" / > {{item}}
         </li>
 
     </ul>
 
 </div>
 
+
+
+
+
+
+<!-- GRAVEYARD -->
+
 <!--
+
+            <a tabindex="0">
+                <input type="radio" ng-model="selectedThing.name" ng-value="item" tabindex="-1">
+                    {{item}}
+                </input>
+            </a>
+
+
+
+-->
+
+<!--
+removed tha labeled by annotation.
+aria-labelledby="test-area"
+
+
 class="grid-filter-item-detail"
                 <input type="radio" ng-model="selectedThing" name="itemOfThisType" value="item" ng-value="item" />
 -->
@@ -76,3 +95,15 @@ ng-click="testing()"
 
     <li class="divider" ng-if="filter.selectedItems.length"></li>
 -->
+
+<!--
+
+    ng-click="stopClickPropagation($event)"
+
+-->
+
+<!--
+
+        ng-click="stopClickPropagation($event)"
+
+    -->
