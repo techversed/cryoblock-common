@@ -48,6 +48,16 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
 
                     };
 
+
+                    $scope.pressedEnter = function (event, item){
+
+
+                        console.log(event);
+
+
+                        // $scope.selectItem(item);
+                    };
+
                     $scope.selectItem = function (item) {
 
                         console.log("item", item);
@@ -55,10 +65,6 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
                         $scope.selectedThing.name = item;
 
                         console.log("selectedThing", $scope.selectedThing);
-                    };
-
-                    $scope.testScript = function (){
-                        console.log($scope.selectedThing);
                     };
 
                     $scope.stopClickPropagation = function (actionevent) {
@@ -80,18 +86,3 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
         }
     ]
 );
-
-// Graveyard
-/*
-$scope.suggestionList =
-                        [
-                            {'name': 'asdf1'},
-                            {'name': 'asdf2'},
-                            {'name': 'asdf3'},
-                            {'name': 'asdf4'},
-                            {'name': 'asdf5'}
-                        ];
-
-
-
-*/

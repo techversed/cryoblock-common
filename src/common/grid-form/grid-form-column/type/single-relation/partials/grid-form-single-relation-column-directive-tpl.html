@@ -1,7 +1,11 @@
 <!--
+
     Under construction
 
     It appears as though the dropdown is closing not due to a failure to stop the proagation of the click event but rather due to a failure to maintain focus on the indended element.
+
+    Add an ng-keydown event to the input field so that when someone uses the up/down arrow that is reflected
+
 -->
 
 <div class="btn-group grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
@@ -15,22 +19,19 @@
 
     </input>
 
-    <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-click="testScript()">
-
-        <li role="menuitem" ng-repeat="item in suggestionList" tabindex="0">
-            <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" /> <span class="grid-form-dropdown-input-spacer" / > {{item}}
-        </li>
-
+    <ul uib-dropdown-menu class="dropdown-menu" role="menu">
+        <div ng-repeat="item in suggestionList" tabindex="0" ng-click="selectItem(item)" ng-keydown="selectItem(item)">
+            <li role="menuitem">
+                <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1"" /> <span class="grid-form-dropdown-input-spacer" / > {{item}}
+            </li>
+        </div>
     </ul>
 
 </div>
 
-
-
-
-
-
-<!-- GRAVEYARD -->
+<!--
+    GRAVEYARD
+-->
 
 <!--
 
@@ -106,4 +107,4 @@ ng-click="testing()"
 
         ng-click="stopClickPropagation($event)"
 
-    -->
+-->
