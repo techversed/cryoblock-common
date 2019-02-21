@@ -1,110 +1,23 @@
-<!--
-
-    Under construction
-
-    It appears as though the dropdown is closing not due to a failure to stop the proagation of the click event but rather due to a failure to maintain focus on the indended element.
-
-    Add an ng-keydown event to the input field so that when someone uses the up/down arrow that is reflected
-
--->
-
 <div class="btn-group grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
 
     <input
         ng-model="form.search"
         ng-change="search()"
         ng-model-options="{debounce:300}"
+        ng-keydown="keyPressHandler($event, item)"
         class="form-control"
     >
 
     </input>
 
+    <!-- add a text box for searching -->
+
     <ul uib-dropdown-menu class="dropdown-menu" role="menu">
-        <div ng-repeat="item in suggestionList" tabindex="0" ng-click="selectItem(item)" ng-keydown="selectItem(item)">
+        <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
             <li role="menuitem">
-                <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1"" /> <span class="grid-form-dropdown-input-spacer" / > {{item}}
+                <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1"" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
             </li>
         </div>
     </ul>
 
 </div>
-
-<!--
-    GRAVEYARD
--->
-
-<!--
-
-            <a tabindex="0">
-                <input type="radio" ng-model="selectedThing.name" ng-value="item" tabindex="-1">
-                    {{item}}
-                </input>
-            </a>
-
-
-
--->
-
-<!--
-removed tha labeled by annotation.
-aria-labelledby="test-area"
-
-
-class="grid-filter-item-detail"
-                <input type="radio" ng-model="selectedThing" name="itemOfThisType" value="item" ng-value="item" />
--->
-
-<!-- This is going to stay where it is -->
-
-<!--
-ng-click="testing()"
-
-    <span ng-bind="item"></span>
-
-            We have not yet added the add or remove item functionality.
-            ng-click="removeItem(item)"
-
-
-        <input type="checkbox" checked="checked" class="grid-filter-check"></input>
-
-        I removed the href property from the list entries ....
-
-
-<li role="menuitem" ng-repeat="item in suggestionList" >
-            <a class="grid-filter-item-detail">
-                <span ng-bind="item"></span>
-            </a>
-        </li>
--->
-
-<!--
-        display all that are not selected
--->
-
-<!--
-        <li role="menuitem" ng-repeat="item in suggestionList" >
-            <a class="grid-filter-item-detail">
-                <input type="radio" name="selectedItem" value="item" / >
-                <span ng-bind="item"></span>
-            </a>
-        </li>
--->
-
-<!--
-        If there is one selected pull it up to the top
-
-
-    <li class="divider" ng-if="filter.selectedItems.length"></li>
--->
-
-<!--
-
-    ng-click="stopClickPropagation($event)"
-
--->
-
-<!--
-
-        ng-click="stopClickPropagation($event)"
-
--->
