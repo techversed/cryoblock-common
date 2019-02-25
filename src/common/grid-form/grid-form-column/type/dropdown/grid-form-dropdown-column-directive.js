@@ -62,13 +62,29 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         // If not specified assume that you are selecting a single one
                         $scope.selectMultiple = $scope.selectMutiple ? $scope.selectMultiple : true; // In the final version this will be passed in with scope.
 
+
+                        // Properties if selecting single
                         $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
-                        $scope.multiSelected = initArray(false, $scope.suggestionList.length);
-
                         $scope.highlightedElement = $scope.suggestionList[0];
-
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
+
+
+                        // Properties if selecting many
+                        $scope.multiSelectedBool = true;
+                        $scope.multiSelected = {};
+
+                        for(var i = 0; i<$scope.suggestionList; i++){
+                            // $scope.multiSelected [item] = true;
+                            $scope.multiSelected[$scope.suggestionList[i]] = true;
+                        }
+
+                        // angular.forEach($scope.suggestionList, function (item)){
+
+                        // }
+
+                        // $scope.multiSelected = initArray(false, $scope.suggestionList.length);
+
 
                     };
 
