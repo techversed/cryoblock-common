@@ -1,10 +1,30 @@
-<!--
-    Under contruction
+<div class="btn-group grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
 
--->
+    <input
+        ng-model="form.search"
+        ng-change="search()"
+        ng-model-options="{debounce:300}"
+        ng-keydown="keyPressHandler($event, item)"
+        class="form-control"
+    >
 
-<div class="grid-form-input-field">
+    </input>
 
-    <input class="form-control"></input>
+    <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-if="!selectMultiple">
+        <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
+            <li role="menuitem">
+                <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1"" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
+            </li>
+        </div>
+    </ul>
+
+    <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-if="selectMultiple">
+        <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
+            <li role="menuitem">
+                <span class="grid-form-dropdown-input-spacer" / > <input type="checkbox" class="grid-form-menu-item-input"  tabindex="-1"" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
+            </li>
+        </div>
+    </ul>
 
 </div>
+<!-- add a text box for searching -->
