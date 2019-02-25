@@ -1,3 +1,14 @@
+<!--
+<input ng-paste="testing($event)" ng-init='count =0'> </input>
+{{count}}
+-->
+
+<!--
+    <span ng-paste="testing($event)"> testing </span>
+-->
+
+
+
 <div class="btn-group grid-form-input-field grid-form-text-area-dropdown wFullWidth" uib-dropdown keyboard-nav >
 
 <!--
@@ -17,15 +28,22 @@
     </input>
 -->
 
-    <span class='dropdownColumnNoText form-control' ng-keydown="keyPressHandler($event,item)" tabindex="0" ng-focus="shiftFocus()">
+    <span class='dropdownColumnNoText form-control' ng-keydown="keyPressHandler($event,item)" ng-paste="testing($event)" tabindex="0" ng-focus="shiftFocus()">
 
-        <span ng-if="!(selectedValues.length > 0)" class="wFullWidth">None selected</span>
+        <span ng-paste="console.log('ng-paste')" ng-if="!(selectedValues.length > 0)" class="wFullWidth">None selected</span>
 
         <span ng-repeat="thing in selectedValues">
             <span class="label label-success">{{thing}}</span> <span  ng-if="!$last">, </span>
         </span>
 
     </span>
+
+    <!--
+    <input ng-paste="console.log('testing')">
+    </input>
+    -->
+
+
 
 
     <ul uib-dropdown-menu class="dropdown-menu" role="menu" >

@@ -181,6 +181,13 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                     };
 
+                    $scope.testing = function (event) {
+                        console.log(event);
+                        // console.log(event.target.value);
+                        // console.log(event.nextSibling.value);
+                        console.log(event.originalEvent.clipboardData.getData('text'));
+
+                    }
 
                     init();
 
