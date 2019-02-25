@@ -1,4 +1,4 @@
-<div class="btn-group grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
+<div class="btn-group grid-form-input-field grid-form-text-area-dropdown wFullWidth" uib-dropdown keyboard-nav >
 
 <!--
     For the dropdown I think that we are going do do away with the textbox like this...
@@ -17,24 +17,24 @@
     </input>
 -->
 
+    <span class='dropdownColumnNoText form-control' ng-keydown="keyPressHandler($event,item)" tabindex="0" ng-focus="shiftFocus()">
 
-    <span class='first dropdownColumnNoText form-control' ng-keydown="keyPressHandler($event,item)" tabindex="0" ng-focus="shiftFocus()">
-
-        <span ng-if="!(selectedValues.length > 0)">None selected</span>
-
-        <!-- <span>{{selectionListString}}</span> -->
+        <span ng-if="!(selectedValues.length > 0)" class="wFullWidth">None selected</span>
 
         <span ng-repeat="thing in selectedValues">
-            {{thing}}<span ng-if="!$last">, </span>
+            <span class="label label-success">{{thing}}</span> <span  ng-if="!$last">, </span>
         </span>
-
 
     </span>
 
+
     <ul uib-dropdown-menu class="dropdown-menu" role="menu" >
 
+    <!-- I don't know if we are going to need a search bar here afterall -- the dropdowns may be short enough that it won't make sense. -->
+    <!--
         <input class='second' type="text" id="testing" tabindex="-1">
         </input>
+    -->
 
         <!-- select single -->
         <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)" ng-if="!selectMultiple">
@@ -52,4 +52,10 @@
 
     </ul>
 
+
 </div>
+
+<!--
+form-control
+
+-->

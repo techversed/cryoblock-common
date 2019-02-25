@@ -37,7 +37,6 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     var getIndex = function (needle, haystack) {
 
                         for (i=0; i<haystack.length; i++){
-
                             if(haystack[i]==needle) return i;
                         }
 
@@ -77,7 +76,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         $scope.multiSelected = {};
                         $scope.things = ["asdf", "other", "yet another", "and another", "and one more", "don't forget this one"];
                         $scope.selectedValues = [];
-                        $scope.selectionListString = '';
+                        // $scope.selectionListString = '';
 
                         for(var i = 0; i < $scope.suggestionList.length; i++){
                             $scope.multiSelected[$scope.suggestionList[i]] = false;
@@ -86,6 +85,9 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     };
 
                     $scope.keyPressHandler = function (event, item){
+
+
+                        console.log(event);
 
 
                         if (event.key == "Enter") {
@@ -111,6 +113,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                             // event.stopPropagation();
                             // event.detail.keyboardEvent.preventDefault()
+
                             event.preventDefault();
                             console.log("should have stopped propagation");
 
@@ -120,15 +123,12 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                             console.log("pressed Arrow up");
 
-                            // var index = $scope.suggestionList.find( findFunction(element, index, $scope.highlightedElement) );
                             var index = getIndex($scope.highlightedElement, $scope.suggestionList);
 
                             if (index - 1 >= 0) {
                                 $scope.highlightedElement = $scope.suggestionList[index-1];
                             }
-                            // Should move onto the previous item in the list if there is one.
 
-                            // event.stopPropagation();
                             event.preventDefault();
 
                             console.log("should have stopped propagation");
@@ -154,14 +154,14 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                                 }
                             }
                             $scope.selectedValues = tmpList;
-                            $scope.selectionListString = $scope.selectedValues.join(", ");
+                            // $scope.selectionListString = $scope.selectedValues.join(", ");
 
                         }
 
                         else {
                             $scope.selectedThing.name = item;
                             $scope.selectedValues = [item];
-                            $scope.selectionListString = item;
+                            // $scope.selectionListString = item;
                         }
 
                     };
@@ -176,7 +176,8 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         console.log("This should now shift the focus to the search bar located within this directive");
 
-                        document.getElementById("testing").focus();
+                        // document.getElementById("testing").focus();
+                        // I don't know whether or not we are even going to end up doing the whole searchbar thing for this afterall -- still to be determined...
 
                     };
 
