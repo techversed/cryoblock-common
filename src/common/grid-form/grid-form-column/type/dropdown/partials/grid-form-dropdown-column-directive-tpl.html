@@ -24,10 +24,7 @@
     <!-- If selecting multiple -->
     <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-if="selectMultiple">
         <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
-            <li role="menuitem">
-<!--
-                <span class="grid-form-dropdown-input-spacer" / > <input type="checkbox" ng-model="multiSelected[item]" class="grid-form-menu-item-input"  tabindex="-1"" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
--->
+            <li role="menuitem" tabindex="-1">
                 <span class="grid-form-dropdown-input-spacer" / > <input type="checkbox" ng-model="multiSelected[item]" class="grid-form-menu-item-input"  tabindex="-1"" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
             </li>
         </div>

@@ -128,6 +128,9 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         if ($scope.selectMultiple) {
 
+                            // console.log("testing");
+                            $scope.multiSelected[item] = $scope.multiSelected[item] ? false : true;
+
                         }
                         else {
                             $scope.selectedThing.name = item;
@@ -144,6 +147,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         // console.log("stopping the click from propagating");
                         // console.log("event:", actionevent);
                         actionevent.stopPropagation();
+
                     };
 
                     $scope.testing = function () {
