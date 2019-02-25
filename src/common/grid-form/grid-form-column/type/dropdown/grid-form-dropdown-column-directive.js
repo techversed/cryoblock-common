@@ -62,55 +62,43 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         // If not specified assume that you are selecting a single one
                         $scope.selectMultiple = $scope.selectMutiple ? $scope.selectMultiple : true; // In the final version this will be passed in with scope.
 
-
                         // Properties if selecting single
                         $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
                         $scope.highlightedElement = $scope.suggestionList[0];
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
 
-
                         // Properties if selecting many
                         $scope.multiSelectedBool = true;
                         $scope.multiSelected = {};
-
-                        for(var i = 0; i<$scope.suggestionList; i++){
-                            // $scope.multiSelected [item] = true;
+                        for(var i = 0; i < $scope.suggestionList.length; i++){
                             $scope.multiSelected[$scope.suggestionList[i]] = true;
                         }
-
-                        // angular.forEach($scope.suggestionList, function (item)){
-
-                        // }
-
-                        // $scope.multiSelected = initArray(false, $scope.suggestionList.length);
-
 
                     };
 
                     $scope.keyPressHandler = function (event, item){
 
-                        console.log("key:", event.key);
 
                         if (event.key == "Enter") {
-
-                            // This needs to be rewritten. -- need to get item from some location other than the function parameters.
-
                             console.log(event);
+
                             $scope.selectItem($scope.highlightedElement);
+
                         }
 
                         else if (event.key == "ArrowDown") {
 
                             // Should move onto the next item in the list if there is one
                             console.log("pressed Arrow down");
-
                             // var index = $scope.suggestionList.find( findFunction(element, index, $scope.highlightedElement) );
+
                             var index = getIndex($scope.highlightedElement, $scope.suggestionList);
 
                             if (index+1 < $scope.suggestionList.length) {
                                 $scope.highlightedElement = $scope.suggestionList[index+1];
                             }
+
                         }
 
                         else if (event.key == "ArrowUp") {
@@ -138,11 +126,15 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                     $scope.selectItem = function (item) {
 
-                        $scope.selectedThing.name = item;
+                        if ($scope.selectMultiple) {
+
+                        }
+                        else {
+                            $scope.selectedThing.name = item;
+                        }
 
                         // console.log("item", item);
                         // console.log("Selecting a new item");
-
                         // console.log("selectedThing", $scope.selectedThing);
                     };
 
