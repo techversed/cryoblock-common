@@ -9,7 +9,6 @@
 
     minselectable
     maxselectable
-
     selectMultiple -- true or false. checkbox or radio buttons
 */
 
@@ -62,6 +61,8 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         // Testing stuff
                         // $scope.form.search = "asdf";
 
+                        $scope.textAndStuff = "Here is some text";
+
 
                         // If not specified assume that you are selecting a single one
                         $scope.selectMultiple = $scope.selectMutiple ? $scope.selectMultiple : true; // In the final version this will be passed in with scope.
@@ -74,6 +75,9 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         // Properties if selecting many
                         $scope.multiSelected = {};
+                        $scope.things = ["asdf", "other", "yet another", "and another", "and one more", "don't forget this one"];
+                        $scope.selectedValues = [];
+                        $scope.selectionListString = '';
 
                         for(var i = 0; i < $scope.suggestionList.length; i++){
                             $scope.multiSelected[$scope.suggestionList[i]] = false;
@@ -135,15 +139,29 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             console.log("pressed");
 
                         }
+
                     };
 
                     $scope.selectItem = function (item) {
 
                         if ($scope.selectMultiple) {
                             $scope.multiSelected[item] = $scope.multiSelected[item] ? false : true;
+
+                            var tmpList = [];
+                            for(var i = 0; i<$scope.suggestionList.length; i++) {
+                                if($scope.multiSelected[$scope.suggestionList[i]]){
+                                    tmpList.push($scope.suggestionList[i]);
+                                }
+                            }
+                            $scope.selectedValues = tmpList;
+                            $scope.selectionListString = $scope.selectedValues.join(", ");
+
                         }
+
                         else {
                             $scope.selectedThing.name = item;
+                            $scope.selectedValues = [item];
+                            $scope.selectionListString = item;
                         }
 
                     };
@@ -153,6 +171,15 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         actionevent.stopPropagation();
 
                     };
+
+                    $scope.shiftFocus = function () {
+
+                        console.log("This should now shift the focus to the search bar located within this directive");
+
+                        document.getElementById("testing").focus();
+
+                    };
+
 
                     init();
 

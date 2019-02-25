@@ -1,6 +1,10 @@
 <div class="btn-group grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
-<!--
 
+<!--
+    For the dropdown I think that we are going do do away with the textbox like this...
+-->
+
+<!--
     <input
         ng-model="form.search"
         ng-change="search()"
@@ -10,14 +14,26 @@
         class="form-control"
     >
 
--->
-    <span ng-keydown="keyPressHandler($event,item)" tabindex="1">asdfsadf</span>
-
     </input>
+-->
+
+
+    <span class='first dropdownColumnNoText form-control' ng-keydown="keyPressHandler($event,item)" tabindex="0" ng-focus="shiftFocus()">
+
+        <span ng-if="!(selectedValues.length > 0)">None selected</span>
+
+        <!-- <span>{{selectionListString}}</span> -->
+
+        <span ng-repeat="thing in selectedValues">
+            {{thing}}<span ng-if="!$last">, </span>
+        </span>
+
+
+    </span>
 
     <ul uib-dropdown-menu class="dropdown-menu" role="menu" >
 
-        <input type="text">
+        <input class='second' type="text" id="testing" tabindex="-1">
         </input>
 
         <!-- select single -->
@@ -37,4 +53,3 @@
     </ul>
 
 </div>
-<!-- add a text box for searching -->
