@@ -59,6 +59,10 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                     var init = function () {
 
+                        // Testing stuff
+                        // $scope.form.search = "asdf";
+
+
                         // If not specified assume that you are selecting a single one
                         $scope.selectMultiple = $scope.selectMutiple ? $scope.selectMultiple : true; // In the final version this will be passed in with scope.
 
@@ -69,10 +73,10 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         $scope.selectedThing.name = '';
 
                         // Properties if selecting many
-                        $scope.multiSelectedBool = true;
                         $scope.multiSelected = {};
+
                         for(var i = 0; i < $scope.suggestionList.length; i++){
-                            $scope.multiSelected[$scope.suggestionList[i]] = true;
+                            $scope.multiSelected[$scope.suggestionList[i]] = false;
                         }
 
                     };
@@ -89,6 +93,8 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         else if (event.key == "ArrowDown") {
 
+                            console.log("event", event);
+
                             // Should move onto the next item in the list if there is one
                             console.log("pressed Arrow down");
                             // var index = $scope.suggestionList.find( findFunction(element, index, $scope.highlightedElement) );
@@ -98,6 +104,11 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             if (index+1 < $scope.suggestionList.length) {
                                 $scope.highlightedElement = $scope.suggestionList[index+1];
                             }
+
+                            // event.stopPropagation();
+                            // event.detail.keyboardEvent.preventDefault()
+                            event.preventDefault();
+                            console.log("should have stopped propagation");
 
                         }
 
@@ -113,8 +124,10 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             }
                             // Should move onto the previous item in the list if there is one.
 
-                            console.log($scope.highlightedElement);
+                            // event.stopPropagation();
+                            event.preventDefault();
 
+                            console.log("should have stopped propagation");
                         }
 
                         else if (event.key == "Backspace") {
@@ -127,31 +140,18 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     $scope.selectItem = function (item) {
 
                         if ($scope.selectMultiple) {
-
-                            // console.log("testing");
                             $scope.multiSelected[item] = $scope.multiSelected[item] ? false : true;
-
                         }
                         else {
                             $scope.selectedThing.name = item;
                         }
 
-                        // console.log("item", item);
-                        // console.log("Selecting a new item");
-                        // console.log("selectedThing", $scope.selectedThing);
                     };
 
                     $scope.stopClickPropagation = function (actionevent) {
 
-                        // console.log($scope.selectedThing);
-                        // console.log("stopping the click from propagating");
-                        // console.log("event:", actionevent);
                         actionevent.stopPropagation();
 
-                    };
-
-                    $scope.testing = function () {
-                        // console.log('testing');
                     };
 
                     init();

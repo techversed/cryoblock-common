@@ -6,7 +6,8 @@ Under construction
     Allow the user to select many  of a certain type of object.
     We will not support the creation of new objects at this stage of things --- I don't know exactly what that would look like so I am hesitatnt to do anything related to that.
 
-
+    minSelectable
+    maxSelectable
 
 
 */

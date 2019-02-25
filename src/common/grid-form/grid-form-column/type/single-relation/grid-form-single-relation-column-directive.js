@@ -10,6 +10,8 @@
 
     // Make is to that the top element is highlighted -- can press arrow key to move it down...
 
+    none-selectable
+
 */
 
 angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', [])
