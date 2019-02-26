@@ -1,4 +1,5 @@
 /*
+
     Gridform Dropdown Column
     Written by Taylor Jones
 
@@ -10,6 +11,7 @@
     minselectable
     maxselectable
     selectMultiple -- true or false. checkbox or radio buttons
+
 */
 
 angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
@@ -82,13 +84,13 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             $scope.multiSelected[$scope.suggestionList[i]] = false;
                         }
 
+                        $scope.focusGained = false; // True if the element has gained focus since the last time the dropdown display was cancelled due to a copy or paste action
+
                     };
 
                     $scope.keyPressHandler = function (event, item){
 
-
                         console.log(event);
-
 
                         if (event.key == "Enter") {
                             console.log(event);
@@ -96,7 +98,6 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             $scope.selectItem($scope.highlightedElement);
 
                         }
-
                         else if (event.key == "ArrowDown") {
 
                             console.log("event", event);
@@ -118,7 +119,6 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             console.log("should have stopped propagation");
 
                         }
-
                         else if (event.key == "ArrowUp") {
 
                             console.log("pressed Arrow up");
@@ -133,10 +133,33 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                             console.log("should have stopped propagation");
                         }
-
                         else if (event.key == "Backspace") {
 
                             console.log("pressed");
+
+                        }
+                        else if (event.key == 'a' && event.metaKey == true){
+
+
+                            console.log(event);
+
+                            console.log("selection start", event.currentTarget.selectionStart);
+                            console.log("selection End", event.currentTarget.selectionEnd);
+
+
+                            var sel = window.getSelection();
+                            var el = event.currentTarget;
+                            range = document.createRange();
+                            range.selectNodeContents(el);
+                            sel.removeAllRanges();
+                            sel.addRange(range);
+
+
+                            // event.currentTarget.selectionStart =0;
+                            // event.currentTarget.selectionEnd=10;
+
+                            event.preventDefault();
+                            // If the user hits ctrl / cmd + a then we want to keep the selection within the currently selected cell.
 
                         }
 
@@ -176,18 +199,39 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         console.log("This should now shift the focus to the search bar located within this directive");
 
+                        $scope.focusGained = true;
+
                         // document.getElementById("testing").focus();
                         // I don't know whether or not we are even going to end up doing the whole searchbar thing for this afterall -- still to be determined...
 
                     };
 
-                    $scope.testing = function (event) {
+                    $scope.catchPaste = function (event) {
+
+
                         console.log(event);
-                        // console.log(event.target.value);
-                        // console.log(event.nextSibling.value);
                         console.log(event.originalEvent.clipboardData.getData('text'));
 
-                    }
+                        var tmp = event.originalEvent.clipboardData.getData('text').trim().split(', ');
+
+                        console.log("tmp", tmp);
+
+                        $scope.focusGained = false;
+
+                    };
+
+                    $scope.catchCopy = function (event) {
+                        console.log("caught the copy event");
+
+                        $scope.focusGained = false; // If they copy, close the
+                    };
+
+                    $scope.catchCut = function (event) {
+                        console.log("caught the copy event");
+
+                        $scope.focusGained = false; // If they copy, close the
+                    };
+
 
                     init();
 
