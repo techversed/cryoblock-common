@@ -1,6 +1,6 @@
 <div>
-    <h3>{{division.path}} - {{division.description}}</h3>
-    <table id="division-table" storage-box division="division" style="border-spacing: 5px;">
+    <h5>{{division.path}} - {{division.description}}</h5>
+    <table id="division-table" storage-box division="division" style="border-spacing: 5px; table-layout:fixed; overflow:hidden;">
         <thead>
             <tr>
                 <td></td>
@@ -23,6 +23,7 @@
                 ng-class-odd="'odd'"
                 ng-class-even="'even'"
                 ng-repeat="row in rows"
+                style="height: 10%"
             >
                 <td
                     class="row-head"
@@ -44,15 +45,9 @@
                     row="row"
                     column="column"
                     ng-class="{selected: sdm.selectedCells[row][column], 'has-sample': sdm.sampleMap[row][column]}"
-                    style="border:1px solid gray; height: 60px; width: 60px; text-align: center; font-size: 0.8em;"
+                    style="border:1px solid gray; width: 100px; height: 60px; text-align: center; font-size: 0.5em; overflow: hidden; text-overflow: ellipsis; word-wrap: break-word"
                 >
-                    <div class="move"><i class="fa fa-arrows"/></div>
-                    <div
-                        class="cell"
-                        ng-class="{'has-sample': sdm.sampleMap[row][column]}"
-                    >
-                        <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name}}</span>
-                    </div>
+                    <span class="sample-name" ng-if="sdm.sampleMap[row][column]" style="word-wrap: break-word; text-overflow:ellipsis">{{(sdm.sampleMap[row][column].catalog.name + '--' + sdm.sampleMap[row][column].description).substring(0,100)}} </span>
                 </td>
             </tr>
         </tbody>
