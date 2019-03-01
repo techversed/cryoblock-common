@@ -189,7 +189,7 @@
                                 ng-class="{'has-sample': sdm.sampleMap[row][column]}"
                             >
 <!--                                 <span ng-if="sdm.sampleMap[row][column].lot">{{sdm.sampleMap[row][column].lot}}</span>
- -->                                <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name}}</span>
+ -->                                <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name}} -- {{sdm.sampleMap[row][column].description}}</span>
                             </div>
                         </td>
                     </tr>

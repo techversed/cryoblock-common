@@ -174,9 +174,6 @@
                 background: @oddLight;
             }
         }
-
-
-
     }
     .cell {
         position: absolute;
@@ -193,22 +190,22 @@
             background-image: url("images/default-sample-type.png");
             background-repeat: no-repeat;
             background-color: white;
-            background-size: 30%;
-            background-position: 50% 11%;
+            background-size: 20%;
+            background-position: 50% 5%;
 
             .sample-name {
                 font-weight: bold;
-                margin-top: 47%;
+                margin-top: 30%;
                 top: 0;
                 left: 0;
                 position: absolute;
                 width: 100%;
-                padding: 0px 10px;
+                padding: 0px 7px;
                 word-wrap: break-word;
                 overflow: hidden;
                 line-height: 1.2;
                 display: -webkit-box;
-                -webkit-line-clamp: 3;
+                -webkit-line-clamp: 5;
                 -webkit-box-orient: vertical;
             }
         }
@@ -443,11 +440,11 @@
     .cell {
         border: 1px solid #ABABAB;
         border-radius: 100%;
-        width: 80%;
-        height: 80%;
-        margin-top: 10%;
+        width: 90%;
+        height: 90%;
+        margin-top: 5%;
         background-color: white;
-        margin-left: 10%;
+        margin-left: 5%;
         position: relative;
         background-repeat: no-repeat;
         background-color: white;
@@ -480,6 +477,9 @@
 
 sample-type-icon {
     margin-right: 5px;
+    &.xxs {
+        height: 10px;
+    }
     &.xs {
       img {
         height: 20px;
@@ -538,4 +538,9 @@ sample-type-icon {
         }
     }
 
+}
+
+.box-print-cell:first-child:nth-last-child(11),
+.box-print-cell:first-child:nth-last-child(11){
+    max-width:100px
 }

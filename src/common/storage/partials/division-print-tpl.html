@@ -1,6 +1,6 @@
 <div>
-    <h5>{{division.path}} - {{division.description}}</h5>
-    <table id="division-table" storage-box division="division" style="border-spacing: 5px; table-layout:fixed; overflow:hidden;">
+    <b>Division {{division.id}}: {{division.path}} - {{division.description}}</b>
+    <table id="division-table" storage-box division="division" style="border-spacing: 2px; table-layout:fixed; overflow:hidden; max-width:100%">
         <thead>
             <tr>
                 <td></td>
@@ -20,6 +20,7 @@
         </thead>
         <tbody>
             <tr
+                class="box-print-cell"
                 ng-class-odd="'odd'"
                 ng-class-even="'even'"
                 ng-repeat="row in rows"
@@ -32,6 +33,7 @@
                     storage-box-heading
                     row="row"
                 >
+
                     <span class="column-heading">
                         {{row}}
                     </span>
@@ -45,9 +47,9 @@
                     row="row"
                     column="column"
                     ng-class="{selected: sdm.selectedCells[row][column], 'has-sample': sdm.sampleMap[row][column]}"
-                    style="border:1px solid gray; width: 100px; height: 60px; text-align: center; font-size: 0.5em; overflow: hidden; text-overflow: ellipsis; word-wrap: break-word"
+                    style="border:1px solid gray; width: 100px; height: 60px;  max-width: 100px; text-align: center; font-size: 0.5em; overflow: hidden; text-overflow: ellipsis; word-wrap: break-word"
                 >
-                    <span class="sample-name" ng-if="sdm.sampleMap[row][column]" style="word-wrap: break-word; text-overflow:ellipsis">{{(sdm.sampleMap[row][column].catalog.name + '--' + sdm.sampleMap[row][column].description).substring(0,100)}} </span>
+                    <div class="sample-name" ng-if="sdm.sampleMap[row][column]" style="word-wrap: break-word; text-overflow:ellipsis">{{(sdm.sampleMap[row][column].catalog.name + ' -- ' + sdm.sampleMap[row][column].description).substring(0,130)}} </div>
                 </td>
             </tr>
         </tbody>
