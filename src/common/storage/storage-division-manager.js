@@ -117,6 +117,8 @@ angular.module('storage.storageDivisionManager', [])
                             map[divisionRow] = {};
                         }
 
+                        sample.getTitle = "Catalog: "+sample.catalog.stringLabel+"\nDescription: "+sample.description+"\nConcentration: "+ (sample.concentration && sample.concentrationUnits ? sample.concentration+sample.concentrationUnits : '')+"\nVolume: "+(sample.volume && sample.volumeUnits ? sample.volume+sample.volumeUnits : '');
+
                         map[divisionRow][divisionColumn] = sample;
 
                     });
@@ -332,7 +334,7 @@ angular.module('storage.storageDivisionManager', [])
 
                 openSampleStorageLinkModal: function () {
 
-                    if (this.selectedCount != 1 || this.selectedEmptyCount != 1) {
+                    if (this.hasDimension && (this.selectedCount != 1 || this.selectedEmptyCount != 1)) {
                         return;
                     }
 

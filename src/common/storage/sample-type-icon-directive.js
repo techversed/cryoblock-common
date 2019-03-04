@@ -1,8 +1,8 @@
 angular.module('storage.sampleTypeIconDirective', [])
 
-    .directive('sampleTypeIcon', ['sessionFactory', 'API', '$rootScope', 'sampleTypeIconMapping',
+    .directive('sampleTypeIcon', ['sampleTypeIconMapping',
 
-        function (sessionFactory, API, $rootScope, sampleTypeIconMapping) {
+        function (sampleTypeIconMapping) {
             return {
                 restrict: 'E',
                 templateUrl: 'common/storage/partials/sample-type-icon-tpl.html',

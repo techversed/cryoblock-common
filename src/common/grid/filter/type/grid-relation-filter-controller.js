@@ -1,8 +1,8 @@
 angular.module('grid.gridRelationFilterCtrl', [])
 
-    .controller('gridRelationFilterCtrl', ['$scope', 'API', '$cbResource', '$location', 'gridManager',
+    .controller('gridRelationFilterCtrl', ['$scope', 'API', '$cbResource', '$location', 'gridManager', '$gridFilterPromiseSharer',
 
-        function ($scope, API, $cbResource, $location, gridManager) {
+        function ($scope, API, $cbResource, $location, gridManager, $gridFilterPromiseSharer) {
 
             var init = function (first) {
 
@@ -13,7 +13,7 @@ angular.module('grid.gridRelationFilterCtrl', [])
                    params.cSearch =  $scope.form.search;
                 }
 
-                params.cPerPage = 10;
+                params.cPerPage = 25;
 
                 var paramKey = $scope.filter.filterProperty + '[IN]';
 
@@ -65,11 +65,13 @@ angular.module('grid.gridRelationFilterCtrl', [])
 
                     }
 
-                    $cbResource.get(url, params).then(function (response) {
-
+                    $gridFilterPromiseSharer.addPromise(url,params).then(function (response) {
                         $scope.filter.setResults(response.data);
-
                     });
+
+                    // $cbResource.get(url, params).then(function (response) {
+                    //     $scope.filter.setResults(response.data);
+                    // });
 
                 }
 

@@ -37,7 +37,7 @@
                                 ng-model="grid.search"
                                 typeahead-wait-ms="1000"
                                 ng-change="refresh()"
-                                ng-model-options="{debounce: 300}"
+                                ng-model-options="{debounce: 600}"
                                 onkeydown="if (event.keyCode == 13) { return false; }"
                             />
                             <span class="input-group-btn" ng-click="refresh()">
@@ -80,7 +80,8 @@
                 </thead>
                 <tbody>
                     <tr ng-if="grid.results.length === 0">
-                        <td colspan="100" ng-bind="grid.noResultString"></td>
+                        <td ng-if="!grid.loading" colspan="100" ng-bind="grid.noResultString"></td>
+                        <td ng-if="grid.loading" colspan="100"> <i class="text-primary fa fa-2x fa-circle-o-notch fa-spin"/> LOADING </td>
                     </tr>
                     <tr ng-repeat="result in grid.results" ng-class="{removing: isRemoving(result)}">
 

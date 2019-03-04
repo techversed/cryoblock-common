@@ -52,6 +52,9 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 security: {
                                     roles: ['ROLE_USER']
                                 },
+                                params: {
+                                    selectedSampleId: null,
+                                },
                                 views: {
                                     'division@storage.division': {
 
@@ -69,12 +72,6 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                                     }
 
                                                 );
-
-                                            },
-
-                                            childrenResponse: function (storageFactory, $stateParams) {
-
-                                                return storageFactory.getDivisionChildren2($stateParams.id);
 
                                             },
 

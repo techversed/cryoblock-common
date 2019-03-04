@@ -8,8 +8,9 @@ angular.module('grid.gridBuilder', [])
 
                 //Build the grid for an index page.
                 //possible overrides:
-                    //url -- specify a url that is used instead of the one included in the grid factory - Can be useful when you want to use the same grid factory but you want to use an address to a relation's controller instead of the controller for an entity.
-                    //filterGroups -- lets you specify filters to add directly to the grid.
+                    // url -- specify a url that is used instead of the one included in the grid factory - Can be useful when you want to use the same grid factory but you want to use an address to a relation's controller instead of the controller for an entity.
+                    // filterGroups -- lets you specify filters to add directly to the grid.
+                    // bindToState -- can be used to turn off the bindToState property if not provided bindToState will default to true.
                 buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
@@ -33,15 +34,25 @@ angular.module('grid.gridBuilder', [])
                     var defaultParams = { cOrderBy: grid.sortingColumn.name, cOrderByDirection: grid.sortDirection};
                     var params = gridManager.ignoreUrlParams ? defaultParams : angular.extend(defaultParams, $location.search());
 
-                    return $cbResource.get(url, params).then(function (response) {
+                    var that = this
 
-                        return grid
+                    $cbResource.get(url, params).then(function (response) {
+
+                        grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
+                        //that.addFiltersToGrid
+                        that.addFiltersToGrid(grid, overrides['filterGroups']);
 
-                    }).then( this.addFiltersToGrid(grid, overrides['filterGroups']));
+                    });//.then( );
+
+
+                    // This is a good start...
+                    // These grid changes should start allowing grid requets to be less sequential and more all at once.
+
+                    return grid;
 
                 },
 
@@ -136,6 +147,12 @@ angular.module('grid.gridBuilder', [])
                                         filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
                                         break;
 
+                                    case "boolean":
+                                        filter.form = {
+                                        };
+                                        filter.setModel(filterOverride[filterObjectKeys[filterObjIndex]]);
+                                        break;
+
                                     //We only need relation and enum
                                         //can also implement integer, string, boolean, deleted and date at some point
 
@@ -152,7 +169,7 @@ angular.module('grid.gridBuilder', [])
                 //Possible overrides
                     //url -- if you would like to use an alternate url post it here.
                     //filterGroups -- List the filters that will be applied by default.
-
+                    //filterParams -- object {key: value} will be joined with default params to create the initial search string...
                 buildSelectSingle: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
@@ -173,10 +190,14 @@ angular.module('grid.gridBuilder', [])
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
-                    grid.allowSelect()
+                    grid.allowSelect();
+                    grid = this.addFiltersToGrid(grid,overrides['filterGroups']);
+                    grid.setPerPage(3);
 
-                    var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+                    // var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
+                    var defaultParams = grid.getRequestParams();
 
+                    // this.addFiltersToGrid(grid, overrides['filterGroups']);
                     return $cbResource.get(url, defaultParams).then(function (response) {
 
                         grid.perPageOptions = [3, 10, 25];
@@ -186,12 +207,11 @@ angular.module('grid.gridBuilder', [])
                             .setPaginationFromResponse(response)
                             .disableHyperlinks()
                             .disableHover()
-                            .setPerPage(3)
                             .disableToggleColumns()
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
 
-                    }).then(this.addFiltersToGrid(grid, overrides['filterGroups']));
+                    });//.then(this.addFiltersToGrid(grid, overrides['filterGroups']));
 
                 },
 
