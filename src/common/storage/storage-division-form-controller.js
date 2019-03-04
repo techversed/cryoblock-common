@@ -28,6 +28,9 @@ angular.module('storage.storageDivisionFormCtrl', [])
             $scope.divisionGroupViewerGrids = divisionGroupViewerGrids;
             $scope.divisionGroupEditorGrids = divisionGroupEditorGrids ;
 
+            $scope.propagationBehaviors = ['Default - Only change the selected division', 'Cascade - Add the changes to the children', 'Trample - overwrite child permissions with current changes'];
+            $scope.division.propagationBehavior = $scope.propagationBehaviors[0];
+
             $scope.oldPublicEditValue = $scope.division.isPublicEdit;
             $scope.oldPublicViewValue = $scope.division.isPublicView;
             $scope.oldAllStorage = $scope.division.allowAllStorageContainers;

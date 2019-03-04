@@ -1,4 +1,4 @@
-<form name="divisionForm" method="get" class="form-horizontal" ng-submit="submit(divisionForm.$valid)" novalidate>
+        <form name="divisionForm" method="get" class="form-horizontal" ng-submit="submit(divisionForm.$valid)" novalidate>
 
     <div id="sample-form-container">
         <div class="modal-header">
@@ -59,6 +59,14 @@
             </div>
 
             <div class="hr-line-dashed"></div>
+
+            <cb-form-group label="Propagation Behavior " ng-if="division.id" name="propagationBehavior" tooltip="Cascade will perform any additions or deletions on the children of the affected division. Trample will set the properties of the chilren to those of the parent">
+
+                <div class="col-sm-10">
+                    <cb-dropdown name="propagationBehavior" ng-model="division.propagationBehavior" items="propagationBehaviors"> </cb-dropdown>
+                </div>
+
+            </cb-form-group>
 
             <cb-form-group label="Allow All Sample Types" name="allowAllSampleTypes" tooltip="Selecting yes will put no restrictions on what sample types this division allows.">
 
@@ -150,14 +158,6 @@
                         </div>
                     </cb-form-group>
                 </div>
-
-                <cb-form-group label="Propagation Behavior " ng-if="division.id" name="cascade" tooltip="Cascade will perform any additions or deletions on the children of the affected division. Trample will set the properties of the chilren to those of the parent">
-
-                    <div class="col-sm-10">
-                        <cb-boolean cb-boolean-primary ng-model="division.cascade" true-text="Cascade" false-text="Trample"></cb-boolean>
-                    </div>
-
-                </cb-form-group>
 
             </div>
 
