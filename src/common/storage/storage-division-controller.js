@@ -1,9 +1,14 @@
 angular.module('storage.storageDivisionCtrl', [])
-    .controller('storageDivisionCtrl', ['$scope', 'division', 'childrenResponse', '$window', '$timeout', 'storageFormFactory', 'storageDivisionManager', 'divisionGrid', 'sessionFactory',
 
-        function ($scope, division, childrenResponse, $window, $timeout, storageFormFactory, storageDivisionManager, divisionGrid, sessionFactory) {
+    .controller('storageDivisionCtrl', ['$scope', 'division',  '$window', 'storageDivisionManager', 'divisionGrid', 'sessionFactory', '$stateParams',
 
-            $scope.children = childrenResponse.data;
+        function ($scope, division, $window, storageDivisionManager, divisionGrid, sessionFactory, $stateParams) {
+
+            if ($stateParams.selectedSampleId) {
+                // console.log("scope.testing", $scope.testing);
+                storageDivisionManager.initSampleId = $stateParams.selectedSampleId;
+            }
+
             $scope.division = division;
 
             $scope.inventoryAdmin = sessionFactory.hasRole('ROLE_INVENTORY_ADMIN');

@@ -81,13 +81,14 @@ angular.module('form.oneToManyDirective', [])
                     $scope.grid.setSelectItemCallback($scope.checkValidity);
                     $scope.searchGrid.setSelectItemCallback($scope.checkValidity);
 
+
                 },
 
 
 
                 link: function ($scope, element, attrs, formCtrl) {
 
-                    $scope.formCtrl = formCtrl
+                    $scope.formCtrl = formCtrl;
 
                     $scope.$on('form:submit', function () {
 

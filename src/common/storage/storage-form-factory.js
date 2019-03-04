@@ -63,12 +63,6 @@ angular.module('storage.storageFormFactory', [])
 
                             },
 
-                            ownerGrid: function () {
-
-                                return $cbGridBuilder.buildSelectSingle('userGridFactory', true);
-
-                            },
-
                             callback: function () {
 
                                 return function () {
