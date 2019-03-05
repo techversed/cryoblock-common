@@ -520,7 +520,7 @@ angular.module('storage.storageDivisionManager', [])
 
                         originalEl = scope.element;
                         cellEl = angular.element(originalEl).find('.cell');
-                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.catalog.name +'</span></div></div>');
+                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.catalog.name + " -- " + scope.sample.description +'</span></div></div>');
                         newEl.css({
                             'width': originalEl.offsetWidth + 'px',
                             'height': originalEl.offsetHeight + 'px',
