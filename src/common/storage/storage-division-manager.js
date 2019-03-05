@@ -40,6 +40,8 @@ angular.module('storage.storageDivisionManager', [])
 
                 clonedSample: null,
 
+                orderDirection: 'rowMajor',
+
                 initialize: function (division) {
 
                     this.division = division;
@@ -57,6 +59,16 @@ angular.module('storage.storageDivisionManager', [])
                         this.toggleSampleId(this.initSampleId);
                         this.initSampleId = null;
                     }
+                },
+
+                toggleOrderDirection: function () {
+
+                    this.orderDirection = this.orderDirection == 'rowMajor' ? 'columnMajor' : 'rowMajor';
+
+                },
+
+                setOrderDirection: function (ordering) {
+                    this.orderDirection = ordering;
                 },
 
                 expandToDivision: function () {
