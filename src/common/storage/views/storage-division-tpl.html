@@ -188,8 +188,10 @@
                                 class="cell"
                                 ng-class="{'has-sample': sdm.sampleMap[row][column]}"
                             >
-<!--                                 <span ng-if="sdm.sampleMap[row][column].lot">{{sdm.sampleMap[row][column].lot}}</span>
- -->                                <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name}}</span>
+<!--
+                            <span ng-if="sdm.sampleMap[row][column].lot">{{sdm.sampleMap[row][column].lot}}</span>
+ -->
+                                <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name}}</span>
                             </div>
                         </td>
                     </tr>
@@ -235,6 +237,9 @@
                                     </div>
                                     <div class="add-sample">Add a Child Division to {{division.title}}</div>
                                 </li>
+
+
+<!-- Portion of interest starts here. -->
                                 <li ng-repeat="division in division.children | orderBy:'lft' " class="list-item">
                                     <div class="row-column-container">
                                         <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x list-icon"/>
@@ -263,6 +268,8 @@
                                             </h3>
                                             <span> - {{division.description}}</span>
                                             <div>
+
+<!-- Dimensions -->
                                                 <table class="division-detail-table" ng-if="division.hasDimension">
                                                     <tr>
                                                         <td>Dimension</td>
@@ -274,6 +281,8 @@
                                                     </tr>
                                                 </table>
                                                 <table class="division-detail-table">
+
+<!-- Allowed Sample Types -->
                                                     <tr>
                                                         <td>Allowed Sample Types</td>
                                                         <td ng-if="division.allowAllSampleTypes || division.divisionSampleTypes.length">
@@ -285,8 +294,10 @@
                                                                 <sample-type-icon sample-type="divisionSampleTypes.sampleType" class="xs" ng-if="divisionSampleTypes.sampleType" uib-tooltip="{{divisionSampleTypes.sampleType.name}}"></sample-type-icon>
                                                             </i>
                                                         </td>
-                                                        <td ng-if="!division.allowAllSampleTypes && !division.divisionSampleTypes.length">Not Configured</td>
+                                                        <td ng-if="!division.allowAllSampleTypes && !division.divisionSampleTypes.length"> <i class="text-danger fa fa-lock m-r-xs"/> Not Configured</td>
                                                     </tr>
+
+<!-- allowed storage containers -->
                                                     <tr>
                                                         <td>
                                                             Allowed Storage Containers
@@ -301,10 +312,11 @@
                                                                 <span ng-if="$index != (division.divisionStorageContainers.length - 1)">,</span>
                                                             </span>
                                                         </td>
-                                                        <td ng-if="!division.allowAllStorageContainers && !division.divisionStorageContainers.length">Not Configured</td>
+                                                        <td ng-if="!division.allowAllStorageContainers && !division.divisionStorageContainers.length"> <i class="text-danger fa fa-lock m-r-xs"/> Not Configured</td>
                                                     </tr>
                                                 </table>
                                                 <table class="division-detail-table">
+<!-- Able to view -->
                                                     <tr>
                                                         <td>
                                                             Able To View
@@ -319,10 +331,11 @@
                                                             </i>
                                                         </td>
                                                         <td ng-if="!division.isPublicView && !division.isPublicEdit && !division.divisionViewers.length">
-                                                            <span><i class="text-danger fa fa-lock m-r-xs"/>Restricted</span>
+                                                            <span><i class="text-danger fa fa-lock m-r-xs"/> Not Configured</span>
                                                         </td>
                                                     </tr>
 
+<!-- able to edit -->
                                                     <tr>
                                                         <td>
                                                             Able To Edit
@@ -336,11 +349,15 @@
                                                                 <cb-user-avatar user="divisionEditor.user" class="xs" ng-if="divisionEditor.user" uib-tooltip="{{divisionEditor.user.stringLabel}}"></cb-user-avatar>
                                                             </i>
                                                         </td>
-                                                        <td ng-if="!division.isPublicEdit && !division.divisionEditors.length">Not Configured</td>
+                                                        <td ng-if="!division.isPublicEdit && !division.divisionEditors.length">
+                                                            <span><i class="text-danger fa fa-lock m-r-xs"/> Not Configured</span>
+                                                        </td>
                                                     </tr>
                                                 </table>
-                                                <table class="division-detail-table">
 
+
+                                                <table class="division-detail-table">
+<!-- group editors -->
                                                     <tr ng-if="division.divisionGroupEditors.length && !division.isPublicEdit">
                                                         <td>
                                                             Group Editors
@@ -353,6 +370,7 @@
                                                         </td>
                                                     </tr>
 
+<!-- Division group viewers -->
                                                     <tr ng-if="division.divisionGroupViewers.length && !division.isPublicView">
                                                         <td>
                                                             Group Viewers
@@ -369,6 +387,8 @@
                                         </div>
                                     </div>
                                 </li>
+<!-- End of portion of interest -->
+
                             </ul>
                         </div>
 

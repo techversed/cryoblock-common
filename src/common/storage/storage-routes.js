@@ -75,6 +75,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                             },
 
+
                                             divisionGrid: function ($cbGridBuilder) {
 
                                                 return $cbGridBuilder.buildIndex('storageDivisionGridFactory');
