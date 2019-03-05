@@ -243,7 +243,7 @@
         </div>
 
 
-<-- List view-->
+<!-- List view-->
         <div ng-show="!division.hasDimension && currentView === 'list'">
 
             <div class="m-t-sm">
@@ -356,7 +356,7 @@
                                                                 All Users
                                                             </span>
                                                             <i ng-if="!division.isPublicView" ng-repeat="divisionViewers in division.divisionViewers" class="user-icon-list">
-                                                                <cb-user-avatar user="divisionViewers.user" class="xs" ng-if="divisionViewers.user" uib-tooltip="{{divisionViewers.user.stringLabel}}"></cb-user-avatar>
+                                                                <cb-user-avatar user="divisionViewers.user" class="xxs" ng-if="divisionViewers.user"></cb-user-avatar>
                                                             </i>
                                                         </td>
                                                         <td ng-if="!division.isPublicView && !division.isPublicEdit && !division.divisionViewers.length">
@@ -375,7 +375,7 @@
                                                                 All Users
                                                             </span>
                                                             <i ng-if="!division.isPublicEdit" ng-repeat="divisionEditor in division.divisionEditors" class="user-icon-list">
-                                                                <cb-user-avatar user="divisionEditor.user" class="xs" ng-if="divisionEditor.user" uib-tooltip="{{divisionEditor.user.stringLabel}}"></cb-user-avatar>
+                                                                <cb-user-avatar user="divisionEditor.user" class="xxs" ng-if="divisionEditor.user"></cb-user-avatar>
                                                             </i>
                                                         </td>
                                                         <td ng-if="!division.isPublicEdit && !division.divisionEditors.length">
