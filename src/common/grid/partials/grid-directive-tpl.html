@@ -93,7 +93,7 @@
                             <div ng-if="column.templateUrl" ng-include="column.templateUrl"></div>
 
                             <div ng-if="!column.templateUrl">
-                                <a ng-bind="result.{{column.bindTo}}" ng-if="column.sref && grid.showHyperLinks && !result.deletedAt" ui-sref="{{column.sref}}" class="column-text" ng-class="{'soft-link': !column.isPrimary}" title="{{result[column.bindTo]}}"></a>
+                                <a draggable="false" ng-bind="result.{{column.bindTo}}" ng-if="column.sref && grid.showHyperLinks && !result.deletedAt" ui-sref="{{column.sref}}" class="column-text" ng-class="{'soft-link': !column.isPrimary}" title="{{result[column.bindTo]}}"></a>
                                 <span ng-bind="result.{{column.bindTo}}" ng-if="(!grid.showHyperLinks || !column.sref) && !(result.deletedAt && column.isPrimary)" class="column-text" title="{{result[column.bindTo]}}"></span>
                                 <span ng-bind="result.{{column.bindTo}}" ng-if="result.deletedAt && column.isPrimary" class="column-text text-danger" title="{{result[column.bindTo]}}"></span>
                             </div>
@@ -139,12 +139,9 @@
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
-
                         </td>
-
                     </tr>
                 </tbody>
-
             </table>
         </div>
 
