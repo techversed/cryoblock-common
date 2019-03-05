@@ -320,7 +320,7 @@
                                                                 Any Sample Type Allowed
                                                             </span>
                                                             <i ng-if="!division.allowAllSampleTypes" ng-repeat="divisionSampleTypes in division.divisionSampleTypes" class="sample-type-icon-list">
-                                                                <sample-type-icon sample-type="divisionSampleTypes.sampleType" class="xs" ng-if="divisionSampleTypes.sampleType" uib-tooltip="{{divisionSampleTypes.sampleType.name}}"></sample-type-icon>
+                                                                <sample-type-icon sample-type="divisionSampleTypes.sampleType" class="xxs" ng-if="divisionSampleTypes.sampleType"></sample-type-icon>
                                                             </i>
                                                         </td>
                                                         <td ng-if="!division.allowAllSampleTypes && !division.divisionSampleTypes.length"> <i class="text-danger fa fa-lock m-r-xs"/> Not Configured</td>
