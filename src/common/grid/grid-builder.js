@@ -36,23 +36,17 @@ angular.module('grid.gridBuilder', [])
 
                     var that = this
 
-                    $cbResource.get(url, params).then(function (response) {
+                    return $cbResource.get(url, params).then(function (response) {
 
-                        grid
+                        grid = that.addFiltersToGrid(grid, overrides['filterGroups']);
+
+                        return grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
-                        //that.addFiltersToGrid
-                        that.addFiltersToGrid(grid, overrides['filterGroups']);
 
-                    });//.then( );
-
-
-                    // This is a good start...
-                    // These grid changes should start allowing grid requets to be less sequential and more all at once.
-
-                    return grid;
+                    });
 
                 },
 
