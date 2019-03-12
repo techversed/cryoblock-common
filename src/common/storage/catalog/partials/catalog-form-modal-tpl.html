@@ -34,6 +34,12 @@
                     </div>
                 </cb-form-group>
 
+                <cb-form-group label="Status" name="status" ng-if="catalog.id">
+                    <div class="col-sm-10">
+                        <cb-dropdown name="status" ng-model="catalog.status" label="Status" items="statuses" required></cb-dropdown>
+                    </div>
+                </cb-form-group>
+
             </cb-form>
 
         </div>

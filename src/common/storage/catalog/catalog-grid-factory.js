@@ -20,6 +20,13 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         sref: 'catalog.detail({id:result.id})'
                     },
                     {
+                        header: 'Status',
+                        bindTo: 'status',
+                        name: 'status',
+                        templateUrl: 'common/storage/catalog/partials/catalog-status-column-tpl.html',
+                        isSorable: true
+                    },
+                    {
                         header: 'Name',
                         bindTo: 'name',
                         name: 'name',
@@ -31,6 +38,32 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         name: 'mergedInto',
                         bindTo: 'mergedInto.name',
                         sref: 'catalog.detail({id:result.mergedInto.id})'
+                    },
+                    {
+                        header: 'Created By',
+                        bindTo: 'createdBy.fullName',
+                        sref: 'profile.detail({id: result.createdBy.id})',
+                        name: 'createdBy'
+                    },
+                    {
+                        header: 'Updated By',
+                        bindTo: 'updatedBy.fullName',
+                        sref: 'profile.detail({id: result.updatedBy.id})',
+                        name: 'updatedBy',
+                        isVisible: false
+                    },
+                    {
+                        header: 'Date Created',
+                        bindTo: 'createdAt | date:\'MMM d, y\'',
+                        name: 'createdAt',
+                        isSortable: true
+                    },
+                    {
+                        header: 'Date Updated',
+                        bindTo: 'updatedAt | date:\'MMM d, y\'',
+                        name: 'updatedAt',
+                        isSortable: true,
+                        isVisible: false
                     }
                 ],
 
