@@ -40,7 +40,7 @@ angular.module('session.authInterceptor', [])
 
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
 
-            if (toState.name === 'login' || toState.name === 'password_reset' || toState.name === 'password_reset_confirm') {
+            if (toState.name === 'login' || toState.name === 'password_reset' || toState.name === 'password_reset_confirm' || toState.name === 'itemrequest.placement') {
                 return;
             }
 
@@ -89,4 +89,3 @@ angular.module('session.authInterceptor', [])
 
     }])
 ;
-
