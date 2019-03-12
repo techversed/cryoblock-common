@@ -20,6 +20,13 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         sref: 'catalog.detail({id:result.id})'
                     },
                     {
+                        header: 'Status',
+                        bindTo: 'status',
+                        name: 'status',
+                        templateUrl: 'common/storage/catalog/partials/catalog-status-column-tpl.html',
+                        isSorable: true
+                    },
+                    {
                         header: 'Name',
                         bindTo: 'name',
                         name: 'name',
