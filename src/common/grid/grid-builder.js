@@ -36,17 +36,18 @@ angular.module('grid.gridBuilder', [])
 
                     var that = this
 
-                    return $cbResource.get(url, params).then(function (response) {
+                    $cbResource.get(url, params).then(function (response) {
 
-                        grid = that.addFiltersToGrid(grid, overrides['filterGroups']);
-
-                        return grid
+                        // grid = that.addFiltersToGrid(grid, overrides['filterGroups']);
+                        grid
                             .setResults(response.data)
                             .setPaginationFromResponse(response)
                             .setInitResultCount(response.unpaginatedTotal)
                         ;
+                        grid = that.addFiltersToGrid(grid, overrides['filterGroups']);
+                    });//.then(this.addFiltersToGrid(grid, overrides['filterGroups']));
 
-                    });
+                    return grid;
 
                 },
 
@@ -118,7 +119,7 @@ angular.module('grid.gridBuilder', [])
 
                 //Helper function used to implement the overrrides for the various other grid functions -- not intended to be called directly
                     //Currently there
-                addFiltersToGrid: function (grid, filterOverride){
+                addFiltersToGrid: function (grid, filterOverride = {}){
                     if (filterOverride != {} && filterOverride != undefined) {
                         var filterObjIndex;
                         var filterObjectKeys = Object.keys(filterOverride);
@@ -147,11 +148,8 @@ angular.module('grid.gridBuilder', [])
                                         filter.setModel(filterOverride[filterObjectKeys[filterObjIndex]]);
                                         break;
 
-                                    //We only need relation and enum
-                                        //can also implement integer, string, boolean, deleted and date at some point
-
+                                    // These are curerntly the only filters that we need but we can implement the other types as they are required.
                                 }
-
                             }
                         });
                     }
