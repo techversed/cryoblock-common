@@ -4,7 +4,7 @@ angular.module('storage.catalog.catalogDetailCtrl', [])
         function ($scope, catalog, grids, $window, catalogFormFactory) {
 
             $window.scroll(0,0);
-          
+
             $scope.catalog = catalog;
 
             $scope.grids = grids;
@@ -12,6 +12,14 @@ angular.module('storage.catalog.catalogDetailCtrl', [])
             $scope.edit = catalogFormFactory.openFormModal;
 
             $scope.delete = catalogFormFactory.openDeleteForm;
+
+            $scope.statusLabelMapping = {
+                'Depleted': 'warning',
+                'Available': 'primary',
+                'Destroyed': 'danger'
+            };
+
+            $scope.labelClass = $scope.statusLabelMapping[$scope.catalog.status];
 
         }
 
