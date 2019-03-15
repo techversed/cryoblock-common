@@ -78,18 +78,13 @@ angular.module('grid.gridBuilder', [])
                     var factory = $injector.get(factoryName);
                     var grid = factory.create();
 
-                    if (initObject && initObject.id) {
-                        url = url + initObject.id + postpend;
-                    } else {
-                        url = url + 0 + postpend;
-                    }
+                    url = (initObject && initObject.id) ? url + initObject.id + postpend : url + 0 + postpend;
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
                     grid.allowSelectMany();
                     grid.perPageOptions = [5, 15, 25];
                     grid.setPerPage(grid.perPageOptions[0]);
-
                     grid = this.addFiltersToGrid(grid, overrides['filterGroups']);
 
                     // var defaultParams = {cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
@@ -116,7 +111,7 @@ angular.module('grid.gridBuilder', [])
 
                 // Helper function used to implement the overrrides for the various other grid functions -- not intended to be called directly
                     // Currently there
-                addFiltersToGrid: function (grid, filterOverride = {}){
+                addFiltersToGrid: function (grid, filterOverride = {}) {
                     if (filterOverride != {} && filterOverride != undefined) {
                         var filterObjIndex;
                         var filterObjectKeys = Object.keys(filterOverride);
@@ -167,18 +162,14 @@ angular.module('grid.gridBuilder', [])
                         throw Error('No url property found on grid ' + factoryName);
                     }
 
-                    var url = factory.url;
-
-                    if (overrides && overrides.url) {
-                        url = overrides.url;
-                    }
+                    var url = (overrides && overrides.url) ? overrides.url : factory.url;
 
                     var grid = factory.create();
 
                     grid.setResourceUrl(url);
                     grid.hideAllFilters();
                     grid.allowSelect();
-                    grid = this.addFiltersToGrid(grid,overrides['filterGroups']);
+                    grid = this.addFiltersToGrid(grid, overrides['filterGroups']);
                     grid.perPageOptions = [5, 15, 25];
                     grid.setPerPage(grid.perPageOptions[0]);
 
@@ -242,9 +233,7 @@ angular.module('grid.gridBuilder', [])
                         ;
 
                     });
-
                 }
-
             };
             return gridBuilder
         }
