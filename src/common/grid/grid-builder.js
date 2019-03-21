@@ -120,32 +120,31 @@ angular.module('grid.gridBuilder', [])
 
                         angular.forEach(grid.filters, function (filter) {
                             filterObjIndex = filterObjectKeys.indexOf(filter.title); //need to use title instead of bind to because there can be multiple realtions bound to the same field on different objects.
+
                             if(filterObjIndex != -1){
-                                filter.disabled = true;
-                                filter.isVisible = true;
-                                filter.isFiltering = true;
+
+                                filterObj = filterOverride[filterObjectKeys[filterObjIndex]];
+
+                                filter.disabled = filterObj.disabled ? filterObj.disabled : false;
+                                filter.isVisible = filterObj.isVisible ? filterObj.isVisible : true;
+                                filter.isFiltering = filterObj.isFiltering ? filterObj.isFiltering : true;
 
                                 switch(filter.type){
                                     case "relation":
-                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
-                                            filter.selectItem(selectedRelation);
+                                        angular.forEach( filterObj.selected, function (element) {
+                                            filter.selectItem(element);
                                         });
                                         break;
 
                                     case "enum":
-                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (element) {
-
-                                            filter.selectItem(element);
-                                            filter.updateSelectionString();
-
+                                        angular.forEach( filterObj.selected, function (element) {
+                                            filter.selectItem(element)
                                         });
-
-                                        // filter.selectedItems.push(filterObjectKeys[filterObjIndex][0]);
-                                        // filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
                                         break;
 
                                     case "boolean":
                                         filter.form = {
+
                                         };
                                         filter.setModel(filterOverride[filterObjectKeys[filterObjIndex]]);
                                         break;
