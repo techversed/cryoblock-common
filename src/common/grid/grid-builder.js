@@ -9,6 +9,7 @@ angular.module('grid.gridBuilder', [])
                     // url -- specify a url that is used instead of the one included in the grid factory - Can be useful when you want to use the same grid factory but you want to use an address to a relation's controller instead of the controller for an entity.
                     // filterGroups -- lets you specify filters to add directly to the grid.
                     // bindToState -- can be used to turn off the bindToState property if not provided bindToState will default to true.
+                    // filtersClearable
                 buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
@@ -24,14 +25,15 @@ angular.module('grid.gridBuilder', [])
                     grid
                         .setActionTemplate(factory.actionTemplate)
                         .setResourceUrl(url)
-                        .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true);
+                        .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
+                    ;
 
                     grid.perPageOptions = [25, 50, 100];
                     grid.setPerPage(grid.perPageOptions[0]);
                     grid = this.addFiltersToGrid(grid, overrides['filterGroups']);
 
                     // var defaultParams = { cOrderBy: grid.sortingColumn.name, cOrderByDirection: grid.sortDirection};
-                        // We are going to try this out...
+                    // We are going to try this out...
 
                     var defaultParams = grid.getRequestParams();
                     var params = gridManager.ignoreUrlParams ? defaultParams : angular.extend(defaultParams, $location.search());
@@ -131,7 +133,15 @@ angular.module('grid.gridBuilder', [])
                                         break;
 
                                     case "enum":
-                                        filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
+                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (element) {
+
+                                            filter.selectItem(element);
+                                            filter.updateSelectionString();
+
+                                        });
+
+                                        // filter.selectedItems.push(filterObjectKeys[filterObjIndex][0]);
+                                        // filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
                                         break;
 
                                     case "boolean":
