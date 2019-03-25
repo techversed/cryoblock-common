@@ -12,5 +12,6 @@ angular.module('gridForm.gridFormColumn',[
     'gridForm.gridFormColumn.gridFormColumnDirective',
     'gridForm.gridFormColumn.gridFormMultiRelationColumnFactory',
     'gridForm.gridFormColumn.gridFormSingleRelationColumnFactory',
-    'gridForm.gridFormColumn.gridFormTextColumnDirective'
+    'gridForm.gridFormColumn.gridFormTextColumnDirective',
+    'gridForm.gridFormColumn.gridFormBooleanColumnDirective'
 ]);
