@@ -11,6 +11,8 @@ angular.module('qrCode.cbQrCodeDirective', [])
 
                 templateUrl: 'common/qr-code/partials/cb-qr-code-tpl.html',
 
+                controller: 'qrCodeCtrl',
+
                 link: function ($scope, element, attrs) {
 
 
