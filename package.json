@@ -7,7 +7,8 @@
     "url": "git@github.com/techversed/cryoblock-common.git"
   },
   "dependencies": {
-    "connect-livereload": "^0.5.3"
+    "connect-livereload": "^0.5.3",
+    "npm": "^6.9.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
