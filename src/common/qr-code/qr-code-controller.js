@@ -3,12 +3,13 @@ angular.module('qrCode.qrCodeCtrl', [])
 
         function ($scope, $element, qrCodeFactory) {
 
-            var temp = qrCodeFactory(10,'M');
-            temp.addData("https://crowelab-utilities.service.vumc.org/#/storage/sample/index");
+            var temp = qrCodeFactory(10,'H');
+            temp.addData($scope.value);
             temp.make();
-            // $scope.qr = temp.createSvgTag({ cellSize: 4, margin: 0, xscalable: true });
+            $scope.downloadLink = temp.createDataURL(4,0);
 
-            $element[0].children[0].children[0].innerHTML = temp.createImgTag(4,0);
+
+            $element[0].children[0].children[0].innerHTML = "<a download='"+$scope.name+"' href=" + $scope.downloadLink +  " >" +  temp.createImgTag(4,0) + "</a>";
 
         }
 

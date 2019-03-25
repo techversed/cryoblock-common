@@ -10,7 +10,6 @@ angular.module('qrCode.qrCodeFactory', [])
            * @param errorCorrectionLevel 'L','M','Q','H'
            */
           var qrcode = function(typeNumber, errorCorrectionLevel) {
-            console.log('runing qrcode function');
 
             var PAD0 = 0xEC;
             var PAD1 = 0x11;

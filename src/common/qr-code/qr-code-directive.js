@@ -5,7 +5,10 @@ angular.module('qrCode.cbQrCodeDirective', [])
 
             return {
 
-                scope: {value: '@'},
+                scope: {
+                    value: '@',
+                    name: '@'
+                },
 
                 restrict: 'E',
 
@@ -14,7 +17,8 @@ angular.module('qrCode.cbQrCodeDirective', [])
                 controller: 'qrCodeCtrl',
 
                 link: function ($scope, element, attrs) {
-
+                    $scope.name ="testing";
+                    // $scope.name ? $scope.name : $scope.value;
 
                 }
             };
