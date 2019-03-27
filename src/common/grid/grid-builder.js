@@ -132,7 +132,9 @@ angular.module('grid.gridBuilder', [])
                                 switch(filter.type){
                                     case "relation":
                                         angular.forEach( filterObj.selected, function (element) {
-                                            filter.selectItem(element);
+                                            if (filter.selectedItems.indexOf(element) != -1){
+                                                filter.selectItem(element);
+                                            }
                                         });
                                         break;
 
