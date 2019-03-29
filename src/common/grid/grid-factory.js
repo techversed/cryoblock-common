@@ -75,11 +75,13 @@ angular.module('grid.gridFactory', [])
 
             Grid.prototype = {
 
-                perPageOptions: [10, 25, 50, 100],
+                perPageOptions: [25, 50, 100],
 
                 create: function () {
 
-                    return new Grid();
+                    var grid = new Grid();
+                    grid.pagination.perPage = perPageOptions[0];
+                    return grid;
 
                 },
 
