@@ -1,0 +1,63 @@
+/*
+
+    The gridform interface elements also depend upon style elements which are present in Grids and Forms -- at some point it would be a good idea to rename the classes an pull all of the less code into this form.
+
+    Currently the only less which is supported at this time are the new classes which neeeded to be created in order to make this possible.
+
+*/
+
+
+.grid-form-text-area-dropdown:focus-within>.dropdown-menu {
+  display: block;
+}
+
+.grid-form-filter-check {
+    margin-right: 5px;
+}
+
+.grid-form-filter-radio {
+    margin-right: 5px;
+}
+
+// This doet not seem to work when it is placed on input fields with type="radio"
+.grid-form-menu-item-input {
+    margin-left: 5px;
+    margin-right: 900px;
+}
+
+// for some reason the .grid-form-menu-item-input is not working when it is placed on an input field... in order to get around that I created this spacer
+.grid-form-dropdown-input-spacer {
+    margin-left: 5px;
+}
+
+.grid-form-input-field {
+    margin: 1px;
+}
+
+.grid-form-column-dropdown-input-field-selected {
+  font-weight: bold;
+}
+
+.dropdownColumnNoText{
+    // background-color: 0x000000;
+    // font-weight: bold;
+    // display: block;
+    // height: 25px;
+
+    background-color: white;
+
+    //width: 100%;
+    // padding-top: 7px;
+    // padding-bottom: 7px;
+
+    //-ms-box-sizing:content-box;
+    //-moz-box-sizing:content-box;
+    //box-sizing:content-box;
+    //-webkit-box-sizing:content-box;
+
+}
+
+.wFullWidth{
+    width:100%;
+}
+

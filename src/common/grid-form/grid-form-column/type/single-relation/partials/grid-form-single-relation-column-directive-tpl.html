@@ -1,0 +1,41 @@
+<div class="btn-group grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
+
+    <input
+        ng-model="form.search"
+        ng-change="search()"
+        ng-model-options="{debounce:300}"
+        ng-keydown="keyPressHandler($event, item)"
+        class="form-control"
+    >
+    </input>
+
+    <!-- add a text box for searching -->
+<!--
+    <span class="label label-danger">testing</span>
+-->
+
+
+    <!-- -->
+<!--
+    <label class="one-to-many-add-toggle btn btn-default btn-square" ng-click="toggleAdd()" ng-class="{expanded:showSelectGrid, disabled:disabled}">
+        <i ng-if="!disabled" class="fa fa-plus"></i>
+    </label>
+-->
+    <!-- -->
+
+    <ul uib-dropdown-menu class="dropdown-menu" role="menu">
+<!-- We will probably need to add this back in at some point -->
+<!--
+        <li role="menuitem">
+            <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1"" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
+        </li>
+-->
+        <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
+
+            <li role="menuitem">
+                <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1"" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
+            </li>
+        </div>
+    </ul>
+
+</div>

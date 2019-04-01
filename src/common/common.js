@@ -37,6 +37,7 @@ angular.module('common', [
     'comment',
     'ui.tree',
     'step',
+    'gridForm',
     'attachment',
     'storage',
     'productionPipeline'

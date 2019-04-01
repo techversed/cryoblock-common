@@ -1,0 +1,12 @@
+<!--
+    Under construction
+
+-->
+
+<!-- select the type of child directive is needed -->
+
+<grid-form-dropdown-column class="wFullWidth" ng-if="column.type == 'dropdown'" obj='data' field="field"></grid-form-dropdown-column>
+<grid-form-multi-relation-column class="wFullWidth" ng-if="column.type == 'multirelation'" obj='data' field="field"></grid-form-multi-relation-column>
+<grid-form-single-relation-column class="wFullWidth" ng-if="column.type == 'singlerelation'" obj='data' field="field"></grid-form-single-relation-column>
+<grid-form-text-column class="wFullWidth" ng-if="column.type == 'text'" obj='data' field="field"></grid-form-text-column>
+<grid-form-boolean-column class="wFullWidth" ng-if="column.type == 'boolean'" obj='data' field="field"></grid-form-boolean-column>
