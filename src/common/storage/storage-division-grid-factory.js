@@ -106,6 +106,24 @@ angular.module('storage.storageDivisionGridFactory', [])
 
                 filters: [
                     {
+                        type: 'relation',
+                        title: 'Editors',
+                        accessProperty: 'id',
+                        filterProperty: 'divisionEditors.user.id',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName',
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Group Editors',
+                        accessProperty: 'id',
+                        filterProperty: 'divisionGroupEditors.group.id',
+                        resourceUrl: '/group',
+                        bindTo: 'name',
+                        isVisible: true
+                    },
+                    {
                         type: 'string',
                         title: 'Title',
                         filterProperty: 'title',
