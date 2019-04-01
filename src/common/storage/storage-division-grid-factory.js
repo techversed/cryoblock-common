@@ -19,7 +19,7 @@ angular.module('storage.storageDivisionGridFactory', [])
                         isPrimary: true,
                         sref: 'storage.division.detail({id:result.id})'
                     },
-                       {
+                    {
                         header: 'Title',
                         bindTo: 'title',
                         name: 'title',
@@ -39,6 +39,18 @@ angular.module('storage.storageDivisionGridFactory', [])
                         name: 'description',
                         isSortable: true,
                         sref: 'storage.division.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Editors',
+                        bindTo: 'divisionEditorString',
+                        name: 'divisionEditorString',
+                        isSortable: false
+                    },
+                    {
+                        header: ' Group Editors',
+                        bindTo: 'divisionGroupEditorString',
+                        name: 'divisionGroupEditorString',
+                        isSortable: false
                     },
                     {
                         header: 'Height',
@@ -76,6 +88,19 @@ angular.module('storage.storageDivisionGridFactory', [])
                         bindTo: 'percentFull',
                         name: 'percentFull',
                         isSortable: true,
+                    },
+                    {
+                        header: 'Created By',
+                        bindTo: 'createdBy.fullName',
+                        sref: 'profile.detail({id: result.createdBy.id})',
+                        name: 'createdBy'
+                    },
+                    {
+                        header: 'Updated By',
+                        bindTo: 'updatedBy.fullName',
+                        sref: 'profile.detail({id: result.updatedBy.id})',
+                        name: 'updatedBy',
+                        isVisible: false
                     }
                 ],
 
