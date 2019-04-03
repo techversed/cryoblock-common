@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest', 'API', '$localStorage', 'toastr', '$cbResource',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest, API, $localStorage, toastr, $cbResource) {
 
             var storageDivisionManager = {
 
@@ -38,6 +38,10 @@ angular.module('storage.storageDivisionManager', [])
 
                 initSampleId: null,
 
+                clonedSample: null,
+
+                orderDirection: 'rowMajor',
+
                 initialize: function (division) {
 
                     this.division = division;
@@ -49,11 +53,22 @@ angular.module('storage.storageDivisionManager', [])
                     this.sampleMap = this.getSampleMap();
                     this.expandToDivision(this.division);
                     this.toggleSearch = false;
+                    this.clonedSample = null;
 
                     if (this.initSampleId) {
                         this.toggleSampleId(this.initSampleId);
                         this.initSampleId = null;
                     }
+                },
+
+                toggleOrderDirection: function () {
+
+                    this.orderDirection = this.orderDirection == 'rowMajor' ? 'columnMajor' : 'rowMajor';
+
+                },
+
+                setOrderDirection: function (ordering) {
+                    this.orderDirection = ordering;
                 },
 
                 expandToDivision: function () {
@@ -113,6 +128,8 @@ angular.module('storage.storageDivisionManager', [])
                         if (map[divisionRow] === undefined) {
                             map[divisionRow] = {};
                         }
+
+                        sample.getTitle = "Catalog: "+sample.catalog.stringLabel+"\nDescription: "+sample.description+"\nConcentration: "+ (sample.concentration && sample.concentrationUnits ? sample.concentration+sample.concentrationUnits : '')+"\nVolume: "+(sample.volume && sample.volumeUnits ? sample.volume+sample.volumeUnits : '');
 
                         map[divisionRow][divisionColumn] = sample;
 
@@ -283,7 +300,55 @@ angular.module('storage.storageDivisionManager', [])
 
                 },
 
+                // I have decided not to support CSV here -- we are just going to use excel
+                downloadDivisionUpdateTemplate: function () {
+
+                    var that = this;
+
+                    var id = this.division.id;
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', API.url + '/storage/division/'+id+'/excel-download' , true);
+                    xhr.setRequestHeader('Content-type', 'application/json');
+                    xhr.setRequestHeader('X_FILENAME', 'Division ' + id + ' Update Samples Template.xlsx');
+                    xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
+                    xhr.responseType = 'blob';
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+
+                                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                                var blob = new Blob([xhr.response], { type: contentType });
+
+                                var windowUrl = window.URL || window.webkitURL;
+                                var url = windowUrl.createObjectURL(blob);
+                                var filename = 'Division ' + id + ' Update Samples Template.xlsx';
+                                var a = document.createElement('a');
+
+                                a.href = url;
+                                a.download = filename;
+                                a.click();
+                                window.URL.revokeObjectURL(url);
+
+                            } else {
+                                // observer.error(xhr.response);
+                            }
+                        }
+                    };
+
+                    xhr.send();
+
+
+
+                },
+
                 openSampleStorageLinkModal: function () {
+
+                    if (this.hasDimension && (this.selectedCount != 1 || this.selectedEmptyCount != 1)) {
+                        return;
+                    }
 
                     if (this.division.canEdit === false) {
 
@@ -374,6 +439,10 @@ angular.module('storage.storageDivisionManager', [])
 
                 createSample: function () {
 
+                    if (this.selectedCount != 1 || this.selectedEmptyCount != 1) {
+                        return;
+                    }
+
                     if (this.division.canEdit === false) {
 
                         swal({
@@ -451,7 +520,7 @@ angular.module('storage.storageDivisionManager', [])
 
                         originalEl = scope.element;
                         cellEl = angular.element(originalEl).find('.cell');
-                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.catalog.name +'</span></div></div>');
+                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.catalog.name + ": " + scope.sample.description +'</span></div></div>');
                         newEl.css({
                             'width': originalEl.offsetWidth + 'px',
                             'height': originalEl.offsetHeight + 'px',
@@ -706,6 +775,113 @@ angular.module('storage.storageDivisionManager', [])
                 toggleView: function () {
 
                     this.toggleSearch = this.toggleSearch ? false : true;
+
+                },
+
+                print: function () {
+
+                    var printScope = $rootScope.$new(true);
+
+                    printScope.sampleMap = this.sampleMap;
+                    printScope.rows = [];
+                    printScope.columns = [];
+                    printScope.sdm = this;
+                    printScope.division = this.division;
+
+                    for (var i = 1; i <= this.division.width; i++) {
+                        printScope.columns.push(i);
+                    }
+
+                    for (var i = 65; i < this.division.height + 65; i++) {
+                        printScope.rows.push(String.fromCharCode(i));
+                    }
+
+                    $templateRequest('common/storage/partials/division-print-tpl.html').then(function (html) {
+
+                        var content = null;
+                        var template = angular.element(html);
+
+                        printScope.$$postDigest(function () {
+
+                            var w = 1500, h = 1000;
+
+                            var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
+                            var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
+
+                            var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+                            var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+                            var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+                            var top = ((height / 2) - (h / 2)) + dualScreenTop;
+                            var tab = window.open('', '', 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+                            tab.document.write('<html><head><style>@page { size: landscape; }</style></head><title>Division Print</title><body>' + template[0].outerHTML + '</body></html>');
+                            tab.document.close();
+
+                            tab.print();
+                        });
+
+                        content = $compile(template)(printScope);
+
+                    });
+
+                },
+
+                cloneSample: function () {
+
+                    if (this.selectedSampleCount != 1 || this.selectedEmptyCount != 0) {
+                        return;
+                    }
+
+                    this.clonedSample = this.getSelectedSample();
+
+                    toastr.info('Sample ' + this.clonedSample.id + ' cloned successfully.');
+
+                },
+
+                pasteSample: function () {
+
+                    if (!this.clonedSample) {
+                        return;
+                    }
+
+                    var clonedSample = this.clonedSample;
+                    var samplesToCreate = [];
+                    var that = this;
+
+                    angular.forEach(this.selectedCells, function (columns, row) {
+
+                        angular.forEach(columns, function (c, column) {
+
+                            var sampleToCreate = {divisionId: clonedSample.divisionId, divisionRow: row, divisionColumn: column};
+                            samplesToCreate.push(sampleToCreate);
+
+                        });
+
+                    });
+
+                    swal({
+                        title: "Are you Sure?",
+                        text: "Cloning sample " + clonedSample.id + " will duplicate all values including concentration and volume.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                    }, function() {
+
+                        $cbResource.create('/storage/sample/' + clonedSample.id + ' /clone', samplesToCreate).then(function () {
+                            toastr.info('Sample ' + clonedSample.id + ' pasted successfully.');
+                            $state.go($state.current, $stateParams, {reload:true});
+                            that.clonedSample = null;
+                        });
+
+                    });
+
+                },
+
+                cloneInDimensionless: function (sample) {
+
+                    storageFormFactory.openCloneInDimensionless(sample, this.division);
 
                 }
 

@@ -12,7 +12,6 @@ angular.module('storage.storageBoxCellDirective', [])
                     $scope.element = element[0];
                     $scope.sdm = storageDivisionManager;
 
-
                     // responsive calculations
                     var resizeCell = function (event, data) {
 
@@ -27,7 +26,6 @@ angular.module('storage.storageBoxCellDirective', [])
                         element.css('width', flooredPercentage * 100 + '%');
 
                         element.css('padding-bottom', floor + 'px');
-
 
                         var percentage = data == undefined ? 75 : data.percentage;
 

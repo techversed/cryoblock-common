@@ -1,16 +1,13 @@
 angular.module('grid.gridBooleanFilterCtrl', [])
 
-    .controller('gridBooleanFilterCtrl', ['$scope', '$location',
+    .controller('gridBooleanFilterCtrl', ['$scope', '$location', 'gridManager',
 
-        function ($scope, $location) {
+        function ($scope, $location, gridManager) {
 
-            $scope.form = {
-                radioModel: "Any"
-            };
 
             var init = function () {
 
-                if (!$scope.grid.bindToState) {
+                if (!$scope.grid.bindToState || gridManager.ignoreUrlParams) {
                     return;
                 }
 
@@ -24,12 +21,8 @@ angular.module('grid.gridBooleanFilterCtrl', [])
                     $scope.filter.isFiltering = true;
                     $scope.filter.setFromState(boolParam);
                     $scope.filter.updateSelectionString();
-
                 }
-
             }
-
-            $scope.filter.form = $scope.form;
 
             $scope.refresh = function () {
 
@@ -39,7 +32,6 @@ angular.module('grid.gridBooleanFilterCtrl', [])
             };
 
             $scope.update = function () {
-
                 $scope.$emit('grid.refresh');
 
             };

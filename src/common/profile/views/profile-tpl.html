@@ -1,21 +1,20 @@
 <div id="profile-container">
 
     <div class="normalheader">
+        <div id="hbreadcrumb" >
+            <ol class="hbreadcrumb breadcrumb">
+                <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                <li class="active">
+                    <span>Profile</span>
+                </li>
+            </ol>
+        </div>
         <div class="hpanel">
             <div class="panel-body">
-
-                <div id="hbreadcrumb" class="pull-right m-t-lg">
-                    <ol class="hbreadcrumb breadcrumb">
-                        <li><a ui-sref="dashboard.main">Dashboard</a></li>
-                        <li class="active">
-                            <span>Profile</span>
-                        </li>
-                    </ol>
-                </div>
                 <h2 class="font-light m-b-xs">
                     Profile
                 </h2>
-                <button ng-click="changePassword()" class="btn btn-primary"><i class="fa fa-lock"/></button>
+                <button ng-if="userBool" ng-click="changePassword()" class="btn btn-primary"><i class="fa fa-lock"/></button>
                 <small>{{user.username}}'s profile details</small>
             </div>
         </div>
@@ -24,6 +23,7 @@
     <div class="content">
 
     <div class="row">
+
         <div class="col-lg-4">
             <div class="hpanel">
                 <div class="panel-heading">
@@ -34,22 +34,38 @@
                 </div>
                 <div class="panel-body float-e-margins">
 
+                    <button ng-if="userBool" ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
+
                     <div class="row">
                         <div class="col-lg-12">
                             <!-- Profile picture -->
                             <div class="avatar-container align-center">
-                                <div class="avatar" ng-click="uploadPhoto()">
-                                    <profile-avatar></profile-avatar>
-                                    <div class="img-circle avatar-edit animated pulse"></div>
+                                <div class="avatar" ng-click="!userBool || uploadPhoto()">
+                                    <img ng-if="!hasAvatar()" class="img-circle" src="images/avatar.jpg"></img>
+                                    <img ng-if="hasAvatar()" class="img-circle" ng-src="{{avatarSrc}}"></img>
+                                    <div ng-if="userBool"  class="img-circle avatar-edit animated pulse"></div>
                                 </div>
                             </div>
                             <div class="m-t-md user-info">
                                 <dl>
                                     <dt><h3>{{user.fullName}}</h3></dt>
+                                    <dd>{{user.title}}</dd>
+                                </dl>
+                                <dl>
+                                    <dt>About me</dt>
+                                    <dd>{{user.about}}</dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
+
+                </div>
+
+                <div class="panel-body float-e-margins">
+
+                        <div class="panel-body">
+                            <cb-object-comments object-type="user" object-id="user.id"></cb-object-comments>
+                        </div>
 
                 </div>
             </div>
@@ -63,9 +79,11 @@
                     </div>
                     Activity
                 </div>
-                <div class="panel-body float-e-margins">
-                    No activity to show
+
+                <div class="panel-body no-padding">
+                    <grid grid="grid"></grid>
                 </div>
+
             </div>
         </div>
     </div>

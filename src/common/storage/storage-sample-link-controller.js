@@ -1,8 +1,10 @@
 angular.module('storage.storageSampleLinkCtrl', [])
 
-    .controller('storageSampleLinkCtrl', ['$scope', 'samples', 'selectedCells', 'division', '$uibModalInstance', '$cbResource', 'toastr', 'callBack', '$state', 'sessionFactory', 'storageDivisionManager', 'sampleGrid',
+    // removed storage division manager from this because it is not used within the script that we are handling.
 
-        function ($scope, samples, selectedCells, division, $modalInstance, $cbResource, toastr, callBack, $state, sessionFactory, storageDivisionManager, sampleGrid) {
+    .controller('storageSampleLinkCtrl', ['$scope', 'samples', 'selectedCells', 'division', '$uibModalInstance', '$cbResource', 'callBack', 'sampleGrid',
+
+        function ($scope, samples, selectedCells, division, $modalInstance, $cbResource, callBack, sampleGrid) {
 
             $scope.samples = samples;
             $scope.division = division;

@@ -3,18 +3,39 @@
     <div class="normalheader">
         <div id="hbreadcrumb">
             <ol class="hbreadcrumb breadcrumb">
+                <li><a ui-sref="dashboard.main">Dashboard</a></li>
                 <li><a ui-sref="catalog.index">Catalog</a></li>
                 <li class="active">
-                    <span>Catalog Item {{catalog.id}}</span>
+                    <span>Catalog {{catalog.id}} Details</span>
                 </li>
             </ol>
         </div>
         <div class="hpanel">
             <div class="panel-body">
-                <button ng-click="edit(sample)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
-                <h2 class="font-light m-b-xs inline">
-                  Catalog Item {{catalog.id}} - {{catalog.name}}
-                </h2>
+
+                <div class="panel-actions">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-sm btn-default" ng-click="edit(catalog)"><i class="fa fa-edit"/></button>
+                        <div class="btn-group panel-more-actions" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog"/>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li cb-object-watch entity-id="catalog.id" entity="AppBundle\Entity\Storage\Catalog" object-description="Catalog" url="/storage/catalog"></li>
+                                <li>
+                                    <a class="dropdown-item" ng-click="delete(catalog, 'catalog.index')"><i class="fa fa-trash m-r-xs" />Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-t">
+                    <h2 class="font-light m-b-xs inline">
+                      Catalog Item {{catalog.id}} - {{catalog.name}}
+                    </h2>
+                </div>
             </div>
         </div>
     </div>
@@ -22,6 +43,10 @@
     <div class="content">
 
         <div class="row">
+
+            <div class="col-sm-12">
+                <h2><span class="label label-pill label-{{labelClass}} block">{{catalog.status}}</span></h2>
+            </div>
 
             <div class="col-sm-4">
                 <div class="hpanel">
@@ -35,12 +60,16 @@
                     <div class="panel-body no-padding">
                         <table class="table-detail">
                             <tr>
-                                <td>Id</td>
-                                <td>{{catalog.id}}</td>
+                                <td class="col-sm-3">Id</td>
+                                <td class="col-sm-9">{{catalog.id}}</td>
                             </tr>
                             <tr>
                                 <td>Name</td>
                                 <td>{{catalog.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Merged Into</td>
+                                <td>{{catalog.mergedInto.name}}</td>
                             </tr>
                         </table>
                     </div>
@@ -59,8 +88,8 @@
                     <div class="panel-body no-padding">
                         <table class="table-detail">
                             <tr>
-                                <td>Created By</td>
-                                <td>{{catalog.createdBy.fullName}}</td>
+                                <td class="col-sm-3">Created By</td>
+                                <td class="col-sm-9">{{catalog.createdBy.fullName}}</td>
                             </tr>
                             <tr>
                                 <td>Updated By</td>
@@ -83,8 +112,8 @@
                     <div class="panel-body no-padding">
                         <table class="table-detail">
                             <tr>
-                                <td>Created At</td>
-                                <td>{{catalog.createdAt | date:'medium'}}</td>
+                                <td class="col-sm-3">Created At</td>
+                                <td class="col-sm-9">{{catalog.createdAt | date:'medium'}}</td>
                             </tr>
                             <tr>
                                 <td>Last Updated At</td>

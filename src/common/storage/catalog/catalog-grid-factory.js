@@ -1,8 +1,8 @@
 angular.module('storage.catalog.catalogGridFactory', [])
 
-    .factory('catalogGridFactory', ['gridFactory', '$cbResource',
+    .factory('catalogGridFactory', ['gridFactory',
 
-        function (gridFactory, $cbResource) {
+        function (gridFactory) {
 
             var catalogGridFactory = {
 
@@ -20,12 +20,51 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         sref: 'catalog.detail({id:result.id})'
                     },
                     {
+                        header: 'Status',
+                        bindTo: 'status',
+                        name: 'status',
+                        templateUrl: 'common/storage/catalog/partials/catalog-status-column-tpl.html',
+                        isSorable: true
+                    },
+                    {
                         header: 'Name',
                         bindTo: 'name',
                         name: 'name',
                         isSortable: true,
-                        sref: 'sample.detail({id:result.id})'
+                        sref: 'catalog.detail({id:result.id})'
                     },
+                    {
+                        header: 'Merged Into',
+                        name: 'mergedInto',
+                        bindTo: 'mergedInto.name',
+                        sref: 'catalog.detail({id:result.mergedInto.id})'
+                    },
+                    {
+                        header: 'Created By',
+                        bindTo: 'createdBy.fullName',
+                        sref: 'profile.detail({id: result.createdBy.id})',
+                        name: 'createdBy'
+                    },
+                    {
+                        header: 'Updated By',
+                        bindTo: 'updatedBy.fullName',
+                        sref: 'profile.detail({id: result.updatedBy.id})',
+                        name: 'updatedBy',
+                        isVisible: false
+                    },
+                    {
+                        header: 'Date Created',
+                        bindTo: 'createdAt | date:\'MMM d, y\'',
+                        name: 'createdAt',
+                        isSortable: true
+                    },
+                    {
+                        header: 'Date Updated',
+                        bindTo: 'updatedAt | date:\'MMM d, y\'',
+                        name: 'updatedAt',
+                        isSortable: true,
+                        isVisible: false
+                    }
                 ],
 
                 filters: [
@@ -33,6 +72,12 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         type: 'string',
                         title: 'Name',
                         filterProperty: 'name',
+                        isVisible: false
+                    },
+                    {
+                        type: 'deleted',
+                        title: 'Show Deleted',
+                        filterProperty: 'cShowDeleted',
                         isVisible: false
                     }
                 ],

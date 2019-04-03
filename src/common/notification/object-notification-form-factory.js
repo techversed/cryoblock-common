@@ -17,33 +17,25 @@ angular.module('notification.objectNotificationFormFactory', [])
                         size: 'lg',
                         resolve: {
 
-                            entity: function () {
-
-                                return entity;
-
-                            },
-
-                            objectDescription: function () {
-
-                                return objectDescription;
-
-                            },
-
-                            url: function () {
-
-                                return url;
-
-                            },
-
                             adminRole: function () {
 
                                 return adminRole;
 
                             },
 
+                            entityDetail: function () {
+
+                                return $cbResource.getOne('/cryoblock/entity-detail', {'objectClassName[EQ]': entity});
+
+                            },
+
                             groupObjectNotification: function () {
 
-                                return $cbResource.getOne('/cryoblock/group-object-notification', {'entity[EQ]': entity});
+                                return $cbResource.getOne('/cryoblock/entity-detail', {'objectClassName[EQ]': entity}).then(function (response) {
+
+                                    return $cbResource.getOne('/cryoblock/group-object-notification', {'entityDetailId[EQ]': response.id});
+
+                                });
 
                             },
 
@@ -81,21 +73,9 @@ angular.module('notification.objectNotificationFormFactory', [])
                         size: 'lg',
                         resolve: {
 
-                            entity: function () {
+                            entityDetail: function () {
 
-                                return entity;
-
-                            },
-
-                            objectDescription: function () {
-
-                                return objectDescription;
-
-                            },
-
-                            url: function () {
-
-                                return url;
+                                return $cbResource.getOne('/cryoblock/entity-detail', {'objectClassName[EQ]': entity});
 
                             },
 
@@ -103,10 +83,10 @@ angular.module('notification.objectNotificationFormFactory', [])
 
                                 var loggedInUser = sessionFactory.getLoggedInUser();
 
-                                return $cbResource.getOne('/cryoblock/user-object-notification', {
-                                    'entity[EQ]': entity,
-                                    'userId[EQ]': loggedInUser.id,
-                                    'entityId[NULL]': true
+                                return $cbResource.getOne('/cryoblock/entity-detail', {'objectClassName[EQ]': entity}).then( function (response) {
+
+                                    return $cbResource.getOne('/cryoblock/user-object-notification', {'entityDetailId[EQ]': response.id, 'userId[EQ]': loggedInUser.id, 'entityId[NULL]': true});
+
                                 });
 
                             }

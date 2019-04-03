@@ -12,9 +12,13 @@ angular.module('grid.gridFactory', [])
 
                 this.data = null;
 
+                this.refreshCount = 0;
+
                 this.columns = [];
 
                 this.filters = [];
+
+                this.loading = true;
 
                 this.actionTemplate = null;
 
@@ -67,19 +71,29 @@ angular.module('grid.gridFactory', [])
 
                 this.selectItemCallback = null;
 
+                this.decorator = null;
+
             };
 
             Grid.prototype = {
 
-                perPageOptions: [10, 25, 50, 100],
+                perPageOptions: [25, 50, 100],
 
                 create: function () {
 
-                    return new Grid();
+                    var grid = new Grid();
+                    grid.pagination.perPage = perPageOptions[0];
+                    return grid;
 
                 },
 
                 setResults: function (results, initial) {
+
+                    this.loading = false;
+
+                    if (this.decorator) {
+                        results = this.decorator.decorate(results);
+                    }
 
                     this.results = results;
 
@@ -98,7 +112,6 @@ angular.module('grid.gridFactory', [])
                 setData: function (data) {
 
                     this.data = data;
-
                     this.turnPage();
 
                     return this;
@@ -122,6 +135,7 @@ angular.module('grid.gridFactory', [])
                     this.pagination.startIndex = startIndex + 1;
 
                     this.pagination.stopIndex = startIndex + this.results.length;
+                    // This is going to end up being a problem.
 
                     this.pagination.paginatedTotal = this.results.length;
                     this.pagination.unpaginatedTotal = this.data.length;
@@ -184,7 +198,9 @@ angular.module('grid.gridFactory', [])
                 },
 
                 hideAllFilters:function () {
+
                     var that = this;
+
                     this.filters.map(function (filter) {
                         filter.isVisible = false;
                     });
@@ -400,6 +416,12 @@ angular.module('grid.gridFactory', [])
                     this.removingItems.splice(this.removingItems.indexOf(item), 1);
                     this.removingItemIds.splice(this.removingItemIds.indexOf(item.id), 1);
 
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(null);
+
+                    }
+
                     return this;
 
                 },
@@ -408,6 +430,12 @@ angular.module('grid.gridFactory', [])
 
                     this.addingItems.splice(this.addingItems.indexOf(item), 1);
                     this.addingItemIds.splice(this.addingItemIds.indexOf(item.id), 1);
+
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(null);
+
+                    }
 
                     return this;
 
@@ -482,6 +510,12 @@ angular.module('grid.gridFactory', [])
 
                 setBindToState: function (bindToState) {
                     this.bindToState = bindToState;
+                    return this;
+                },
+
+                setDecorator: function (decorator) {
+                    this.decorator = decorator;
+
                     return this;
                 }
 

@@ -1,8 +1,8 @@
 angular.module('grid.gridDirective', [])
 
-    .directive('grid', ['$cbResource', '$location',
+    .directive('grid', ['$cbResource', '$location', 'gridManager',
 
-        function ($cbResource, $location) {
+        function ($cbResource, $location, gridManager) {
 
             return {
 
@@ -22,7 +22,7 @@ angular.module('grid.gridDirective', [])
                     var init = function () {
 
                         var getParams = $location.search();
-                        if ($scope.grid.bindToState && getParams['cSearch'] !== undefined) {
+                        if (!gridManager.ignoreUrlParams && $scope.grid.bindToState && getParams['cSearch'] !== undefined) {
                             $scope.grid.search = getParams['cSearch'];
                         }
 
@@ -44,6 +44,9 @@ angular.module('grid.gridDirective', [])
 
                     $scope.refresh = function () {
 
+                        $scope.grid.refreshCount += 1;
+                        var currentRefreshCounter = $scope.grid.refreshCount;
+
                         if ($scope.grid.data) {
 
                             $scope.grid.turnPage();
@@ -56,10 +59,12 @@ angular.module('grid.gridDirective', [])
 
                         if ($scope.grid.bindToState && $scope.grid.search) {
                             $location.search('cSearch', $scope.grid.search);
+                            $location.replace();
                         }
 
                         if ($scope.grid.bindToState) {
                             $location.search(params);
+                            $location.replace();
                         }
 
 
@@ -74,11 +79,12 @@ angular.module('grid.gridDirective', [])
                         $scope.previousParams = cloned_params;
 
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
-
-                            $scope.grid
-                                .setResults(response.data)
-                                .setPaginationFromResponse(response)
-                            ;
+                            if (currentRefreshCounter == $scope.grid.refreshCount) {
+                                $scope.grid
+                                    .setResults(response.data)
+                                    .setPaginationFromResponse(response)
+                                ;
+                            }
 
                         });
 
@@ -86,23 +92,17 @@ angular.module('grid.gridDirective', [])
 
                     $scope.removeItem = function (item) {
 
-                        $scope.$emit('form:changed');
-
                         $scope.grid.removeItem(item);
 
                     };
 
                     $scope.selectItem = function (item) {
 
-                        $scope.$emit('form:changed');
-
                         $scope.grid.selectItem(item);
 
                     };
 
                     $scope.addItem = function (item) {
-
-                        $scope.$emit('form:changed');
 
                         $scope.grid.addItem(item);
 

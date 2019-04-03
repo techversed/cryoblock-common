@@ -1,0 +1,57 @@
+<div>
+    <b>Division {{division.id}}: {{division.path}} - {{division.description}}</b>
+    <table id="division-table" storage-box division="division" style="border-spacing: 2px; table-layout:fixed; overflow:hidden; max-width:100%">
+        <thead>
+            <tr>
+                <td></td>
+                <td
+                    ng-class-odd="'odd'"
+                    ng-class-even="'even'"
+                    ng-repeat="number in columns"
+                    storage-box-heading
+                    column="number"
+                    style="text-align:center;"
+                >
+                    <span class="column-heading">
+                        {{number}}
+                    </span>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                class="box-print-cell"
+                ng-class-odd="'odd'"
+                ng-class-even="'even'"
+                ng-repeat="row in rows"
+                style="height: 10%"
+            >
+                <td
+                    class="row-head"
+                    ng-class-odd="'odd'"
+                    ng-class-even="'even'"
+                    storage-box-heading
+                    row="row"
+                >
+
+                    <span class="column-heading">
+                        {{row}}
+                    </span>
+                </td>
+                <td
+                    class="sample-draggable"
+                    ng-class-odd="'odd'"
+                    ng-class-even="'even'"
+                    ng-repeat="column in columns"
+                    sample="sdm.sampleMap[row][column]"
+                    row="row"
+                    column="column"
+                    ng-class="{selected: sdm.selectedCells[row][column], 'has-sample': sdm.sampleMap[row][column]}"
+                    style="border:1px solid gray; width: 100px; height: 60px;  max-width: 100px; text-align: center; font-size: 0.5em; overflow: hidden; text-overflow: ellipsis; word-wrap: break-word"
+                >
+                    <div class="sample-name" ng-if="sdm.sampleMap[row][column]" style="word-wrap: break-word; text-overflow:ellipsis">{{(sdm.sampleMap[row][column].catalog.name + ' -- ' + sdm.sampleMap[row][column].description).substring(0,130)}} </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

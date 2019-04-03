@@ -1,8 +1,8 @@
 <div class="btn-group" uib-dropdown keyboard-nav>
-    <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectionString}}" uib-dropdown-toggle ng-class="{filtering: filter.isFiltering}">
+    <button id="single-button" type="button" class="btn btn-default" title="{{filter.selectionString}}" uib-dropdown-toggle ng-class="{filtering: filter.isFiltering, disabled:filter.disabled}">
         {{filter.title}} : {{ filter.selectionString }}
         <span class="caret"></span>
-        <i class="fa fa-close grid-filter-toggle" ng-click="toggleFilter($event)" />
+        <i ng-if="!filter.disabled" class="fa fa-close grid-filter-toggle" ng-click="toggleFilter($event)" />
     </button>
 
     <ul uib-dropdown-menu class="dropdown-menu integer p-sm" role="menu" aria-labelledby="single-button" ng-click="$event.stopPropagation()">
