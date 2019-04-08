@@ -16,7 +16,7 @@ angular.module('login.loginCtrl', [])
                 }
                 else if (sessionFactory.hasRole('ROLE_UNDERGRAD_STUDENT_WORKER'))
                 {
-                    $state.go('order.index');
+                    $state.go('backstock_order.index');
                 }
             }
             else {
@@ -38,7 +38,7 @@ angular.module('login.loginCtrl', [])
                             $state.go('sample.index');
                         }
                         else if (sessionFactory.hasRole('ROLE_UNDERGRAD_STUDENT_WORKER')) {
-                            $state.go('order.index');
+                            $state.go('backstock_order.index');
                         }
 
                     },
