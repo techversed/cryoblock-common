@@ -75,6 +75,17 @@ angular.module('session.authInterceptor', [])
 
             }
 
+            // We should try to avoid hard coding this
+            if (sessionFactory.hasRole('ROLE_UNDERGRAD_STUDENT_WORKER')){
+                $state.go('backstock_order.index');
+
+                redirectService.setRedirect(toState, toParams);
+
+
+                return;
+
+            }
+
             toastr.error('Sorry, you don\'t have permission to view the ' + (toState.pageTitle || 'requested') + ' page. Contact your administrator to get access.')
 
             // logged in but didn't come from anywhere so lets go to dashboard
