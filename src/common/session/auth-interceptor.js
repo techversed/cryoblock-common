@@ -40,7 +40,7 @@ angular.module('session.authInterceptor', [])
 
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
 
-            if (toState.name === 'login' || toState.name === 'password_reset' || toState.name === 'password_reset_confirm' || toState.name === 'itemrequest.placement') {
+            if (toState.name === 'login' || toState.name === 'password_reset' || toState.name === 'password_reset_confirm' || toState.name === 'backstock_itemrequest.placement') {
                 return;
             }
 
@@ -70,6 +70,17 @@ angular.module('session.authInterceptor', [])
                 redirectService.setRedirect(toState, toParams);
 
                 $state.go('login');
+
+                return;
+
+            }
+
+            // We should try to avoid hard coding this
+            if (sessionFactory.hasRole('ROLE_UNDERGRAD_STUDENT_WORKER')){
+                $state.go('backstock_order.index');
+
+                redirectService.setRedirect(toState, toParams);
+
 
                 return;
 

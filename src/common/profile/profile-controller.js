@@ -1,7 +1,7 @@
 angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'grid', 'userBool',
+    .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'grid', 'userBool', '$cbResource',
 
-        function ($scope, $modal, user, API, profileFormFactory, grid, userBool) {
+        function ($scope, $modal, user, API, profileFormFactory, grid, userBool, $cbResource) {
 
             $scope.user = user;
             $scope.grid = grid;
@@ -11,6 +11,14 @@ angular.module('profile.profileCtrl', [])
             // $scope.bool =
 
             $scope.edit = profileFormFactory.openFormModal;
+
+
+
+
+            $cbResource.get('/project/project-editor/user/' + $scope.user.id).then(function (response) {
+                $scope.projects = response.data;
+            });
+
 
             $scope.hasAvatar = function () {
                 return typeof $scope.user.avatarAttachment !== 'undefined';
