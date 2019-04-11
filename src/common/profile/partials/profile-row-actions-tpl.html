@@ -1,0 +1,28 @@
+<div class="btn-group" uib-dropdown is-open="status.isopen" ng-controller="profileRowActionsCtrl">
+    <button id="single-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+        <span class="fa fa-cog"></span>
+    </button>
+    <ul uib-dropdown-menu class="dropdown-menu pull-right" role="menu" aria-labelledby="single-button" ng-if="!result.deletedAt">
+        <li role="menuitem">
+            <a ui-sref="profile.detail({id:result.id})"><i class="fa fa-file-o m-r-xs"/>View</a>
+        </li>
+        <li class="divider"></li>
+        <li role="menuitem">
+            <a ng-click="edit(result)"><i class="fa fa-edit m-r-xs"/>Edit</a>
+        </li>
+        <li ng-if="result.status != 'Completed'">
+            <a class="dropdown-item" ui-sref="protein_purification.complete({id:result.id})"><i class="fa fa-check m-r-xs" />Complete</a>
+        </li>
+        <li role="menuitem">
+            <a ng-click="delete(result)"><i class="fa fa-trash m-r-xs"/>Delete</a>
+        </li>
+    </ul>
+    <ul uib-dropdown-menu class="dropdown-menu pull-right" role="menu" aria-labelledby="single-button" ng-if="result.deletedAt">
+        <li role="menuitem">
+            <a ng-click="restore(result)"><i class="fa fa-window-restore m-r-xs"/>Restore</a>
+        </li>
+        <li role="menuitem">
+            <a ng-click="purge(result)"><i class="fa fa-eraser m-r-xs"/>Purge</a>
+        </li>
+    </ul>
+</div>

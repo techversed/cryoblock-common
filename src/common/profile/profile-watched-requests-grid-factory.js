@@ -1,8 +1,8 @@
 angular.module('profile.profileWatchedRequestsGridFactory', [])
 
-    .factory('profileWatchedRequestsGridFactory', ['gridFactory', 'profileGridDecorator',
+    .factory('profileWatchedRequestsGridFactory', ['gridFactory',
 
-        function (gridFactory, profileGridDecorator) {
+        function (gridFactory) {
 
             var watchedRequestsGridFactory = {
 
@@ -13,40 +13,40 @@ angular.module('profile.profileWatchedRequestsGridFactory', [])
                 columns: [
                     {
                         header: 'Object Id',
-                        bindTo: 'id',
-                        name: 'id',
-                        isVisible: true,
+                        bindTo: 'entity.alias',
+                        name: 'entity.alias',
+                        isVisible: true
+                    },
+                    {
+                        header: 'Name',
+                        bindTo: 'entity.description',
+                        name: 'entity.description',
+                        isVisible: true
+                    },
+                    {
+                        header: 'Description',
+                        bindTo: 'entity.description',
+                        name: 'entity.description',
+                        isVisible: true
+                    },
+                    {
+                        header: 'Status',
+                        bindTo: 'entity.status',
+                        name: 'entity.status',
+                        isVisible: true
+                    },
+                    {
+                        header: 'Project',
+                        bindTo: 'entity.projectString',
+                        name: 'entity.projectString',
+                        isVisible: true
+                    },
+                    {
+                        header: 'Updated By',
+                        bindTo: 'entity.updatedBy.fullName',
+                        name: 'entity.updatedBy.fullName',
+                        isVisible: true
                     }
-                    // {
-                    //     header: 'Name',
-                    //     bindTo: 'entity.name',
-                    //     name: 'entity.name',
-                    //     isVisible: true
-                    // },
-                    // {
-                    //     header: 'Description',
-                    //     bindTo: 'entity.description',
-                    //     name: 'entity.description',
-                    //     isVisible: true
-                    // },
-                    // {
-                    //     header: 'Status',
-                    //     bindTo: 'entity.status',
-                    //     name: 'entity.status',
-                    //     isVisible: true
-                    // },
-                    // {
-                    //     header: 'Project',
-                    //     bindTo: 'entity.projectString',
-                    //     name: 'entity.projectString',
-                    //     isVisible: true
-                    // },
-                    // {
-                    //     header: 'Updated By',
-                    //     bindTo: 'entity.updatedBy.fullName',
-                    //     name: 'entity.updatedBy.fullName',
-                    //     isVisible: true
-                    // },
 
                 ],
 

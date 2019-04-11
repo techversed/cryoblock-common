@@ -42,13 +42,6 @@ angular.module('profile.routes', [])
 
                                         return $cbGridBuilder.buildIndex('profileWatchedRequestsGridFactory');
 
-                                    },
-
-                                    grid: function ($cbGridBuilder, sessionFactory)  {
-                                        var url;
-                                        var username = sessionFactory.getLoggedInUser().username;
-                                        overrides = {'url': '/log-entry?username[EQ]=' + username, 'bindToState': false};
-                                        return $cbGridBuilder.buildIndex('profileActivityGridFactory', overrides);
                                     }
                                 }
                             }
@@ -79,13 +72,6 @@ angular.module('profile.routes', [])
 
                                         return $cbGridBuilder.buildIndex('profileWatchedRequestsGridFactory');
 
-                                    },
-
-                                    grid: function ($cbGridBuilder, sessionFactory, user)  {
-                                        var url;
-                                        var username = user.username; // Use the user from above instead of the one on session.
-                                        overrides = {'url': '/log-entry?username[EQ]=' + username, 'bindToState': false};
-                                        return $cbGridBuilder.buildIndex('profileActivityGridFactory', overrides);
                                     }
                                 }
                             }

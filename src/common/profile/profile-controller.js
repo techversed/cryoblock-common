@@ -1,10 +1,9 @@
 angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'grid', 'userBool', '$cbResource', 'watchedRequestsGrid',
+    .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'userBool', '$cbResource', 'watchedRequestsGrid',
 
-        function ($scope, $modal, user, API, profileFormFactory, grid, userBool, $cbResource, watchedRequestsGrid) {
+        function ($scope, $modal, user, API, profileFormFactory, userBool, $cbResource, watchedRequestsGrid) {
 
             $scope.user = user;
-            $scope.grid = grid;
             $scope.watchedRequestsGrid = watchedRequestsGrid;
 
             $scope.userBool = userBool; // User Bool true of the user is going to their own profile page -- false if not--
@@ -12,10 +11,6 @@ angular.module('profile.profileCtrl', [])
             // $scope.bool =
 
             $scope.edit = profileFormFactory.openFormModal;
-
-            console.log(watchedRequestsGrid)
-            console.log(1)
-
 
             $cbResource.get('/project/project-editor/user/' + $scope.user.id).then(function (response) {
                 $scope.projects = response.data;
