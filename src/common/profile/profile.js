@@ -8,5 +8,6 @@ angular.module('profile', [
     'profile.profileFormCtrl',
     'profile.changePasswordCtrl',
     'profile.profileActivityGridFactory',
-    'profile.profileGridDecorator'
+    'profile.profileGridDecorator',
+    'profile.profileWatchedRequestsGridFactory'
 ]);

@@ -38,6 +38,12 @@ angular.module('profile.routes', [])
                                         return true;
                                     },
 
+                                    watchedRequestsGrid: function ($cbGridBuilder) {
+
+                                        return $cbGridBuilder.buildIndex('profileWatchedRequestsGridFactory');
+
+                                    },
+
                                     grid: function ($cbGridBuilder, sessionFactory)  {
                                         var url;
                                         var username = sessionFactory.getLoggedInUser().username;
@@ -67,6 +73,12 @@ angular.module('profile.routes', [])
 
                                     userBool: function(sessionFactory, $stateParams){
                                         return (sessionFactory.getLoggedInUser().id == $stateParams.id);
+                                    },
+
+                                    watchedRequestsGrid: function ($cbGridBuilder) {
+
+                                        return $cbGridBuilder.buildIndex('profileWatchedRequestsGridFactory');
+
                                     },
 
                                     grid: function ($cbGridBuilder, sessionFactory, user)  {
