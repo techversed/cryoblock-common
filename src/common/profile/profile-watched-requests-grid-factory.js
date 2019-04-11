@@ -15,12 +15,13 @@ angular.module('profile.profileWatchedRequestsGridFactory', [])
                         header: 'Object Id',
                         bindTo: 'entity.alias',
                         name: 'entity.alias',
-                        isVisible: true
+                        isVisible: true,
+                        templateUrl: 'common/profile/partials/profile-grid-id-tpl.html'
                     },
                     {
                         header: 'Name',
-                        bindTo: 'entity.description',
-                        name: 'entity.description',
+                        bindTo: 'entity.name',
+                        name: 'entity.name',
                         isVisible: true
                     },
                     {
@@ -33,7 +34,8 @@ angular.module('profile.profileWatchedRequestsGridFactory', [])
                         header: 'Status',
                         bindTo: 'entity.status',
                         name: 'entity.status',
-                        isVisible: true
+                        isVisible: true,
+                        templateUrl: 'common/profile/partials/profile-status-column-tpl.html'
                     },
                     {
                         header: 'Project',
