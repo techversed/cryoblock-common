@@ -1,1 +1,7 @@
-<span class="label label-pill" ng-class="{'label-warning': result.entity.status == 'Pending','label-primary': result.entity.status == 'Processing', 'label-danger': result.entity.status == 'Aborted', 'label-info': result.entity.status == 'Action Required', 'label-success': result.entity.status == 'Completed', 'label-danger': result.entity.status == 'Samples Received', 'label-default': result.entity.status == 'Review'}">{{result.entity.status}}</span>
+<span class="label label-pill" ng-class="{
+'label-warning': result.entity.status == 'Pending',
+'label-primary': result.entity.status == 'Processing' || result.entity.status == 'Active',
+ 'label-danger': result.entity.status == 'Aborted' || result.entity.status == 'Samples Received' || result.entity.status == 'Expired',
+  'label-info': result.entity.status == 'Action Required' || result.entity.status == 'Upcoming',
+   'label-success': result.entity.status == 'Completed' || result.entity.status == 'Fully Executed',
+   'label-default': result.entity.status == 'Review' || result.entity.status == 'Inactive'}">{{result.entity.status}}</span>
