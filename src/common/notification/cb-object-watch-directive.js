@@ -37,7 +37,7 @@ angular.module('notification.cbObjectWatchDirective', [])
                             $scope.entityDetail = response;
 
                             var data = {
-                                'entityDetailId[EQ]': response.id,
+                                'linkedEntityDetailId[EQ]': response.id,
                                 'entityId[EQ]': $scope.entityId,
                                 'userId[EQ]': $scope.loggedInUser.id
                             };
@@ -100,7 +100,7 @@ angular.module('notification.cbObjectWatchDirective', [])
                         }, function() {
 
                             var data = {
-                                'entityDetailId[EQ]': $scope.entityDetail.id,
+                                'linkedEntityDetailId[EQ]': $scope.entityDetail.id,
                                 'entityId[EQ]': $scope.entityId,
                                 'userId[EQ]': $scope.loggedInUser.id
                             };
