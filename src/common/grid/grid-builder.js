@@ -28,7 +28,7 @@ angular.module('grid.gridBuilder', [])
                         .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
                     ;
 
-                    grid.perPageOptions = [25, 50, 100];
+                    grid.perPageOptions = [25, 50, 100, 250, 500];
                     grid.setPerPage(grid.perPageOptions[0]);
                     grid = this.addFiltersToGrid(grid, overrides['filterGroups']);
 
