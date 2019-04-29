@@ -18,6 +18,8 @@ angular.module('storage.catalog.catalogFormCtrl', [])
                 .setObjectClass('AppBundle\\Entity\\Storage\\Catalog')
             ;
 
+            $scope.statuses = ['Available', 'Depleted', 'Destroyed'];
+
             $scope.close = function () {
                 $scope.cbForm.close($scope.catalogForm, $scope);
             };

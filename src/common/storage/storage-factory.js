@@ -54,6 +54,7 @@ angular.module('storage.storageFactory', [])
 
                 },
 
+                // This is not used and can be removed with no impact upon the functionality of our software.
                 getDivisionChildren2: function (parentId) {
 
                     var req = {
@@ -71,6 +72,7 @@ angular.module('storage.storageFactory', [])
                     return promise;
                 },
 
+                // Ended up changing serlializationg groups instead of getting these all separately -- should be able to remove this without issue.
                 getDivisionSampleTypes: function (divisionId) {
 
                     var url = API.url + '/storage/division-sample-type/division/' + divisionId;
@@ -83,6 +85,7 @@ angular.module('storage.storageFactory', [])
 
                 },
 
+                // The issue that this was created to address was instead handled using serialization groups on the backend -- I think that this can be removed without issue.
                 getDivisionStorageContainers: function (divisionId) {
 
                     var url = API.url + '/storage/division-storage-container/division/' + divisionId;

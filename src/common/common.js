@@ -3,6 +3,7 @@ angular.module('common', [
     'ui.bootstrap',
     'ui-rangeSlider',
     'common.commonCtrl',
+    'qrCode',
     'login',
     'dashboard',
     'session',
