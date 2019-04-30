@@ -67,26 +67,15 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     var init = function () {
 
                         // If fields are not provided we should used default values...
-                        $scope.suggesetionList = $scope.suggestionList ? $scope.suggestionList : [];
+                        $scope.suggesetionList = $scope.suggestionList ? $scope.suggestionList : ["suggestion", "list", "not", "provided"];
                         $scope.data = $scope.data ? $scope.data : [];
                         $scope.minSelectable = $scope.minSelectable ? $scope.minSelectable : 0;
                         $scope.maxSelectable = $scope.maxSelectable ? $scope.maxSelectable : false;
                         $scope.radio = $scope.radio ? $scope.radio ? false;
-                        // $scope.selectMultiple = $scope.maxSelectable ? $scope.selectMultiple != 1 : true; // In the final version this will be passed in with scope.
 
-                        // Properties if selecting single
-                        // $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
                         $scope.highlightedElement = $scope.suggestionList[0];
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
-
-                        // Properties if selecting many
-                        $scope.multiSelected = {};
-                        $scope.things = ["asdf", "other", "yet another", "and another", "and one more", "don't forget this one"];
-                        // $scope.selectedValues = [];
-
-
-                        // $scope.selectionListString = '';
 
                         for(var i = 0; i < $scope.suggestionList.length; i++){
                             $scope.multiSelected[$scope.suggestionList[i]] = false;
@@ -94,7 +83,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         $scope.focusGained = false; // True if the element has gained focus since the last time the dropdown display was cancelled due to a copy or paste action
 
-                        angular.forEach($scope.data, $scope.selectItem($scope.data));
+                        // angular.forEach($scope.data, $scope.selectItem($scope.data));
 
                     };
 
@@ -110,10 +99,6 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         }
 
                         else if(event.key == " ") {
-
-                            // We are not going to make spacebar do anything here since we are going to use it to enter text in other forms of inputs.
-                            // $scope.selectItem($scope.highlightedElement);
-                            // preventing default from making the page scroll down like crazy
 
                             event.preventDefault(); // Don't want it so scoll all the way down.
 
