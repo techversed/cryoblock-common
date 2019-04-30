@@ -8,14 +8,11 @@
     Searching will be performed within the interface
 
 
-    data shoudl be the objects taht are selected to start things off
     minselectable
     maxselectable
     selectMultiple -- true or false. checkbox or radio buttons
 
 */
-
-// scope.selected --
 
 angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
     .directive('gridFormDropdownColumn', [
@@ -24,13 +21,12 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
             return {
 
-                // Radio is whether a radio button should be used or not -- only works when max selectable is one
                 scope: {
-                    data: '=',
-                    radio: '@',
-                    minSelectable: '@',
-                    maxSelectable: '@',
-                    suggestionList: '@'
+                    obj: '=',
+                    column: '=',
+                    field: '=',
+                    minselectable: '@',
+                    maxselectable: '@',
                 },
 
                 restrict: 'E',
@@ -43,8 +39,8 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     // Index is the
                     var getIndex = function (needle, haystack) {
 
-                        for (i=0; i<haystack.length; i++){
-                            if(haystack[i]==needle) return i;
+                        for (i=0; i < haystack.length; i++){
+                            if (haystack[i]==needle) return i;
                         }
 
                         return -1;
@@ -52,12 +48,11 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     }
 
                     var initArray = function (value, count) {
+
                         var tmp = [];
 
                         for(i=0; i<count;i++){
-
                             tmp.push(value);
-
                         }
 
                         return tmp;
@@ -65,17 +60,28 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     }
 
                     var init = function () {
+                        $scope.obj[$scope.field] = $scope.obj[$scope.field] ? $scope.obj[$scope.field] : [];
+                        // $scope.field = $scope.column[$scope.field];
 
-                        // If fields are not provided we should used default values...
-                        $scope.suggesetionList = $scope.suggestionList ? $scope.suggestionList : ["suggestion", "list", "not", "provided"];
-                        $scope.data = $scope.data ? $scope.data : [];
-                        $scope.minSelectable = $scope.minSelectable ? $scope.minSelectable : 0;
-                        $scope.maxSelectable = $scope.maxSelectable ? $scope.maxSelectable : false;
-                        $scope.radio = $scope.radio ? $scope.radio ? false;
+                        // Testing stuff
+                        // $scope.form.search = "asdf";
+                        // $scope.textAndStuff = "Here is some text";
+                        // If not specified assume that you are selecting a single one
 
+                        $scope.selectMultiple = $scope.maxSelectable ? false : ($scope.maxSelectable == 1)  ? true : true;
+
+                        // Properties if selecting single
+                        $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
                         $scope.highlightedElement = $scope.suggestionList[0];
+
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
+
+                        // Properties if selecting many
+                        $scope.multiSelected = {};
+                        // $scope.obj = [];
+
+                        // $scope.selectionListString = '';
 
                         for(var i = 0; i < $scope.suggestionList.length; i++){
                             $scope.multiSelected[$scope.suggestionList[i]] = false;
@@ -83,24 +89,16 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         $scope.focusGained = false; // True if the element has gained focus since the last time the dropdown display was cancelled due to a copy or paste action
 
-                        // angular.forEach($scope.data, $scope.selectItem($scope.data));
-
                     };
 
                     $scope.keyPressHandler = function (event, item){
 
                         console.log(event);
 
-                        if ((event.key == "Enter" && event.metaKey == false)) {
+                        if (event.key == "Enter") {
                             console.log(event);
 
                             $scope.selectItem($scope.highlightedElement);
-
-                        }
-
-                        else if(event.key == " ") {
-
-                            event.preventDefault(); // Don't want it so scoll all the way down.
 
                         }
 
@@ -149,9 +147,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         else if (event.key == 'a' && event.metaKey == true){
 
-
                             console.log(event);
-
                             console.log("selection start", event.currentTarget.selectionStart);
                             console.log("selection End", event.currentTarget.selectionEnd);
 
@@ -162,8 +158,8 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             sel.removeAllRanges();
                             sel.addRange(range);
 
-                            // event.currentTarget.selectionStart =0;
-                            // event.currentTarget.selectionEnd=10;
+                            // event.currentTarget.selectionStart = 0;
+                            // event.currentTarget.selectionEnd = 10;
 
                             event.preventDefault();
                             // If the user hits ctrl / cmd + a then we want to keep the selection within the currently selected cell.
@@ -183,20 +179,23 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                                     tmpList.push($scope.suggestionList[i]);
                                 }
                             }
-                            $scope.selectedValues = tmpList;
-
+                            $scope.obj[$scope.field] = tmpList;
                             // $scope.selectionListString = $scope.selectedValues.join(", ");
 
                         }
 
                         else {
 
-                            // pop the item off the array and add the new one.
-                            // We are only going to support having a list of elements.
+                            if ($scope.obj[$scope.field].includes(item))
+                            {
+                                $scope.obj[$scope.field] = [];
+                            }
+                            else {
+                                $scope.obj[$scope.field] = [item];
+                            }
 
-                            $scope.selectedThing.name = item;
-                            $scope.selectedValues = [item];
                         }
+
 
                     };
 
@@ -241,6 +240,13 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         console.log("caught the copy event");
 
                         $scope.focusGained = false; // If they copy, close the
+                    };
+
+                    $scope.unselectItem = function (thing){
+
+                        $scope.selectItem(thing);
+                        console.log(thing);
+
                     };
 
 

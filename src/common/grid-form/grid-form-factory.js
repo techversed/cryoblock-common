@@ -37,7 +37,6 @@ angular.module('gridForm.gridFormFactory', [])
                     {id: "id", header: "Dropdown", field: "Field2", required: true, fieldName: "asdf", type: "dropdown", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
                     {id: "id", header: "Single-Relation", field: "Field3", required: true, fieldName: "asdf", type: "singlerelation", backendUrl: 'path to url', validators: ["list of functions"]},
                     {id: "id", header: "Multi-Relation", field: "Field4", required: true, fieldName: "asdf", type: "multirelation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl: 'path to url', validators: ["List of functions"]},
-                    {id: "id", header: "Boolean", field: "Field5", defVal:true, required: true, fieldName: "asdf", type: "boolean", backendUrl: 'path to url', validators: ["List of functions"]},
                 ];
 
                 // Row Definitions
@@ -48,6 +47,7 @@ angular.module('gridForm.gridFormFactory', [])
                     {id: 3, collapsed: false, deleted: false, entity: {'Field1': 'asdf3', 'Field2': [], 'Field3': [], 'Field4': []}},
                     {id: 4, collapsed: false, deleted: false, entity: {'Field1': 'asdf4', 'Field2': [], 'Field3': [], 'Field4': []}}
                 ];
+                    // {id: "id", header: "Boolean", field: "Field5", defVal:true, required: true, fieldName: "asdf", type: "boolean", backendUrl: 'path to url', validators: ["List of functions"]},
 
                 // Want to make it possible to group rows in the best way possible. -- could set it up to group by sample id for instance.
                 this.rowOrdering = [0,1,2,3,4];

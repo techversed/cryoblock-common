@@ -2,90 +2,22 @@
 
     <span class='dropdownColumnNoText form-control' ng-keydown="keyPressHandler($event,item)" ng-paste="catchPaste($event)" tabindex="0" ng-focus="shiftFocus()">
 
-        <span ng-paste="console.log('ng-paste')" ng-if="!(selectedValues.length > 0)" class="wFullWidth">None selected</span>
+        <span ng-paste="console.log('ng-paste')" ng-if="!(obj[field].length > 0)" class="wFullWidth">None selected</span>
 
-        <span ng-repeat="thing in selectedValues">
-            <span class="label label-success">{{thing}}</span><span  ng-if="!$last">, </span>
+        <span ng-repeat="thing in obj[field]" id="testing">
+            <span class="label label-success">{{thing}} <i class="fa fa-remove" ng-click="unselectItem(thing)"></i></span><span  ng-if="!$last">, </span>
         </span>
 
     </span>
 
-    <!-- need to remove the div elements ... that may be what is getting selectd -->
-<!--
-    <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-if="focusGained && !selectMutiple">
+    <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-if="focusGained">
 
-        <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
+        <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)" on-focus="shiftFocus()">
             <li role="menuitem">
-                <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
+                <span class="grid-form-dropdown-input-spacer disable" on-focus="shiftFocus()" /> <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i> <span on-focus="shiftFocus()" class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
             </li>
         </div>
 
-    </ul>
--->
-
-    <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-if="focusGained && selectMultiple">
-        <!-- select multiple -->
-        <li role="menuitem" tabindex="-1" ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
-            <span class="grid-form-dropdown-input-spacer" / > <input type="checkbox" ng-model="multiSelected[item]" class="grid-form-menu-item-input"  tabindex="-1" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
-        </li>
     </ul>
 
 </div>
-
-<!--
-
-    <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-if="focusGained">
-
-        <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)" ng-if="!selectMultiple">
-            <li role="menuitem">
-                <span class="grid-form-dropdown-input-spacer" / > <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
-            </li>
-        </div>
-
-        <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)" ng-if="selectMultiple">
-            <li role="menuitem" tabindex="-1">
-                <span class="grid-form-dropdown-input-spacer" / > <input type="checkbox" ng-model="multiSelected[item]" class="grid-form-menu-item-input"  tabindex="-1" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
-            </li>
-        </div>
-    </ul>
--->
-
-
-<!-- I don't know if we are going to need a search bar here afterall -- the dropdowns may be short enough that it won't make sense. -->
-<!--
-    <input class='second' type="text" id="testing" tabindex="-1">
-    </input>
--->
-
-
-<!--
-<input ng-paste="catchPaste($event)" ng-init='count =0'> </input>
-{{count}}
--->
-
-<!--
-    <span ng-paste="catchPaste($event)"> testing </span>
--->
-
-
-<!--
-    For the dropdown I think that we are going do do away with the textbox like this...
--->
-
-<!--
-    <input
-        ng-model="form.search"
-        ng-change="search()"
-        ng-model-options="{debounce:300}"
-        ng-keydown="keyPressHandler($event, item)"
-        ng-focus="console.log('testing')"
-        class="form-control"
-    >
-
-    </input>
--->
-
-<!--
-    <input ng-paste="console.log('testing')">
-    </input>
--->
