@@ -8,6 +8,7 @@
     Searching will be performed within the interface
 
 
+    data shoudl be the objects taht are selected to start things off
     minselectable
     maxselectable
     selectMultiple -- true or false. checkbox or radio buttons
@@ -22,7 +23,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
             return {
 
                 scope: {
-                    obj: '=',
+                    data: '=',
                     minselectable: '@',
                     maxselectable: '@',
                 },
@@ -66,7 +67,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
 
                         // If not specified assume that you are selecting a single one
-                        $scope.selectMultiple = $scope.selectMutiple ? $scope.selectMultiple : true; // In the final version this will be passed in with scope.
+                        $scope.selectMultiple = $scope.maxSelectable ? $scope.selectMultiple != 1 : true; // In the final version this will be passed in with scope.
 
                         // Properties if selecting single
                         $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
@@ -86,6 +87,8 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         $scope.focusGained = false; // True if the element has gained focus since the last time the dropdown display was cancelled due to a copy or paste action
 
+                        angular.forEach($scope.data, $scope.selectItem($scope.data));
+
                     };
 
                     $scope.keyPressHandler = function (event, item){
@@ -101,8 +104,10 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         }
                         else if(event.key == " ") {
 
-                            $scope.selectItem($scope.highlightedElement);
-                            event.preventDefault();
+                        // We are not going to make spacebar do anything here since we are going to use it to enter text in other forms of inputs.
+                        // $scope.selectItem($scope.highlightedElement);
+
+                            event.preventDefault(); // Don't want it so scoll all the way down.
 
                         }
                         else if (event.key == "ArrowDown") {

@@ -30,20 +30,23 @@ angular.module('gridForm.gridFormFactory', [])
 
                 // Default
 
+                // The word default seems to be a reserved word in javascript -- used the word defVal instead.
+                // Column definitions
                 this.columns = [
-                    {id: "id", header: "Text", field: "Field1", default: "default value for that column when a new object is created", required: true, fieldName: "asdf", type: "text", validators: ["list of functions"], sortingOperator: function () {}, sortable:true},
+                    {id: "id", header: "Text", field: "Field1", defVal: "default value for that column when a new object is created", required: true, fieldName: "asdf", type: "text", validators: ["list of functions"], sortingOperator: function () {}, sortable:true},
                     {id: "id", header: "Dropdown", field: "Field2", required: true, fieldName: "asdf", type: "dropdown", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
                     {id: "id", header: "Single-Relation", field: "Field3", required: true, fieldName: "asdf", type: "singlerelation", backendUrl: 'path to url', validators: ["list of functions"]},
                     {id: "id", header: "Multi-Relation", field: "Field4", required: true, fieldName: "asdf", type: "multirelation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl: 'path to url', validators: ["List of functions"]},
-                    {id: "id", header: "Boolean", field: "Field5", required: true, fieldName: "asdf", type: "boolean", backendUrl: 'path to url', validators: ["List of functions"]},
+                    {id: "id", header: "Boolean", field: "Field5", defVal:true, required: true, fieldName: "asdf", type: "boolean", backendUrl: 'path to url', validators: ["List of functions"]},
                 ];
 
+                // Row Definitions
                 this.rows = [
-                    {id: 0, collapsed: false, deleted: false, entity: {'Field1': 'asdf0', 'Field2': 2, 'Field3': 3, 'Field4': 4}},
-                    {id: 1, collapsed: false, deleted: false, entity: {'Field1': 'asdf1', 'Field2': 2, 'Field3': 3, 'Field4': 4}},
-                    {id: 2, collapsed: false, deleted: false, entity: {'Field1': 'asdf2', 'Field2': 2, 'Field3': 3, 'Field4': 4}},
-                    {id: 3, collapsed: false, deleted: false, entity: {'Field1': 'asdf3', 'Field2': 2, 'Field3': 3, 'Field4': 4}},
-                    {id: 4, collapsed: false, deleted: false, entity: {'Field1': 'asdf4', 'Field2': 2, 'Field3': 3, 'Field4': 4}}
+                    {id: 0, collapsed: false, deleted: false, entity: {'Field1': 'asdf0', 'Field2': [], 'Field3': [], 'Field4': []}},
+                    {id: 1, collapsed: false, deleted: false, entity: {'Field1': 'asdf1', 'Field2': [], 'Field3': [], 'Field4': []}},
+                    {id: 2, collapsed: false, deleted: false, entity: {'Field1': 'asdf2', 'Field2': [], 'Field3': [], 'Field4': []}},
+                    {id: 3, collapsed: false, deleted: false, entity: {'Field1': 'asdf3', 'Field2': [], 'Field3': [], 'Field4': []}},
+                    {id: 4, collapsed: false, deleted: false, entity: {'Field1': 'asdf4', 'Field2': [], 'Field3': [], 'Field4': []}}
                 ];
 
                 // Want to make it possible to group rows in the best way possible. -- could set it up to group by sample id for instance.
@@ -68,7 +71,7 @@ angular.module('gridForm.gridFormFactory', [])
 
                 // Takes a list of objects and adds a row for each one -- might be a good idea to copy them bofore adding them so that you don't change the initial object
                 addRowsFromObjects: function (ents) {
-                    // angular.foreach(ents, this.addRowFromOjbect(thing)
+                    angular.forEach(ents, this.addRowFromOjbect(thing))
                 },
 
                 // Add an element to the gridform
