@@ -15,6 +15,8 @@
 
 */
 
+// scope.selected --
+
 angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
     .directive('gridFormDropdownColumn', [
 
@@ -22,12 +24,14 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
             return {
 
+                // Radio is whether a radio button should be used or not -- only works when max selectable is one
                 scope: {
                     data: '=',
-                    minselectable: '@',
-                    maxselectable: '@',
+                    radio: '@',
+                    minSelectable: '@',
+                    maxSelectable: '@',
+                    suggestionList: '@'
                 },
-                    // selectMultiple: '='
 
                 restrict: 'E',
 
@@ -51,7 +55,9 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         var tmp = [];
 
                         for(i=0; i<count;i++){
+
                             tmp.push(value);
+
                         }
 
                         return tmp;
@@ -60,17 +66,16 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                     var init = function () {
 
-                        // Testing stuff
-                        // $scope.form.search = "asdf";
-
-                        $scope.textAndStuff = "Here is some text";
-
-
-                        // If not specified assume that you are selecting a single one
-                        $scope.selectMultiple = $scope.maxSelectable ? $scope.selectMultiple != 1 : true; // In the final version this will be passed in with scope.
+                        // If fields are not provided we should used default values...
+                        $scope.suggesetionList = $scope.suggestionList ? $scope.suggestionList : [];
+                        $scope.data = $scope.data ? $scope.data : [];
+                        $scope.minSelectable = $scope.minSelectable ? $scope.minSelectable : 0;
+                        $scope.maxSelectable = $scope.maxSelectable ? $scope.maxSelectable : false;
+                        $scope.radio = $scope.radio ? $scope.radio ? false;
+                        // $scope.selectMultiple = $scope.maxSelectable ? $scope.selectMultiple != 1 : true; // In the final version this will be passed in with scope.
 
                         // Properties if selecting single
-                        $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
+                        // $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
                         $scope.highlightedElement = $scope.suggestionList[0];
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
@@ -78,7 +83,9 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         // Properties if selecting many
                         $scope.multiSelected = {};
                         $scope.things = ["asdf", "other", "yet another", "and another", "and one more", "don't forget this one"];
-                        $scope.selectedValues = [];
+                        // $scope.selectedValues = [];
+
+
                         // $scope.selectionListString = '';
 
                         for(var i = 0; i < $scope.suggestionList.length; i++){
@@ -95,21 +102,23 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         console.log(event);
 
-
                         if ((event.key == "Enter" && event.metaKey == false)) {
                             console.log(event);
 
                             $scope.selectItem($scope.highlightedElement);
 
                         }
+
                         else if(event.key == " ") {
 
-                        // We are not going to make spacebar do anything here since we are going to use it to enter text in other forms of inputs.
-                        // $scope.selectItem($scope.highlightedElement);
+                            // We are not going to make spacebar do anything here since we are going to use it to enter text in other forms of inputs.
+                            // $scope.selectItem($scope.highlightedElement);
+                            // preventing default from making the page scroll down like crazy
 
                             event.preventDefault(); // Don't want it so scoll all the way down.
 
                         }
+
                         else if (event.key == "ArrowDown") {
 
                             console.log("event", event);
@@ -131,6 +140,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             console.log("should have stopped propagation");
 
                         }
+
                         else if (event.key == "ArrowUp") {
 
                             console.log("pressed Arrow up");
@@ -145,11 +155,13 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                             console.log("should have stopped propagation");
                         }
+
                         else if (event.key == "Backspace") {
 
                             console.log("pressed");
 
                         }
+
                         else if (event.key == 'a' && event.metaKey == true){
 
 
@@ -158,14 +170,12 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             console.log("selection start", event.currentTarget.selectionStart);
                             console.log("selection End", event.currentTarget.selectionEnd);
 
-
                             var sel = window.getSelection();
                             var el = event.currentTarget;
                             range = document.createRange();
                             range.selectNodeContents(el);
                             sel.removeAllRanges();
                             sel.addRange(range);
-
 
                             // event.currentTarget.selectionStart =0;
                             // event.currentTarget.selectionEnd=10;
@@ -189,14 +199,18 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                                 }
                             }
                             $scope.selectedValues = tmpList;
+
                             // $scope.selectionListString = $scope.selectedValues.join(", ");
 
                         }
 
                         else {
+
+                            // pop the item off the array and add the new one.
+                            // We are only going to support having a list of elements.
+
                             $scope.selectedThing.name = item;
                             $scope.selectedValues = [item];
-                            // $scope.selectionListString = item;
                         }
 
                     };
