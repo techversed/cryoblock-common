@@ -92,10 +92,17 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         console.log(event);
 
-                        if (event.key == "Enter") {
+
+                        if ((event.key == "Enter" && event.metaKey == false)) {
                             console.log(event);
 
                             $scope.selectItem($scope.highlightedElement);
+
+                        }
+                        else if(event.key == " ") {
+
+                            $scope.selectItem($scope.highlightedElement);
+                            event.preventDefault();
 
                         }
                         else if (event.key == "ArrowDown") {

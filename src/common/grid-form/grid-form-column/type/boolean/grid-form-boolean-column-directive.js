@@ -9,6 +9,7 @@ angular.module('gridForm.gridFormColumn.gridFormBooleanColumnDirective', [])
                 templateUrl: 'common/grid-form/grid-form-column/type/boolean/partials/grid-form-boolean-column-directive-tpl.html',
                 scope: {disabled: '=', trueText: '@', falseText: '@', onToggle: '=', obj: '=', field: '='},
                 controller: function ($scope) {
+
                     $scope.toggle = function (bool) {
                         if (!$scope.disabled) {
                             $scope.field.$setViewValue(bool);
@@ -16,7 +17,12 @@ angular.module('gridForm.gridFormColumn.gridFormBooleanColumnDirective', [])
                                 $scope.onToggle();
                             }
                         }
-                    }
+                    };
+
+                    $scope.keyPressHandler = function(event, item){
+
+
+                    };
 
                     $scope.trueText = $scope.trueText ? $scope.trueText : 'Yes';
                     $scope.falseText = $scope.falseText ? $scope.falseText : 'No';
