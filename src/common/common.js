@@ -40,5 +40,6 @@ angular.module('common', [
     'gridForm',
     'attachment',
     'storage',
-    'productionPipeline'
+    'productionPipeline',
+    'workingSet'
 ]);

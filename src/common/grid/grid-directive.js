@@ -47,6 +47,8 @@ angular.module('grid.gridDirective', [])
                         $scope.grid.refreshCount += 1;
                         var currentRefreshCounter = $scope.grid.refreshCount;
 
+                        console.log("start: ", currentRefreshCounter);
+
                         if ($scope.grid.data) {
 
                             $scope.grid.turnPage();
@@ -78,7 +80,10 @@ angular.module('grid.gridDirective', [])
 
                         $scope.previousParams = cloned_params;
 
+                        console.log("refreshing with url set to: ", $scope.grid.resourceUrl);
+
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
+                            console.log(currentRefreshCounter);
                             if (currentRefreshCounter == $scope.grid.refreshCount) {
                                 $scope.grid
                                     .setResults(response.data)

@@ -15,5 +15,7 @@ angular.module('grid.gridFilter', [
     'grid.gridDeletedFilterCtrl',
     'grid.gridDateFilterFactory',
     'grid.gridDateFilterCtrl',
-    'grid.gridFilterPromiseSharer'
+    'grid.gridFilterPromiseSharer',
+    'grid.gridWorkingSetFilterFactory',
+    'grid.gridWorkingSetFilterCtrl'
 ]);
