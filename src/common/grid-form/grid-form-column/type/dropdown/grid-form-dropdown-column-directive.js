@@ -60,9 +60,10 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     }
 
                     var init = function () {
-                        $scope.obj[$scope.field] = $scope.obj[$scope.field] ? $scope.obj[$scope.field] : [];
-                        // $scope.field = $scope.column[$scope.field];
 
+                        $scope.obj[$scope.field] = $scope.obj[$scope.field] ? $scope.obj[$scope.field] : [];
+
+                        // $scope.field = $scope.column[$scope.field];
                         // Testing stuff
                         // $scope.form.search = "asdf";
                         // $scope.textAndStuff = "Here is some text";
@@ -169,6 +170,9 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     };
 
                     $scope.selectItem = function (item) {
+
+                        $scope.highlightedElement = item;
+                        document.getElementById("testing").focus();
 
                         if ($scope.selectMultiple) {
                             $scope.multiSelected[item] = $scope.multiSelected[item] ? false : true;
