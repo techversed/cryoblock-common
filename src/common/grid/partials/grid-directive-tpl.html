@@ -5,50 +5,55 @@
         <div class="row" ng-if="grid.showFilters">
 
             <div class="col-sm-12 grid-pagination-top-container">
+                <div class="col-sm-9">
 
-                <span class="">
-                   Filtering
-                </span>
+                    <span class="">
+                       Filtering
+                    </span>
 
-                <div class="grid-per-page-container">
+                    <div class="grid-per-page-container">
 
-                    <select
-                        class="form-control"
-                        ng-change="refresh()"
-                        ng-model="grid.pagination.perPage"
-                        ng-options="option for option in grid.perPageOptions"
-                    >
-                    </select>
+                        <select
+                            class="form-control"
+                            ng-change="refresh()"
+                            ng-model="grid.pagination.perPage"
+                            ng-options="option for option in grid.perPageOptions"
+                        >
+                        </select>
 
-                </div>
-
-                <!-- <div class="grid-filter-container"> -->
-
-                    <grid-filter ng-repeat="filter in grid.filters" filter="filter" ng-show="filter.isVisible"></grid-filter>
-
-                    <grid-more-filter grid="grid"></grid-more-filter>
-
-                    <div class="grid-contains-container">
-                        <div class="input-group">
-                            <input
-                                type="text"
-                                class="form-control grid-contains-search-input"
-                                placeholder="Containing ..."
-                                ng-model="grid.search"
-                                typeahead-wait-ms="1000"
-                                ng-change="refresh()"
-                                ng-model-options="{debounce: 600}"
-                                onkeydown="if (event.keyCode == 13) { return false; }"
-                            />
-                            <span class="input-group-btn" ng-click="refresh()">
-                                <button class="btn btn-primary grid-contains-search-btn" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
                     </div>
 
+                    <!-- <div class="grid-filter-container"> -->
+
+                        <grid-filter ng-repeat="filter in grid.filters" filter="filter" ng-show="filter.isVisible"></grid-filter>
+
+                        <grid-more-filter grid="grid"></grid-more-filter>
+
+                        <div class="grid-contains-container">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control grid-contains-search-input"
+                                    placeholder="Containing ..."
+                                    ng-model="grid.search"
+                                    typeahead-wait-ms="1000"
+                                    ng-change="refresh()"
+                                    ng-model-options="{debounce: 600}"
+                                    onkeydown="if (event.keyCode == 13) { return false; }"
+                                />
+                                <span class="input-group-btn" ng-click="refresh()">
+                                    <button class="btn btn-primary grid-contains-search-btn" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
                 <!-- </div> -->
+                <div class="col-sm-3" align="right">
+                    <button class="btn" ng-click="downloadCsvGrid()"><i class="fa fa-save"></i> Save</button>
+                </div>
 
             </div>
 

@@ -139,6 +139,59 @@ angular.module('grid.gridDirective', [])
 
                     };
 
+                    $scope.downloadCsvGrid = function () {
+
+                        // var indexIn = function(foo, bar){
+
+                        //     console.log("foo", foo, "bar", bar);
+
+                        //     console.log("doing the thing");
+
+                        //     var tmp = foo;
+                        //     angular.forEach(bar.split(".")){
+
+                        //         return foo[bar];
+
+                        //     }
+                        // }
+
+                        var headers = [];
+
+                        angular.forEach($scope.grid.columns, function (column) {
+
+                            if(column.isVisible){
+
+                                headers.push(column.header);
+
+                            }
+
+                        });
+
+                        console.log($scope.grid.results);
+
+                        angular.forEach($scope.grid.results, function (result) {
+
+                            angular.forEach($scope.grid.columns, function (column) {
+
+                                if (column.isVisible) {
+
+                                    // console.log(result[column.bindTo]);
+                                    if (result && column['bindTo']) {
+                                        console.log(eval("result." + column['bindTo']) ? eval("result." + column['bindTo']) :"");
+                                    // console.log(indexIn(result, column['bindTo']));
+                                    }
+                                    // console.log(indexIn(result, column['bindTo']));
+
+                                }
+
+                            });
+
+                        });
+
+                        console.log(headers);
+
+                    };
+
                     $scope.$on('grid.refresh', $scope.refresh);
 
                     $scope.$on('grid.filterToggle', function () {
