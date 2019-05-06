@@ -141,20 +141,6 @@ angular.module('grid.gridDirective', [])
 
                     $scope.downloadCsvGrid = function () {
 
-                        // var indexIn = function(foo, bar){
-
-                        //     console.log("foo", foo, "bar", bar);
-
-                        //     console.log("doing the thing");
-
-                        //     var tmp = foo;
-                        //     angular.forEach(bar.split(".")){
-
-                        //         return foo[bar];
-
-                        //     }
-                        // }
-
                         var headers = [];
 
                         angular.forEach($scope.grid.columns, function (column) {
@@ -177,27 +163,18 @@ angular.module('grid.gridDirective', [])
 
                                     // If we are going to make the MTM thing work then we are going to need to add an if statement here which checks to see if the thing is an mtm first...
 
-                                    // console.log(result[column.bindTo]);
-                                    // if (result && column['bindTo']) {
+                                    var thing2 = column['bindTo'].split("|")[0].split(".")[0];
 
-                                        var thing2 = column['bindTo'].split("|")[0].split(".")[0];
+                                    console.log("thing2 is:", thing2);
+                                    console.log("evaluating if");
+                                    if (eval("result."+thing2)) {
+                                        console.log("made it into the thing");
+                                        // console.log(result);
+                                        console.log(column['bindTo']);
 
-                                        console.log("thing2 is:", thing2);
-                                        console.log("evaluating if");
-                                        if (eval("result."+thing2)) {
-                                            console.log("made it into the thing");
-                                            // console.log(result);
-                                            console.log(column['bindTo']);
-
-                                            var thingToBind = column['bindTo'].split("|")[0];
-                                            console.log(eval("result." + thingToBind));
-
-                                        }
-
-                                    // console.log(indexIn(result, column['bindTo']));
-                                    // }
-                                    // console.log(indexIn(result, column['bindTo']));
-
+                                        var thingToBind = column['bindTo'].split("|")[0];
+                                        console.log(eval("result." + thingToBind));
+                                    }
                                 }
 
                             });
