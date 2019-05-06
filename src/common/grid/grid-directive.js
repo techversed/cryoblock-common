@@ -175,11 +175,20 @@ angular.module('grid.gridDirective', [])
 
                                 if (column.isVisible) {
 
+                                    // If we are going to make the MTM thing work then we are going to need to add an if statement here which checks to see if the thing is an mtm first...
+
                                     // console.log(result[column.bindTo]);
-                                    if (result && column['bindTo']) {
-                                        console.log(eval("result." + column['bindTo']) ? eval("result." + column['bindTo']) :"");
+                                    // if (result && column['bindTo']) {
+
+                                        // if(eval("result."+column['bindTo'].split(".")[0])){
+                                            // console.log(result);
+                                            console.log(column['bindTo']);
+                                            var thingToBind = column['bindTo'].split("|")[0];
+                                            console.log(eval("result." + thingToBind));
+                                        // }
+
                                     // console.log(indexIn(result, column['bindTo']));
-                                    }
+                                    // }
                                     // console.log(indexIn(result, column['bindTo']));
 
                                 }
