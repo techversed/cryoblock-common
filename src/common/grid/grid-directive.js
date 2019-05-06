@@ -180,12 +180,19 @@ angular.module('grid.gridDirective', [])
                                     // console.log(result[column.bindTo]);
                                     // if (result && column['bindTo']) {
 
-                                        // if(eval("result."+column['bindTo'].split(".")[0])){
+                                        var thing2 = column['bindTo'].split("|")[0].split(".")[0];
+
+                                        console.log("thing2 is:", thing2);
+                                        console.log("evaluating if");
+                                        if (eval("result."+thing2)) {
+                                            console.log("made it into the thing");
                                             // console.log(result);
                                             console.log(column['bindTo']);
+
                                             var thingToBind = column['bindTo'].split("|")[0];
                                             console.log(eval("result." + thingToBind));
-                                        // }
+
+                                        }
 
                                     // console.log(indexIn(result, column['bindTo']));
                                     // }
