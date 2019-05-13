@@ -67,20 +67,7 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
 
                                     sequenceGrid: function ($cbGridBuilder, catalog, sequenceGridFactory) {
 
-                                        console.log("sequenceGridFactory", sequenceGridFactory);
-
-                                        console.log("doing the thing");
-
-                                        console.log("making the call to return stuff");
-
                                         return sequenceGridFactory.getCatalogGrid(catalog);
-
-                                        return thing;
-                                        // console.log("stuff", stuff);
-                                        // return stuff;
-
-
-                                        // return $cbGridBuilder.buildIndex('sequenceGridFactory');
 
                                     },
 
