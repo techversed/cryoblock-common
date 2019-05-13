@@ -65,29 +65,43 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
 
                                     },
 
+                                    sequenceGrid: function ($cbGridBuilder, catalog, sequenceGridFactory) {
+
+                                        console.log("sequenceGridFactory", sequenceGridFactory);
+
+                                        console.log("doing the thing");
+
+                                        console.log("making the call to return stuff");
+
+                                        return sequenceGridFactory.getCatalogGrid(catalog);
+
+                                        return thing;
+                                        // console.log("stuff", stuff);
+                                        // return stuff;
+
+
+                                        // return $cbGridBuilder.buildIndex('sequenceGridFactory');
+
+                                    },
+
                                     grids: function (sampleTypes, catalog, sampleGridFactory, $q) {
 
                                         var sampleTypes = sampleTypes.data;
                                         var grids = [];
                                         var promises = [];
 
-                                        for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
+                                        angular.forEach(sampleTypes, function(st) {
 
-                                            var currentSampleType = sampleTypes[sampleTypeIndex];
-                                            var promise = sampleGridFactory.getCatalogGrid(catalog, currentSampleType.id);
+                                            promises.push(sampleGridFactory.getCatalogGrid(catalog, st['id']));
 
-                                            promises.push(promise);
-
-                                        }
+                                        });
 
                                         return $q.all(promises).then(function (gridResults) {
 
                                             for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
 
-                                                var currentSampleType = sampleTypes[sampleTypeIndex];
-
                                                 grids.push({
-                                                    sampleType: currentSampleType,
+                                                    sampleType: sampleTypes[sampleTypeIndex],
                                                     grid: gridResults[sampleTypeIndex]
                                                 });
 
