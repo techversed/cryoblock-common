@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionGridFactory', [])
 
-    .factory('storageDivisionGridFactory', ['gridFactory', '$cbResource', '$location', '$injector',
+    .factory('storageDivisionGridFactory', ['gridFactory',
 
-        function (gridFactory, $cbResource, $location, $injector) {
+        function (gridFactory) {
 
             var storageDivisionGridFactory = {
 
@@ -70,14 +70,12 @@ angular.module('storage.storageDivisionGridFactory', [])
                         bindTo: 'totalSlots',
                         name: 'totalSlots',
                         isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
                     },
                     {
                         header: 'Percent full',
                         bindTo: 'percentFull',
                         name: 'percentFull',
                         isSortable: true,
-                        // sref: 'sample.detail({id:result.id})'
                     }
                 ],
 

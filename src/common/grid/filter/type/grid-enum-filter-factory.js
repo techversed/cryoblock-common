@@ -32,6 +32,10 @@ angular.module('grid.gridEnumFilterFactory', [])
 
                 selectItem: function (item) {
 
+                    if (this.selectedItems.indexOf(item) != -1){
+                        return;
+                    }
+
                     this.selectedItems.push(item);
 
                     this.enum.splice(this.enum.indexOf(item), 1);

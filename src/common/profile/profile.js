@@ -4,5 +4,9 @@ angular.module('profile', [
     'profile.routes',
     'profile.profileFactory',
     'profile.profileAvatarDirective',
-    'profile.changePasswordCtrl'
+    'profile.profileFormFactory',
+    'profile.profileFormCtrl',
+    'profile.changePasswordCtrl',
+    'profile.profileActivityGridFactory',
+    'profile.profileGridDecorator'
 ]);

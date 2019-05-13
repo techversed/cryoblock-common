@@ -52,6 +52,9 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                 security: {
                                     roles: ['ROLE_USER']
                                 },
+                                params: {
+                                    selectedSampleId: null,
+                                },
                                 views: {
                                     'division@storage.division': {
 
@@ -71,6 +74,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                                 );
 
                                             },
+
 
                                             divisionGrid: function ($cbGridBuilder) {
 

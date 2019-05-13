@@ -40,6 +40,8 @@ angular.module('storage.storageDivisionManager', [])
 
                 clonedSample: null,
 
+                orderDirection: 'rowMajor',
+
                 initialize: function (division) {
 
                     this.division = division;
@@ -57,6 +59,16 @@ angular.module('storage.storageDivisionManager', [])
                         this.toggleSampleId(this.initSampleId);
                         this.initSampleId = null;
                     }
+                },
+
+                toggleOrderDirection: function () {
+
+                    this.orderDirection = this.orderDirection == 'rowMajor' ? 'columnMajor' : 'rowMajor';
+
+                },
+
+                setOrderDirection: function (ordering) {
+                    this.orderDirection = ordering;
                 },
 
                 expandToDivision: function () {
@@ -116,6 +128,8 @@ angular.module('storage.storageDivisionManager', [])
                         if (map[divisionRow] === undefined) {
                             map[divisionRow] = {};
                         }
+
+                        sample.getTitle = "Catalog: "+sample.catalog.stringLabel+"\nDescription: "+sample.description+"\nConcentration: "+ (sample.concentration && sample.concentrationUnits ? sample.concentration+sample.concentrationUnits : '')+"\nVolume: "+(sample.volume && sample.volumeUnits ? sample.volume+sample.volumeUnits : '');
 
                         map[divisionRow][divisionColumn] = sample;
 
@@ -506,7 +520,7 @@ angular.module('storage.storageDivisionManager', [])
 
                         originalEl = scope.element;
                         cellEl = angular.element(originalEl).find('.cell');
-                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.catalog.name +'</span></div></div>');
+                        newEl = angular.element('<div class="storage-ghost"><div class="cell"><span class="sample-name"> '+ scope.sample.catalog.name + ": " + scope.sample.description +'</span></div></div>');
                         newEl.css({
                             'width': originalEl.offsetWidth + 'px',
                             'height': originalEl.offsetHeight + 'px',

@@ -1,4 +1,5 @@
 angular.module('storage.storageIndexCtrl', [])
+
     .controller('storageIndexCtrl', ['$scope', 'divisionResponse', 'storageFormFactory',
 
         function ($scope, divisionResponse, storageFormFactory) {
