@@ -47,8 +47,6 @@ angular.module('grid.gridDirective', [])
                         $scope.grid.refreshCount += 1;
                         var currentRefreshCounter = $scope.grid.refreshCount;
 
-                        // console.log("start: ", currentRefreshCounter);
-
                         if ($scope.grid.data) {
 
                             $scope.grid.turnPage();
@@ -80,10 +78,9 @@ angular.module('grid.gridDirective', [])
 
                         $scope.previousParams = cloned_params;
 
-                        // console.log("refreshing with url set to: ", $scope.grid.resourceUrl);
 
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
-                            // console.log(currentRefreshCounter);
+
                             if (currentRefreshCounter == $scope.grid.refreshCount) {
                                 $scope.grid
                                     .setResults(response.data)
@@ -216,7 +213,9 @@ angular.module('grid.gridDirective', [])
 
                                     }
                                     else{
+
                                         lineArray.push("");
+
                                     }
 
                                 }
@@ -227,22 +226,20 @@ angular.module('grid.gridDirective', [])
 
                         });
 
-                        console.log('url params, search, date');
-                        console.log($scope.grid.getRequestParams());
-                        console.log($scope.grid.search);
 
                         var day = new Date();
                         var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
 
-                        var filename = $scope.grid.resourceUrl.replace(/\//g, "") + "-" + day.getFullYear() + "-"+ monthNames[day.getMonth()] + "-" + day.getDay() + ".txt";
-
-                        console.log(filename);
-                        console.log("url encoded");
-                        console.log(csvContent);
+                        var filename = $scope.grid.resourceUrl.replace(/\//g, "") + "-" + day.getFullYear() + "-"+ monthNames[day.getMonth()] + "-" + day.getDay() + ".csv";
 
                         var encodedUri = encodeURI(csvContent);
 
-                        window.open(encodedUri);
+                        // window.open(encodedUri, "test.csv");
+                        var a = document.createElement('a');
+                        a.href = encodedUri;
+                        a.download = filename;
+                        a.click();
+                        // window.URL.revokeObjectURL(encodedUri);
 
                     };
 
