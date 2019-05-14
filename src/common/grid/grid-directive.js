@@ -141,6 +141,8 @@ angular.module('grid.gridDirective', [])
 
                     $scope.downloadCsvGrid = function () {
 
+
+                        var dateRegex = /^\d+-\d+-\d+T\d+:\d+:\d+-\d+:\d+$/
                         var headers = [];
 
                         var csvContent = "data:text/csv;charset=utf-8,";
@@ -173,6 +175,8 @@ angular.module('grid.gridDirective', [])
                                         var thingToBind = column['bindTo'].split("|")[0];
                                         var value = eval("result." + thingToBind);
 
+                                        console.log(value);
+
                                         // If the column is a number
                                         if (value == undefined){
                                             linaArray.push("undefined");
@@ -187,9 +191,13 @@ angular.module('grid.gridDirective', [])
                                         {
 
                                             // If that string is a dateTime -- contains a : and can be cast as a date -- We may need to make this more strict going forwards
-                                            if (value.indexOf(":") != -1 && ( !isNaN((new Date(value)).getTime() ) ) ) {
+                                            // if (value.indexOf(":") != -1 && ( !isNaN( (new Date(value)).getTime() ) ) ) {
+                                            if (dateRegex.test(value) == true) {
 
-                                                lineArray.push((new Date(value)).toDateString());
+                                                //^\d+-\d+-\d+T\d+:\d+:\d+-\d+:\d+$
+                                                console.log("matched a date");
+
+                                                lineArray.push((new Date(value)).toDateString().replace(/,/g,""));
 
                                                 // if(isNaN(d.getTime())){
                                                     // console.log(d.getTime());
@@ -198,7 +206,9 @@ angular.module('grid.gridDirective', [])
                                             }
                                             else
                                             {
-                                                lineArray.push(value);
+
+                                                console.log(value + 'failed to match a date');
+                                                lineArray.push(value.replace(/\#/g,"").replace(/,/g," &"));
                                             }
 
                                             // If that string is just a regular string.
