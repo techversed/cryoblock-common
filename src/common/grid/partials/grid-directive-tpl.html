@@ -51,8 +51,8 @@
 
                     </div>
                 <!-- </div> -->
-                <div class="col-sm-3" align="right">
-                    <button class="btn" ng-click="downloadCsvGrid()"><i class="fa fa-save"></i> Export Grid</button>
+                <div ng-if="!(grid.isSelectable || grid.isEditable || grid.isManySelectable)" class="col-sm-3" align="right">
+                    <button  class="btn" ng-click="downloadCsvGrid()"><i class="fa fa-save"></i> Export Grid</button>
                 </div>
 
             </div>

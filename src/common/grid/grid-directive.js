@@ -172,8 +172,6 @@ angular.module('grid.gridDirective', [])
                                         var thingToBind = column['bindTo'].split("|")[0];
                                         var value = eval("result." + thingToBind);
 
-                                        console.log(value);
-
                                         // If the column is a number
                                         if (value == undefined){
                                             linaArray.push("undefined");
