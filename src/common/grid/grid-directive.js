@@ -186,49 +186,33 @@ angular.module('grid.gridDirective', [])
                                             lineArray.push(value);
 
                                         }
-                                        // If the column contains a string
+
+                                        // If the column is a string
                                         else if (typeof value == "string")
                                         {
 
-                                            // If that string is a dateTime -- contains a : and can be cast as a date -- We may need to make this more strict going forwards
-                                            // if (value.indexOf(":") != -1 && ( !isNaN( (new Date(value)).getTime() ) ) ) {
+                                            // If the string is an encoded date
                                             if (dateRegex.test(value) == true) {
-
-                                                //^\d+-\d+-\d+T\d+:\d+:\d+-\d+:\d+$
-                                                console.log("matched a date");
 
                                                 lineArray.push((new Date(value)).toDateString().replace(/,/g,""));
 
-                                                // if(isNaN(d.getTime())){
-                                                    // console.log(d.getTime());
-                                                // }
-
                                             }
-                                            else
-                                            {
+                                            // If the string is anything else
+                                            else {
 
-                                                console.log(value + 'failed to match a date');
+                                                // Remove characters that could mess up the file
                                                 lineArray.push(value.replace(/\#/g,"").replace(/,/g," &"));
+
                                             }
-
-                                            // If that string is just a regular string.
-
 
                                         }
                                         else{
-                                            lineArray.push("b"+ column.name);
+                                            // This is going to becoem a thing when we start passing arrays of tags instead of the list of tags.
+                                            // I don't really know if we are going to end up doing this though -- it would be nice to have the project list offer links directly to the object that you want.
+
+                                            lineArray.push("there is a problem -- tell taylor");
+
                                         }
-
-
-
-                                        //
-
-
-
-                                        // console.log(eval("result." + thingToBind));
-
-                                        // We need a way of checking if something is a date because the normal | is not going to work here
-                                        // lineArray.push(new Date(eval("result." + thingToBind)));
 
                                     }
                                     else{
