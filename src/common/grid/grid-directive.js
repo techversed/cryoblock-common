@@ -47,7 +47,7 @@ angular.module('grid.gridDirective', [])
                         $scope.grid.refreshCount += 1;
                         var currentRefreshCounter = $scope.grid.refreshCount;
 
-                        console.log("start: ", currentRefreshCounter);
+                        // console.log("start: ", currentRefreshCounter);
 
                         if ($scope.grid.data) {
 
@@ -80,10 +80,10 @@ angular.module('grid.gridDirective', [])
 
                         $scope.previousParams = cloned_params;
 
-                        console.log("refreshing with url set to: ", $scope.grid.resourceUrl);
+                        // console.log("refreshing with url set to: ", $scope.grid.resourceUrl);
 
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
-                            console.log(currentRefreshCounter);
+                            // console.log(currentRefreshCounter);
                             if (currentRefreshCounter == $scope.grid.refreshCount) {
                                 $scope.grid
                                     .setResults(response.data)
@@ -143,6 +143,8 @@ angular.module('grid.gridDirective', [])
 
                         var headers = [];
 
+                        var csvContent = "data:text/csv;charset=utf-8,";
+
                         angular.forEach($scope.grid.columns, function (column) {
 
                             if(column.isVisible){
@@ -153,35 +155,100 @@ angular.module('grid.gridDirective', [])
 
                         });
 
-                        console.log($scope.grid.results);
+                        csvContent += (headers.join(",") + "\n");
 
                         angular.forEach($scope.grid.results, function (result) {
+
+                            var lineArray = [];
 
                             angular.forEach($scope.grid.columns, function (column) {
 
                                 if (column.isVisible) {
 
-                                    // If we are going to make the MTM thing work then we are going to need to add an if statement here which checks to see if the thing is an mtm first...
-
                                     var thing2 = column['bindTo'].split("|")[0].split(".")[0];
 
-                                    console.log("thing2 is:", thing2);
-                                    console.log("evaluating if");
-                                    if (eval("result."+thing2)) {
-                                        console.log("made it into the thing");
-                                        // console.log(result);
-                                        console.log(column['bindTo']);
+                                    eval("result." + thing2)
+                                    if (eval("result." + thing2)) {
 
                                         var thingToBind = column['bindTo'].split("|")[0];
-                                        console.log(eval("result." + thingToBind));
+                                        var value = eval("result." + thingToBind);
+
+                                        // If the column is a number
+                                        if (value == undefined){
+                                            linaArray.push("undefined");
+                                        }
+                                        if (!isNaN(value)){
+
+                                            lineArray.push(value);
+
+                                        }
+                                        // If the column contains a string
+                                        else if (typeof value == "string")
+                                        {
+
+                                            // If that string is a dateTime -- contains a : and can be cast as a date -- We may need to make this more strict going forwards
+                                            if (value.indexOf(":") != -1 && ( !isNaN((new Date(value)).getTime() ) ) ) {
+
+                                                lineArray.push((new Date(value)).toDateString());
+
+                                                // if(isNaN(d.getTime())){
+                                                    // console.log(d.getTime());
+                                                // }
+
+                                            }
+                                            else
+                                            {
+                                                lineArray.push(value);
+                                            }
+
+                                            // If that string is just a regular string.
+
+
+                                        }
+                                        else{
+                                            lineArray.push("b"+ column.name);
+                                        }
+
+
+
+                                        //
+
+
+
+                                        // console.log(eval("result." + thingToBind));
+
+                                        // We need a way of checking if something is a date because the normal | is not going to work here
+                                        // lineArray.push(new Date(eval("result." + thingToBind)));
+
                                     }
+                                    else{
+                                        lineArray.push("");
+                                    }
+
                                 }
 
                             });
 
+                            csvContent += (lineArray.join(",") + "\n");
+
                         });
 
-                        console.log(headers);
+                        console.log('url params, search, date');
+                        console.log($scope.grid.getRequestParams());
+                        console.log($scope.grid.search);
+
+                        var day = new Date();
+                        var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+
+                        var filename = $scope.grid.resourceUrl.replace(/\//g, "") + "-" + day.getFullYear() + "-"+ monthNames[day.getMonth()] + "-" + day.getDay() + ".txt";
+
+                        console.log(filename);
+                        console.log("url encoded");
+                        console.log(csvContent);
+
+                        var encodedUri = encodeURI(csvContent);
+
+                        window.open(encodedUri);
 
                     };
 
