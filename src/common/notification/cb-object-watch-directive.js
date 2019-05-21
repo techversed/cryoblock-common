@@ -26,6 +26,7 @@ angular.module('notification.cbObjectWatchDirective', [])
                         'objectClassName[EQ]': $scope.entity
                     };
 
+                    // This is what is doing that shit...
                     $cbResource.getOne('/cryoblock/entity-detail', data).then(function(response){
                         if (response == undefined) {
                             response = $cbResource.create('/cryoblock/entity-detail', {'objectClassName': $scope.entity, 'objectUrl': $scope.url, 'objectDescription': $scope.objectDescription}).then( function (response2) {
