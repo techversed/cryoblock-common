@@ -55,6 +55,12 @@
                                     <dt>About me</dt>
                                     <dd>{{user.about}}</dd>
                                 </dl>
+                                <dl>
+                                    <dt>Assigned Projects</dt>
+                                </dl>
+                                <dl ng-repeat="project in projects">
+                                    <dd><a ui-sref="project.detail({id:project.id})">{{project.name}}</a></dd>
+                                </dl>
                             </div>
                         </div>
                     </div>

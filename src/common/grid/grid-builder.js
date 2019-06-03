@@ -28,7 +28,7 @@ angular.module('grid.gridBuilder', [])
                         .setBindToState(overrides.bindToState != undefined ? overrides.bindToState : true)
                     ;
 
-                    grid.perPageOptions = [25, 50, 100];
+                    grid.perPageOptions = [25, 50, 100, 250, 500];
                     grid.setPerPage(grid.perPageOptions[0]);
                     grid = this.addFiltersToGrid(grid, overrides['filterGroups']);
 
@@ -129,25 +129,35 @@ angular.module('grid.gridBuilder', [])
                                 filter.isVisible = filterObj.isVisible ? filterObj.isVisible : true;
                                 filter.isFiltering = filterObj.isFiltering ? filterObj.isFiltering : true;
 
+                                // This has been completely fucked for so long... holy shit.
+
                                 switch(filter.type){
+
+
                                     case "relation":
-                                        angular.forEach( filterObj.selected, function (element) {
-                                            if (filter.selectedItems.indexOf(element) != -1){
+
+                                       // this is probably totally wrong ... look at the
+                                        angular.forEach(filterObj.selected, function (element) {
+
+                                            if (filter.selectedItems.indexOf(element) == -1){
+
                                                 filter.selectItem(element);
+
                                             }
                                         });
                                         break;
 
                                     case "enum":
+
                                         angular.forEach( filterObj.selected, function (element) {
                                             filter.selectItem(element)
                                         });
+
                                         break;
 
+                                    // this should still be checked...
                                     case "boolean":
-                                        filter.form = {
 
-                                        };
                                         filter.setModel(filterOverride[filterObjectKeys[filterObjIndex]]);
                                         break;
 
