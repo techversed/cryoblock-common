@@ -35,6 +35,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     divisions: function (storageFactory) {
 
+                                        // return true;
                                         return storageFactory.getParentDivisions();
 
                                     }
@@ -73,11 +74,6 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                                 );
 
-                                            },
-                                            divisionGrid: function () {
-
-                                                return true;
-
                                             }
                                         }
                                     }
@@ -114,7 +110,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                         },
                         children: [
                             {
-                                url: '/:id?sampleId',
+                                url: '/:id',
                                 name: 'detail',
                                 pageTitle: 'Storage Division {id}',
                                 data: { specialClass: 'storage-division-body' },
@@ -130,21 +126,6 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                         templateUrl: 'common/storage/views/storage-division-tpl.html',
                                         controller: 'storageDivisionSearchCtrl',
                                         resolve: {
-
-                                            division: function (storageFactory, $stateParams) {
-
-                                                return false;
-                                                return storageFactory.getDivision($stateParams.id).then(
-
-                                                    function(response) {
-
-                                                        return response.data[0];
-                                                    }
-
-                                                );
-
-                                            },
-
 
                                             divisionGrid: function ($cbGridBuilder) {
 
