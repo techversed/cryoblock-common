@@ -50,12 +50,13 @@
             <li>
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn" ng-click="sdm.toggleView()" ng-class="{'btn-default': sdm.toggleSearch, 'btn-info': !sdm.toggleSearch}" ng-disabled="!sdm.toggleSearch">
+<!-- change this to have an sref action instead of setting it up the way that it is... -->
+                        <button role="button" type="button" class="btn" ng-click="storage.division.detail()" ng-class="{'btn-default': sdm.toggleSearch, 'btn-info': !sdm.toggleSearch}" ng-disabled="!sdm.toggleSearch">
                             <i class="fa fa-list" />
                         </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn" ng-click="sdm.toggleView()" ng-class="{'btn-default': !sdm.toggleSearch, 'btn-info': sdm.toggleSearch}" ng-disabled="sdm.toggleSearch">
+                        <button role="button" type="button" class="btn" ui-sref="storage.divisionsearch.detail()" ng-class="{'btn-default': !sdm.toggleSearch, 'btn-info': sdm.toggleSearch}" ng-disabled="sdm.toggleSearch">
                             <i class="fa fa-search" />
                         </button>
                     </div>
