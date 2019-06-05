@@ -129,8 +129,6 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                             divisionGrid: function ($cbGridBuilder) {
 
-                                                // return false;
-                                                // This functionality needs to be moved
                                                 return $cbGridBuilder.buildIndex('storageDivisionGridFactory');
 
                                             }

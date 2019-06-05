@@ -5,7 +5,6 @@ angular.module('storage.storageDivisionCtrl', [])
         function ($scope, division, $window, storageDivisionManager, sessionFactory, $stateParams) {
 
             if ($stateParams.selectedSampleId) {
-                // console.log("scope.testing", $scope.testing);
                 storageDivisionManager.initSampleId = $stateParams.selectedSampleId;
             }
 
@@ -25,7 +24,6 @@ angular.module('storage.storageDivisionCtrl', [])
             $scope.currentView = $scope.division.hasDimension ? 'grid' : 'list'; // We should really do this in the sdm instead...
             $scope.changeView = function (view) {
                 $scope.currentView = view;
-                console.log($scope.currentView);
             };
 
             $scope.radioModel = "Left";
