@@ -128,12 +128,14 @@ angular.module('storage.storageDivisionGridFactory', [])
                         filterProperty: 'usedSlots',
                         isVisible: false
                     },
+// Fix this
                     {
                         type: 'integer',
                         title: 'Total Slots',
                         filterProperty: 'totalSlots',
                         isVisible: false
                     },
+// Fix this
                     {
                         type: 'integer',
                         title: 'Percent Full',
