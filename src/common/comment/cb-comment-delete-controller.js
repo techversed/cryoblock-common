@@ -8,6 +8,7 @@ angular.module('comment.cbCommentDeleteCtrl', [])
 
             $scope.delete = function () {
                 commentFactory.deleteComment($scope.comment);
+                $scope.$close()
             };
 
         }
