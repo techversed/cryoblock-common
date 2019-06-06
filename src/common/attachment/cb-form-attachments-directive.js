@@ -1,8 +1,8 @@
 angular.module('attachment.cbFormAttachmentsDirective', [])
 
-    .directive('cbFormAttachments', ['$localStorage', '$compile', 'API',
+    .directive('cbFormAttachments', ['$compile',
 
-        function ($localStorage, $compile, API) {
+        function ($compile) {
 
             return {
 

@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionFormCtrl', [])
 
-    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'sampleTypeGrids', 'storageContainerGrids', '$uibModalInstance', '$cbResource', 'toastr', 'callback', 'divisionEditorGrids', 'divisionViewerGrids', '$state', 'ownerGrid', 'sessionFactory', 'divisionGroupEditorGrids', 'divisionGroupViewerGrids', 'storageDivisionManager',
+    .controller('storageDivisionFormCtrl', ['$scope', 'division', 'sampleTypeGrids', 'storageContainerGrids', '$uibModalInstance', '$cbResource', 'toastr', 'callback', 'divisionEditorGrids', 'divisionViewerGrids', 'sessionFactory', 'divisionGroupEditorGrids', 'divisionGroupViewerGrids', 'storageDivisionManager',
 
-        function ($scope, division, sampleTypeGrids, storageContainerGrids, $modalInstance, $cbResource, toastr, callback, divisionEditorGrids, divisionViewerGrids, $state, ownerGrid, sessionFactory, divisionGroupEditorGrids, divisionGroupViewerGrids, storageDivisionManager) {
+        function ($scope, division, sampleTypeGrids, storageContainerGrids, $modalInstance, $cbResource, toastr, callback, divisionEditorGrids, divisionViewerGrids, sessionFactory, divisionGroupEditorGrids, divisionGroupViewerGrids, storageDivisionManager) {
 
             $scope.errors = [];
             $scope.divisionForm = {};
@@ -13,8 +13,7 @@ angular.module('storage.storageDivisionFormCtrl', [])
                 hasDimension: true,
                 isPublicEdit: false,
                 isPublicView: true,
-                parent:{id:1},
-                owner: sessionFactory.getLoggedInUser()
+                parent:{id:1}
             };
 
             if ($scope.division.id == undefined) {
@@ -28,12 +27,18 @@ angular.module('storage.storageDivisionFormCtrl', [])
             $scope.divisionViewerGrids = divisionViewerGrids;
             $scope.divisionGroupViewerGrids = divisionGroupViewerGrids;
             $scope.divisionGroupEditorGrids = divisionGroupEditorGrids ;
-            $scope.ownerGrid = ownerGrid;
+
+            $scope.propagationBehaviors = ['Default - Only change the selected division', 'Cascade - Add the changes to the children', 'Trample - overwrite child permissions with current changes'];
+            $scope.division.propagationBehavior = $scope.propagationBehaviors[0];
 
             $scope.oldPublicEditValue = $scope.division.isPublicEdit;
             $scope.oldPublicViewValue = $scope.division.isPublicView;
             $scope.oldAllStorage = $scope.division.allowAllStorageContainers;
             $scope.oldAllSample = $scope.division.allowAllSampleTypes;
+
+            // If cascade is true then then division listener on the bakckend will grab the request and cascade all insertions and deletiosn to the children of the node
+            // If casecade is false then the division listener will trample the settings of the previous division with the new settings.
+            $scope.division.cascade = true;
 
             if ($scope.division.parentId) {
                 $scope.division.parent = {id: $scope.division.parentId};

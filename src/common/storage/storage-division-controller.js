@@ -1,6 +1,12 @@
 angular.module('storage.storageDivisionCtrl', [])
-    .controller('storageDivisionCtrl', ['$scope', 'division',  '$window', '$timeout', 'storageFormFactory', 'storageDivisionManager', 'divisionGrid', 'sessionFactory',
-        function ($scope, division, $window, $timeout, storageFormFactory, storageDivisionManager, divisionGrid, sessionFactory) {
+
+    .controller('storageDivisionCtrl', ['$scope', 'division',  '$window', 'storageDivisionManager', 'sessionFactory', '$stateParams',
+
+        function ($scope, division, $window, storageDivisionManager, sessionFactory, $stateParams) {
+
+            if ($stateParams.selectedSampleId) {
+                storageDivisionManager.initSampleId = $stateParams.selectedSampleId;
+            }
 
             $scope.division = division;
 
@@ -10,19 +16,17 @@ angular.module('storage.storageDivisionCtrl', [])
             $scope.sdm.initialize($scope.division);
             $scope.editSelectedSample = $scope.sdm.editSelectedSample;
 
-            $scope.grid =  divisionGrid;
 
             $scope.zoom = {
                 percentage: 75
             };
 
-            $scope.currentView = $scope.division.hasDimension ? 'grid' : 'list';
+            $scope.currentView = $scope.division.hasDimension ? 'grid' : 'list'; // We should really do this in the sdm instead...
             $scope.changeView = function (view) {
                 $scope.currentView = view;
             };
 
             $scope.radioModel = "Left";
-
 
             $scope.zoomIn = function () {
                 if ($scope.zoom.percentage === 150) {

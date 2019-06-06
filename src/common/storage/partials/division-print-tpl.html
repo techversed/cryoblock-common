@@ -1,6 +1,6 @@
 <div>
-    <h3>{{division.path}} - {{division.description}}</h3>
-    <table id="division-table" storage-box division="division" style="border-spacing: 5px;">
+    <b>Division {{division.id}}: {{division.path}} - {{division.description}}</b>
+    <table id="division-table" storage-box division="division" style="border-spacing: 2px; table-layout:fixed; overflow:hidden; max-width:100%">
         <thead>
             <tr>
                 <td></td>
@@ -20,9 +20,11 @@
         </thead>
         <tbody>
             <tr
+                class="box-print-cell"
                 ng-class-odd="'odd'"
                 ng-class-even="'even'"
                 ng-repeat="row in rows"
+                style="height: 10%"
             >
                 <td
                     class="row-head"
@@ -31,6 +33,7 @@
                     storage-box-heading
                     row="row"
                 >
+
                     <span class="column-heading">
                         {{row}}
                     </span>
@@ -44,15 +47,9 @@
                     row="row"
                     column="column"
                     ng-class="{selected: sdm.selectedCells[row][column], 'has-sample': sdm.sampleMap[row][column]}"
-                    style="border:1px solid gray; height: 60px; width: 60px; text-align: center; font-size: 0.8em;"
+                    style="border:1px solid gray; width: 100px; height: 60px;  max-width: 100px; text-align: center; font-size: 0.5em; overflow: hidden; text-overflow: ellipsis; word-wrap: break-word"
                 >
-                    <div class="move"><i class="fa fa-arrows"/></div>
-                    <div
-                        class="cell"
-                        ng-class="{'has-sample': sdm.sampleMap[row][column]}"
-                    >
-                        <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name}}</span>
-                    </div>
+                    <div class="sample-name" ng-if="sdm.sampleMap[row][column]" style="word-wrap: break-word; text-overflow:ellipsis">{{(sdm.sampleMap[row][column].catalog.name + ' -- ' + sdm.sampleMap[row][column].description).substring(0,130)}} </div>
                 </td>
             </tr>
         </tbody>

@@ -56,25 +56,25 @@
             <div class="col-sm-4">
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" uib-dropdown>
-                        <button role="button" type="button" class="btn btn-default" ng-click="editSelectedSample()" ng-disabled="!division.canEdit || sdm.selectedSampleCount != 1">
+                        <button role="button" type="button" class="btn btn-default" ng-click="editSelectedSample()" ng-disabled="!division.canEdit || sdm.selectedSampleCount != 1" title="Edit the selected sample">
                             <i class="fa fa-edit" />
                         </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.print()">
+                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.print()" title="Download a printable pdf of the current division">
                             <i class="fa fa-print" />
                         </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button ng-if="!sdm.clonedSample" ng-class="{'btn-default': !sdm.clonedSample, 'btn-primary': sdm.clonedSample}" ng-disabled="sdm.selectedSampleCount != 1 || sdm.selectedEmptyCount != 0" role="button" type="button" class="btn" ng-click="sdm.cloneSample()">
+                        <button ng-if="!sdm.clonedSample" ng-class="{'btn-default': !sdm.clonedSample, 'btn-primary': sdm.clonedSample}" ng-disabled="sdm.selectedSampleCount != 1 || sdm.selectedEmptyCount != 0" role="button" type="button" class="btn" ng-click="sdm.cloneSample()" title="clone the selected sample">
                             <i class="fa fa-clone" />
                         </button>
-                        <button ng-if="sdm.clonedSample" tooltip-placement="top" uib-tooltip="{{ 'Cloned sample ' + sdm.clonedSample.id + ' - ' + sdm.clonedSample.catalog.name}}" ng-class="{'btn-default': !sdm.clonedSample, 'btn-primary': sdm.clonedSample}" ng-disabled="!sdm.clonedSample && sdm.selectedSampleCount != 1 || !sdm.clonedSample &&  sdm.selectedEmptyCount != 0" role="button" type="button" class="btn" ng-click="sdm.cloneSample()">
+                        <button ng-if="sdm.clonedSample" tooltip-placement="top" uib-tooltip="{{ 'Cloned sample ' + sdm.clonedSample.id + ' - ' + sdm.clonedSample.catalog.name}}" ng-class="{'btn-default': !sdm.clonedSample, 'btn-primary': sdm.clonedSample}" ng-disabled="!sdm.clonedSample && sdm.selectedSampleCount != 1 || !sdm.clonedSample &&  sdm.selectedEmptyCount != 0" role="button" type="button" class="btn" ng-click="sdm.cloneSample()" title="clone the selected sample">
                             <i class="fa fa-clone" />
                         </button>
                     </div>
                     <div class="btn-group" uib-dropdown>
-                        <button role="button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="sdm.selectedCount == 0 || sdm.selectedEmptyCount < 1 || sdm.selectedSampleCount > 0">
+                        <button role="button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="sdm.selectedCount == 0 || sdm.selectedEmptyCount < 1 || sdm.selectedSampleCount > 0" title="Create a new sample, paste a copy of an existing sample or move an existing sample from its old location to this division.">
                             <i class="fa fa-plus" />
                         </button>
                         <ul uib-dropdown-menu class="dropdown-menu pull-right" role="menu" aria-labelledby="single-button">
@@ -91,14 +91,14 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="btn-group" role="group" ng-if="inventoryAdmin">
-                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()" ng-disabled="division.usedSlots==0">
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()" ng-disabled="division.usedSlots==0" title="Download the current division in an excel spreadsheet">
                             <i class="fa fa-table" />
                         </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-danger" ng-click="sdm.delete()" ng-disabled="sdm.selectedSampleCount < 1 || !division.canEdit">
-                            <i class="fa fa-trash" />
+                        <button role="button" type="button" class="btn btn-danger" ng-click="sdm.delete()" ng-disabled="sdm.selectedSampleCount < 1 || !division.canEdit" title="Mark samples as depleted / destroyed">
+                            <i class="fa fa-trash"  />
                         </button>
                     </div>
                 </div>
@@ -107,12 +107,12 @@
             <div class="col-sm-4">
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="changeView('list')" ng-class="{'btn-default': currentView === 'grid', 'btn-info': currentView === 'list'}">
+                        <button role="button" type="button" class="btn btn-default" ng-click="changeView('list')" ng-class="{'btn-default': currentView === 'grid', 'btn-info': currentView === 'list'}" title="View the current division as a list.">
                             <i class="fa fa-list" />
                         </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn" ng-click="changeView('grid')" ng-class="{'btn-default': currentView === 'list', 'btn-info': currentView === 'grid'}" ng-disabled="!division.hasDimension">
+                        <button role="button" type="button" class="btn" ng-click="changeView('grid')" ng-class="{'btn-default': currentView === 'list', 'btn-info': currentView === 'grid'}" ng-disabled="!division.hasDimension" title="View the current division as a graphical representation of the box layout.">
                             <i class="fa fa-th" />
                         </button>
                     </div>
@@ -122,12 +122,12 @@
             <div class="col-sm-4">
                 <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="zoomOut()" ng-disabled="currentView == 'list' || zoom.percentage === 25">
+                        <button role="button" type="button" class="btn btn-default" ng-click="zoomOut()" ng-disabled="currentView == 'list' || zoom.percentage === 25" title="Zoom out when looking at a box view.">
                             <i class="fa fa-search-minus" />
                         </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button role="button" type="button" class="btn btn-default" ng-click="zoomIn()" ng-disabled="currentView == 'list' || zoom.percentage === 150">
+                        <button role="button" type="button" class="btn btn-default" ng-click="zoomIn()" ng-disabled="currentView == 'list' || zoom.percentage === 150" title="Zoom in when looking at box view.">
                             <i class="fa fa-search-plus" />
                         </button>
                     </div>
@@ -180,6 +180,7 @@
                             sample="sdm.sampleMap[row][column]"
                             row="row"
                             column="column"
+                            title={{sdm.sampleMap[row][column].getTitle}}
                             ng-class="{selected: sdm.selectedCells[row][column], 'has-sample': sdm.sampleMap[row][column]}"
                         >
                             <div class="move"><i class="fa fa-arrows"/></div>
@@ -187,8 +188,12 @@
                                 class="cell"
                                 ng-class="{'has-sample': sdm.sampleMap[row][column]}"
                             >
-<!--                                 <span ng-if="sdm.sampleMap[row][column].lot">{{sdm.sampleMap[row][column].lot}}</span>
- -->                                <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name}}</span>
+<!--
+                            <span ng-if="sdm.sampleMap[row][column].lot">{{sdm.sampleMap[row][column].lot}}</span>
+ -->
+
+                                <span class="sample-name" ng-if="sdm.sampleMap[row][column]">{{sdm.sampleMap[row][column].catalog.name + ": " + sdm.sampleMap[row][column].description}}</span>
+
                             </div>
                         </td>
                     </tr>
@@ -197,11 +202,36 @@
 
         </div>
 
-        <div class="division-overflow-container" ng-show="division.hasDimension && currentView === 'list'">
+        <div class="division-overflow-container" ng-if="division.hasDimension && currentView === 'list'">
+            <div class="col-sm-2">
+                <div class="btn-group m-t-sm m-b-sm btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn" ng-click="sdm.setOrderDirection('rowMajor')" ng-class="{'btn-default': sdm.orderDirection === 'columnMajor', 'btn-info': sdm.orderDirection === 'rowMajor'}" >
+                            <i class="fa fa-long-arrow-right" />
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button role="button" type="button" class="btn" ng-click="sdm.setOrderDirection('columnMajor')" ng-class="{'btn-default': sdm.orderDirection === 'rowMajor', 'btn-info': sdm.orderDirection === 'columnMajor'}" >
+                            <i class="fa fa-long-arrow-down" />
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-            <ul class="storage-division-list">
+
+            <ul ng-if="sdm.orderDirection == 'rowMajor'" class="storage-division-list">
                 <div ng-repeat="row in rows">
                     <div ng-repeat="column in columns">
+                        <li class="list-item" ng-class="{selected: sdm.selectedCells[row][column]}" ng-click="sdm.toggleCell(row, column, $event.shiftKey)">
+                            <div class="row-column-container">{{row}}{{column}}</div>
+                            <cb-box-grid-info sample="sdm.sampleMap[row][column]"></cb-box-grid-info>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+            <ul ng-if="sdm.orderDirection == 'columnMajor'" class="storage-division-list">
+                <div ng-repeat="column in columns">
+                    <div ng-repeat="row in rows">
                         <li class="list-item" ng-class="{selected: sdm.selectedCells[row][column]}" ng-click="sdm.toggleCell(row, column, $event.shiftKey)">
                             <div class="row-column-container">{{row}}{{column}}</div>
                             <cb-box-grid-info sample="sdm.sampleMap[row][column]"></cb-box-grid-info>
@@ -212,6 +242,8 @@
 
         </div>
 
+
+<!-- List view-->
         <div ng-show="!division.hasDimension && currentView === 'list'">
 
             <div class="m-t-sm">
@@ -234,6 +266,9 @@
                                     </div>
                                     <div class="add-sample">Add a Child Division to {{division.title}}</div>
                                 </li>
+
+
+<!-- Portion of interest starts here. -->
                                 <li ng-repeat="division in division.children | orderBy:'lft' " class="list-item">
                                     <div class="row-column-container">
                                         <i ng-if="!division.hasDimension" class="fa fa-linode fa-2x list-icon"/>
@@ -262,6 +297,8 @@
                                             </h3>
                                             <span> - {{division.description}}</span>
                                             <div>
+
+<!-- Dimensions -->
                                                 <table class="division-detail-table" ng-if="division.hasDimension">
                                                     <tr>
                                                         <td>Dimension</td>
@@ -273,6 +310,8 @@
                                                     </tr>
                                                 </table>
                                                 <table class="division-detail-table">
+
+<!-- Allowed Sample Types -->
                                                     <tr>
                                                         <td>Allowed Sample Types</td>
                                                         <td ng-if="division.allowAllSampleTypes || division.divisionSampleTypes.length">
@@ -281,11 +320,13 @@
                                                                 Any Sample Type Allowed
                                                             </span>
                                                             <i ng-if="!division.allowAllSampleTypes" ng-repeat="divisionSampleTypes in division.divisionSampleTypes" class="sample-type-icon-list">
-                                                                <sample-type-icon sample-type="divisionSampleTypes.sampleType" class="xs" ng-if="divisionSampleTypes.sampleType" uib-tooltip="{{divisionSampleTypes.sampleType.name}}"></sample-type-icon>
+                                                                <sample-type-icon sample-type="divisionSampleTypes.sampleType" class="xxs" ng-if="divisionSampleTypes.sampleType"></sample-type-icon>
                                                             </i>
                                                         </td>
-                                                        <td ng-if="!division.allowAllSampleTypes && !division.divisionSampleTypes.length">Not Configured</td>
+                                                        <td ng-if="!division.allowAllSampleTypes && !division.divisionSampleTypes.length"> <i class="text-danger fa fa-lock m-r-xs"/> Not Configured</td>
                                                     </tr>
+
+<!-- allowed storage containers -->
                                                     <tr>
                                                         <td>
                                                             Allowed Storage Containers
@@ -300,10 +341,11 @@
                                                                 <span ng-if="$index != (division.divisionStorageContainers.length - 1)">,</span>
                                                             </span>
                                                         </td>
-                                                        <td ng-if="!division.allowAllStorageContainers && !division.divisionStorageContainers.length">Not Configured</td>
+                                                        <td ng-if="!division.allowAllStorageContainers && !division.divisionStorageContainers.length"> <i class="text-danger fa fa-lock m-r-xs"/> Not Configured</td>
                                                     </tr>
                                                 </table>
                                                 <table class="division-detail-table">
+<!-- Able to view -->
                                                     <tr>
                                                         <td>
                                                             Able To View
@@ -314,14 +356,15 @@
                                                                 All Users
                                                             </span>
                                                             <i ng-if="!division.isPublicView" ng-repeat="divisionViewers in division.divisionViewers" class="user-icon-list">
-                                                                <cb-user-avatar user="divisionViewers.user" class="xs" ng-if="divisionViewers.user" uib-tooltip="{{divisionViewers.user.stringLabel}}"></cb-user-avatar>
+                                                                <cb-user-avatar user="divisionViewers.user" class="xxs" ng-if="divisionViewers.user"></cb-user-avatar>
                                                             </i>
                                                         </td>
                                                         <td ng-if="!division.isPublicView && !division.isPublicEdit && !division.divisionViewers.length">
-                                                            <span><i class="text-danger fa fa-lock m-r-xs"/>Restricted</span>
+                                                            <span><i class="text-danger fa fa-lock m-r-xs"/> Not Configured</span>
                                                         </td>
                                                     </tr>
 
+<!-- able to edit -->
                                                     <tr>
                                                         <td>
                                                             Able To Edit
@@ -332,14 +375,18 @@
                                                                 All Users
                                                             </span>
                                                             <i ng-if="!division.isPublicEdit" ng-repeat="divisionEditor in division.divisionEditors" class="user-icon-list">
-                                                                <cb-user-avatar user="divisionEditor.user" class="xs" ng-if="divisionEditor.user" uib-tooltip="{{divisionEditor.user.stringLabel}}"></cb-user-avatar>
+                                                                <cb-user-avatar user="divisionEditor.user" class="xxs" ng-if="divisionEditor.user"></cb-user-avatar>
                                                             </i>
                                                         </td>
-                                                        <td ng-if="!division.isPublicEdit && !division.divisionEditors.length">Not Configured</td>
+                                                        <td ng-if="!division.isPublicEdit && !division.divisionEditors.length">
+                                                            <span><i class="text-danger fa fa-lock m-r-xs"/> Not Configured</span>
+                                                        </td>
                                                     </tr>
                                                 </table>
-                                                <table class="division-detail-table">
 
+
+                                                <table class="division-detail-table">
+<!-- group editors -->
                                                     <tr ng-if="division.divisionGroupEditors.length && !division.isPublicEdit">
                                                         <td>
                                                             Group Editors
@@ -352,6 +399,7 @@
                                                         </td>
                                                     </tr>
 
+<!-- Division group viewers -->
                                                     <tr ng-if="division.divisionGroupViewers.length && !division.isPublicView">
                                                         <td>
                                                             Group Viewers
@@ -368,6 +416,8 @@
                                         </div>
                                     </div>
                                 </li>
+<!-- End of portion of interest -->
+
                             </ul>
                         </div>
 
@@ -387,6 +437,11 @@
                                             <button role="button" type="button" class="btn btn-primary" uib-dropdown-toggle>
                                                 <i class="fa fa-plus list-icon" />
                                             </button>
+                                            <div class="btn-group" role="group">
+                                                <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()">
+                                                    <i class="fa fa-table" />
+                                                </button>
+                                            </div>
                                             <ul uib-dropdown-menu class="dropdown-menu pull-left" role="menu" aria-labelledby="single-button">
                                                 <li role="menuitem">
                                                     <a ng-click="sdm.openSampleStorageLinkModal()"><i class="fa fa-arrow-right m-r-xs"/>Move Sample</a>
@@ -420,7 +475,7 @@
     </div>
 
 </div>
-<div ng-show="sdm.toggleSearch">
+<div ng-if="sdm.toggleSearch">
 
     <div class="col-sm-12 m-b-lg">
         <div class="hpanel">

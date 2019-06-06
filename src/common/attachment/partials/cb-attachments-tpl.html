@@ -1,10 +1,13 @@
-<div id="cb-attachments-container" ng-show="attachments.length">
+<div id="cb-attachments-container"> <!--  ng-show="attachments.length" -->
     <div class="hpanel">
         <div class="panel-heading">
+
             <div class="panel-tools">
                 <a class="showhide"><i class="fa fa-chevron-up"></i></a>
             </div>
-            Attachments
+
+            Attachments <i ng-if="isLoading" class="text-primary fa fa-1x fa-circle-o-notch fa-spin" /> <span ng-if="!isLoading"> - {{attachments.length}} </span>
+
         </div>
         <div class="panel-body no-padding">
 
@@ -16,7 +19,18 @@
 
             </div>
 
-            <ul class="cb-attachment-list" ng-show='attachments.length && !isLoading'>
+            <div ng-show="attachments.length == 0 && !isLoading">
+
+                <p class="text-center">
+                    <br />
+                    There are not currently any attachments on this page.
+                    <br />
+                    <br />
+                </p>
+
+            </div>
+
+            <ul class="cb-attachment-list" ng-show='!isLoading'> <!-- attachments.length &&  -->
                 <li ng-repeat="attachment in attachments">
                     <div class="image-container">
                         <a class="image-hyperlink" target="_blank" href="{{attachment.src}}">
