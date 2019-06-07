@@ -35,6 +35,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                     divisions: function (storageFactory) {
 
+                                        // return true;
                                         return storageFactory.getParentDivisions();
 
                                     }
@@ -73,8 +74,58 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
 
                                                 );
 
-                                            },
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                        ]
+                    },
+                    {
+                        url: '/divisionsearch',
+                        name: 'divisionsearch',
+                        data: { specialClass: 'storage-division-body' },
+                        security: {
+                            roles: ['ROLE_USER']
+                        },
+                        views: {
+                            'content': {
+                                templateUrl: 'common/storage/views/storage-division-index-tpl.html',
+                            },
+                            'storage-navigation@storage.divisionsearch': {
 
+                                templateUrl: 'common/storage/views/storage-navigation-tpl.html',
+                                controller: 'storageNavigationCtrl',
+                                resolve: {
+
+                                    divisions: function (storageFactory) {
+
+                                        return storageFactory.getParentDivisions();
+
+                                    }
+
+                                }
+
+                            }
+                        },
+                        children: [
+                            {
+                                url: '/:id',
+                                name: 'detail',
+                                pageTitle: 'Storage Division {id}',
+                                data: { specialClass: 'storage-division-body' },
+                                security: {
+                                    roles: ['ROLE_USER']
+                                },
+                                params: {
+                                    selectedSampleId: null,
+                                },
+                                views: {
+                                    'division@storage.divisionsearch': {
+
+                                        templateUrl: 'common/storage/views/storage-division-tpl.html',
+                                        controller: 'storageDivisionSearchCtrl',
+                                        resolve: {
 
                                             divisionGrid: function ($cbGridBuilder) {
 
@@ -87,9 +138,7 @@ angular.module('storage.routes', [ 'ui.router', 'ui.router.stateHelper'])
                                     }
                                 }
                             },
-
                         ]
-
                     }
                 ]
             })
