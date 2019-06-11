@@ -32,11 +32,14 @@ angular.module('gridForm.gridFormFactory', [])
 
                 // The word default seems to be a reserved word in javascript -- used the word defVal instead.
                 // Column definitions
+
+
+                // we are going to remove singlerelation and multirelation and just have a single one called relation which has minselected and maxselected properties.
                 this.columns = [
                     {id: "id", header: "Text", field: "Field1", defVal: "default value for that column when a new object is created", required: true, fieldName: "asdf", type: "text", validators: ["list of functions"], sortingOperator: function () {}, sortable:true},
                     {id: "id", header: "Dropdown", field: "Field2", required: true, fieldName: "asdf", type: "dropdown", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
-                    {id: "id", header: "Single-Relation", field: "Field3", required: true, fieldName: "asdf", type: "singlerelation", backendUrl: 'path to url', validators: ["list of functions"]},
-                    {id: "id", header: "Multi-Relation", field: "Field4", required: true, fieldName: "asdf", type: "multirelation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl: 'path to url', validators: ["List of functions"]},
+                    {id: "id", header: "Single-Relation", field: "Field3", required: true, fieldName: "asdf", type: "relation", backendUrl: 'path to url', validators: ["list of functions"]},
+                    {id: "id", header: "Multi-Relation", field: "Field4", required: true, fieldName: "asdf", type: "relation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl: 'path to url', validators: ["List of functions"]},
                 ];
 
                 // Row Definitions

@@ -14,8 +14,8 @@
 
 */
 
-angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', [])
-    .directive('gridFormSingleRelationColumn', [
+angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
+    .directive('gridFormRelationColumn', [
 
         function () {
 
@@ -28,7 +28,7 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnDirective', 
 
                 restrict: 'E',
 
-                templateUrl: 'common/grid-form/grid-form-column/type/single-relation/partials/grid-form-single-relation-column-directive-tpl.html',
+                templateUrl: 'common/grid-form/grid-form-column/type/relation/partials/grid-form-relation-column-directive-tpl.html',
 
                 controller: function ($scope) {
 

@@ -17,12 +17,16 @@
 
 */
 
-angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnFactory', [])
-    .factory('gridFormSingleRelationColumnFactory', [
+
+
+
+
+angular.module('gridForm.gridFormColumn.gridFormRelationColumnFactory', [])
+    .factory('gridFormRelationColumnFactory', [
 
         function () {
 
-            var gridFormSingleRelationColumn = {
+            var gridFormRelationColumn = {
 
                 url: "asdf",
                 selectedElement: [],
@@ -32,7 +36,7 @@ angular.module('gridForm.gridFormColumn.gridFormSingleRelationColumnFactory', []
 
             };
 
-            return gridFormSingleRelationColumn;
+            return gridFormRelationColumn;
 
         }
 ]);
