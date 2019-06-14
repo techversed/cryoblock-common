@@ -6,7 +6,7 @@ angular.module('storage.storageDivisionGridFactory', [])
 
             var storageDivisionGridFactory = {
 
-                url: '/storage/division',
+                url: '/storage/division-search',
 
                 actionTemplate: 'common/storage/partials/storage-division-row-actions-tpl.html',
 
