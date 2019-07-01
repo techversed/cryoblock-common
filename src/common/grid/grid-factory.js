@@ -456,6 +456,21 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                openPlateModal: function (item) {
+
+                    this.addingItems.push(item);
+                    this.addingItemIds.push(item.id);
+
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(item);
+
+                    }
+
+                    return this;
+
+                },
+
                 selectItem: function (item, skip) {
 
                     this.selectedItem = item;

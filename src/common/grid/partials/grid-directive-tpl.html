@@ -153,6 +153,31 @@
                             </td>
 
                         </td>
+
+                                                <!-- Should be able to find a cleaner way to handle this... instead of having action template added in two places under different conditions... clean this up if it goes forwards -->
+                        <td ng-if="grid.isPlate" class="editable-action-cell">
+
+                            <div class="row">
+                                <button class="btn btn-danger btn-circle" type="button" ng-click="removeAddingItem(result)" ng-show="isAdding(result)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                               <button class="btn btn-success btn-circle" type="button" ng-click="addItem(result)" ng-show="!isAdding(result)">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                <!-- <div ng-if="grid.actionTemplate" ng-include="grid.actionTemplate" class="action-container"></div> -->
+                                &nbsp;
+                                &nbsp;
+                                &nbsp; <!-- Andre will not want us to leave it like this... there is a ton of cleanup that can take place but this is just to show the concept... will probaly handle this with css in the final version -->
+                                &nbsp;
+                                &nbsp;
+                            </div>
+
+                            <!-- trying to fit selectability and row actions into the same grid... -->
+                            <td class="action-cell" >
+                                <div ng-if="grid.actionTemplate" ng-include="grid.actionTemplate" class="action-container"></div>
+                            </td>
+
+                        </td>
                     </tr>
                 </tbody>
             </table>
