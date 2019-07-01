@@ -4,6 +4,12 @@ angular.module('storage.storageGridFactory', [])
 
         function (gridFactory, sampleTypeGridFactory, storageFactory, storageContainerGridFactory, $cbResource) {
 
+
+            /*
+                This is not currently being used --  Ross created another one that is now the one that is being used...
+
+
+            */
             /*
                 Outstanding issues:
                     We need to fix the settings on the sample creation suggested divisions.
@@ -38,7 +44,7 @@ angular.module('storage.storageGridFactory', [])
                         header: 'Percent Full',
                         bindTo: 'percentFullString',
                         name: 'percentFull',
-                        isSortable: true
+                        isSortable: false
                     },
                 ],
 
