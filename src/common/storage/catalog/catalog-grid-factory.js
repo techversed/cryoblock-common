@@ -75,6 +75,31 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         isVisible: false
                     },
                     {
+                        type: 'enum',
+                        title: 'Status',
+                        filterProperty: 'status',
+                        bindTo: 'status',
+                        enum: ['Available', 'Depleted', 'Destroyed'],
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Created By',
+                        accessProperty: 'id',
+                        filterProperty: 'createdById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName'
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Updated By',
+                        accessProperty: 'id',
+                        filterProperty: 'updatedById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName',
+                        isVisible: false
+                    },
+                    {
                         type: 'deleted',
                         title: 'Show Deleted',
                         filterProperty: 'cShowDeleted',
