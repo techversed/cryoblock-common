@@ -34,6 +34,11 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         sref: 'catalog.detail({id:result.id})'
                     },
                     {
+                        header: 'Sample Count',
+                        name: 'sampleCount',
+                        bindTo: 'sampleCount'
+                    },
+                    {
                         header: 'Merged Into',
                         name: 'mergedInto',
                         bindTo: 'mergedInto.name',
