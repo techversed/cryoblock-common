@@ -44,6 +44,8 @@ angular.module('storage.storageDivisionManager', [])
 
                 initialize: function (division) {
 
+                    console.log("calling init");
+
                     this.division = division;
                     this.cellScopes = {};
                     this.selectedCells = {};
@@ -828,6 +830,7 @@ angular.module('storage.storageDivisionManager', [])
                 },
 
                 cloneSample: function () {
+                    console.log("division", this.division);
 
                     if (this.selectedSampleCount != 1 || this.selectedEmptyCount != 0) {
                         return;
@@ -841,6 +844,8 @@ angular.module('storage.storageDivisionManager', [])
 
                 pasteSample: function () {
 
+                    console.log("cloned Sample", this.clonedSample);
+
                     if (!this.clonedSample) {
                         return;
                     }
@@ -853,7 +858,7 @@ angular.module('storage.storageDivisionManager', [])
 
                         angular.forEach(columns, function (c, column) {
 
-                            var sampleToCreate = {divisionId: clonedSample.divisionId, divisionRow: row, divisionColumn: column};
+                            var sampleToCreate = {divisionId: that.division['id'], divisionRow: row, divisionColumn: column}; // This line should be modified to allow pasting between divisions
                             samplesToCreate.push(sampleToCreate);
 
                         });
