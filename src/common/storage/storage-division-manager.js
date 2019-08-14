@@ -880,15 +880,15 @@ angular.module('storage.storageDivisionManager', [])
                     $cbResource.get('/storage/sample/user_clone').then(function (response){
                         that.clonedSample = response.data;
 
-                        if (!this.clonedSample) {
+                        if (!that.clonedSample) {
                             return;
                         }
 
-                        var clonedSample = this.clonedSample;
+                        var clonedSample = that.clonedSample;
                         var samplesToCreate = [];
-                        var that = this;
+                        // var that = this;
 
-                        angular.forEach(this.selectedCells, function (columns, row) {
+                        angular.forEach(that.selectedCells, function (columns, row) {
 
                             angular.forEach(columns, function (c, column) {
 
@@ -911,7 +911,11 @@ angular.module('storage.storageDivisionManager', [])
                             $cbResource.create('/storage/sample/' + clonedSample.id + ' /clone', samplesToCreate).then(function () {
                                 toastr.info('Sample ' + clonedSample.id + ' pasted successfully.');
                                 $state.go($state.current, $stateParams, {reload:true});
-                                that.clonedSample = null;
+                                // that.clonedSample = null;
+                            }, function(){
+                                toastr.danger('Things are a little messed up');
+                                $state.go($state.current, $stateParams, {reload:true});
+                                // that.clonedSample = null;
                             });
 
                         });
