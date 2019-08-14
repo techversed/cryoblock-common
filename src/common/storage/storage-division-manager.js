@@ -838,6 +838,20 @@ angular.module('storage.storageDivisionManager', [])
 
                 },
 
+                cloneSampleDimensionless: function(clonedSample){
+
+                    var that = this;
+
+                    $cbResource.create('/storage/sample/'+ clonedSample.id +'/user_clone').then(function(response){
+
+                        that.clonedSample = clonedSample;
+                        toastr.info('Sample ' + that.clonedSample.id + ' cloned successfully.');
+
+                    });
+
+
+                },
+
                 cloneSample: function () {
 
                     if (this.selectedSampleCount != 1 || this.selectedEmptyCount != 0) {
