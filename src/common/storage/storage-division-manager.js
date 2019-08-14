@@ -55,7 +55,16 @@ angular.module('storage.storageDivisionManager', [])
                     this.sampleMap = this.getSampleMap();
                     this.expandToDivision(this.division);
                     this.toggleSearch = false;
+
                     this.clonedSample = null;
+
+
+                    var that = this;
+                    $cbResource.get('/storage/sample/user_clone').then(function (response){
+                        that.clonedSample = response.data;
+                    });
+
+
 
                     if (this.initSampleId) {
                         this.toggleSampleId(this.initSampleId);
@@ -830,21 +839,27 @@ angular.module('storage.storageDivisionManager', [])
                 },
 
                 cloneSample: function () {
-                    console.log("division", this.division);
 
                     if (this.selectedSampleCount != 1 || this.selectedEmptyCount != 0) {
                         return;
                     }
 
-                    this.clonedSample = this.getSelectedSample();
+                    var clonedSample = this.getSelectedSample();
+                    var that = this;
 
-                    toastr.info('Sample ' + this.clonedSample.id + ' cloned successfully.');
+                    $cbResource.create('/storage/sample/'+ clonedSample.id +'/user_clone').then(function(response){
+
+                        that.clonedSample = clonedSample;
+                        toastr.info('Sample ' + that.clonedSample.id + ' cloned successfully.');
+
+                    });
 
                 },
 
+                // THIS WILL NEED A PARTIAL REWORK
                 pasteSample: function () {
 
-                    console.log("cloned Sample", this.clonedSample);
+                    // console.log("cloned Sample", this.clonedSample);
 
                     if (!this.clonedSample) {
                         return;
