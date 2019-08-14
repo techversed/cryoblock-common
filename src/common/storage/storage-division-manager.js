@@ -875,40 +875,46 @@ angular.module('storage.storageDivisionManager', [])
 
                     // console.log("cloned Sample", this.clonedSample);
 
-                    if (!this.clonedSample) {
-                        return;
-                    }
-
-                    var clonedSample = this.clonedSample;
-                    var samplesToCreate = [];
                     var that = this;
 
-                    angular.forEach(this.selectedCells, function (columns, row) {
+                    $cbResource.get('/storage/sample/user_clone').then(function (response){
+                        that.clonedSample = response.data;
 
-                        angular.forEach(columns, function (c, column) {
+                        if (!this.clonedSample) {
+                            return;
+                        }
 
-                            var sampleToCreate = {divisionId: that.division['id'], divisionRow: row, divisionColumn: column}; // This line should be modified to allow pasting between divisions
-                            samplesToCreate.push(sampleToCreate);
+                        var clonedSample = this.clonedSample;
+                        var samplesToCreate = [];
+                        var that = this;
+
+                        angular.forEach(this.selectedCells, function (columns, row) {
+
+                            angular.forEach(columns, function (c, column) {
+
+                                var sampleToCreate = {divisionId: that.division['id'], divisionRow: row, divisionColumn: column}; // This line should be modified to allow pasting between divisions
+                                samplesToCreate.push(sampleToCreate);
+
+                            });
 
                         });
 
-                    });
+                        swal({
+                            title: "Are you Sure?",
+                            text: "Cloning sample " + clonedSample.id + " will duplicate all values including concentration and volume.",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {
 
-                    swal({
-                        title: "Are you Sure?",
-                        text: "Cloning sample " + clonedSample.id + " will duplicate all values including concentration and volume.",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "Ok",
-                        closeOnConfirm: true
-                    }, function() {
+                            $cbResource.create('/storage/sample/' + clonedSample.id + ' /clone', samplesToCreate).then(function () {
+                                toastr.info('Sample ' + clonedSample.id + ' pasted successfully.');
+                                $state.go($state.current, $stateParams, {reload:true});
+                                that.clonedSample = null;
+                            });
 
-                        $cbResource.create('/storage/sample/' + clonedSample.id + ' /clone', samplesToCreate).then(function () {
-                            toastr.info('Sample ' + clonedSample.id + ' pasted successfully.');
-                            $state.go($state.current, $stateParams, {reload:true});
-                            that.clonedSample = null;
                         });
-
                     });
 
                 },
