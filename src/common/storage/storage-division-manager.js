@@ -854,6 +854,18 @@ angular.module('storage.storageDivisionManager', [])
 
                 cloneSample: function () {
 
+                    var that = this;
+                    if (this.selectedSampleCount == 0 && this.selectedEmptyCount ==0) {
+
+                        $cbResource.create('/storage/sample/'+ 0 +'/user_clone').then(function(response){
+
+                            that.clonedSample = null;
+                            toastr.info('Copied sample cleared');
+
+                        });
+
+                    }
+
                     if (this.selectedSampleCount != 1 || this.selectedEmptyCount != 0) {
                         return;
                     }
@@ -910,10 +922,6 @@ angular.module('storage.storageDivisionManager', [])
 
                             $cbResource.create('/storage/sample/' + clonedSample.id + ' /clone', samplesToCreate).then(function () {
                                 toastr.info('Sample ' + clonedSample.id + ' pasted successfully.');
-                                $state.go($state.current, $stateParams, {reload:true});
-                                // that.clonedSample = null;
-                            }, function(){
-                                toastr.danger('Things are a little messed up');
                                 $state.go($state.current, $stateParams, {reload:true});
                                 // that.clonedSample = null;
                             });
