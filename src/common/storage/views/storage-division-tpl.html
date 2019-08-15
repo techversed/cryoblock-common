@@ -260,13 +260,13 @@
 
                         <div class="panel-body">
                             <ul class="storage-division-list">
+
                                 <li class="add-division list-item">
                                     <div class="row-column-container add">
                                         <button class="btn btn-primary btn-square add-division-button" ng-click="sdm.addDivision()"><i class="fa fa-plus list-icon" /></button>
                                     </div>
                                     <div class="add-sample">Add a Child Division to {{division.title}}</div>
                                 </li>
-
 
 <!-- Portion of interest starts here. -->
                                 <li ng-repeat="division in division.children | orderBy:'lft' " class="list-item">
@@ -345,6 +345,7 @@
                                                     </tr>
                                                 </table>
                                                 <table class="division-detail-table">
+
 <!-- Able to view -->
                                                     <tr>
                                                         <td>
@@ -416,6 +417,7 @@
                                         </div>
                                     </div>
                                 </li>
+
 <!-- End of portion of interest -->
 
                             </ul>
@@ -433,11 +435,25 @@
                             <ul class="storage-division-list">
                                 <li class="list-item">
                                     <div class="row-column-container add">
+
                                         <div class="btn-group" uib-dropdown>
-                                            <button role="button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+
+<!-- added this -->
+
+                                            <button ng-if="!sdm.clonedSample" ng-class="{'btn-default': !sdm.clonedSample, 'btn-primary': sdm.clonedSample}" ng-disabled="sdm.selectedSampleCount != 1 || sdm.selectedEmptyCount != 0" role="button" type="button" class="btn" title="No sample currently selected">
+                                                <i class="fa fa-clone" />
+                                            </button>
+
+                                            <button ng-if="sdm.clonedSample" tooltip-placement="top" uib-tooltip="{{ 'Cloned sample ' + sdm.clonedSample.id + ' - ' + sdm.clonedSample.catalog.name}}" ng-class="{'btn-default': !sdm.clonedSample, 'btn-primary': sdm.clonedSample}" ng-disabled="!sdm.clonedSample && sdm.selectedSampleCount != 1 || !sdm.clonedSample &&  sdm.selectedEmptyCount != 0" role="button" type="button" class="btn" ng-click="sdm.cloneSample()" title="clone the selected sample">
+                                                <i class="fa fa-clone" />
+                                            </button>
+
+<!-- end of added portion -->
+                                            <button role="button" type="button" class="btn btn-default" uib-dropdown-toggle>
                                                 <i class="fa fa-plus list-icon" />
                                             </button>
                                             <div class="btn-group" role="group">
+
                                                 <button role="button" type="button" class="btn btn-default" ng-click="sdm.downloadDivisionUpdateTemplate()">
                                                     <i class="fa fa-table" />
                                                 </button>
@@ -450,11 +466,17 @@
                                                 <li role="menuitem">
                                                     <a ng-click="sdm.createSample()"><i class="fa fa-plus m-r-xs"/>Create Sample</a>
                                                 </li>
+                                                <li class="divider"></li>
+                                                <li role="menuitem">
+                                                    <a ng-click="sdm.cloneInDimensionless(sdm.clonedSample)"><i class="fa fa-paste m-r-xs"/>Paste Samples</a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="add-sample">Add Sample to Division {{division.title}}</div>
                                 </li>
+
+                                <!-- add cloned sample stuff here  -->
                                 <li ng-repeat="sample in division.samples" class="list-item">
                                     <div class="row-column-container">
                                         <i class="list-icon fa fa-flask fa-2x"/>
