@@ -64,7 +64,8 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                 updateSelectionString: function () {
 
-                    if (this.selectedType === 'single' && !!this.singleValue) {
+                    // The previous check here was selected== singe && !!this.singleValue -- this evaluated to true when 0 was given ... this should fix that issue but it is also possible that there are situations which I have failed to account for...
+                    if (this.selectedType === 'single' && !(this.singleValue === '') ) {
 
                         this.selectionString = this.selectedOperator.name + ' ' + this.singleValue;
 
@@ -96,7 +97,8 @@ angular.module('grid.gridIntegerFilterFactory', [])
 
                     var params = {};
 
-                    if (this.selectedType === 'single' && !!this.singleValue) {
+                    // The previous check here was selected== singe && !!this.singleValue -- this evaluated to true when 0 was given ... this should fix that issue but it is also possible that there are situations which I have failed to account for...
+                    if (this.selectedType === 'single' && !(this.singleValue === '') ) {
 
                         params[this.filterProperty + '[' + this.selectedOperator.value + ']'] = this.singleValue;
 

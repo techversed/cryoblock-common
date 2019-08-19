@@ -1,24 +1,12 @@
 angular.module('storage.storageDivisionSearchCtrl', [])
+    .controller('storageDivisionSearchCtrl', ['$scope', '$window', 'divisionGrid', 'sessionFactory', 'storageDivisionManager',
 
-    .controller('storageDivisionSearchCtrl', ['$scope', 'divisionGrid', '$state', 'storageFormFactory', '$uibModal', '$cbResource', 'sessionFactory', '$q', 'storageFactory', 'storageDivisionManager',
+        function ($scope, $window, divisionGrid, sessionFactory, storageDivisionManager) {
 
-        function ($scope, divisionGrid, $state, storageFormFactory, $uibModal, $cbResource, sessionFactory, $q, storageFactory, storageDivisionManager) {
-
+            $scope.grid =  divisionGrid;
+            $scope.inventoryAdmin = sessionFactory.hasRole('ROLE_INVENTORY_ADMIN');
             $scope.sdm = storageDivisionManager;
-
-            $scope.grid = divisionGrid;
-
-
-            $scope.goToDivision = function (division) {
-                $state.go('storage.division', {id:division.id});
-            };
-
-
-            $scope.isInventoryAdmin = sessionFactory.hasRole('ROLE_INVENTORY_ADMIN');
-
-            $scope.$on('$destroy', function () {
-                $scope.sdm.navigationState = $scope.sdm.navigationStates[0];
-            });
+            $scope.sdm.toggleSearch = true;
 
         }
 

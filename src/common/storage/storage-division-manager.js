@@ -44,6 +44,8 @@ angular.module('storage.storageDivisionManager', [])
 
                 initialize: function (division) {
 
+                    console.log("calling init");
+
                     this.division = division;
                     this.cellScopes = {};
                     this.selectedCells = {};
@@ -53,7 +55,16 @@ angular.module('storage.storageDivisionManager', [])
                     this.sampleMap = this.getSampleMap();
                     this.expandToDivision(this.division);
                     this.toggleSearch = false;
+
                     this.clonedSample = null;
+
+
+                    var that = this;
+                    $cbResource.get('/storage/sample/user_clone').then(function (response){
+                        that.clonedSample = response.data;
+                    });
+
+
 
                     if (this.initSampleId) {
                         this.toggleSampleId(this.initSampleId);
@@ -827,54 +838,95 @@ angular.module('storage.storageDivisionManager', [])
 
                 },
 
+                cloneSampleDimensionless: function(clonedSample){
+
+                    var that = this;
+
+                    $cbResource.create('/storage/sample/'+ clonedSample.id +'/user_clone').then(function(response){
+
+                        that.clonedSample = clonedSample;
+                        toastr.info('Sample ' + that.clonedSample.id + ' cloned successfully.');
+
+                    });
+
+
+                },
+
                 cloneSample: function () {
+
+                    var that = this;
+                    if (this.selectedSampleCount == 0 && this.selectedEmptyCount ==0) {
+
+                        $cbResource.create('/storage/sample/'+ 0 +'/user_clone').then(function(response){
+
+                            that.clonedSample = null;
+                            toastr.info('Copied sample cleared');
+
+                        });
+
+                    }
 
                     if (this.selectedSampleCount != 1 || this.selectedEmptyCount != 0) {
                         return;
                     }
 
-                    this.clonedSample = this.getSelectedSample();
-
-                    toastr.info('Sample ' + this.clonedSample.id + ' cloned successfully.');
-
-                },
-
-                pasteSample: function () {
-
-                    if (!this.clonedSample) {
-                        return;
-                    }
-
-                    var clonedSample = this.clonedSample;
-                    var samplesToCreate = [];
+                    var clonedSample = this.getSelectedSample();
                     var that = this;
 
-                    angular.forEach(this.selectedCells, function (columns, row) {
+                    $cbResource.create('/storage/sample/'+ clonedSample.id +'/user_clone').then(function(response){
 
-                        angular.forEach(columns, function (c, column) {
-
-                            var sampleToCreate = {divisionId: clonedSample.divisionId, divisionRow: row, divisionColumn: column};
-                            samplesToCreate.push(sampleToCreate);
-
-                        });
+                        that.clonedSample = clonedSample;
+                        toastr.info('Sample ' + that.clonedSample.id + ' cloned successfully.');
 
                     });
 
-                    swal({
-                        title: "Are you Sure?",
-                        text: "Cloning sample " + clonedSample.id + " will duplicate all values including concentration and volume.",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "Ok",
-                        closeOnConfirm: true
-                    }, function() {
+                },
 
-                        $cbResource.create('/storage/sample/' + clonedSample.id + ' /clone', samplesToCreate).then(function () {
-                            toastr.info('Sample ' + clonedSample.id + ' pasted successfully.');
-                            $state.go($state.current, $stateParams, {reload:true});
-                            that.clonedSample = null;
+                // THIS WILL NEED A PARTIAL REWORK
+                pasteSample: function () {
+
+                    // console.log("cloned Sample", this.clonedSample);
+
+                    var that = this;
+
+                    $cbResource.get('/storage/sample/user_clone').then(function (response){
+                        that.clonedSample = response.data;
+
+                        if (!that.clonedSample) {
+                            return;
+                        }
+
+                        var clonedSample = that.clonedSample;
+                        var samplesToCreate = [];
+                        // var that = this;
+
+                        angular.forEach(that.selectedCells, function (columns, row) {
+
+                            angular.forEach(columns, function (c, column) {
+
+                                var sampleToCreate = {divisionId: that.division['id'], divisionRow: row, divisionColumn: column}; // This line should be modified to allow pasting between divisions
+                                samplesToCreate.push(sampleToCreate);
+
+                            });
+
                         });
 
+                        swal({
+                            title: "Are you Sure?",
+                            text: "Cloning sample " + clonedSample.id + " will duplicate all values including concentration and volume.",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, function() {
+
+                            $cbResource.create('/storage/sample/' + clonedSample.id + ' /clone', samplesToCreate).then(function () {
+                                toastr.info('Sample ' + clonedSample.id + ' pasted successfully.');
+                                $state.go($state.current, $stateParams, {reload:true});
+                                // that.clonedSample = null;
+                            });
+
+                        });
                     });
 
                 },
