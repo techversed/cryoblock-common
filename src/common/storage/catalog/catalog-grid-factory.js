@@ -34,6 +34,11 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         sref: 'catalog.detail({id:result.id})'
                     },
                     {
+                        header: 'Sample Count',
+                        name: 'sampleCount',
+                        bindTo: 'sampleCount'
+                    },
+                    {
                         header: 'Merged Into',
                         name: 'mergedInto',
                         bindTo: 'mergedInto.name',
@@ -72,6 +77,31 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         type: 'string',
                         title: 'Name',
                         filterProperty: 'name',
+                        isVisible: false
+                    },
+                    {
+                        type: 'enum',
+                        title: 'Status',
+                        filterProperty: 'status',
+                        bindTo: 'status',
+                        enum: ['Available', 'Depleted', 'Destroyed'],
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Created By',
+                        accessProperty: 'id',
+                        filterProperty: 'createdById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName'
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Updated By',
+                        accessProperty: 'id',
+                        filterProperty: 'updatedById',
+                        resourceUrl: '/user',
+                        bindTo: 'fullName',
                         isVisible: false
                     },
                     {

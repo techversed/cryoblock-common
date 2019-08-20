@@ -1,5 +1,17 @@
 <div class="division-list-view" ng-class="{canEdit:division.canEdit}">
     <div ng-if="division && division.canEdit" class="btn-group division-list-actions" role="group" aria-label="Basic example">
+        <!-- added for the cloning -->
+        <!-- need to ng-if instead of ng-class due to the fact that we are not able to use complex selectors in ng-class -->
+
+        <button ng-if="sdm.clonedSample && sdm.clonedSample.id != sample.id"  role="button" type="button" class="btn btn-sm btn-default" ng-click="sdm.cloneSampleDimensionless(sample)" title="clone the selected sample">
+            <i class="fa fa-clone" />
+        </button>
+
+        <button ng-if="sdm.clonedSample.id == sample.id"  role="button" type="button" class="btn btn-sm btn-primary" ng-click="sdm.cloneSampleDimensionless()" title="clone the selected sample">
+            <i class="fa fa-clone" />
+        </button>
+
+        <!-- end of added for cloning portion -->
         <button type="button" class="btn btn-sm btn-default edit" ng-click="sdm.editSample(sample)"><i class="fa fa-edit"/></button>
         <div class="btn-group panel-more-actions" role="group">
             <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle more" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -7,9 +19,13 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+<!--
                 <li ng-click="sdm.cloneInDimensionless(sample)">
                     <a class="dropdown-item text-danger" ><i class="fa fa-clone m-r-xs" />Copy sample in this division</a>
                 </li>
+-->
+
                 <li ng-click="sdm.delete([sample])">
                     <a class="dropdown-item text-danger" ><i class="fa fa-trash m-r-xs" />Delete</a>
                 </li>
