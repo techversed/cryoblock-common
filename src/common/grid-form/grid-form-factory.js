@@ -18,6 +18,9 @@ angular.module('gridForm.gridFormFactory', [])
 
             var GridForm = function () {
 
+
+                // Default for new ros
+
                 // Valid input types
                     // text -- freetext
                     // dropdown -- enumerated type
