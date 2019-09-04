@@ -38,6 +38,9 @@ angular.module('gridForm.gridFormFactory', [])
 
 
                 // we are going to remove singlerelation and multirelation and just have a single one called relation which has minselected and maxselected properties.
+
+                // We are going to move towards setting this through the url instead
+
                 this.columns = [
                     {id: "id", header: "Text", field: "Field1", defVal: "default value for that column when a new object is created", required: true, fieldName: "asdf", type: "text", validators: ["list of functions"], sortingOperator: function () {}, sortable:true},
                     {id: "id", header: "Dropdown", field: "Field2", required: true, fieldName: "asdf", type: "dropdown", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
@@ -57,6 +60,11 @@ angular.module('gridForm.gridFormFactory', [])
 
                 // Want to make it possible to group rows in the best way possible. -- could set it up to group by sample id for instance.
                 this.rowOrdering = [0,1,2,3,4];
+
+                this.submissionUrl = null;
+                this.validationUrl = null;
+                this.refreshUrl = null;
+
 
             };
 
@@ -83,21 +91,28 @@ angular.module('gridForm.gridFormFactory', [])
                 // Add an element to the gridform
                 addEmptyRow: function () {
                     // For each column set default value for that field.
+
                 },
 
                 // We will implement this sutf later.
                 // This should take a template and a controller and make it so that the given row actions were all possible on the current gridform.
                 addRowActions: function (templatePath, controller) {
                     // asdf
+
                 },
 
                 // Create a list of updates and a list of creations -- send to backend
                 collectUpdates: function () {
                     // Collect updates, creations, deletions
+
                 },
 
                 // Remove an element from the grid form
                 removeRow: function () {
+
+                },
+
+                refresh: function () {
 
                 }
 

@@ -72,6 +72,11 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                 this.depletedAllInputSamples = false;
 
+                // Added
+                this.inputGridForm = null;
+                this.outputGridForm = null;
+
+
             };
 
             ProductionPipelineFactory.prototype = {
@@ -749,7 +754,25 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     });
 
+                },
+
+// Added with gridforms
+                setInputGridForm: function (inputGridForm) {
+
+                    this.inputGridForm = inputGridForm;
+
+                    return this;
+
+                },
+
+                setOutputGridForm: function (outputGridForm) {
+
+                    this.outputGridForm = outputGridForm;
+
+                    return this;
+
                 }
+
 
             };
 

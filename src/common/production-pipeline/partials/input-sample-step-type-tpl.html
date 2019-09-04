@@ -60,6 +60,10 @@
         </div>
     </div>
 
+    <center ng-if="config.inputGridForm">
+        <grid-form grid-form="config.inputGridForm"></grid-form>
+    </center>
+
     <div class="container p-md" ng-show="config.isUploading">
         <p class="text-center">
             <i class="text-primary fa fa-5x fa-circle-o-notch fa-spin"/>
