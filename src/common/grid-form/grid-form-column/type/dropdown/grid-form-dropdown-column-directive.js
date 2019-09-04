@@ -140,6 +140,14 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             console.log("should have stopped propagation");
                         }
 
+                        // Don't move down the page when space is pressed
+                        else if (event.key == " ") {
+
+                            console.log("pressed space");
+                            event.preventDefault();
+
+                        }
+
                         else if (event.key == "Backspace") {
 
                             console.log("pressed");

@@ -64,29 +64,92 @@ angular.module('gridForm.gridFormFactory', [])
                 this.submissionUrl = null;
                 this.validationUrl = null;
                 this.refreshUrl = null;
+                this.addCreateNew = true;
 
 
             };
 
             GridForm.prototype = {
 
+
                 getColumns: function () {
+
                     return this.columnns;
+
                 },
 
+
                 setColumns: function (columns) {
+
                     this.columns = columns;
+                    return this;
+
                 },
+
+                /*
+
+                    Takes a boolean value -- sets whether or not the user is able to create new elements in this form
+
+                */
+                setAddCreateNew: function (addCreateNew){
+
+                    this.addCreateNew = addCreateNew;
+
+                    return this;
+
+                },
+
+                clearRows: function () {
+
+                    this.rows = [];
+
+                    return this;
+
+                },
+
+
+
+                /*
+
+
+                */
+
+
 
                 // Copies an existing object and creates a row for it in this table
                 addRowFromObject: function(ent){
+
                     this.rows.push({id: this.rows.length, collapsed: false, deleted: false, entity: ent});
+
+                    return this;
+
                 },
+
 
                 // Takes a list of objects and adds a row for each one -- might be a good idea to copy them bofore adding them so that you don't change the initial object
                 addRowsFromObjects: function (ents) {
-                    angular.forEach(ents, this.addRowFromOjbect(thing))
+
+                    // console.log(ents);
+                    // ents = {1:1,2:2};
+
+                    // angular.forEach(ents, function (key,value){console.log(key); console.log(value)});
+                    var that = this;
+
+                    angular.forEach(ents, function(ent)
+                        {
+                        that.addRowFromObject(ent);
+                        }
+                    );
+
+                    // angular.forEach(ents, console.log(ent));
+                    // angular.forEach(ents, this.addRowFromObject(thing));
+                    // angular.forEach(ents, this.addRowFromObject(thing));
+
+
+                    return this;
+
                 },
+
 
                 // Add an element to the gridform
                 addEmptyRow: function () {
@@ -94,27 +157,38 @@ angular.module('gridForm.gridFormFactory', [])
 
                 },
 
+
                 // We will implement this sutf later.
                 // This should take a template and a controller and make it so that the given row actions were all possible on the current gridform.
                 addRowActions: function (templatePath, controller) {
+
                     // asdf
 
                 },
 
+
                 // Create a list of updates and a list of creations -- send to backend
                 collectUpdates: function () {
+
                     // Collect updates, creations, deletions
 
                 },
 
+
                 // Remove an element from the grid form
                 removeRow: function () {
 
+                    // asdf
+
                 },
+
 
                 refresh: function () {
 
+                    // asdf
+
                 }
+
 
             }
 

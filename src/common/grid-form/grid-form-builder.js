@@ -4,13 +4,15 @@
 
 */
 
-angular.module('gridForm.gridFormBuilder', [])
-    .service('$cbGridFormBuilder', [ '$injector', '$cbResource', '$q',
-        function ($injector, $cbResource, $q) {
+angular.module('gridForm.$cbGridFormBuilder', [])
+    .service('$cbGridFormBuilder', [ '$injector', '$cbResource', '$q', 'gridFormFactory',
+        function ($injector, $cbResource, $q, gridFormFactory) {
 
             var gridFormBuilder = {
 
+
                 /*
+
                     Arguments:
                         entityDetailId for the type of entity that you are dealing with
                         overrides -- not built yet for specialty overrrides
@@ -18,13 +20,17 @@ angular.module('gridForm.gridFormBuilder', [])
                     Return Values:
 
                 */
-                buildCreate: function (entityDetailId, overrides = {}) {
+                buildCreate: function (entityDetailId, overrides = {})
+                {
 
-                    gridform = {};
+                    console.log("Running buildCreate");
 
-                    return gridform;
+                    var gridForm = gridFormFactory.create();
+
+                    return gridForm;
 
                 },
+
 
                 /*
                     Arguments:
@@ -35,13 +41,17 @@ angular.module('gridForm.gridFormBuilder', [])
                     Return Values:
 
                 */
-                buildUpdate: function(entityDetailId, idList, overrides = {}){
+                buildUpdate: function(entityDetailId, idList, overrides = {})
+                {
 
-                    gridform = {};
+                    console.log("Running buildUpdate");
 
-                    return gridform;
+                    var gridForm = gridFormFactory.create();
+
+                    return gridForm;
 
                 },
+
 
                 /*
                     Arguments:
@@ -52,11 +62,49 @@ angular.module('gridForm.gridFormBuilder', [])
                     Return Values:
 
                 */
-                buildProductionRequestInputs: function(entityDetailId, requestId, overrides = {}){
+                // This has not been built yet.
+                buildProductionRequestInputs: function(entityDetailId, requestId, overrides = {})
+                {
 
-                    gridform = {};
+                    console.log("Running build Production Request Inputs");
 
-                    return gridform;
+                    var url = 'production/download-input-template';
+
+                    obj = {};
+                    obj.totalOutputSamples = 2;
+                    obj.inputTemplateType = 'GRIDFORM';
+                    obj.entity = "AppBundle\\Entity\\Production\\HumanSpecimen\\Request";
+                    obj.outputSampleDefaults = {"catalog":"D1752 HS0819-6","description":"Donor 1752 - Copperhead Snake Bite- Donor 1752","sampleType":"Blood","status":"Available","storageContainer":"Vial","target":180,"lot":"HS0819-6","donor":1752,"division":2833,"projectSamples":""};
+                    obj.hasVaryingOutputSampleTypes = false;
+                    obj.id = 945;
+
+
+                    // var requestId
+
+                    // Entity = path to entity
+                    // Output Sample Defaults = ...
+
+                    var gridForm = gridFormFactory.create();
+
+
+                    // var thing = $cbResource.create(url, obj);
+
+                    /*
+                        $cbResource ... . then ...
+
+
+                    */
+
+                    $cbResource.create(url,obj).then(function (response) {
+
+                        //gridForm.changeStuff ...
+
+                    });
+
+
+
+
+                    return gridForm;
 
                 },
 
@@ -69,11 +117,43 @@ angular.module('gridForm.gridFormBuilder', [])
                     Return Value:
 
                 */
-                buildProductionRequestOutputs: function(entityDetailId, requestId, overrides = {}){
+                buildProductionRequestOutputs: function(entityDetailId, requestId, overrides = {})
+                {
 
-                    gridform = {};
+                    console.log("Running build Production Request Outputs");
 
-                    return gridform;
+                    var url = '/production/download-output-template';
+
+                    obj = {};
+                    obj.totalOutputSamples = 2;
+                    obj.outputTemplateType = 'GRIDFORM';
+                    obj.entity = "AppBundle\\Entity\\Production\\HumanSpecimen\\Request";
+                    obj.outputSampleDefaults = {"catalog":"D1752 HS0819-6","description":"Donor 1752 - Copperhead Snake Bite- Donor 1752","sampleType":"Blood","status":"Available","storageContainer":"Vial","target":180,"lot":"HS0819-6","donor":1752,"division":2833,"projectSamples":""};
+                    obj.hasVaryingOutputSampleTypes = false;
+                    obj.id = 945;
+
+                    // Entity = path to entity
+                    // Output Sample Defaults = ...
+
+                    var gridForm = gridFormFactory.create();
+
+                    $cbResource.create(url, obj).then( function (response) {
+
+                        // gridForm.changeStuff...
+
+                        console.log(response.data);
+
+                        // gridForm.clearRows(); // This is going to be removed -- this is just because there is sample data built in already
+                        gridForm.setColumns(response.data.headers);
+                        gridForm.addRowsFromObjects(response.data.content);
+
+                        // gridForm.setCreateNew(true);
+                        // gridForm.set
+
+                        // return response.data;
+                    });
+
+                    return gridForm;
 
                 },
 
@@ -86,11 +166,14 @@ angular.module('gridForm.gridFormBuilder', [])
                     Return Value:
 
                 */
-                buildWorkingSetGridForm: function(entityDetailId, overrides = {}){
+                buildWorkingSetGridForm: function(entityDetailId, overrides = {})
+                {
 
-                    gridform = {};
+                    console.log("Running build working set grid form");
 
-                    return gridform;
+                    var gridForm = gridFormFactory.create();
+
+                    return gridForm;
 
                 }
 

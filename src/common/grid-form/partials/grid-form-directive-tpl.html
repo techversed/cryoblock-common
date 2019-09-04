@@ -1,25 +1,30 @@
 <!--
+
     Under construction
 
 
     data
     field
+
 -->
 
 <!-- The table that contains the forms -->
+
 <table>
 
     <!-- The header row for the table -->
     <tr>
         <th ng-repeat="col in gridForm.columns"> <!-- ng-repeat for each column -->
-            <center> {{col.header}} </center>
+            <center> {{col.name}} </center>
         </th>
     </tr>
 
     <!-- For each entity look at each column and use the correct directive for the type of entity -->
     <tr ng-repeat="row in gridForm.rowOrdering">
         <td ng-repeat="col in gridForm.columns">
-                <grid-form-column class="wFullWidth" column="col" data="gridForm.rows[row]['entity']" field="col['field']"></grid-form-column>
+                <!-- <grid-form-column class="wFullWidth" column="col" data="gridForm.rows[row]['entity']" field="col['field']"></grid-form-column> -->
+
+                <grid-form-column class="wFullWidth" column="col" data="gridForm.rows[row]['entity']" field="col['name']"></grid-form-column>
         </td>
     </tr>
 

@@ -88,6 +88,18 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                                 $scope.highlightedElement = $scope.suggestionList[index+1];
                             }
                         }
+                        else if (event.key == "ArrowDown") {
+
+                            // Should move onto the next item in the list if there is one
+                            console.log("pressed Arrow down");
+
+                            // var index = $scope.suggestionList.find( findFunction(element, index, $scope.highlightedElement) );
+                            var index = getIndex($scope.highlightedElement, $scope.suggestionList);
+
+                            if (index+1 < $scope.suggestionList.length) {
+                                $scope.highlightedElement = $scope.suggestionList[index+1];
+                            }
+                        }
 
                         else if (event.key == "ArrowUp") {
 
