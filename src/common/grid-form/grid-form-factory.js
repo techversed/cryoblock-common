@@ -109,19 +109,16 @@ angular.module('gridForm.gridFormFactory', [])
                 },
 
 
-
                 /*
 
 
                 */
 
-
-
                 // Copies an existing object and creates a row for it in this table
                 addRowFromObject: function(ent){
 
-                    this.rows.push({id: this.rows.length, collapsed: false, deleted: false, entity: ent});
                     this.rowOrdering.push(this.rows.length);
+                    this.rows.push({id: this.rows.length, collapsed: false, deleted: false, entity: ent});
 
                     return this;
 

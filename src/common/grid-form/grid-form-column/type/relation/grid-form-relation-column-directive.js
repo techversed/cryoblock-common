@@ -23,6 +23,8 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                 scope: {
                     obj: '=',
+                    column: '=',
+                    field: '=',
                     allowCreate: '='
                 },
 
@@ -39,6 +41,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         for (i=0; i<haystack.length; i++){
 
                             if(haystack[i]==needle) return i;
+
                         }
 
                         return -1;
@@ -47,12 +50,17 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     var init = function () {
 
+                        console.log("selected thing", obj);
+
+
                         // $scope.catalog = {};
                         // $scope.sample = {'catalog': {}};
 
                         // console.log("Running the init funciton in the grid form single relation column directive.");
 
                         $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
+
+                        // cb resource search ...
 
                         // $scope.highlightedThing = 'asdf3';
                         // Is the index of the currently highlighted option -- only comes into play if the hightlighted thing does not appear in the list or has not been moved from its default setting

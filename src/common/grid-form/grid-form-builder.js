@@ -70,7 +70,7 @@ angular.module('gridForm.$cbGridFormBuilder', [])
 
                     var url = 'production/download-input-template';
 
-                    obj = {};
+                    var obj = {};
                     obj.totalOutputSamples = 2;
                     obj.inputTemplateType = 'GRIDFORM';
                     obj.entity = "AppBundle\\Entity\\Production\\HumanSpecimen\\Request";
@@ -124,7 +124,7 @@ angular.module('gridForm.$cbGridFormBuilder', [])
 
                     var url = '/production/download-output-template';
 
-                    obj = {};
+                    var obj = {};
                     obj.totalOutputSamples = 2;
                     obj.outputTemplateType = 'GRIDFORM';
                     obj.entity = "AppBundle\\Entity\\Production\\HumanSpecimen\\Request";
@@ -145,6 +145,7 @@ angular.module('gridForm.$cbGridFormBuilder', [])
 
                         gridForm.clearRows(); // This is going to be removed -- this is just because there is sample data built in already
                         gridForm.setColumns(response.data.headers);
+                        console.log('promise response', response.data);
                         gridForm.addRowsFromObjects(response.data.content);
 
 
