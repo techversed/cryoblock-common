@@ -102,6 +102,7 @@ angular.module('gridForm.gridFormFactory', [])
                 clearRows: function () {
 
                     this.rows = [];
+                    this.rowOrdering = [];
 
                     return this;
 
@@ -120,6 +121,7 @@ angular.module('gridForm.gridFormFactory', [])
                 addRowFromObject: function(ent){
 
                     this.rows.push({id: this.rows.length, collapsed: false, deleted: false, entity: ent});
+                    this.rowOrdering.push(this.rows.length);
 
                     return this;
 
@@ -129,22 +131,13 @@ angular.module('gridForm.gridFormFactory', [])
                 // Takes a list of objects and adds a row for each one -- might be a good idea to copy them bofore adding them so that you don't change the initial object
                 addRowsFromObjects: function (ents) {
 
-                    // console.log(ents);
-                    // ents = {1:1,2:2};
-
-                    // angular.forEach(ents, function (key,value){console.log(key); console.log(value)});
                     var that = this;
 
-                    angular.forEach(ents, function(ent)
-                        {
+                    angular.forEach(ents, function(ent){
+
                         that.addRowFromObject(ent);
-                        }
-                    );
 
-                    // angular.forEach(ents, console.log(ent));
-                    // angular.forEach(ents, this.addRowFromObject(thing));
-                    // angular.forEach(ents, this.addRowFromObject(thing));
-
+                    });
 
                     return this;
 

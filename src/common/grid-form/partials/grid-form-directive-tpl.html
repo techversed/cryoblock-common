@@ -23,8 +23,7 @@
     <tr ng-repeat="row in gridForm.rowOrdering">
         <td ng-repeat="col in gridForm.columns">
                 <!-- <grid-form-column class="wFullWidth" column="col" data="gridForm.rows[row]['entity']" field="col['field']"></grid-form-column> -->
-
-                <grid-form-column class="wFullWidth" column="col" data="gridForm.rows[row]['entity']" field="col['name']"></grid-form-column>
+                <grid-form-column class="wFullWidth" column="col" data="gridForm.rows[row]['entity']" field="col['field']"></grid-form-column>
         </td>
     </tr>
 
@@ -38,3 +37,5 @@
 <br />
 <button class="btn btn-primary Fixed" ><i class="fa fa-save"></i> Save</button>
 <a ng-click="dumpDataModel()"> Dump the datamodel to ensure that it is being modified.</a>
+<button class="btn btn-primary"><i class="fa fa-plus"></i></button>
+<a ng-click="addEmptyRow()"> Add Empty Row </a>

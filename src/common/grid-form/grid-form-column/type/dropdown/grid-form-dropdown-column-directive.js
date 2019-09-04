@@ -72,7 +72,10 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         $scope.selectMultiple = $scope.maxSelectable ? false : ($scope.maxSelectable == 1)  ? true : true;
 
                         // Properties if selecting single
+
+                        // Change this...  Suggestion list should be the list of valid inputs instead of this default stuff
                         $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
+
                         $scope.highlightedElement = $scope.suggestionList[0];
 
                         $scope.selectedThing = {};
