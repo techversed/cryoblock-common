@@ -50,7 +50,9 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     var init = function () {
 
-                        console.log("selected thing", obj);
+                        console.log("selected thing", $scope.obj[$scope.field]);
+
+                        // Take the value of selected
 
 
                         // $scope.catalog = {};
@@ -160,6 +162,10 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
         }
     ]
 );
+
+
+
+
 //Old dropdown directive -- this may be useful because I was building some things in for relations that are no longer going to be used in dropdowns but shoudl be used in releations...
 /*
 

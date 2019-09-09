@@ -1,7 +1,7 @@
 /*
+
     This factory creates all of the fields which will be handled in the grid form directive.
     Use of the factory allows for us to create a new class similar to cbGridBuilder or cbResource which abstracts away the details and makes this directive usable within your average controller.
-
 
 */
 

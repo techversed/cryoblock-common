@@ -6,7 +6,6 @@
 
     This is also going to make it possible to handle a series of actions in the gene-synthesis and sequencing apps which is confusing and unclean in the current excel download/upload setup.
 
-
 */
 
 angular.module('gridForm.gridFormDirective', [])
