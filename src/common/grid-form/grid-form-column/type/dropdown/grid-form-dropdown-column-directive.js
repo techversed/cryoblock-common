@@ -7,11 +7,6 @@
     Unlike the relations this dropdown does not have any communication with the backend.
     Searching will be performed within the interface
 
-
-    minselectable
-    maxselectable
-    selectMultiple -- true or false. checkbox or radio buttons
-
 */
 
 angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
@@ -25,8 +20,6 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     obj: '=',
                     column: '=',
                     field: '=',
-                    minselectable: '@',
-                    maxselectable: '@',
                 },
 
                 restrict: 'E',
@@ -61,19 +54,14 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                     var init = function () {
 
+                        $scope.minSelectable
+
                         $scope.obj[$scope.field] = $scope.obj[$scope.field] ? $scope.obj[$scope.field] : [];
 
-                        // $scope.field = $scope.column[$scope.field];
-                        // Testing stuff
-                        // $scope.form.search = "asdf";
-                        // $scope.textAndStuff = "Here is some text";
-                        // If not specified assume that you are selecting a single one
+                        $scope.selectMultiple = $scope.column.maxSelectable ? false : ($scope.column.maxSelectable == 1)  ? true : true;
 
-                        $scope.selectMultiple = $scope.maxSelectable ? false : ($scope.maxSelectable == 1)  ? true : true;
 
-                        // Properties if selecting single
-
-                        // Change this...  Suggestion list should be the list of valid inputs instead of this default stuff
+                        // In the end this is going to end up querying the backend.
                         $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
 
                         $scope.highlightedElement = $scope.suggestionList[0];
@@ -81,17 +69,14 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
 
-                        // Properties if selecting many
                         $scope.multiSelected = {};
-                        // $scope.obj = [];
 
-                        // $scope.selectionListString = '';
 
                         for(var i = 0; i < $scope.suggestionList.length; i++){
                             $scope.multiSelected[$scope.suggestionList[i]] = false;
                         }
 
-                        $scope.focusGained = false; // True if the element has gained focus since the last time the dropdown display was cancelled due to a copy or paste action
+                        $scope.focusGained = false;
 
                     };
 
