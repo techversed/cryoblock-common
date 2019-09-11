@@ -32,7 +32,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     // Index is the
                     var getIndex = function (needle, haystack) {
 
-                        for (i=0; i < haystack.length; i++){
+                        for (i=0; i < haystack.length; i++) {
                             if (haystack[i]==needle) return i;
                         }
 
@@ -80,7 +80,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                     };
 
-                    $scope.keyPressHandler = function (event, item){
+                    $scope.keyPressHandler = function (event, item) {
 
                         console.log(event);
 
@@ -142,7 +142,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         }
 
-                        else if (event.key == 'a' && event.metaKey == true){
+                        else if (event.key == 'a' && event.metaKey == true) {
 
                             console.log(event);
                             console.log("selection start", event.currentTarget.selectionStart);
@@ -242,7 +242,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         $scope.focusGained = false; // If they copy, close the
                     };
 
-                    $scope.unselectItem = function (thing){
+                    $scope.unselectItem = function (thing) {
 
                         $scope.selectItem(thing);
                         console.log(thing);
