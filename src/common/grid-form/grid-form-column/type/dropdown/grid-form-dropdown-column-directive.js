@@ -7,11 +7,6 @@
     Unlike the relations this dropdown does not have any communication with the backend.
     Searching will be performed within the interface
 
-
-    minselectable
-    maxselectable
-    selectMultiple -- true or false. checkbox or radio buttons
-
 */
 
 angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
@@ -25,8 +20,6 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     obj: '=',
                     column: '=',
                     field: '=',
-                    minselectable: '@',
-                    maxselectable: '@',
                 },
 
                 restrict: 'E',
@@ -39,7 +32,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                     // Index is the
                     var getIndex = function (needle, haystack) {
 
-                        for (i=0; i < haystack.length; i++){
+                        for (i=0; i < haystack.length; i++) {
                             if (haystack[i]==needle) return i;
                         }
 
@@ -61,38 +54,33 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                     var init = function () {
 
+                        $scope.minSelectable
+
                         $scope.obj[$scope.field] = $scope.obj[$scope.field] ? $scope.obj[$scope.field] : [];
 
-                        // $scope.field = $scope.column[$scope.field];
-                        // Testing stuff
-                        // $scope.form.search = "asdf";
-                        // $scope.textAndStuff = "Here is some text";
-                        // If not specified assume that you are selecting a single one
+                        $scope.selectMultiple = $scope.column.maxSelectable ? false : ($scope.column.maxSelectable == 1)  ? true : true;
 
-                        $scope.selectMultiple = $scope.maxSelectable ? false : ($scope.maxSelectable == 1)  ? true : true;
 
-                        // Properties if selecting single
+                        // In the end this is going to end up querying the backend.
                         $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
+
                         $scope.highlightedElement = $scope.suggestionList[0];
 
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
 
-                        // Properties if selecting many
                         $scope.multiSelected = {};
-                        // $scope.obj = [];
 
-                        // $scope.selectionListString = '';
 
                         for(var i = 0; i < $scope.suggestionList.length; i++){
                             $scope.multiSelected[$scope.suggestionList[i]] = false;
                         }
 
-                        $scope.focusGained = false; // True if the element has gained focus since the last time the dropdown display was cancelled due to a copy or paste action
+                        $scope.focusGained = false;
 
                     };
 
-                    $scope.keyPressHandler = function (event, item){
+                    $scope.keyPressHandler = function (event, item) {
 
                         console.log(event);
 
@@ -140,13 +128,21 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             console.log("should have stopped propagation");
                         }
 
+                        // Don't move down the page when space is pressed
+                        else if (event.key == " ") {
+
+                            console.log("pressed space");
+                            event.preventDefault();
+
+                        }
+
                         else if (event.key == "Backspace") {
 
                             console.log("pressed");
 
                         }
 
-                        else if (event.key == 'a' && event.metaKey == true){
+                        else if (event.key == 'a' && event.metaKey == true) {
 
                             console.log(event);
                             console.log("selection start", event.currentTarget.selectionStart);
@@ -246,7 +242,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         $scope.focusGained = false; // If they copy, close the
                     };
 
-                    $scope.unselectItem = function (thing){
+                    $scope.unselectItem = function (thing) {
 
                         $scope.selectItem(thing);
                         console.log(thing);

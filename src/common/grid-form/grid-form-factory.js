@@ -1,7 +1,7 @@
 /*
+
     This factory creates all of the fields which will be handled in the grid form directive.
     Use of the factory allows for us to create a new class similar to cbGridBuilder or cbResource which abstracts away the details and makes this directive usable within your average controller.
-
 
 */
 
@@ -17,6 +17,9 @@ angular.module('gridForm.gridFormFactory', [])
             */
 
             var GridForm = function () {
+
+
+                // Default for new ros
 
                 // Valid input types
                     // text -- freetext
@@ -35,6 +38,9 @@ angular.module('gridForm.gridFormFactory', [])
 
 
                 // we are going to remove singlerelation and multirelation and just have a single one called relation which has minselected and maxselected properties.
+
+                // We are going to move towards setting this through the url instead
+
                 this.columns = [
                     {id: "id", header: "Text", field: "Field1", defVal: "default value for that column when a new object is created", required: true, fieldName: "asdf", type: "text", validators: ["list of functions"], sortingOperator: function () {}, sortable:true},
                     {id: "id", header: "Dropdown", field: "Field2", required: true, fieldName: "asdf", type: "dropdown", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
@@ -55,48 +61,124 @@ angular.module('gridForm.gridFormFactory', [])
                 // Want to make it possible to group rows in the best way possible. -- could set it up to group by sample id for instance.
                 this.rowOrdering = [0,1,2,3,4];
 
+                this.submissionUrl = null;
+                this.validationUrl = null;
+                this.refreshUrl = null;
+                this.addCreateNew = true;
+
+
             };
 
             GridForm.prototype = {
 
+
                 getColumns: function () {
+
                     return this.columnns;
+
                 },
 
+
                 setColumns: function (columns) {
+
                     this.columns = columns;
+                    return this;
+
                 },
+
+                /*
+
+                    Takes a boolean value -- sets whether or not the user is able to create new elements in this form
+
+                */
+                setAddCreateNew: function (addCreateNew){
+
+                    this.addCreateNew = addCreateNew;
+
+                    return this;
+
+                },
+
+                clearRows: function () {
+
+                    this.rows = [];
+                    this.rowOrdering = [];
+
+                    return this;
+
+                },
+
+
+                /*
+
+
+                */
 
                 // Copies an existing object and creates a row for it in this table
                 addRowFromObject: function(ent){
+
+                    this.rowOrdering.push(this.rows.length);
                     this.rows.push({id: this.rows.length, collapsed: false, deleted: false, entity: ent});
+
+                    return this;
+
                 },
+
 
                 // Takes a list of objects and adds a row for each one -- might be a good idea to copy them bofore adding them so that you don't change the initial object
                 addRowsFromObjects: function (ents) {
-                    angular.forEach(ents, this.addRowFromOjbect(thing))
+
+                    var that = this;
+
+                    angular.forEach(ents, function(ent){
+
+                        that.addRowFromObject(ent);
+
+                    });
+
+                    return this;
+
                 },
+
 
                 // Add an element to the gridform
                 addEmptyRow: function () {
                     // For each column set default value for that field.
+
                 },
+
 
                 // We will implement this sutf later.
                 // This should take a template and a controller and make it so that the given row actions were all possible on the current gridform.
                 addRowActions: function (templatePath, controller) {
+
                     // asdf
+
                 },
+
 
                 // Create a list of updates and a list of creations -- send to backend
                 collectUpdates: function () {
+
                     // Collect updates, creations, deletions
+
                 },
+
 
                 // Remove an element from the grid form
                 removeRow: function () {
 
+                    // asdf
+
+                },
+
+
+                refresh: function () {
+
+                    // asdf
+
                 }
+
 
             }
 

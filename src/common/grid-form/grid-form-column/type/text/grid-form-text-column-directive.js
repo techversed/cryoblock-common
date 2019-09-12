@@ -1,9 +1,8 @@
 /*
+
     Under construction
 
 */
-
-
 angular.module('gridForm.gridFormColumn.gridFormTextColumnDirective', [])
 
     .directive('gridFormTextColumn', [

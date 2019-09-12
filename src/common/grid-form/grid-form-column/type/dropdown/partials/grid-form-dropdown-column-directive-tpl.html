@@ -1,8 +1,13 @@
+<!--
+
+
+
+-->
 <div class="btn-group grid-form-input-field grid-form-text-area-dropdown wFullWidth" uib-dropdown keyboard-nav >
 
     <span class='dropdownColumnNoText form-control' ng-keydown="keyPressHandler($event,item)" ng-paste="catchPaste($event)" tabindex="0" ng-focus="shiftFocus()">
 
-        <span id="testing" ng-paste="console.log('ng-paste')" ng-if="!(obj[field].length > 0)" class="wFullWidth">None selected</span>
+        <span id="testing" ng-paste="console.log('ng-paste')" ng-if="!(obj[field].length > 0)" class="wFullWidth">None</span>
 
         <span ng-repeat="thing in obj[field]">
             <span class="label label-success">{{thing}} <i class="fa fa-remove" ng-click="unselectItem(thing)"></i></span><span  ng-if="!$last">, </span>
