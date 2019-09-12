@@ -196,7 +196,7 @@ angular.module('grid.gridDirective', [])
                                             else {
 
                                                 // Remove characters that could mess up the file
-                                                lineArray.push(value.replace(/\#/g,"").replace(/,/g," &"));
+                                                lineArray.push(value.replace(/\#/g,"").replace(/,/g," &").replace("\;",""));
 
                                             }
 
