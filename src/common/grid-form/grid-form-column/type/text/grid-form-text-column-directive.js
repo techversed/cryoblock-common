@@ -23,6 +23,7 @@ angular.module('gridForm.gridFormColumn.gridFormTextColumnDirective', [])
 
                 scope: {
                     obj: '=',
+                    fieldId: '=',
                     field: '='
                 },
 
