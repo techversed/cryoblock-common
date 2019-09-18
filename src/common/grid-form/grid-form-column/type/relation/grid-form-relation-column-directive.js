@@ -49,9 +49,13 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                     }
 
                     var init = function () {
-                        console.log($scope.column);
-                        $scope.refreshUrl = $scope.column.url ? $scope.column.url : "/user";
 
+                        console.log($scope.column);
+                        // Populate Initial Values
+
+                        $scope.refreshUrl = $scope.column.url ? $scope.column.url : "/user";
+                        $scope.highlightedIndex = 0;
+                        $scope.highlightedElement = ""; //$scope.suggestionList[$scope.highlightedIndex];
                         $scope.refreshCount = 0; // Number of times that updated search results have been requested
 
                         $scope.searchString = "";
@@ -62,7 +66,6 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                         // $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
 
-                        $scope.highlightedElement = $scope.suggestionList[0];
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
 
@@ -93,9 +96,12 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                         $gridFilterPromiseSharer.addPromise($scope.refreshUrl, params).then(function (response) {
                             console.log(response);
+
                             if ($scope.refreshCount == numRefreshes) {
 
                                 $scope.suggestionList = response.data;
+                                $scope.highlightedIndex = $scope.highlightedIndex < $scope.suggestionList.length ? $scope.highlightedIndex : $scope.suggestionList.length-1;
+                                $scope.highlightedElement = $scope.suggestionList[$scope.highlightedIndex];
                                 console.log("it would be correct to set the results now");
 
                             }
@@ -115,22 +121,29 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                             event.preventDefault();
 
-                            var index = getIndex($scope.highlightedElement, $scope.suggestionList);
+                            $scope.highlightedIndex = $scope.highlightedIndex < $scope.suggestionList.length-1 ? $scope.highlightedIndex + 1 : $scope.highlightedIndex;
+                            $scope.highlightedElement = $scope.suggestionList.length > 0 ? $scope.suggestionList[$scope.highlightedIndex] : "";
 
-                            if (index+1 < $scope.suggestionList.length) {
-                                $scope.highlightedElement = $scope.suggestionList[index+1];
-                            }
+                            // var index = getIndex($scope.highlightedElement, $scope.suggestionList);
+
+                            // if (index+1 < $scope.suggestionList.length) {
+                            //     $scope.highlightedElement = $scope.suggestionList[index+1];
+                            // }
 
                         }
                         else if (event.key == "ArrowUp") {
 
                             event.preventDefault();
 
-                            var index = getIndex($scope.highlightedElement, $scope.suggestionList);
+                            $scope.highlightedIndex = $scope.highlightedIndex > 0 ? $scope.highlightedIndex - 1 : $scope.highlightedIndex;
+                            $scope.highlightedElement = $scope.suggestionList.length > 0 ? $scope.suggestionList[$scope.highlightedIndex] : "";
 
-                            if (index - 1 >= 0) {
-                                $scope.highlightedElement = $scope.suggestionList[index-1];
-                            }
+
+                            // var index = getIndex($scope.highlightedElement, $scope.suggestionList);
+
+                            // if (index - 1 >= 0) {
+                            //     $scope.highlightedElement = $scope.suggestionList[index-1];
+                            // }
 
                         }
                         else {
