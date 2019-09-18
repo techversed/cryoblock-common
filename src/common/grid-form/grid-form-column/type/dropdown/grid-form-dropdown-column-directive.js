@@ -62,7 +62,10 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
 
                         // In the end this is going to end up querying the backend.
-                        $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
+                        // console.log("column", $scope.column);
+                        // $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
+                        console.log("obj", $scope.obj);
+                        $scope.suggestionList = $scope.column.acceptedValues;
 
                         $scope.highlightedElement = $scope.suggestionList[0];
 

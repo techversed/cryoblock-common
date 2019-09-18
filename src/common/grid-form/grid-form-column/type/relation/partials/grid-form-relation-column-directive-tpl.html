@@ -23,15 +23,22 @@
 
     -->
 
+
+    <!--
+        <span class="label label-success">{{thing}} <i class="fa fa-remove" ng-click="unselectItem(thing)"></i></span><span  ng-if="!$last">, </span>
+    -->
+
+    <!--
+        <span>{{searchString}}</span>
+    -->
+
     <span class='dropdownColumnNoText form-control' tabindex="0" ng-focus="shiftFocus()" ng-keydown="keyPressHandler($event,item)">
 
-<!--
-    <span class="label label-success">{{thing}} <i class="fa fa-remove" ng-click="unselectItem(thing)"></i></span><span  ng-if="!$last">, </span>
--->
+        <span ng-repeat="thing in obj[field]">
+            <span class="label label-success">{{thing.name}} <i class="fa fa-remove" ng-click="unselectItem(thing)"></i></span><span  ng-if="!$last" ng-keydown="keyPressHandler($event,item)">, </span>
+        </span>
 
-<!--
-    <span>{{searchString}}</span>
--->
+        {{searchString}}
 
     </span>
 

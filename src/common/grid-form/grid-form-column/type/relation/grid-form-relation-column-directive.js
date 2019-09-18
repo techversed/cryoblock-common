@@ -51,7 +51,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                     var init = function () {
 
 
-                        $scope.searchString = "asdf";
+                        $scope.searchString = "";
                         // $scope.ballz = 'asdf';
 
                         console.log("selected thing", $scope.obj[$scope.field]);
