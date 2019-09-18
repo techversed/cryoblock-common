@@ -17,7 +17,7 @@
         <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
 
             <li role="menuitem">
-                <span class="grid-form-dropdown-input-spacer" / > <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i><input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
+                <span class="grid-form-dropdown-input-spacer" / > <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i><input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{createDisplayString(item)}}</span>
             </li>
 
         </div>

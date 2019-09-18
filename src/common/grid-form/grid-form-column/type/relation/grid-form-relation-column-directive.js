@@ -15,9 +15,9 @@
 */
 
 angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
-    .directive('gridFormRelationColumn', ['$cbResource',
+    .directive('gridFormRelationColumn', ['$cbResource', '$gridFilterPromiseSharer',
 
-        function ($cbResource) {
+        function ($cbResource, $gridFilterPromiseSharer) {
 
             return {
 
@@ -54,12 +54,10 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         $scope.refreshCount = 0; // Number of times that updated search results have been requested
 
                         $scope.searchString = "";
-                        // $scope.ballz = 'asdf';
+                        $scope.suggestionList = [];
+                        $scope.getSearchResults();
 
-                        // console.log("selected thing", $scope.obj[$scope.field]);
-
-                        //
-                        $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
+                        // $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
 
                         $scope.highlightedElement = $scope.suggestionList[0];
                         $scope.selectedThing = {};
@@ -70,20 +68,13 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                     $scope.createDisplayString = function (thing) {
 
                         var name = "";
-                        // console.log("thing");
-
 
                         for(var i =0; i<$scope.column.labelFields.length; i++) {
-
-                            name += i == 0 ? "" : "-";
-                            name += thing[$scope.column.labelFields[i]]
-                            // name += " ";
-
+                            name += i == 0 ? "" : " - ";
+                            name += thing[$scope.column.labelFields[i]] ? thing[$scope.column.labelFields[i]] : " ";
                         }
 
                         return name;
-
-
 
                     },
 
@@ -93,6 +84,18 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         var numRefreshes = $scope.refreshCount;
 
                         var params = {cSearch: $scope.searchString};
+
+                        $gridFilterPromiseSharer.addPromise('/user', params).then(function (response) {
+                            console.log(response);
+                            if ($scope.refreshCount == numRefreshes) {
+
+                                $scope.suggestionList = response.data;
+                                console.log("it would be correct to set the results now");
+
+                            }
+                        });
+
+/*
                         $cbResource.get('/user', params).then(function (response) {
                             console.log(response);
                             if ($scope.refreshCount == numRefreshes) {
@@ -102,6 +105,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                             }
                         });
+*/
 
 
                         // $cbResource
