@@ -15,9 +15,9 @@
 */
 
 angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
-    .directive('gridFormRelationColumn', [
+    .directive('gridFormRelationColumn', ['$cbResource',
 
-        function () {
+        function ($cbResource) {
 
             return {
 
@@ -49,12 +49,14 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                     }
 
                     var init = function () {
+                        console.log($scope.column);
 
+                        $scope.refreshCount = 0; // Number of times that updated search results have been requested
 
                         $scope.searchString = "";
                         // $scope.ballz = 'asdf';
 
-                        console.log("selected thing", $scope.obj[$scope.field]);
+                        // console.log("selected thing", $scope.obj[$scope.field]);
 
                         //
                         $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
@@ -65,26 +67,67 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     };
 
+                    $scope.createDisplayString = function (thing) {
+
+                        var name = "";
+                        // console.log("thing");
+
+
+                        for(var i =0; i<$scope.column.labelFields.length; i++) {
+
+                            name += i == 0 ? "" : "-";
+                            name += thing[$scope.column.labelFields[i]]
+                            // name += " ";
+
+                        }
+
+                        return name;
+
+
+
+                    },
+
+                    $scope.getSearchResults = function () {
+
+                        $scope.refreshCount++;
+                        var numRefreshes = $scope.refreshCount;
+
+                        var params = {cSearch: $scope.searchString};
+                        $cbResource.get('/user', params).then(function (response) {
+                            console.log(response);
+                            if ($scope.refreshCount == numRefreshes) {
+
+                                $scope.suggestionList = response.data;
+                                console.log("it would be correct to set the results now");
+
+                            }
+                        });
+
+
+                        // $cbResource
+
+                    };
+
                     $scope.keyPressHandler = function (event, item){
 
-                        console.log("object:", $scope.obj);
+                        // console.log("object:", $scope.obj);
 
-                        console.log("key:", event.key);
+                        // console.log("key:", event.key);
 
-                        console.log("column:", $scope.column);
+                        // console.log("column:", $scope.column);
 
-                        console.log("asdf");
+                        // console.log("asdf");
 
 
                         if (event.key == "Enter") {
 
-                            console.log(event);
+                            // console.log(event);
                             $scope.selectItem($scope.highlightedElement);
                         }
 
                         else if (event.key == "ArrowDown") {
 
-                            console.log("pressed Arrow down");
+                            // console.log("pressed Arrow down");
 
                             event.preventDefault();
 
@@ -97,7 +140,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         }
                         else if (event.key == "ArrowUp") {
 
-                            console.log("pressed Arrow up");
+                            // console.log("pressed Arrow up");
 
                             event.preventDefault();
 
@@ -107,22 +150,27 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                                 $scope.highlightedElement = $scope.suggestionList[index-1];
                             }
 
-                            console.log($scope.highlightedElement);
+                            // console.log($scope.highlightedElement);
 
                         }
+                        // We are going to have a field that is used instead
+                        // else if (event.key == "Backspace") {
 
-                        else if (event.key == "Backspace") {
+                        //     $scope.searchString.pop();
 
-                            $scope.searchString.pop();
+                        //     // console.log("pressed");
 
-                            console.log("pressed");
+                        // }
+                        else {
+
+                            $scope.getSearchResults();
 
                         }
                     };
 
                     $scope.shiftFocus = function () {
 
-                        console.log("This should now shift the focus to the search bar located within this directive");
+                        // console.log("This should now shift the focus to the search bar located within this directive");
 
                         $scope.focusGained = true;
 

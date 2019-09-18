@@ -64,7 +64,8 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                         // In the end this is going to end up querying the backend.
                         // console.log("column", $scope.column);
                         // $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
-                        console.log("obj", $scope.obj);
+                        // console.log("obj", $scope.obj);
+
                         $scope.suggestionList = $scope.column.acceptedValues;
 
                         $scope.highlightedElement = $scope.suggestionList[0];
@@ -86,10 +87,10 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                     $scope.keyPressHandler = function (event, item) {
 
-                        console.log(event);
+                        // console.log(event);
 
                         if (event.key == "Enter") {
-                            console.log(event);
+                            // console.log(event);
 
                             $scope.selectItem($scope.highlightedElement);
 
@@ -97,10 +98,10 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         else if (event.key == "ArrowDown") {
 
-                            console.log("event", event);
+                            // console.log("event", event);
 
                             // Should move onto the next item in the list if there is one
-                            console.log("pressed Arrow down");
+                            // console.log("pressed Arrow down");
                             // var index = $scope.suggestionList.find( findFunction(element, index, $scope.highlightedElement) );
 
                             var index = getIndex($scope.highlightedElement, $scope.suggestionList);
@@ -113,13 +114,13 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
                             // event.detail.keyboardEvent.preventDefault()
 
                             event.preventDefault();
-                            console.log("should have stopped propagation");
+                            // console.log("should have stopped propagation");
 
                         }
 
                         else if (event.key == "ArrowUp") {
 
-                            console.log("pressed Arrow up");
+                            // console.log("pressed Arrow up");
 
                             var index = getIndex($scope.highlightedElement, $scope.suggestionList);
 
@@ -129,20 +130,20 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                             event.preventDefault();
 
-                            console.log("should have stopped propagation");
+                            // console.log("should have stopped propagation");
                         }
 
                         // Don't move down the page when space is pressed
                         else if (event.key == " ") {
 
-                            console.log("pressed space");
+                            // console.log("pressed space");
                             event.preventDefault();
 
                         }
 
                         else if (event.key == "Backspace") {
 
-                            console.log("pressed");
+                            // console.log("pressed");
 
                         }
 
