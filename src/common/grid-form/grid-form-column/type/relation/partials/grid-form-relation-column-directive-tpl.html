@@ -12,7 +12,7 @@
 
     <ul uib-dropdown-menu class="dropdown-menu" role="menu">
 
-        <li><input id="testing" class="testing" ng-model="searchString"></input></li>
+        <li><input id="testing" class="testing" ng-model="searchString" ng-keydown="keyPressHandler($event,item)"></input></li>
 
         <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
 
@@ -27,18 +27,12 @@
 </div>
 
 
-
-
-
-
 <!-- Things that are currently in the scope -->
 <!--
-
     obj: '=',
     column: '=',
     field: '=',
     allowCreate: '='
-
 -->
 
 <!--

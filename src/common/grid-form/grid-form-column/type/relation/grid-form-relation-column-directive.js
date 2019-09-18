@@ -50,12 +50,15 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     var init = function () {
                         console.log($scope.column);
+                        $scope.refreshUrl = $scope.column.url ? $scope.column.url : "/user";
 
                         $scope.refreshCount = 0; // Number of times that updated search results have been requested
 
                         $scope.searchString = "";
                         $scope.suggestionList = [];
                         $scope.getSearchResults();
+
+                        console.log($scope.column);
 
                         // $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
 
@@ -65,13 +68,16 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     };
 
+
                     $scope.createDisplayString = function (thing) {
 
                         var name = "";
 
-                        for(var i =0; i<$scope.column.labelFields.length; i++) {
-                            name += i == 0 ? "" : " - ";
-                            name += thing[$scope.column.labelFields[i]] ? thing[$scope.column.labelFields[i]] : " ";
+                        if ($scope.column.labelFields) {
+                            for(var i =0; i<$scope.column.labelFields.length; i++) {
+                                name += i == 0 ? "" : " - ";
+                                name += thing[$scope.column.labelFields[i]] ? thing[$scope.column.labelFields[i]] : " ";
+                            }
                         }
 
                         return name;
@@ -85,7 +91,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                         var params = {cSearch: $scope.searchString};
 
-                        $gridFilterPromiseSharer.addPromise('/user', params).then(function (response) {
+                        $gridFilterPromiseSharer.addPromise($scope.refreshUrl, params).then(function (response) {
                             console.log(response);
                             if ($scope.refreshCount == numRefreshes) {
 
