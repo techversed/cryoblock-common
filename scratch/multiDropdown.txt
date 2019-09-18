@@ -1,4 +1,12 @@
 /*
+    There was a point in time when we were going to make it so that dropdowns could have multiple values... This does not really make much sense since they are always stored as a text field... don't really need to do this
+
+
+
+*/
+
+
+/*
 
     Gridform Dropdown Column
     Written by Taylor Jones
@@ -260,3 +268,4 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
             };
         }
 ]);
+
