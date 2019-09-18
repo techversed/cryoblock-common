@@ -15,9 +15,9 @@
 */
 
 angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
-    .directive('gridFormRelationColumn', ['$cbResource', '$gridFilterPromiseSharer',
+    .directive('gridFormRelationColumn', ['$gridFilterPromiseSharer',
 
-        function ($cbResource, $gridFilterPromiseSharer) {
+        function ($gridFilterPromiseSharer) {
 
             return {
 
@@ -95,43 +95,17 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                             }
                         });
 
-/*
-                        $cbResource.get('/user', params).then(function (response) {
-                            console.log(response);
-                            if ($scope.refreshCount == numRefreshes) {
-
-                                $scope.suggestionList = response.data;
-                                console.log("it would be correct to set the results now");
-
-                            }
-                        });
-*/
-
-
-                        // $cbResource
-
                     };
 
                     $scope.keyPressHandler = function (event, item){
 
-                        // console.log("object:", $scope.obj);
-
-                        // console.log("key:", event.key);
-
-                        // console.log("column:", $scope.column);
-
-                        // console.log("asdf");
-
-
                         if (event.key == "Enter") {
 
-                            // console.log(event);
                             $scope.selectItem($scope.highlightedElement);
+
                         }
 
                         else if (event.key == "ArrowDown") {
-
-                            // console.log("pressed Arrow down");
 
                             event.preventDefault();
 
@@ -144,8 +118,6 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         }
                         else if (event.key == "ArrowUp") {
 
-                            // console.log("pressed Arrow up");
-
                             event.preventDefault();
 
                             var index = getIndex($scope.highlightedElement, $scope.suggestionList);
@@ -154,17 +126,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                                 $scope.highlightedElement = $scope.suggestionList[index-1];
                             }
 
-                            // console.log($scope.highlightedElement);
-
                         }
-                        // We are going to have a field that is used instead
-                        // else if (event.key == "Backspace") {
-
-                        //     $scope.searchString.pop();
-
-                        //     // console.log("pressed");
-
-                        // }
                         else {
 
                             $scope.getSearchResults();
@@ -173,8 +135,6 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                     };
 
                     $scope.shiftFocus = function () {
-
-                        // console.log("This should now shift the focus to the search bar located within this directive");
 
                         $scope.focusGained = true;
 
