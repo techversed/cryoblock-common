@@ -100,7 +100,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                             if ($scope.refreshCount == numRefreshes) {
 
                                 $scope.suggestionList = response.data;
-                                $scope.highlightedIndex = $scope.highlightedIndex < $scope.suggestionList.length ? $scope.highlightedIndex : $scope.suggestionList.length-1;
+                                $scope.highlightedIndex = $scope.highlightedIndex < $scope.suggestionList.length ? $scope.highlightedIndex : 0;// $scope.suggestionList.length-1;
                                 $scope.highlightedElement = $scope.suggestionList[$scope.highlightedIndex];
                                 console.log("it would be correct to set the results now");
 
