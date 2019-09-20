@@ -50,21 +50,15 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     var init = function () {
 
-                        console.log($scope.column);
-                        // Populate Initial Values
 
                         $scope.refreshUrl = $scope.column.url ? $scope.column.url : "/user";
                         $scope.highlightedIndex = 0;
                         $scope.highlightedElement = ""; //$scope.suggestionList[$scope.highlightedIndex];
-                        $scope.refreshCount = 0; // Number of times that updated search results have been requested
+                        $scope.refreshCount = 0;        // Number of times that updated search results have been requested
 
                         $scope.searchString = "";
                         $scope.suggestionList = [];
                         $scope.getSearchResults();
-
-                        console.log($scope.column);
-
-                        // $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
 
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
@@ -95,14 +89,12 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         var params = {cSearch: $scope.searchString};
 
                         $gridFilterPromiseSharer.addPromise($scope.refreshUrl, params).then(function (response) {
-                            console.log(response);
 
                             if ($scope.refreshCount == numRefreshes) {
 
                                 $scope.suggestionList = response.data;
                                 $scope.highlightedIndex = $scope.highlightedIndex < $scope.suggestionList.length ? $scope.highlightedIndex : 0;// $scope.suggestionList.length-1;
                                 $scope.highlightedElement = $scope.suggestionList[$scope.highlightedIndex];
-                                console.log("it would be correct to set the results now");
 
                             }
                         });
@@ -138,7 +130,6 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                             $scope.highlightedIndex = $scope.highlightedIndex > 0 ? $scope.highlightedIndex - 1 : $scope.highlightedIndex;
                             $scope.highlightedElement = $scope.suggestionList.length > 0 ? $scope.suggestionList[$scope.highlightedIndex] : "";
 
-
                             // var index = getIndex($scope.highlightedElement, $scope.suggestionList);
 
                             // if (index - 1 >= 0) {
@@ -157,8 +148,9 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                         $scope.focusGained = true;
 
-                        // document.getElementById("testing").focus();
                         document.getElementsByClassName("testing")[1].focus();
+
+                        // document.getElementById("testing").focus();
                         // I don't know whether or not we are even going to end up doing the whole searchbar thing for this afterall -- still to be determined...
 
                     };
