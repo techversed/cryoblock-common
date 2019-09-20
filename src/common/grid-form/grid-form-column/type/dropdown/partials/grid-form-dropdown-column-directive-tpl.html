@@ -13,7 +13,7 @@
     <ul uib-dropdown-menu class="dropdown-menu" role="menu" ng-if="focusGained">
 
         <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)" on-focus="shiftFocus()">
-            <li role="menuitem">
+            <li on-focus="shiffFocus()" role="menuitem">
                 <span class="grid-form-dropdown-input-spacer disable" on-focus="shiftFocus()" /> <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i> <span on-focus="shiftFocus()" class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
             </li>
         </div>
