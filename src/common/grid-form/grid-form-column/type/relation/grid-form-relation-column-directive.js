@@ -1,4 +1,5 @@
 /*
+
     Under construction
 
     Need to add a way to create a new a new entry if a name does not exist.
@@ -32,6 +33,10 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                 templateUrl: 'common/grid-form/grid-form-column/type/relation/partials/grid-form-relation-column-directive-tpl.html',
 
+                link: function($scope, element, attrs) {
+                        $scope.element = element[0];
+                },
+
                 controller: function ($scope) {
 
                     // Needle is what you are searching for -- I adopted this convention from the needle haystack
@@ -50,7 +55,6 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     var init = function () {
 
-
                         $scope.refreshUrl = $scope.column.url ? $scope.column.url : "/user";
                         $scope.highlightedIndex = 0;
                         $scope.highlightedElement = ""; //$scope.suggestionList[$scope.highlightedIndex];
@@ -65,7 +69,6 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     };
 
-
                     $scope.createDisplayString = function (thing) {
 
                         var name = "";
@@ -79,7 +82,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                         return name;
 
-                    },
+                    };
 
                     $scope.getSearchResults = function () {
 
@@ -108,19 +111,12 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                             $scope.selectItem($scope.highlightedElement);
 
                         }
-
                         else if (event.key == "ArrowDown") {
 
                             event.preventDefault();
 
                             $scope.highlightedIndex = $scope.highlightedIndex < $scope.suggestionList.length-1 ? $scope.highlightedIndex + 1 : $scope.highlightedIndex;
                             $scope.highlightedElement = $scope.suggestionList.length > 0 ? $scope.suggestionList[$scope.highlightedIndex] : "";
-
-                            // var index = getIndex($scope.highlightedElement, $scope.suggestionList);
-
-                            // if (index+1 < $scope.suggestionList.length) {
-                            //     $scope.highlightedElement = $scope.suggestionList[index+1];
-                            // }
 
                         }
                         else if (event.key == "ArrowUp") {
@@ -129,12 +125,6 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                             $scope.highlightedIndex = $scope.highlightedIndex > 0 ? $scope.highlightedIndex - 1 : $scope.highlightedIndex;
                             $scope.highlightedElement = $scope.suggestionList.length > 0 ? $scope.suggestionList[$scope.highlightedIndex] : "";
-
-                            // var index = getIndex($scope.highlightedElement, $scope.suggestionList);
-
-                            // if (index - 1 >= 0) {
-                            //     $scope.highlightedElement = $scope.suggestionList[index-1];
-                            // }
 
                         }
                         else {
@@ -148,7 +138,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                         $scope.focusGained = true;
 
-                        document.getElementsByClassName("testing")[1].focus();
+                        $scope.element.getElementsByClassName("gridFormRelationSearch")[0].focus();
 
                         // document.getElementById("testing").focus();
                         // I don't know whether or not we are even going to end up doing the whole searchbar thing for this afterall -- still to be determined...

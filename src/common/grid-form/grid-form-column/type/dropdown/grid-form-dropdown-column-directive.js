@@ -65,7 +65,7 @@ angular.module('gridForm.gridFormColumn.gridFormDropdownColumnDirective', [])
 
                         $scope.multiSelected = {};
 
-                        for(var i = 0; i < $scope.suggestionList.length; i++){
+                        for (var i = 0; i < $scope.suggestionList.length; i++) {
                             $scope.multiSelected[$scope.suggestionList[i]] = false;
                         }
 
