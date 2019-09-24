@@ -174,7 +174,7 @@ angular.module('grid.gridDirective', [])
 
                                         // If the column is a number
                                         if (value == undefined){
-                                            linaArray.push("undefined");
+                                            lineArray.push("undefined");
                                         }
                                         if (!isNaN(value)){
 
