@@ -5,7 +5,6 @@ angular.module('form.cbSelectButtonDirective', [])
         function () {
 
             return {
-                // require: ['?^form'],
                 require: ['?^form', 'ngModel'],
                 restrict: 'E',
                 templateUrl: 'common/form/cb-select-button/partials/cb-select-button-directive-tpl.html',
@@ -40,16 +39,6 @@ angular.module('form.cbSelectButtonDirective', [])
                         $scope.formCtrl = ctrls[0];
                         $scope.formCtrl.$addControl($scope.modelCtrl);
                     }
-
-                    // $scope.buttonClass = 'btn-white';
-
-                    // if (attrs.cbDropdownPrimary !== undefined) {
-                    //     $scope.buttonClass = 'btn-primary';
-                    // }
-
-                    // if (attrs.cbDropdownInfo !== undefined) {
-                    //     $scope.buttonClass = 'btn-info';
-                    // }
 
                     $scope.getClass = function(thing) {
                         if(thing){
