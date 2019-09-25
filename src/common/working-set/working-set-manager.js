@@ -35,11 +35,12 @@
         // Long term we should move towards data being a map to arrays for the various types of objects that could be held in a working set.
 
         // Still need to make it so that the user can provide a refresh url for each of the types of enties that are provided.
+
 */
 
 angular.module('workingSet.workingSetManager', [])
-    .service('workingSetManager', ['sessionFactory', '$cbResource', '$injector',
-        function (sessionFactory, $cbResource, $injector) {
+    .service('workingSetManager', ['sessionFactory', '$cbResource', '$injector', "$window", "API", "$localStorage",
+        function (sessionFactory, $cbResource, $injector, $window, API, $localStorage) {
 
             var workingSetManager = {
 
@@ -99,6 +100,54 @@ angular.module('workingSet.workingSetManager', [])
                         entity.selected = true;
                         return entity;
                     });
+                },
+
+                removeSample: function () {
+
+                    var changeList = {};
+                    changeList.delete = workingSetManager.getSelected("Samples");
+
+                    var test = $cbResource.update('/storage/working-set-remove-id/' + sessionFactory.getLoggedInUser().id, changeList, {}).then(function(response){
+
+                            var resData = response['data'];
+                            var scopeData = workingSetManager.setMetadata[set].data;
+
+                            if (scopeData.length > 0 && resData.length > 0) {
+
+                                var scopeDataIds = scopeData.map(function (entry) {
+                                    return entry.id;
+                                });
+
+                                var resDataIds = resData.map(function (entry) {
+                                    return entry.id;
+                                });
+
+                                scopeData = scopeData.filter(function (entry) {
+                                    return resDataIds.indexOf(entry.id) != -1;
+                                });
+
+                                resData = resData.filter(function (entry) {
+                                    return scopeDataIds.indexOf(entry.id) == -1;
+                                });
+                            }
+
+                            if (resData.length > 0) {
+                                resData = resData.map(function (entry) {
+                                    entry.selected = false;
+                                    return entry;
+                                });
+                            }
+
+                            workingSetManager.setMetadata[set].data = scopeData.concat(resData);
+                            workingSetManager.setMetadata[set].loading = false;
+                            workingSetManager.recomputeIds();
+                            return;
+                        // workingSetManager.refresh();
+
+                    });
+                    // console.log(test);
+                    
+
                 },
 
                 // don't even need this after the refactor
@@ -229,6 +278,62 @@ angular.module('workingSet.workingSetManager', [])
                     "type": "button",
                     "action": function () {
                         console.log("Excel Export");
+
+                        var xhr = new XMLHttpRequest();
+                        // xhr.open('POST', API.url + '/storage/working-set-bulk/excelDownload' , true);
+                        xhr.open('GET', API.url + '/storage/working-set-bulk/excelDownload' , true);
+                        xhr.setRequestHeader('Content-type', 'application/json');
+                        xhr.setRequestHeader('X_FILENAME', 'Input Samples Template.xlsx');
+                        xhr.setRequestHeader(API.apiKeyParam, $localStorage.User.apiKey);
+                        xhr.responseType = 'blob';
+
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200) {
+
+                                    var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                                    var blob = new Blob([xhr.response], { type: contentType });
+
+                                    var windowUrl = window.URL || window.webkitURL;
+                                    var url = windowUrl.createObjectURL(blob);
+                                    var filename = 'WorkingSetDownload.xlsx';
+                                    var a = document.createElement('a');
+
+                                    a.href = url;
+                                    a.download = filename;
+                                    a.click();
+                                    window.URL.revokeObjectURL(url);
+
+                                } else {
+                                    // observer.error(xhr.response);
+                                }
+                            }
+                        };
+
+                        // xhr.send(JSON.stringify(data));
+                        xhr.send();
+
+
+                        // $cbResource.get('/storage/working-set-bulk/excelDownload', {}, true).then(function (response) {
+
+                        //     // var blob = new Blob([response.data], {type:'application/csv'});
+
+                        //     // var windowUrl = window.URL || window.webkitURL;
+                        //     // var url = windowUrl.createObjectURL(blob);
+
+                        //     // var filename = 'WorkingSetTemplate.xlxs';
+
+                        //     // var a = document.createElement('a');
+
+                        //     // a.href = url;
+                        //     // a.download = filename;
+                        //     // a.click();
+                        //     // window.URL.revokeObjectURL(url);
+
+                        //     var xhr = new XMLHttpRequest();
+ 
+                        // });
+
                     }
                 },
                 {
