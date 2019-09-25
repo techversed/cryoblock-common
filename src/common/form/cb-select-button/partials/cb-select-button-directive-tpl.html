@@ -1,0 +1,9 @@
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+
+    <div class="btn-group" role="group">
+
+        <button role="button" style="width:{{buttonWidth}}" type="button" class="btn" ng-class="getClass(modelCtrl.$viewValue[bindTo] || modelCtrl.$viewValue == item)"  ng-click="selectItem(item)" ng-repeat="item in items">{{item}}</button>
+
+    </div>
+
+</div>

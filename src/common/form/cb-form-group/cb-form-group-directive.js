@@ -11,6 +11,7 @@ angular.module('form.cbFormGroupDirective', [])
                 transclude: true,
                 scope: { label: '@', name: '@', tooltip: '@'},
                 link: function ($scope, element, attrs, formCtrl) {
+                    console.log(formCtrl);
                     $scope.formCtrl = formCtrl;
                 }
             }

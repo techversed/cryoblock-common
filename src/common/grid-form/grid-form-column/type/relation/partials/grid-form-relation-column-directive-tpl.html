@@ -1,20 +1,32 @@
+<!--
+
+
+
+-->
+
 <div class="btn-group grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
 
-    <input
-        ng-model="obj[field].stringLabel"
-        ng-change="search()"
-        ng-model-options="{debounce:300}"
-        ng-keydown="keyPressHandler($event, item)"
-        class="form-control"
-    >
-    </input>
+    <span class='dropdownColumnNoText form-control' tabindex="0" ng-focus="shiftFocus()" ng-keydown="keyPressHandler($event,item)">
+
+        <span ng-repeat="thing in obj[field]">
+            <span class="label label-success">{{createDisplayString(thing)}} <i class="fa fa-remove" ng-click="unselectItem(thing)"></i></span><span  ng-if="!$last" ng-keydown="keyPressHandler($event,item)">, </span>
+        </span>
+
+        {{searchString}}
+
+    </span>
 
     <ul uib-dropdown-menu class="dropdown-menu" role="menu">
+
+        <li><input id="testing" class="gridFormRelationSearch" ng-model="searchString" ng-keydown="keyPressHandler($event,item)"></input></li>
 
         <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
 
             <li role="menuitem">
-                <span class="grid-form-dropdown-input-spacer" / > <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i><input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" /> <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{item}}</span>
+                <span class="grid-form-dropdown-input-spacer" / >
+                    <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i>
+                    <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" />
+                    <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{createDisplayString(item)}}</span>
             </li>
 
         </div>

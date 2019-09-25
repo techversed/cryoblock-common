@@ -1,4 +1,5 @@
 /*
+
     Under construction
 
     Need to add a way to create a new a new entry if a name does not exist.
@@ -15,9 +16,9 @@
 */
 
 angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
-    .directive('gridFormRelationColumn', [
+    .directive('gridFormRelationColumn', ['$gridFilterPromiseSharer',
 
-        function () {
+        function ($gridFilterPromiseSharer) {
 
             return {
 
@@ -31,6 +32,10 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                 restrict: 'E',
 
                 templateUrl: 'common/grid-form/grid-form-column/type/relation/partials/grid-form-relation-column-directive-tpl.html',
+
+                link: function($scope, element, attrs) {
+                        $scope.element = element[0];
+                },
 
                 controller: function ($scope) {
 
@@ -50,71 +55,94 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     var init = function () {
 
-                        $scope.ballz = 'asdf';
+                        $scope.refreshUrl = $scope.column.url ? $scope.column.url : "/user";
+                        $scope.highlightedIndex = 0;
+                        $scope.highlightedElement = ""; //$scope.suggestionList[$scope.highlightedIndex];
+                        $scope.refreshCount = 0;        // Number of times that updated search results have been requested
 
-                        console.log("selected thing", $scope.obj[$scope.field]);
+                        $scope.searchString = "";
+                        $scope.suggestionList = [];
+                        $scope.getSearchResults();
 
-                        $scope.suggestionList = ['asdf1', 'asdf2', 'asdf3', 'asdf4', 'asdf5'];
-
-                        $scope.highlightedElement = $scope.suggestionList[0];
                         $scope.selectedThing = {};
                         $scope.selectedThing.name = '';
 
                     };
 
+                    $scope.createDisplayString = function (thing) {
+
+                        var name = "";
+
+                        if ($scope.column.labelFields) {
+                            for(var i =0; i<$scope.column.labelFields.length; i++) {
+                                name += i == 0 ? "" : " - ";
+                                name += thing[$scope.column.labelFields[i]] ? thing[$scope.column.labelFields[i]] : " ";
+                            }
+                        }
+
+                        return name;
+
+                    };
+
+                    $scope.getSearchResults = function () {
+
+                        $scope.refreshCount++;
+                        var numRefreshes = $scope.refreshCount;
+
+                        var params = {cSearch: $scope.searchString};
+
+                        $gridFilterPromiseSharer.addPromise($scope.refreshUrl, params).then(function (response) {
+
+                            if ($scope.refreshCount == numRefreshes) {
+
+                                $scope.suggestionList = response.data;
+                                $scope.highlightedIndex = $scope.highlightedIndex < $scope.suggestionList.length ? $scope.highlightedIndex : 0;// $scope.suggestionList.length-1;
+                                $scope.highlightedElement = $scope.suggestionList[$scope.highlightedIndex];
+
+                            }
+                        });
+
+                    };
+
                     $scope.keyPressHandler = function (event, item){
-
-                        console.log("object:", $scope.obj);
-
-                        console.log("key:", event.key);
-                        console.log("column:", $scope.column);
 
                         if (event.key == "Enter") {
 
-                            console.log(event);
                             $scope.selectItem($scope.highlightedElement);
-                        }
 
-                        else if (event.key == "ArrowDown") {
-
-                            console.log("pressed Arrow down");
-
-                            var index = getIndex($scope.highlightedElement, $scope.suggestionList);
-
-                            if (index+1 < $scope.suggestionList.length) {
-                                $scope.highlightedElement = $scope.suggestionList[index+1];
-                            }
                         }
                         else if (event.key == "ArrowDown") {
 
-                            console.log("pressed Arrow down");
+                            event.preventDefault();
 
-                            var index = getIndex($scope.highlightedElement, $scope.suggestionList);
+                            $scope.highlightedIndex = $scope.highlightedIndex < $scope.suggestionList.length-1 ? $scope.highlightedIndex + 1 : $scope.highlightedIndex;
+                            $scope.highlightedElement = $scope.suggestionList.length > 0 ? $scope.suggestionList[$scope.highlightedIndex] : "";
 
-                            if (index+1 < $scope.suggestionList.length) {
-                                $scope.highlightedElement = $scope.suggestionList[index+1];
-                            }
                         }
-
                         else if (event.key == "ArrowUp") {
 
-                            console.log("pressed Arrow up");
+                            event.preventDefault();
 
-                            var index = getIndex($scope.highlightedElement, $scope.suggestionList);
-
-                            if (index - 1 >= 0) {
-                                $scope.highlightedElement = $scope.suggestionList[index-1];
-                            }
-
-                            console.log($scope.highlightedElement);
+                            $scope.highlightedIndex = $scope.highlightedIndex > 0 ? $scope.highlightedIndex - 1 : $scope.highlightedIndex;
+                            $scope.highlightedElement = $scope.suggestionList.length > 0 ? $scope.suggestionList[$scope.highlightedIndex] : "";
 
                         }
+                        else {
 
-                        else if (event.key == "Backspace") {
-
-                            console.log("pressed");
+                            $scope.getSearchResults();
 
                         }
+                    };
+
+                    $scope.shiftFocus = function () {
+
+                        $scope.focusGained = true;
+
+                        $scope.element.getElementsByClassName("gridFormRelationSearch")[0].focus();
+
+                        // document.getElementById("testing").focus();
+                        // I don't know whether or not we are even going to end up doing the whole searchbar thing for this afterall -- still to be determined...
+
                     };
 
                     $scope.selectItem = function (item) {

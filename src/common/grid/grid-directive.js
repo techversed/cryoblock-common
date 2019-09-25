@@ -170,42 +170,49 @@ angular.module('grid.gridDirective', [])
                                     if (eval("result." + thing2)) {
 
                                         var thingToBind = column['bindTo'].split("|")[0];
-                                        var value = eval("result." + thingToBind);
+                                        try{
+                                            var value = eval("result." + thingToBind) ? eval("result." + thingToBind) : "";
+                                            // var value = "";
 
-                                        // If the column is a number
-                                        if (value == undefined){
-                                            linaArray.push("undefined");
-                                        }
-                                        if (!isNaN(value)){
-
-                                            lineArray.push(value);
-
-                                        }
-
-                                        // If the column is a string
-                                        else if (typeof value == "string")
-                                        {
-
-                                            // If the string is an encoded date
-                                            if (dateRegex.test(value) == true) {
-
-                                                lineArray.push((new Date(value)).toDateString().replace(/,/g,""));
-
+                                            // If the column is a number
+                                            if (value == undefined){
+                                                lineArray.push("undefined");
                                             }
-                                            // If the string is anything else
-                                            else {
+                                            if (!isNaN(value)){
 
-                                                // Remove characters that could mess up the file
-                                                lineArray.push(value.replace(/\#/g,"").replace(/,/g," &").replace("\;",""));
+                                                lineArray.push(value);
 
                                             }
 
-                                        }
-                                        else{
-                                            // This is going to becoem a thing when we start passing arrays of tags instead of the list of tags.
-                                            // I don't really know if we are going to end up doing this though -- it would be nice to have the project list offer links directly to the object that you want.
+                                            // If the column is a string
+                                            else if (typeof value == "string")
+                                            {
 
-                                            lineArray.push("there is a problem -- tell taylor");
+                                                // If the string is an encoded date
+                                                if (dateRegex.test(value) == true) {
+
+                                                    lineArray.push((new Date(value)).toDateString().replace(/,/g,""));
+
+                                                }
+                                                // If the string is anything else
+                                                else {
+
+                                                    // Remove characters that could mess up the file
+                                                    lineArray.push(value.replace(/\#/g,"").replace(/,/g," &").replace("\;",""));
+
+                                                }
+
+                                            }
+                                            else{
+                                                // This is going to becoem a thing when we start passing arrays of tags instead of the list of tags.
+                                                // I don't really know if we are going to end up doing this though -- it would be nice to have the project list offer links directly to the object that you want.
+
+                                                lineArray.push("there is a problem -- tell taylor");
+
+                                            }
+                                        }
+                                        catch(e){
+                                            lineArray.push("");
 
                                         }
 
