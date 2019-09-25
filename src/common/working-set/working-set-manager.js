@@ -280,7 +280,6 @@ angular.module('workingSet.workingSetManager', [])
                         console.log("Excel Export");
 
                         var xhr = new XMLHttpRequest();
-                        // xhr.open('POST', API.url + '/storage/working-set-bulk/excelDownload' , true);
                         xhr.open('GET', API.url + '/storage/working-set-bulk/excelDownload' , true);
                         xhr.setRequestHeader('Content-type', 'application/json');
                         xhr.setRequestHeader('X_FILENAME', 'Input Samples Template.xlsx');
@@ -310,29 +309,7 @@ angular.module('workingSet.workingSetManager', [])
                             }
                         };
 
-                        // xhr.send(JSON.stringify(data));
                         xhr.send();
-
-
-                        // $cbResource.get('/storage/working-set-bulk/excelDownload', {}, true).then(function (response) {
-
-                        //     // var blob = new Blob([response.data], {type:'application/csv'});
-
-                        //     // var windowUrl = window.URL || window.webkitURL;
-                        //     // var url = windowUrl.createObjectURL(blob);
-
-                        //     // var filename = 'WorkingSetTemplate.xlxs';
-
-                        //     // var a = document.createElement('a');
-
-                        //     // a.href = url;
-                        //     // a.download = filename;
-                        //     // a.click();
-                        //     // window.URL.revokeObjectURL(url);
-
-                        //     var xhr = new XMLHttpRequest();
- 
-                        // });
 
                     }
                 },
