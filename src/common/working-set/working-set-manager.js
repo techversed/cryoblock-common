@@ -115,39 +115,41 @@ angular.module('workingSet.workingSetManager', [])
 
                     var test = $cbResource.update('/storage/working-set-remove-id/' + sessionFactory.getLoggedInUser().id, changeList, {}).then(function(response){
 
-                            var resData = response['data'];
-                            var scopeData = workingSetManager.setMetadata[set].data;
+                            workingSetManager.refresh();
 
-                            if (scopeData.length > 0 && resData.length > 0) {
+                            // var resData = response['data'];
+                            // var scopeData = workingSetManager.setMetadata[set].data;
 
-                                var scopeDataIds = scopeData.map(function (entry) {
-                                    return entry.id;
-                                });
+                            // if (scopeData.length > 0 && resData.length > 0) {
 
-                                var resDataIds = resData.map(function (entry) {
-                                    return entry.id;
-                                });
+                            //     var scopeDataIds = scopeData.map(function (entry) {
+                            //         return entry.id;
+                            //     });
 
-                                scopeData = scopeData.filter(function (entry) {
-                                    return resDataIds.indexOf(entry.id) != -1;
-                                });
+                            //     var resDataIds = resData.map(function (entry) {
+                            //         return entry.id;
+                            //     });
 
-                                resData = resData.filter(function (entry) {
-                                    return scopeDataIds.indexOf(entry.id) == -1;
-                                });
-                            }
+                            //     scopeData = scopeData.filter(function (entry) {
+                            //         return resDataIds.indexOf(entry.id) != -1;
+                            //     });
 
-                            if (resData.length > 0) {
-                                resData = resData.map(function (entry) {
-                                    entry.selected = false;
-                                    return entry;
-                                });
-                            }
+                            //     resData = resData.filter(function (entry) {
+                            //         return scopeDataIds.indexOf(entry.id) == -1;
+                            //     });
+                            // }
 
-                            workingSetManager.setMetadata[set].data = scopeData.concat(resData);
-                            workingSetManager.setMetadata[set].loading = false;
-                            workingSetManager.recomputeIds();
-                            return;
+                            // if (resData.length > 0) {
+                            //     resData = resData.map(function (entry) {
+                            //         entry.selected = false;
+                            //         return entry;
+                            //     });
+                            // }
+
+                            // workingSetManager.setMetadata[set].data = scopeData.concat(resData);
+                            // workingSetManager.setMetadata[set].loading = false;
+                            // workingSetManager.recomputeIds();
+                            // return;
                         // workingSetManager.refresh();
 
                     });
@@ -341,7 +343,7 @@ angular.module('workingSet.workingSetManager', [])
                             "service": undefined,
                             "action": function () {
                                 var factory = $injector.get('pbmcFormFactory');
-                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                                return factory.openFormModal({}, {inputSamples: workingSetManager.getSelected()});
                             }
                         },
                         {
@@ -350,7 +352,8 @@ angular.module('workingSet.workingSetManager', [])
                             "service": undefined,
                             "action": function () {
                                 var factory = $injector.get('dnaFormFactory');
-                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                                return factory.openFormModal({}, {inputSamples: workingSetManager.getSelected()});
+                                // return factory.openFormModal({}, workingSetManager.getSelected());
                             }
                         },
                         {
@@ -359,7 +362,8 @@ angular.module('workingSet.workingSetManager', [])
                             "service": undefined,
                             "action": function () {
                                 var factory = $injector.get('proteinExpressionFormFactory');
-                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                                return factory.openFormModal({}, {inputSamples: workingSetManager.getSelected()});
+                                // return factory.openFormModal({}, workingSetManager.getSelected());
                             }
                         },
                         {
@@ -368,7 +372,8 @@ angular.module('workingSet.workingSetManager', [])
                             "type": "dropdownItem",
                             "action": function () {
                                 var factory = $injector.get('proteinPurificationFormFactory');
-                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                                return factory.openFormModal({}, {inputSamples: workingSetManager.getSelected()});
+                                // return factory.openFormModal({}, workingSetManager.getSelected());
                             }
                         },
                         {
@@ -377,7 +382,8 @@ angular.module('workingSet.workingSetManager', [])
                             "service": undefined,
                             "action": function () {
                                 var factory = $injector.get('vimFormFactory');
-                                return factory.openFormModal(undefined, workingSetManager.getSelected());
+                                return factory.openFormModal({}, {inputSamples: workingSetManager.getSelected()});
+                                // return factory.openFormModal({}, workingSetManager.getSelected());
                             }
                         }
                     ]
