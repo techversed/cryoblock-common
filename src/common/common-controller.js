@@ -1,7 +1,11 @@
 angular.module('common.commonCtrl', [])
-    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', 'workingSetFormFactory',
+    .controller('commonCtrl', ['$scope', 'sessionFactory', 'navigationInitializer', 'workingSetFormFactory', 'workingSetManager',
 
-        function ($scope, sessionFactory, navigationInitializer, workingSetFormFactory) {
+        function ($scope, sessionFactory, navigationInitializer, workingSetFormFactory, workingSetManager) {
+
+
+            $scope.wsm = workingSetManager;
+            console.log($scope.wsm);
 
             navigationInitializer.initialize();
 

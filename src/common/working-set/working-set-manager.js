@@ -49,6 +49,12 @@ angular.module('workingSet.workingSetManager', [])
                 selectedSet: "",
                 collapsed: true,
 
+                toggleCollapse: function () {
+
+                    workingSetManager.collapsed = workingSetManager.collapsed ? false : true;
+
+                },
+
                 addWorkingSet: function (name, setButtons, setMetadata) {
 
                     workingSetManager.setMetadata[name] = setMetadata;
