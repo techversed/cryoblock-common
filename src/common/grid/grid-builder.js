@@ -327,23 +327,14 @@ angular.module('grid.gridBuilder', [])
                                         angular.forEach(filterOverride[filterObjectKeys[filterObjIndex]]['selected'], function (element) {
                                             filter.selectItem(element)
                                         });
-
-
-                                        // angular.forEach( filterObj.selected, function (element) {
-                                        //     filter.selectItem(element)
-                                        // });
-
-                                        // This works with the new standard that I created
-                                        // filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
-                                        // This works with the old standard 
-                                        // filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]]['selected'].join(",");
+                                        
                                         break;
 
-                                    // case "workingSet":
-                                    //     angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
-                                    //         filter.selectItem(selectedRelation);
-                                    //     });
-                                    //     break;
+                                    case "workingSet":
+                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
+                                            filter.selectItem(selectedRelation);
+                                        });
+                                        break;
 
                                     case "boolean":
                                         filter.form = {
