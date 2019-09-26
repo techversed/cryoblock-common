@@ -89,6 +89,7 @@ angular.module('grid.gridBuilder', [])
 
                     promises = [];
                     promises.push(this.buildOTM(url, factoryName, initObject, isEditable, {postpend : otmPostpend}));
+                    // promises.push(this.buildSelect(url, factoryName, initObject, undefined, {initialSelection: is, postpend : selectPostpend, filterGroups : selectFilterGroups}));
                     promises.push(this.buildSelect(url, factoryName, initObject, undefined, {initialSelection: is, postpend : selectPostpend, filterGroups : selectFilterGroups}));
 
                     return $q.all(promises);
@@ -310,7 +311,7 @@ angular.module('grid.gridBuilder', [])
                         angular.forEach(grid.filters, function (filter) {
                             filterObjIndex = filterObjectKeys.indexOf(filter.title); //need to use title instead of bind to because there can be multiple realtions bound to the same field on different objects.
                             if(filterObjIndex != -1){
-                                filter.disabled = true;
+                                filter.disabled = false; // one place says enabled the other says disabled -- this should really be changed so that they all use one or the other
                                 filter.isVisible = true;
                                 filter.isFiltering = true;
 
@@ -322,14 +323,27 @@ angular.module('grid.gridBuilder', [])
                                         break;
 
                                     case "enum":
-                                        filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
+
+                                        angular.forEach(filterOverride[filterObjectKeys[filterObjIndex]]['selected'], function (element) {
+                                            filter.selectItem(element)
+                                        });
+
+
+                                        // angular.forEach( filterObj.selected, function (element) {
+                                        //     filter.selectItem(element)
+                                        // });
+
+                                        // This works with the new standard that I created
+                                        // filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]][0];
+                                        // This works with the old standard 
+                                        // filter.selectionString = filterOverride[filterObjectKeys[filterObjIndex]]['selected'].join(",");
                                         break;
 
-                                    case "workingSet":
-                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
-                                            filter.selectItem(selectedRelation);
-                                        });
-                                        break;
+                                    // case "workingSet":
+                                    //     angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
+                                    //         filter.selectItem(selectedRelation);
+                                    //     });
+                                    //     break;
 
                                     case "boolean":
                                         filter.form = {
