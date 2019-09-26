@@ -23,8 +23,6 @@ angular.module('gridForm.$cbGridFormBuilder', [])
                 buildCreate: function (entityDetailId, overrides = {})
                 {
 
-                    console.log("Running buildCreate");
-
                     var gridForm = gridFormFactory.create();
 
                     return gridForm;
@@ -43,8 +41,6 @@ angular.module('gridForm.$cbGridFormBuilder', [])
                 */
                 buildUpdate: function(entityDetailId, idList, overrides = {})
                 {
-
-                    console.log("Running buildUpdate");
 
                     var gridForm = gridFormFactory.create();
 
@@ -65,8 +61,6 @@ angular.module('gridForm.$cbGridFormBuilder', [])
                 // This has not been built yet.
                 buildProductionRequestInputs: function(entityDetailId, requestId, overrides = {})
                 {
-
-                    console.log("Running build Production Request Inputs");
 
                     var url = 'production/download-input-template';
 
@@ -120,8 +114,6 @@ angular.module('gridForm.$cbGridFormBuilder', [])
                 buildProductionRequestOutputs: function(entityDetailId, requestId, overrides = {})
                 {
 
-                    console.log("Running build Production Request Outputs");
-
                     var url = '/production/download-output-template';
 
                     var obj = {};
@@ -141,14 +133,9 @@ angular.module('gridForm.$cbGridFormBuilder', [])
 
                         // gridForm.changeStuff...
 
-                        console.log(response.data);
-
                         gridForm.clearRows(); // This is going to be removed -- this is just because there is sample data built in already
                         gridForm.setColumns(response.data.headers);
-                        console.log('promise response', response.data);
                         gridForm.addRowsFromObjects(response.data.content);
-
-
 
                         // gridForm.setCreateNew(true);
                         // gridForm.set
@@ -172,8 +159,6 @@ angular.module('gridForm.$cbGridFormBuilder', [])
                 */
                 buildWorkingSetGridForm: function(entityDetailId, overrides = {})
                 {
-
-                    console.log("Running build working set grid form");
 
                     var gridForm = gridFormFactory.create();
 

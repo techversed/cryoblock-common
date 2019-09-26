@@ -1,4 +1,4 @@
-angular.module('profile.profileCtrl', [])
+    angular.module('profile.profileCtrl', [])
     .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'userBool', '$cbResource', 'watchedRequestsGrid',
 
         function ($scope, $modal, user, API, profileFormFactory, userBool, $cbResource, watchedRequestsGrid) {
@@ -27,7 +27,6 @@ angular.module('profile.profileCtrl', [])
 
             // Don't allow for people to pop the upload photo modal on someone else's profile page
             $scope.uploadPhoto = function () {
-                console.log('upload photo function');
                 if (userBool) {
                     $modal.open({
                         templateUrl: 'common/profile/partials/profile-photo-upload-tpl.html',

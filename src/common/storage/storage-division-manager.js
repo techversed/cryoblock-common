@@ -44,8 +44,6 @@ angular.module('storage.storageDivisionManager', [])
 
                 initialize: function (division) {
 
-                    console.log("calling init");
-
                     this.division = division;
                     this.cellScopes = {};
                     this.selectedCells = {};
@@ -884,8 +882,6 @@ angular.module('storage.storageDivisionManager', [])
 
                 // THIS WILL NEED A PARTIAL REWORK
                 pasteSample: function () {
-
-                    // console.log("cloned Sample", this.clonedSample);
 
                     var that = this;
 

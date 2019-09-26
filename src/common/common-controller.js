@@ -3,9 +3,7 @@ angular.module('common.commonCtrl', [])
 
         function ($scope, sessionFactory, navigationInitializer, workingSetFormFactory, workingSetManager) {
 
-
             $scope.wsm = workingSetManager;
-            console.log($scope.wsm);
 
             navigationInitializer.initialize();
 

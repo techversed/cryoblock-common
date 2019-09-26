@@ -40,8 +40,6 @@ angular.module('grid.gridWorkingSetFilterFactory', [])
 
                 selectItem: function (item) {
 
-                    console.log("testing");
-
                     if(this.selectedItems.indexOf(item) == -1){
                         this.selectedItems.push(item);
                         this.results.splice(this.results.indexOf(item), 1);
