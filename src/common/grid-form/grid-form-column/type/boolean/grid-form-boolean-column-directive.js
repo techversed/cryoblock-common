@@ -35,7 +35,9 @@ angular.module('gridForm.gridFormColumn.gridFormBooleanColumnDirective', [])
                         $scope.field = ctrls[0];
                         $scope.field.$addControl($scope.field);
                     }
+
                 }
+
             }
 
         }

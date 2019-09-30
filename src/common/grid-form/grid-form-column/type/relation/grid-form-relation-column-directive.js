@@ -34,14 +34,16 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                 templateUrl: 'common/grid-form/grid-form-column/type/relation/partials/grid-form-relation-column-directive-tpl.html',
 
                 link: function($scope, element, attrs) {
-                        console.log("here");
+
                         $scope.element = element[0];
+
                 },
 
                 controller: function ($scope) {
 
                     // Needle is what you are searching for -- I adopted this convention from the needle haystack
                     // Index is the
+
                     var getIndex = function (needle, haystack) {
 
                         for (i=0; i<haystack.length; i++){
@@ -75,7 +77,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         var name = "";
 
                         if ($scope.column.labelFields) {
-                            for(var i =0; i<$scope.column.labelFields.length; i++) {
+                            for (var i =0; i<$scope.column.labelFields.length; i++) {
                                 name += i == 0 ? "" : " - ";
                                 name += thing[$scope.column.labelFields[i]] ? thing[$scope.column.labelFields[i]] : " ";
                             }
@@ -141,23 +143,24 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                         $scope.element.getElementsByClassName("gridFormRelationSearch")[0].focus();
 
-                        // document.getElementById("testing").focus();
-                        // I don't know whether or not we are even going to end up doing the whole searchbar thing for this afterall -- still to be determined...
-
                     };
 
                     $scope.selectItem = function (item) {
 
-                        $scope.selectedThing.name = item;
+                        $scope.obj[$scope.field] = [item];
 
                     };
 
                     $scope.stopClickPropagation = function (actionevent) {
+
                         actionevent.stopPropagation();
+
                     };
 
                     $scope.testing = function () {
+
                         // console.log('testing');
+
                     };
 
                     init();

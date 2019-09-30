@@ -1,5 +1,6 @@
 <!--
 
+    add a section above a line which stores the currently selected item in it
 
 
 -->
@@ -20,16 +21,24 @@
 
         <li><input id="testing" class="gridFormRelationSearch" ng-model="searchString" ng-keydown="keyPressHandler($event,item)"></input></li>
 
-        <div ng-repeat="item in suggestionList" tabindex="-1" ng-click="selectItem(item)">
+        <!-- currently selected element -->
+        <!-- I don't quite know how are are going to go about this -->
+        <li ng-repeat="item in obj[field]" role="menuitem">
+            <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i>
+            <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{createDisplayString(item)}}</span>
+        </li>
 
-            <li role="menuitem">
+        <li>
+                <hr class="dash" />
+        </li>
+
+            <!-- current search results -->
+            <li ng-repeat="item in suggestionList" role="menuitem">
                 <span class="grid-form-dropdown-input-spacer" / >
                     <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i>
-                    <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" />
+                    <!-- <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" /> -->
                     <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{createDisplayString(item)}}</span>
             </li>
-
-        </div>
 
     </ul>
 
