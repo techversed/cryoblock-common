@@ -69,43 +69,56 @@ angular.module('workingSet.workingSetManager', [])
 
                     workingSetManager.buildSetsList();
                     workingSetManager.refresh(); // Uncomment this once the multi-request issue is figured out.
+
                 },
 
                 buildSetsList: function() {
+
                     workingSetManager.sets = Object.keys(workingSetManager.setMetadata);
                     return workingSetManager.sets;
+
                 },
 
                 addButtonAction: function () {
+
                     console.log('workingSetManager: add button action is not currently implemented');
+
                 },
 
                 recomputeIds: function (set = "Samples") {
+
                     workingSetManager.setMetadata[set].ids = workingSetManager.setMetadata[set].data.map( function (entry) {
                         return entry.id;
                     });
+
                 },
 
                 getSelected: function(set = "Samples"){
+
                     return workingSetManager.setMetadata[set].data.filter( function (entry) {
                         return (entry.selected == true);
                     });
+
                 },
 
                 deselectAll: function() {
+
                     var selectedSet = workingSetManager.selectedSet;
                     workingSetManager.setMetadata[selectedSet].data = workingSetManager.setMetadata[selectedSet].data.map(function (entity) {
                         entity.selected = false;
                         return entity;
                     });
+
                 },
 
                 selectAll: function() {
+
                     var selectedSet = workingSetManager.selectedSet;
                     workingSetManager.setMetadata[selectedSet].data = workingSetManager.setMetadata[selectedSet].data.map(function (entity) {
                         entity.selected = true;
                         return entity;
                     });
+
                 },
 
                 removeSample: function () {
@@ -117,55 +130,22 @@ angular.module('workingSet.workingSetManager', [])
 
                             workingSetManager.refresh();
 
-                            // var resData = response['data'];
-                            // var scopeData = workingSetManager.setMetadata[set].data;
-
-                            // if (scopeData.length > 0 && resData.length > 0) {
-
-                            //     var scopeDataIds = scopeData.map(function (entry) {
-                            //         return entry.id;
-                            //     });
-
-                            //     var resDataIds = resData.map(function (entry) {
-                            //         return entry.id;
-                            //     });
-
-                            //     scopeData = scopeData.filter(function (entry) {
-                            //         return resDataIds.indexOf(entry.id) != -1;
-                            //     });
-
-                            //     resData = resData.filter(function (entry) {
-                            //         return scopeDataIds.indexOf(entry.id) == -1;
-                            //     });
-                            // }
-
-                            // if (resData.length > 0) {
-                            //     resData = resData.map(function (entry) {
-                            //         entry.selected = false;
-                            //         return entry;
-                            //     });
-                            // }
-
-                            // workingSetManager.setMetadata[set].data = scopeData.concat(resData);
-                            // workingSetManager.setMetadata[set].loading = false;
-                            // workingSetManager.recomputeIds();
-                            // return;
-                        // workingSetManager.refresh();
-
                     });
-                    // console.log(test);
-                    
 
                 },
 
                 // don't even need this after the refactor
                 handleReponse: function (response, set="Samples"){
+
                     workingSetManager.setMetadata[set].loading = false;
+
                 },
 
                 // I don't think that this will be needed in the final version after all.
                 ngOnInit: function () {
+
                     console.log("init");
+
                 },
 
                 // This still needs to be changed to be more generic
@@ -184,7 +164,8 @@ angular.module('workingSet.workingSetManager', [])
                             var resData = response['data'];
                             var scopeData = workingSetManager.setMetadata[set].data;
 
-                            if (scopeData.length > 0 && resData.length > 0) {
+                            // if (scopeData.length > 0 && resData.length > 0) {
+                            if (scopeData.length > 0) {
 
                                 var scopeDataIds = scopeData.map(function (entry) {
                                     return entry.id;
@@ -216,11 +197,14 @@ angular.module('workingSet.workingSetManager', [])
                             return;
                         });
                     });
+
                 },
 
                 // This might not really be needed if all that initialize is going to do is refresh it...
                 initialize: function () {
+
                     workingSetManager.refresh();
+
                 },
 
                 addItem: function (set = "", entry) {
@@ -235,6 +219,8 @@ angular.module('workingSet.workingSetManager', [])
 
                     workingSetManager.setMetadata[set].data.push(entry);
                     workingSetManager.recomputeIds();
+
+
                 },
 
                 removeItem: function (set = "", entry) {
@@ -257,7 +243,9 @@ angular.module('workingSet.workingSetManager', [])
 
                 // Should be good to go
                 changeSelectedSet: function (setToSelect){
+
                     workingSetManager.selectedSet = setToSelect;
+
                 }
 
             };
@@ -332,7 +320,7 @@ angular.module('workingSet.workingSetManager', [])
                     "text": "Start Request",
                     "type": "dropdown",
                     "action:": function () {
-                        console.log("Start Request");
+                        // console.log("Start Request");
                     },
                     "dropdownActionsText": "['Human Specimen', 'PBMC', 'DNA Purification', 'Protein Expression', 'Protein / Hybridoma Purification', 'Outgoing VIM']",
                     "dropdownActions":
