@@ -34,6 +34,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                 templateUrl: 'common/grid-form/grid-form-column/type/relation/partials/grid-form-relation-column-directive-tpl.html',
 
                 link: function($scope, element, attrs) {
+                        console.log("here");
                         $scope.element = element[0];
                 },
 
