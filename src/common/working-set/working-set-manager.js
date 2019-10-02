@@ -378,12 +378,17 @@ angular.module('workingSet.workingSetManager', [])
                 }
             ];
 
-            var metadata = {'refresh':'/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, 'add': '/storage/working-set-add-id/' + sessionFactory.getLoggedInUser().id + '/', 'remove': '/storage/working-set-remove-id/' + sessionFactory.getLoggedInUser().id + '/'};
 
-            workingSetManager.addWorkingSet("Samples", sampleButtons, metadata);
+            // This is only a partial fix -- the user may need to refresh the page after logging in
+            if (sessionFactory.getLoggedInUser() != undefined) {
 
+                var metadata = {'refresh':'/storage/working-set-sample/user/' + sessionFactory.getLoggedInUser().id, 'add': '/storage/working-set-add-id/' + sessionFactory.getLoggedInUser().id + '/', 'remove': '/storage/working-set-remove-id/' + sessionFactory.getLoggedInUser().id + '/'};
 
-            workingSetManager.refresh();
+                workingSetManager.addWorkingSet("Samples", sampleButtons, metadata);
+
+                workingSetManager.refresh();
+
+            }
 
             return workingSetManager;
 
