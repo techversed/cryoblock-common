@@ -33,6 +33,7 @@ angular.module('grid.gridBuilder', [])
                     // filterGroups -- lets you specify filters to add directly to the grid.
                     // bindToState -- can be used to turn off the bindToState property if not provided bindToState will default to true.
                     // filtersClearable
+                    // extra params
                 buildIndex: function (factoryName, overrides = {}) {
 
                     var factory = $injector.get(factoryName);
@@ -59,6 +60,7 @@ angular.module('grid.gridBuilder', [])
 
                     var defaultParams = grid.getRequestParams();
                     var params = gridManager.ignoreUrlParams ? defaultParams : angular.extend(defaultParams, $location.search());
+                    var params = overrides['extraParams'] ? angular.extend(params, overrides['extaParams']) : params;
 
                     $cbResource.get(url, params).then(function (response) {
                         grid
@@ -327,7 +329,7 @@ angular.module('grid.gridBuilder', [])
                                         angular.forEach(filterOverride[filterObjectKeys[filterObjIndex]]['selected'], function (element) {
                                             filter.selectItem(element)
                                         });
-                                        
+
                                         break;
 
                                     case "workingSet":
