@@ -4,7 +4,29 @@
     </button>
 
     <ul uib-dropdown-menu class="dropdown-menu pull-right" role="menu" aria-labelledby="single-button" ng-if="!result.deletedAt">
-        <li cb-object-watch entity-id="result.entity.id" entity="{{result.linkedEntityDetail.objectClassName}}" object-description="{{result.linkedEntityDetail.objectDescription}}" url="{{result.linkedEntityDetail.objectUrl}}"></li>
+
+        <!-- <li cb-object-watch entity-id="result.entity.id" entity="{{result.linkedEntityDetail.objectClassName}}" object-description="{{result.linkedEntityDetail.objectDescription}}" url="{{result.linkedEntityDetail.objectUrl}}"></li> -->
+
+        <li role="menu-item">
+            <a ng-click="dismissNotification(result)">
+                <i class="fa fa-times-circle"> </i> Dismiss notification
+            </a>
+        </li>
+
+        <li role="menu-item">
+            <a ng-click="console.log('test')">
+                <a ng-click="stopWatching(result)" class="dropdown-item" ><i class="fa fa-eye-slash m-r-xs"/>Stop Watching</a>
+            </a>
+        </li>
+
+
+
+<!--
+        <li role="menuitem">
+            <a ng-click="editSample(result)"><i class="fa fa-edit m-r-xs"/>Edit</a>
+        </li>
+ -->
+
     </ul>
 
 </div>

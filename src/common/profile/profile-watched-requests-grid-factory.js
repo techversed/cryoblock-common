@@ -11,12 +11,27 @@ angular.module('profile.profileWatchedRequestsGridFactory', [])
                 actionTemplate: 'common/profile/partials/profile-row-actions-tpl.html',
 
                 columns: [
+                {
+                        header: '',
+                        bindTo: 'dismissed',
+                        name: 'dismissed',
+                        isVisible: true,
+                        templateUrl: 'common/profile/partials/profile-dismissed-boolean-column-tpl.html'
+                    },
                     {
                         header: 'Object Id',
+                        bindTo: 'entity.id',
+                        name: 'entity.id',
+                        isVisible: true,
+                        // templateUrl: 'common/profile/partials/profile-grid-id-tpl.html'
+                    },
+                    {
+                        header: 'Alias',
                         bindTo: 'entity.alias',
                         name: 'entity.alias',
                         isVisible: true,
-                        templateUrl: 'common/profile/partials/profile-grid-id-tpl.html'
+                        sref: "lot_number_resolver.resolver({name: result.entity.alias})"
+                        //entity.alias
                     },
                     {
                         header: 'Status',
