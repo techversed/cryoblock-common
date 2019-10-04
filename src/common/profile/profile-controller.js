@@ -1,7 +1,9 @@
     angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'userBool', '$cbResource', 'watchedRequestsGrid', '$state', '$stateParams',
+    .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'userBool', '$cbResource', 'watchedRequestsGrid', '$state', '$stateParams', '$window',
 
-        function ($scope, $modal, user, API, profileFormFactory, userBool, $cbResource, watchedRequestsGrid, $state, $stateParams) {
+        function ($scope, $modal, user, API, profileFormFactory, userBool, $cbResource, watchedRequestsGrid, $state, $stateParams, $window) {
+
+            $window.scroll(0,0);
 
             $scope.dismissAll = function () {
 

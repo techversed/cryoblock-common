@@ -46,7 +46,7 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     var getIndex = function (needle, haystack) {
 
-                        for (i=0; i<haystack.length; i++){
+                        for (i=0; i<haystack.length; i++) {
 
                             if(haystack[i]==needle) return i;
 
@@ -79,7 +79,19 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         if ($scope.column.labelFields) {
                             for (var i =0; i<$scope.column.labelFields.length; i++) {
                                 name += i == 0 ? "" : " - ";
-                                name += thing[$scope.column.labelFields[i]] ? thing[$scope.column.labelFields[i]] : " ";
+                                // name += thing[$scope.column.labelFields[i]] ? thing[$scope.column.labelFields[i]] : " ";
+
+                                // console.log("thing", thing);
+                                // console.log("lookup string", "thing." + $scope.column.labelFields[i]);
+                                // console.log("eval results ", eval("thing." + $scope.column.labelFields[i]));
+                                try {
+                                    // name += eval("thing." + $scope.column.labelFields[i]) ? eval("thing." + $scope.column.labelFields[i]) : " ";
+                                    name +=  eval("thing." + $scope.column.labelFields[i])
+
+                                }
+                                catch (e) {
+
+                                }
                             }
                         }
 
