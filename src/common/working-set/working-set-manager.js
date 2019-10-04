@@ -207,6 +207,20 @@ angular.module('workingSet.workingSetManager', [])
 
                 },
 
+
+                // It would be ideal to move this to a single request.
+                addItems: function(set = "", entries) {
+
+                    console.log('adding items');
+                    angular.forEach(entries, function(entry){
+
+                        console.log("adding item");
+                        workingSetManager.addItem("", entry);
+
+                    });
+
+                },
+
                 addItem: function (set = "", entry) {
 
                     if (set == "") {

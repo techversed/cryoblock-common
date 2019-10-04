@@ -1,8 +1,8 @@
 angular.module('profile.profileRowActionsCtrl', [])
 
-    .controller('profileRowActionsCtrl', ['$scope', 'proteinPurificationFormFactory', '$cbResource', '$state', '$stateParams', '$cbResource', 'sessionFactory',
+    .controller('profileRowActionsCtrl', ['$scope', 'proteinPurificationFormFactory', '$cbResource', '$state', '$stateParams', '$cbResource', 'sessionFactory', 'workingSetManager',
 
-        function ($scope, proteinPurificationFormFactory, $cbResource, $state, $stateParams, $cbResource, sessionFactory) {
+        function ($scope, proteinPurificationFormFactory, $cbResource, $state, $stateParams, $cbResource, sessionFactory, workingSetManager) {
 
             // $scope.dismissAll = function() {
 
@@ -10,6 +10,37 @@ angular.module('profile.profileRowActionsCtrl', [])
             // }
 
             $scope.loggedInUser = sessionFactory.getLoggedInUser();
+
+            // This makes it essential for the request to have a certain url layout
+            $scope.addOutputsToWorkingSet = function(result) {
+
+                // console.log(result);
+                // linkedEntityDetail.objectUrl
+                var url = result.linkedEntityDetail.objectUrl;
+                url = url.split("/")
+                url.pop();
+                url = url.join("/");
+                url += "/request-output-sample/request/";
+                url += result.entity.id;
+
+                var params = undefined;
+
+                $cbResource.get(url, params).then(function(response){
+
+
+                    // console.log('data:', response.data);
+                    workingSetManager.addItems("", response.data);
+                    // console.log(response);
+
+                });
+
+
+     // * @Route("/production/antigen/request-input-sample/{type}/{id}", name="antigen_request_input_sample_get")
+
+
+
+
+            }
 
             $scope.dismissNotification = function(result) {
                 // result.dismissed=true;
