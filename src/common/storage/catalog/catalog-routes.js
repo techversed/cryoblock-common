@@ -66,7 +66,9 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
                                     },
 
                                     // sequenceGrid: function ($cbGridBuilder, catalog, sequenceGridFactory) {
-                                    sequenceGrid: function ($cbGridBuilder, catalog) {
+                                    sequenceGrid: function ($cbGridBuilder, catalog, sequenceGridFactory) {
+
+                                        console.log("here are the things");
 
                                         return sequenceGridFactory.getCatalogGrid(catalog);
 

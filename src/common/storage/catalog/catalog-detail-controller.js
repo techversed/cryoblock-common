@@ -3,6 +3,9 @@ angular.module('storage.catalog.catalogDetailCtrl', [])
 
         function ($scope, catalog, sequenceGrid, grids, $window, catalogFormFactory) {
 
+
+            console.log("made it into the controller");
+
             $window.scroll(0,0);
 
             $scope.sequenceGrid = sequenceGrid;
