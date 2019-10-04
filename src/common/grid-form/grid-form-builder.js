@@ -136,6 +136,9 @@ angular.module('gridForm.$cbGridFormBuilder', [])
                         gridForm.clearRows(); // This is going to be removed -- this is just because there is sample data built in already
                         gridForm.setColumns(response.data.headers);
                         gridForm.addRowsFromObjects(response.data.content);
+                        console.log("columns:", response.data.headers);
+                        console.log("content:", response.data.content);
+
 
                         // gridForm.setCreateNew(true);
                         // gridForm.set
