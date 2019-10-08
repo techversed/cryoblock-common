@@ -369,7 +369,7 @@ angular.module('workingSet.workingSetManager', [])
                             }
                         },
                         {
-                            "text": 'Protein / Hybridoma Purification',
+                            "text": 'Antibody Purification',
                             "service": undefined,
                             "type": "dropdownItem",
                             "action": function () {
