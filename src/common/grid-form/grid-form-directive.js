@@ -16,6 +16,7 @@ angular.module('gridForm.gridFormDirective', [])
 
             return {
 
+                // May require ngform
                 require: ['?^gridForm', 'ngModel'],
 
                 scope: {
