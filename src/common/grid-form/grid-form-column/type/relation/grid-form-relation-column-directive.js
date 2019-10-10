@@ -145,12 +145,10 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                             $scope.highlightedElement = $scope.suggestionList.length > 0 ? $scope.suggestionList[$scope.highlightedIndex] : "";
 
                         }
-                        else {
-
-                            console.log("skipping action");
+                        // else {
+                            // console.log("skipping action");
                             // $scope.getSearchResults();
-
-                        }
+                        // }
                     };
 
                     $scope.shiftFocus = function () {
@@ -164,11 +162,32 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                     $scope.selectItem = function (item) {
 
                         if ($scope.multiple == "false") {
-                            $scope.obj[$scope.field] = [item];
+
+                            if (!$scope.obj[$scope.field].includes(item)) {
+
+                                $scope.obj[$scope.field] = [item];
+
+                            }
+                            else
+                            {
+                                $scope.unselectItem(item);
+                            }
+
                         }
                         else
                         {
-                            $scope.obj[$scope.field].push(item);
+                            if($scope.obj[$scope.field]){
+                                if (!$scope.obj[$scope.field].includes(item)) {
+                                    $scope.obj[$scope.field].push(item);
+                                }
+                                else {
+                                    $scope.unselectItem(item)
+                                }
+
+                            }
+                            else{
+                                $scope.obj[$scope.field] = [item];
+                            }
                         }
 
                     };

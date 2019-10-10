@@ -14,7 +14,7 @@
 
     <ul uib-dropdown-menu class="dropdown-menu" role="menu">
 
-        <li><input id="testing" class="gridFormRelationSearch" ng-model="searchString"  ng-keydown="keyPressHandler($event,item)"></input></li>
+        <li><input id="testing" class="gridFormRelationSearch" ng-model="searchString" ng-change="getSearchResults()" ng-keydown="keyPressHandler($event,item)"></input></li>
 
         <li>
                 <hr class="dash" />
