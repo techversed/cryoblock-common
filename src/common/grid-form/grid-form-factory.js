@@ -144,6 +144,27 @@ angular.module('gridForm.gridFormFactory', [])
                 // Add an element to the gridform
                 addEmptyRow: function () {
                     // For each column set default value for that field.
+                    // Set to empty
+                    var emptyRow = {};
+                    // {id: 4, collapsed: false, deleted: false, entity: {'Field1': 'asdf4', 'Field2': [], 'Field3': [], 'Field4': []}}
+                    angular.forEach(this.columns, function(thing){
+
+                        if (thing['type'] == 'relation') {
+                            emptyRow[thing['field']] = [];
+                        }
+                        else if(thing['type'] == 'text') {
+
+                        }
+                        else if(thing['type'] == 'dropdown'){
+                            emptyRow[thing['field']] = [];
+                        }
+
+
+                    });
+
+                    this.addRowFromObject(emptyRow);
+
+
 
                 },
 

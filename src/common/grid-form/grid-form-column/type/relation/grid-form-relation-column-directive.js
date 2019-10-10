@@ -26,7 +26,8 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                     obj: '=',
                     column: '=',
                     field: '=',
-                    allowCreate: '='
+                    allowCreate: '=',
+                    multiple: '@'
                 },
 
                 restrict: 'E',
@@ -60,15 +61,20 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                         $scope.refreshUrl = $scope.column.url ? $scope.column.url : "/user";
                         $scope.highlightedIndex = 0;
-                        $scope.highlightedElement = ""; //$scope.suggestionList[$scope.highlightedIndex];
-                        $scope.refreshCount = 0;        // Number of times that updated search results have been requested
+                        $scope.highlightedElement = "";
+                        $scope.refreshCount = 0;
 
                         $scope.searchString = "";
                         $scope.suggestionList = [];
                         $scope.getSearchResults();
 
-                        $scope.selectedThing = {};
-                        $scope.selectedThing.name = '';
+                        $scope.multiple = $scope.multiple ?  $scope.multiple : "false";
+
+                    };
+
+                    $scope.unselectItem = function(item){
+
+                        $scope.obj[$scope.field] = $scope.obj[$scope.field].filter(word => word != item);
 
                     };
 
@@ -79,15 +85,9 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         if ($scope.column.labelFields) {
                             for (var i =0; i<$scope.column.labelFields.length; i++) {
                                 name += i == 0 ? "" : " - ";
-                                // name += thing[$scope.column.labelFields[i]] ? thing[$scope.column.labelFields[i]] : " ";
 
-                                // console.log("thing", thing);
-                                // console.log("lookup string", "thing." + $scope.column.labelFields[i]);
-                                // console.log("eval results ", eval("thing." + $scope.column.labelFields[i]));
                                 try {
-                                    // name += eval("thing." + $scope.column.labelFields[i]) ? eval("thing." + $scope.column.labelFields[i]) : " ";
                                     name +=  eval("thing." + $scope.column.labelFields[i])
-
                                 }
                                 catch (e) {
 
@@ -119,11 +119,14 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     };
 
+                    // $scope.onSearchChange = function (event,
+
                     $scope.keyPressHandler = function (event, item){
 
                         if (event.key == "Enter") {
 
                             $scope.selectItem($scope.highlightedElement);
+                            event.preventDefault();
 
                         }
                         else if (event.key == "ArrowDown") {
@@ -144,7 +147,8 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                         }
                         else {
 
-                            $scope.getSearchResults();
+                            console.log("skipping action");
+                            // $scope.getSearchResults();
 
                         }
                     };
@@ -159,7 +163,13 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     $scope.selectItem = function (item) {
 
-                        $scope.obj[$scope.field] = [item];
+                        if ($scope.multiple == "false") {
+                            $scope.obj[$scope.field] = [item];
+                        }
+                        else
+                        {
+                            $scope.obj[$scope.field].push(item);
+                        }
 
                     };
 

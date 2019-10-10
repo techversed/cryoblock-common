@@ -31,6 +31,8 @@ angular.module('gridForm.gridFormDirective', [])
 
                     this.gridForm = $scope.gridForm;
 
+
+
                     var init = function () {
 
                         $scope.dumpDataModel = function () {

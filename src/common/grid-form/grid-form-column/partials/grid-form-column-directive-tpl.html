@@ -7,6 +7,7 @@
 
 <grid-form-dropdown-column class="wFullWidth" ng-if="column.type == 'dropdown'" obj='data' field="field" column="column"> </grid-form-dropdown-column>
 <grid-form-relation-column class="wFullWidth" ng-if="column.type == 'relation'" obj='data' field="field" column="column"> </grid-form-relation-column>
+<grid-form-relation-column class="wFullWidth" ng-if="column.type == 'mRelation'" obj='data' field="field" column="column" multiple="true"> </grid-form-relation-column>
 <grid-form-text-column class="wFullWidth" ng-if="column.type == 'text'" obj='data' field="field" column="column"> </grid-form-text-column>
 <grid-form-boolean-column class="wFullWidth" ng-if="column.type == 'boolean'" obj='data' field="field" column="column"> </grid-form-boolean-column>
 
