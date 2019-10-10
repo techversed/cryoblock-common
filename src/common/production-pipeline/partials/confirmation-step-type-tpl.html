@@ -5,17 +5,28 @@
        Your samples were imported successfully. Print the sample put list and store the samples in the specified locations.
     </div>
     <div class="row">
-        <div class="col-xs-4 col-xs-offset-2">
-            <button type="button" ng-click="config.openPrintPutList()" class='btn btn-default btn-block'>
-                <i class="fa fa-print" />
-                Print Put List
-            </button>
-        </div>
-        <div class="col-xs-4">
-            <button ui-state="config.returnState" ui-state-params="{id:config.requestObject.id}" type="button" class='btn btn-primary btn-block'>
-                <i class="fa fa-undo" />
-                Return
-            </button>
-        </div>
+
+        <center>
+            <div class="col-xs-3 ">
+                <button type="button" ng-click="config.addOutputsToWorkingSet()" class='btn btn-default btn-block'>
+                    <i class="fa fa-print" />
+                    Add to working set
+                </button>
+            </div>
+
+            <div class="col-xs-3">
+                <button type="button" ng-click="config.openPrintPutList()" class='btn btn-default btn-block'>
+                    <i class="fa fa-print" />
+                    Print Put List
+                </button>
+            </div>
+            <div class="col-xs-3">
+                <button ui-state="config.returnState" ui-state-params="{id:config.requestObject.id}" type="button" class='btn btn-primary btn-block'>
+                    <i class="fa fa-undo" />
+                    Return
+                </button>
+            </div>
+        </center>
+
     </div>
 </div>
