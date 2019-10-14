@@ -10,14 +10,18 @@
 
 
 <!-- The table that contains the forms -->
-<div style="scroll-direction: horizontal;overflow:scroll;">
+<div style="scroll-direction: horizontal; overflow-x:scroll;">
+<!-- <div> -->
 
     <div class="row">
 
         <div class="btn-group pull-center">
             <button class="btn btn-primary pull-left" tooltip="testing" ng-click="gridForm.addEmptyRow()" ><i class="fa fa-plus"></i></button>
+
+            <!-- Going to add more options here later on -->
             <!-- <button class="btn btn-primary pull-left" tooltip="testing" ng-click="alert('ballz')" ><i class="fa fa-angle-down"></i></button> -->
             <!-- <button class="btn btn-primary pull-left" tooltip="testing" ng-click="alert('ballz')" >Reset selected row</button> -->
+
         </div>
 
     </div>
@@ -26,15 +30,14 @@
 
         <!-- The header row for the table -->
         <tr>
-            <th ng-repeat="col in gridForm.columns"> <!-- ng-repeat for each column -->
+            <th class="grid-form-column-header"  ng-repeat="col in gridForm.columns"> <!-- ng-repeat for each column -->
                 <center>
 
-                    <!-- <i class="fa fa-link" aria-hidden="true"></i> -->
-                    <!-- <i class="fa fa-angle-down" aria-hidden="true"></i> -->
-                    <!-- <i class="fa fa-text-width" aria-hidden="true"></i> -->
-                    <!-- <i class="fa fa-i-cursor" aria-hidden="true"></i> -->
+                    <i class="fa fa-link" aria-hidden="true" ng-if="col.type == 'relation' || col.type == 'mRelation'"><i class="fa fa-link" aria-hidden="true" ng-if="col.type == 'mRelation'"></i></i>
+                    <i class="fa fa-angle-down" aria-hidden="true" ng-if="col.type == 'dropdown'"></i>
+                    <!-- <i class="fa fa-text-width" aria-hidden="true" ></i> --> <!-- Don't remember what we were going to use this for -->
+                    <i class="fa fa-i-cursor" aria-hidden="true" ng-if="col.type == 'text'"></i>
 
-                    <br />
                     {{col.name}}
                 </center>
             </th>
@@ -53,18 +56,6 @@
 
     </table>
 
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
     <br />
     <br />
     <br />
