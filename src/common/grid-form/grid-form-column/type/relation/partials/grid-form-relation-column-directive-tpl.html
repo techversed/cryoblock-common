@@ -1,13 +1,8 @@
-<!--
 
-    add a section above a line which stores the currently selected item in it
+<!-- btn-group  -->
+<div class="grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
 
-
--->
-
-<div class="btn-group grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
-
-    <span class='dropdownColumnNoText form-control' tabindex="0" ng-focus="shiftFocus()" ng-keydown="keyPressHandler($event,item)">
+    <div class='dropdownColumnNoText form-control2' tabindex="0" ng-focus="shiftFocus()" ng-keydown="keyPressHandler($event,item)">
 
         <span ng-repeat="thing in obj[field]">
             <span class="label label-success">{{createDisplayString(thing)}} <i class="fa fa-remove" ng-click="unselectItem(thing)"></i></span><span  ng-if="!$last" ng-keydown="keyPressHandler($event,item)">, </span>
@@ -15,20 +10,11 @@
 
         <!-- {{searchString}} -->
 
-    </span>
+    </div>
 
     <ul uib-dropdown-menu class="dropdown-menu" role="menu">
 
-        <li><input id="testing" class="gridFormRelationSearch" ng-model="searchString" ng-keydown="keyPressHandler($event,item)"></input></li>
-
-        <!-- currently selected element -->
-        <!-- I don't quite know how are are going to go about this -->
-        <!--
-        <li ng-repeat="item in obj[field]" role="menuitem">
-            <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i>
-            <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{createDisplayString(item)}}</span>
-        </li>
-        -->
+        <li><input id="testing" class="gridFormRelationSearch" ng-model="searchString" ng-change="getSearchResults()" ng-keydown="keyPressHandler($event,item)"></input></li>
 
         <li>
                 <hr class="dash" />
@@ -38,7 +24,6 @@
             <li ng-repeat="item in suggestionList" role="menuitem">
                 <span class="grid-form-dropdown-input-spacer" / >
                     <i on-focus="shiffFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i>
-                    <!-- <input type="radio" class="grid-form-menu-item-input" ng-model="selectedThing.name" ng-value="item" tabindex="-1" /> -->
                     <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{createDisplayString(item)}}</span>
             </li>
 

@@ -16,6 +16,7 @@ angular.module('gridForm.gridFormDirective', [])
 
             return {
 
+                // May require ngform
                 require: ['?^gridForm', 'ngModel'],
 
                 scope: {
@@ -29,6 +30,8 @@ angular.module('gridForm.gridFormDirective', [])
                 controller: function ($scope) {
 
                     this.gridForm = $scope.gridForm;
+
+
 
                     var init = function () {
 
