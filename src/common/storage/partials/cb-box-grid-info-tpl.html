@@ -3,7 +3,7 @@
         <!-- added for the cloning -->
         <!-- need to ng-if instead of ng-class due to the fact that we are not able to use complex selectors in ng-class -->
 
-        <button ng-if="sdm.clonedSample && sdm.clonedSample.id != sample.id"  role="button" type="button" class="btn btn-sm btn-default" ng-click="sdm.cloneSampleDimensionless(sample)" title="clone the selected sample">
+        <button ng-if="sdm.clonedSample.id != sample.id"  role="button" type="button" class="btn btn-sm btn-default" ng-click="sdm.cloneSampleDimensionless(sample)" title="clone the selected sample">
             <i class="fa fa-clone" />
         </button>
 
