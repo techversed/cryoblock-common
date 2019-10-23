@@ -49,11 +49,9 @@ angular.module('form.cbSelectButtonDirective', [])
                         }
                     }
 
-
                     $scope.selectItem = function (item) {
 
                         $scope.modelCtrl.$setViewValue(item);
-                        // $scope.bindTo = item;
 
                         if (typeof $scope.cbOnSelect === 'function') {
 

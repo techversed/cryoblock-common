@@ -6,4 +6,8 @@
 
     </div>
 
+    <div ng-messages="formCtrl[name].$error" ng-show="formCtrl.$submitted">
+        <p ng-message="required" class="text-danger">This field is required</p>
+    </div>
+
 </div>
