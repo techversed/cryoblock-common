@@ -33,10 +33,10 @@
 
                     <br />
 
-                    <table>
+                    <table style="border-collapse:unset; border-spacing:5px;">
                         <tr>
                             <td ng-repeat="entry in wsm.setMetadata[set].buttons">
-                                <button class="btn btn-primary" ng-click="entry.action()" ng-if="entry.type == 'button'">{{entry.text}}</button>
+                                <button class="btn btn-primary" ng-click="entry.action()" ng-if="entry.type == 'button'" >{{entry.text}}</button>
                                 <div uib-dropdown is-open="false">
                                     <button ng-if="entry.type == 'dropdown'" type="button" class="btn btn-block" ng-class="buttonClass" uib-dropdown-toggle>
                                         <i ng-if="iconClass != undefined" class="{{iconClass}}" />

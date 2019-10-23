@@ -379,6 +379,26 @@ angular.module('workingSet.workingSetManager', [])
                             }
                         },
                         {
+                            "text": 'Antigen Purification',
+                            "service": undefined,
+                            "type": "dropdownItem",
+                            "action": function () {
+                                var factory = $injector.get('antigenFormFactory');
+                                return factory.openFormModal({}, {inputSamples: workingSetManager.getSelected()});
+                                // return factory.openFormModal({}, workingSetManager.getSelected());
+                            }
+                        },
+                        {
+                            "text": 'Hybridoma Sequencing',
+                            "service": undefined,
+                            "type": "dropdownItem",
+                            "action": function () {
+                                var factory = $injector.get('sequencingFormFactory');
+                                return factory.openFormModal({}, {inputSamples: workingSetManager.getSelected()});
+                                // return factory.openFormModal({}, workingSetManager.getSelected());
+                            }
+                        },
+                        {
                             "text": 'Outgoing VIM',
                             "type": "dropdownItem",
                             "service": undefined,
