@@ -18,6 +18,7 @@ angular.module('form.cbSelectButtonDirective', [])
                     cbOnSelectData: '=',
                     disabled: '=',
                     cbIsOpen: '=',
+                    cbOnToggle: '=',
                     cbOnSelectContext: '=',
                     iconClass: '@'
                 },
@@ -50,6 +51,16 @@ angular.module('form.cbSelectButtonDirective', [])
                     }
 
                     $scope.selectItem = function (item) {
+
+                        if (!$scope.disabled) {
+
+                            console.log($scope.modelCtrl.$viewValue);
+                            if($scope.modelCtrl.$viewValue != item) {
+                                if ($scope.cbOnToggle) {
+                                    $scope.cbOnToggle();
+                                }
+                            }
+                        }
 
                         $scope.modelCtrl.$setViewValue(item);
 
