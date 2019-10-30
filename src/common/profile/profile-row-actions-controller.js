@@ -1,8 +1,8 @@
 angular.module('profile.profileRowActionsCtrl', [])
 
-    .controller('profileRowActionsCtrl', ['$scope', 'proteinPurificationFormFactory', '$cbResource', '$state', '$stateParams', '$cbResource', 'sessionFactory', 'workingSetManager',
+    .controller('profileRowActionsCtrl', ['$scope', 'antigenFormFactory', '$cbResource', '$state', '$stateParams', '$cbResource', 'sessionFactory', 'workingSetManager',
 
-        function ($scope, proteinPurificationFormFactory, $cbResource, $state, $stateParams, $cbResource, sessionFactory, workingSetManager) {
+        function ($scope, antigenFormFactory, $cbResource, $state, $stateParams, $cbResource, sessionFactory, workingSetManager) {
 
             // $scope.dismissAll = function() {
 
@@ -74,7 +74,7 @@ angular.module('profile.profileRowActionsCtrl', [])
             }
 
 
-
+            $scope.complete = antigenFormFactory.openRequestCompleteModal
 
         }
     ])

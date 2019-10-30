@@ -23,7 +23,9 @@
                 <a ng-click="addOutputsToWorkingSet(result)" class="dropdown-item" ><i class="fa fa-object-group m-r-xs"/>Add output samples to working set</a>
         </li>
 
-
+        <li role="menuitem" ng-if="result.entity.status == 'Action Required'">
+            <a ng-click="complete(result.entity)"><i class="fa fa-check m-r-xs"/>Complete</a>
+        </li>
 <!--
         <li role="menuitem">
             <a ng-click="editSample(result)"><i class="fa fa-edit m-r-xs"/>Edit</a>
