@@ -1,7 +1,7 @@
 <!-- change this name to profile-notification ... etc -->
 
 <div class="btn-group" uib-dropdown is-open="status.isopen" ng-controller="profileRowActionsCtrl">
-    <button id="single-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+    <button id="single-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled" ng-if="canEdit">
         <span class="fa fa-cog"></span>
     </button>
 

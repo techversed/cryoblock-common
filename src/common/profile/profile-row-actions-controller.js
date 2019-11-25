@@ -11,6 +11,10 @@ angular.module('profile.profileRowActionsCtrl', [])
 
             $scope.loggedInUser = sessionFactory.getLoggedInUser();
 
+            $scope.canEdit = true;
+            if ($stateParams.id != undefined) {
+                $scope.canEdit = false;
+            }
             // This makes it essential for the request to have a certain url layout
             $scope.addOutputsToWorkingSet = function(result) {
 

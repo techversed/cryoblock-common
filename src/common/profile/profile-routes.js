@@ -68,9 +68,13 @@ angular.module('profile.routes', [])
                                         return (sessionFactory.getLoggedInUser().id == $stateParams.id);
                                     },
 
-                                    watchedRequestsGrid: function ($cbGridBuilder) {
 
-                                        return $cbGridBuilder.buildIndex('profileWatchedRequestsGridFactory');
+                                    watchedRequestsGrid: function ($cbGridBuilder, user) {
+
+                                        return $cbGridBuilder.buildIndex('profileWatchedRequestsGridFactory', {
+                                            url: '/cryoblock/profile-object-notification/watched-requests/' + user.id,
+                                            bindToState: false
+                                        });
 
                                     }
                                 }
