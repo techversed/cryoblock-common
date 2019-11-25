@@ -63,6 +63,8 @@ angular.module('grid.gridFactory', [])
 
                 this.isHoverable = true;
 
+                this.allowBulkActions = false; // We are adding this for the hybridoma app mockup.
+
                 this.showHyperLinks = true;
 
                 this.bindToState = false;
@@ -440,6 +442,21 @@ angular.module('grid.gridFactory', [])
                 },
 
                 addItem: function (item) {
+
+                    this.addingItems.push(item);
+                    this.addingItemIds.push(item.id);
+
+                    if (this.selectItemCallback) {
+
+                        this.selectItemCallback(item);
+
+                    }
+
+                    return this;
+
+                },
+
+                openPlateModal: function (item) {
 
                     this.addingItems.push(item);
                     this.addingItemIds.push(item.id);

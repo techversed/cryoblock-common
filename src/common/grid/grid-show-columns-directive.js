@@ -14,6 +14,7 @@ angular.module('grid.gridShowColumnsDirective', [])
 
                     $scope.visibleColumns = [];
                     $scope.hiddenColumns = [];
+                    //could add scope.selected columns and scope.notselected columns.
 
                     angular.forEach($scope.grid.columns, function (column) {
 
@@ -43,6 +44,8 @@ angular.module('grid.gridShowColumnsDirective', [])
                         $scope.searchText = '';
 
                     };
+
+                    //could make a scope.toggleSelected.
 
                 }
 

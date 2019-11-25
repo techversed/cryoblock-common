@@ -8,6 +8,8 @@ angular.module('grid.gridColumnFactory', [])
 
                 this.header = null;
 
+                //we could add an onlick option...
+
                 this.bindTo = null;
 
                 this.isSortable = false;

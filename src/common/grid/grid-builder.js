@@ -254,7 +254,56 @@ angular.module('grid.gridBuilder', [])
                         ;
 
                     });
-                }
+
+                },
+
+                                // Possible overrides
+                    // postpend -- specify a sting that is added to the end of the url that we qery each time.
+                buildDetailActionGrid: function (url, factoryName, initObject, isEditable, overrides = {}) {
+
+                    var postpend = overrides.postpend ? overrides.postpend : "";
+
+                    var factory = $injector.get(factoryName);
+
+                    var grid = factory.create();
+
+                    isEditable ? grid.allowEdit().disableHyperlinks() : grid.disallowEdit();
+
+                    if (initObject && initObject.id) {
+                        url = url + initObject.id + postpend;
+                    }
+
+                    grid.perPageOptions = isEditable ? [5, 15, 25] : [25, 50, 100];
+                    cPerPage = grid.perPageOptions[0];
+
+                    grid
+                        .setActionTemplate(factory.actionTemplate)
+                        .setResourceUrl(url)
+                        .setPerPage(grid.perPageOptions[0])
+                        .disableToggleColumns()
+                        .setNoResultString('No linked objects found')
+                        .disableHover()
+                    ;
+
+                    if (!initObject || !initObject.id) {
+                        return grid;
+                    }
+
+                    // var defaultParams = { cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:cPerPage};
+                    var defaultParams = grid.getRequestParams();
+                    // Could also build defaults form the grid...
+
+                    return $cbResource.get(url, defaultParams).then(function (response) {
+
+                        return grid
+                            .setPaginationFromResponse(response)
+                            .setResults(response.data)
+                            .setInitResultCount(response.unpaginatedTotal)
+                        ;
+
+                    });
+
+                },
             };
             return gridBuilder
         }
