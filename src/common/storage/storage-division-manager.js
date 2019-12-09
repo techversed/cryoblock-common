@@ -893,7 +893,6 @@ angular.module('storage.storageDivisionManager', [])
 
                 },
 
-                // THIS WILL NEED A PARTIAL REWORK
                 pasteSample: function () {
 
                     var that = this;
