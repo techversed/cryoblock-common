@@ -6,6 +6,6 @@
 
 <div class="grid-form-input-field">
 
-    <input class="form-control2" ng-model='obj[field]' size="{{obj[field].length}}"></input>
+    <input class="form-control2" ng-model='obj[field]' size="{{obj[field].length}}" ng-keydown="keyPressHandler($event,item)"></input>
 
 </div>
