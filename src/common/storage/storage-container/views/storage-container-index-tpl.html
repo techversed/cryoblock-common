@@ -1,0 +1,73 @@
+<div id="admin-container">
+    <div class="normalheader">
+
+        <div id="hbreadcrumb">
+            <ol class="hbreadcrumb breadcrumb">
+                <li><a ui-sref="dashboard.main">Dashboard</a></li>
+                <li><a ui-sref="classification.index">Classifications</a></li>
+                <li class="active">
+                    <span>Storage Containers</span>
+                </li>
+            </ol>
+        </div>
+        <div class="hpanel">
+            <div class="panel-body">
+
+                <div class="panel-actions">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <div class="btn-group panel-more-actions" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog"/>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li cb-user-object-notifications entity="AppBundle\Entity\Storage\StorageContainer" object-description="Storage Container" url="/storage/storage-container">
+                                    <a class="dropdown-item text-danger" ><i class="fa fa-bell m-r-xs" />Notifications</a>
+                                </li>
+                                <li cb-object-notifications entity="AppBundle\Entity\Storage\StorageContainer" object-description="Storage Container" admin-role="ROLE_INVENTORY_ADMIN" url="/storage/storage-container">
+                                    <a class="dropdown-item text-danger" ><i class="fa fa-lock m-r-xs" /><i class="fa fa-bell m-r-xs" />Admin Notifications</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-t">
+                    <h2 class="font-light m-b-xs">
+                        <i class="fa fa-flask" />
+                        Storage Containers
+                    </h2>
+                </div>
+
+                <small>Manage Storage Containers</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+         <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-15">
+                <button class="btn btn-primary btn-block btn-mobile-stack" ng-click="create()">Create Storage Container</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        Storage Container
+                    </div>
+                    <div class="panel-body no-padding">
+
+                        <grid grid="grid"></grid>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

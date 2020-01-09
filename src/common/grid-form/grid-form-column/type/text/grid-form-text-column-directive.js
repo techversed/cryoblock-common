@@ -37,9 +37,17 @@ angular.module('gridForm.gridFormColumn.gridFormTextColumnDirective', [])
 
                     };
 
+                    $scope.keyPressHandler = function(event, key) {
+                        if (event.key == "Enter") {
+                                event.preventDefault();
+                        }
+                    }
+
                     init();
 
                 }
+
+
             };
         }
     ]
