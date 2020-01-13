@@ -145,10 +145,6 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
                             $scope.highlightedElement = $scope.suggestionList.length > 0 ? $scope.suggestionList[$scope.highlightedIndex] : "";
 
                         }
-                        // else {
-                            // console.log("skipping action");
-                            // $scope.getSearchResults();
-                        // }
                     };
 
                     $scope.shiftFocus = function () {

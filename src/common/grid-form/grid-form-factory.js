@@ -187,9 +187,10 @@ angular.module('gridForm.gridFormFactory', [])
 
 
                 // Remove an element from the grid form
-                removeRow: function () {
+                removeRow: function (row) {
 
                     // asdf
+
 
                 },
 
