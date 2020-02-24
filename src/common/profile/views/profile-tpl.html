@@ -89,7 +89,7 @@
                 <div class="panel-body no-padding" >
 
                     <div class="col-sm-12" style="padding-top: 20px">
-                        <button ng-click="dismissAll()" class="btn btn-primary pull-right" >Dismiss All</button>
+                        <button ng-if="userBool" ng-click="dismissAll()" class="btn btn-primary pull-right" >Dismiss All</button>
                     </div>
 
                     <grid grid="watchedRequestsGrid"></grid>
