@@ -99,6 +99,12 @@ angular.module('gridForm.gridFormColumn.gridFormRelationColumnDirective', [])
 
                     };
 
+                    $scope.errorLog = function(){
+
+                        console.log("here is all of the shit");
+
+                    };
+
                     $scope.getSearchResults = function () {
 
                         $scope.refreshCount++;
