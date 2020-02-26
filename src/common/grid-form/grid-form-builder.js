@@ -72,31 +72,13 @@ angular.module('gridForm.$cbGridFormBuilder', [])
                     obj.hasVaryingOutputSampleTypes = false;
                     obj.id = 945;
 
-
-                    // var requestId
-
-                    // Entity = path to entity
-                    // Output Sample Defaults = ...
-
                     var gridForm = gridFormFactory.create();
-
-
-                    // var thing = $cbResource.create(url, obj);
-
-                    /*
-                        $cbResource ... . then ...
-
-
-                    */
 
                     $cbResource.create(url,obj).then(function (response) {
 
                         //gridForm.changeStuff ...
 
                     });
-
-
-
 
                     return gridForm;
 
@@ -133,18 +115,10 @@ angular.module('gridForm.$cbGridFormBuilder', [])
 
                         // gridForm.changeStuff...
 
-                        gridForm.clearRows(); // This is going to be removed -- this is just because there is sample data built in already
+                        gridForm.clearRows();
                         gridForm.setColumns(response.data.headers);
                         gridForm.addRowsFromObjects(response.data.content);
-                        console.log("columns:", response.data.headers);
-                        console.log("content:", response.data.content);
 
-
-                        // gridForm.setCreateNew(true);
-                        // gridForm.set
-
-                        // return response.data;
-                        // return gridForm;
                     });
 
                     return gridForm;

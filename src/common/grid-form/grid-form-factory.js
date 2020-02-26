@@ -41,31 +41,35 @@ angular.module('gridForm.gridFormFactory', [])
 
                 // We are going to move towards setting this through the url instead
 
-                this.columns = [
-                    {id: "id", header: "Text", field: "Field1", defVal: "default value for that column when a new object is created", required: true, fieldName: "asdf", type: "text", validators: ["list of functions"], sortingOperator: function () {}, sortable:true},
-                    {id: "id", header: "Dropdown", field: "Field2", required: true, fieldName: "asdf", type: "dropdown", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
-                    {id: "id", header: "Single-Relation", field: "Field3", required: true, fieldName: "asdf", type: "relation", backendUrl: 'path to url', validators: ["list of functions"]},
-                    {id: "id", header: "Multi-Relation", field: "Field4", required: true, fieldName: "asdf", type: "relation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl: 'path to url', validators: ["List of functions"]},
-                ];
+                // Removing some error checking bullshit
+                // [
+                //     {id: "id", header: "Text", field: "Field1", defVal: "default value for that column when a new object is created", required: true, fieldName: "asdf", type: "text", validators: ["list of functions"], sortingOperator: function () {}, sortable:true},
+                //     {id: "id", header: "Dropdown", field: "Field2", required: true, fieldName: "asdf", type: "dropdown", validInputs: ["list", "of", "possible", "inputs"], validators: ["List of functions"]},
+                //     {id: "id", header: "Single-Relation", field: "Field3", required: true, fieldName: "asdf", type: "relation", backendUrl: 'path to url', validators: ["list of functions"]},
+                //     {id: "id", header: "Multi-Relation", field: "Field4", required: true, fieldName: "asdf", type: "relation", minrequired: "Min number of linked objects for it to be valid", maxrequired: "Max number of linked objects for it to be a valid input", backendUrl: 'path to url', validators: ["List of functions"]},
+                // ];
 
+                // Removing some error checking bullshit
                 // Row Definitions
-                this.rows = [
-                    {id: 0, collapsed: false, deleted: false, entity: {'Field1': 'asdf0', 'Field2': [], 'Field3': [], 'Field4': []}},
-                    {id: 1, collapsed: false, deleted: false, entity: {'Field1': 'asdf1', 'Field2': [], 'Field3': [], 'Field4': []}},
-                    {id: 2, collapsed: false, deleted: false, entity: {'Field1': 'asdf2', 'Field2': [], 'Field3': [], 'Field4': []}},
-                    {id: 3, collapsed: false, deleted: false, entity: {'Field1': 'asdf3', 'Field2': [], 'Field3': [], 'Field4': []}},
-                    {id: 4, collapsed: false, deleted: false, entity: {'Field1': 'asdf4', 'Field2': [], 'Field3': [], 'Field4': []}}
-                ];
+                // [
+                //     {id: 0, collapsed: false, deleted: false, entity: {'Field1': 'asdf0', 'Field2': [], 'Field3': [], 'Field4': []}},
+                //     {id: 1, collapsed: false, deleted: false, entity: {'Field1': 'asdf1', 'Field2': [], 'Field3': [], 'Field4': []}},
+                //     {id: 2, collapsed: false, deleted: false, entity: {'Field1': 'asdf2', 'Field2': [], 'Field3': [], 'Field4': []}},
+                //     {id: 3, collapsed: false, deleted: false, entity: {'Field1': 'asdf3', 'Field2': [], 'Field3': [], 'Field4': []}},
+                //     {id: 4, collapsed: false, deleted: false, entity: {'Field1': 'asdf4', 'Field2': [], 'Field3': [], 'Field4': []}}
+                // ];
                     // {id: "id", header: "Boolean", field: "Field5", defVal:true, required: true, fieldName: "asdf", type: "boolean", backendUrl: 'path to url', validators: ["List of functions"]},
 
                 // Want to make it possible to group rows in the best way possible. -- could set it up to group by sample id for instance.
-                this.rowOrdering = [0,1,2,3,4];
+                // this.rowOrdering = [0,1,2,3,4];
+                // this.refreshUrl = null;
 
+                this.rows = [];
+                this.columns = [];
+                this.rowOrdering = [];
                 this.submissionUrl = null;
                 this.validationUrl = null;
-                this.refreshUrl = null;
                 this.addCreateNew = true;
-
 
             };
 
@@ -108,12 +112,6 @@ angular.module('gridForm.gridFormFactory', [])
 
                 },
 
-
-                /*
-
-
-                */
-
                 // Copies an existing object and creates a row for it in this table
                 addRowFromObject: function(ent){
 
@@ -143,12 +141,14 @@ angular.module('gridForm.gridFormFactory', [])
 
                 // Add an element to the gridform
                 addEmptyRow: function () {
+
                     // For each column set default value for that field.
                     // Set to empty
-                    var emptyRow = {};
-                    // {id: 4, collapsed: false, deleted: false, entity: {'Field1': 'asdf4', 'Field2': [], 'Field3': [], 'Field4': []}}
-                    angular.forEach(this.columns, function(thing){
 
+                    // {id: 4, collapsed: false, deleted: false, entity: {'Field1': 'asdf4', 'Field2': [], 'Field3': [], 'Field4': []}}
+
+                    var emptyRow = {};
+                    angular.forEach(this.columns, function(thing){
                         if (thing['type'] == 'relation') {
                             emptyRow[thing['field']] = [];
                         }
@@ -158,8 +158,6 @@ angular.module('gridForm.gridFormFactory', [])
                         else if(thing['type'] == 'dropdown'){
                             emptyRow[thing['field']] = [];
                         }
-
-
                     });
 
                     this.addRowFromObject(emptyRow);
