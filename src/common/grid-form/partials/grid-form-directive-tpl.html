@@ -1,25 +1,10 @@
-<!--
-
-    Under construction
-
-
-    data
-    field
-
--->
-
-
-<!-- The table that contains the forms -->
-<!-- <div style="scroll-direction: horizontal; overflow-x:scroll;"> -->
 <div style="width:100%; scroll-direction: horizontal; overflow-y:visible; overflow-x:scroll;">
-<!-- <div> -->
 
     <div class="row">
 
         <div class="btn-group pull-center">
-            <button href="" class="btn btn-primary pull-left" tooltip="Add a new row" ng-click="gridForm.addEmptyRow()" ><i class="fa fa-plus"></i></button>
-            <button href="" class="btn btn-primary pull-left" tooltip="testing" ng-click="gridForm.validate()"><i class="fa fa-check"></i></button>
-
+            <button class="btn btn-primary pull-left" tooltip="Add a new row" ng-click="gridForm.addEmptyRow()" ><i class="fa fa-plus"></i></button>
+            <button class="btn btn-primary pull-left" tooltip="testing" ng-click="gridForm.validate()"><i class="fa fa-check"></i></button>
         </div>
 
     </div>
@@ -40,11 +25,8 @@
             </th>
         </tr>
 
-        <!-- For each entity look at each column and use the correct directive for the type of entity -->
         <tr ng-repeat="row in gridForm.rowOrdering">
-            <!-- <td><button>Stuff</button></td> -->
             <td ng-repeat="col in gridForm.columns">
-                    <!-- <grid-form-column class="wFullWidth" column="col" data="gridForm.rows[row]['entity']" field="col['field']"></grid-form-column> -->
 
                 <grid-form-column class="wFullWidth" column="col" data="gridForm.rows[row]['entity']" field="col['field']"></grid-form-column>
 
@@ -71,11 +53,4 @@
     <br />
     <br />
     <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <!-- <button class="btn btn-primary Fixed" ><i class="fa fa-save"></i> Save</button> -->
-    <!-- <a ng-click="dumpDataModel()"> Dump the datamodel to ensure that it is being modified.</a> -->
-    <!-- <a ng-click="gridForm.addEmptyRow()"> Add Empty Row </a> -->
 </div>
