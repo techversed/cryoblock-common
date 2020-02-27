@@ -13,20 +13,18 @@
 
     <ul uib-dropdown-menu class="dropdown-menu" role="menu">
 
-        <!-- <li><input id="testing" class="gridFormRelationSearch" ng-model="searchString" ng-change="getSearchResults()" ng-keydown="keyPressHandler($event,item)"></input></li> -->
-        <li><input class="gridFormRelationSearch" ng-model="searchString" ng-change="getSearchResults()" ng-keydown="keyPressHandler($event,item)"></input></li>
+        <li>
+            <input class="gridFormRelationSearch" ng-model="searchString" ng-change="getSearchResults()" ng-keydown="keyPressHandler($event,item)" ></input>
+        </li>
 
         <li>
                 <hr class="dash" />
         </li>
 
-            <li ng-repeat="item in suggestionList" role="menuitem" >
-                <!-- <a ng-click="selectItem(item)"> -->
-                <a href="" ng-click="selectItem(item)">
+            <li ng-repeat="item in suggestionList" role="menuitem" tabindex=-1 >
+                <a role='menuitem' href="" ng-click="selectItem(item)" tabindex=-1>
                     <span class="grid-form-dropdown-input-spacer" / >
-                    <!-- checkmark -->
                     <i on-focus="shiftFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i>
-                    <!-- space between checkmark ... etc -->
                     <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{createDisplayString(item)}}</span>
                 </a>
             </li>

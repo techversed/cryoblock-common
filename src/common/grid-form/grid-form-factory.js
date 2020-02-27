@@ -166,6 +166,15 @@ angular.module('gridForm.gridFormFactory', [])
 
                 },
 
+                validate: function() {
+
+
+                    console.log("Run the validation stuff -- to be written on the backend");
+
+
+                },
+
+
 
                 // We will implement this sutf later.
                 // This should take a template and a controller and make it so that the given row actions were all possible on the current gridform.
