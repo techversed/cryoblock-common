@@ -1,4 +1,3 @@
-<!-- btn-group  -->
 <div class="grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
 
     <div class='dropdownColumnNoText form-control2' tabindex="0" ng-focus="shiftFocus()" ng-keydown="keyPressHandler($event,item)">
@@ -6,8 +5,6 @@
         <span ng-repeat="thing in obj[field]">
             <span class="label label-success">{{createDisplayString(thing)}} <i class="fa fa-remove" ng-click="unselectItem(thing)"></i></span><span  ng-if="!$last" ng-keydown="keyPressHandler($event,item)">, </span>
         </span>
-
-        <!-- {{searchString}} -->
 
     </div>
 
