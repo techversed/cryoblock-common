@@ -1,24 +1,30 @@
-angular.module('profile.profileCtrl', [])
-    .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'grid', 'userBool', '$cbResource',
+    angular.module('profile.profileCtrl', [])
+    .controller('profileCtrl', ['$scope', '$uibModal', 'user', 'API', 'profileFormFactory', 'userBool', '$cbResource', 'watchedRequestsGrid', '$state', '$stateParams', '$window',
 
-        function ($scope, $modal, user, API, profileFormFactory, grid, userBool, $cbResource) {
+        function ($scope, $modal, user, API, profileFormFactory, userBool, $cbResource, watchedRequestsGrid, $state, $stateParams, $window) {
+
+            $window.scroll(0,0);
+
+            $scope.dismissAll = function () {
+
+                $cbResource.create('/cryoblock/user-object-notification/dismiss-watche-requests',{}).then(function(){
+                    $state.go($state.current, $stateParams, {reload:true});
+                });
+                // $route.reload();
+
+            }
 
             $scope.user = user;
-            $scope.grid = grid;
+            $scope.watchedRequestsGrid = watchedRequestsGrid;
 
             $scope.userBool = userBool; // User Bool true of the user is going to their own profile page -- false if not--
 
-            // $scope.bool =
 
             $scope.edit = profileFormFactory.openFormModal;
-
-
-
 
             $cbResource.get('/project/project-editor/user/' + $scope.user.id).then(function (response) {
                 $scope.projects = response.data;
             });
-
 
             $scope.hasAvatar = function () {
                 return typeof $scope.user.avatarAttachment !== 'undefined';
@@ -31,7 +37,6 @@ angular.module('profile.profileCtrl', [])
 
             // Don't allow for people to pop the upload photo modal on someone else's profile page
             $scope.uploadPhoto = function () {
-                console.log('upload photo function');
                 if (userBool) {
                     $modal.open({
                         templateUrl: 'common/profile/partials/profile-photo-upload-tpl.html',
