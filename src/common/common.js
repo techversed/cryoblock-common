@@ -39,5 +39,6 @@ angular.module('common', [
     'step',
     'attachment',
     'storage',
-    'productionPipeline'
+    'productionPipeline',
+    'workingSet'
 ]);
