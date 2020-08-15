@@ -1,8 +1,8 @@
 angular.module('productionPipeline.productionPipelineFactory', [])
 
-    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager', 'toastr', '$state', '$compile', '$window', '$templateRequest', '$rootScope',
+    .factory('productionPipelineFactory', ['productionPipelineStepFactory', 'StepsService', '$cbResource', 'API', '$localStorage', 'sampleGridFactory', 'sampleImportManager', 'toastr', '$state', '$compile', '$window', '$templateRequest', '$rootScope', 'workingSetManager',
 
-        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager, toastr, $state, $compile, $window, $templateRequest, $rootScope) {
+        function (productionPipelineStepFactory, StepsService, $cbResource, API, $localStorage, sampleGridFactory, sampleImportManager, toastr, $state, $compile, $window, $templateRequest, $rootScope, workingSetManager) {
 
             var ProductionPipelineFactory = function () {
 
@@ -71,6 +71,11 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 this.postCompleteCallback = null;
 
                 this.depletedAllInputSamples = false;
+
+                // Added
+                // this.inputGridForm = null;
+                // this.outputGridForm = null;
+
 
             };
 
@@ -466,6 +471,12 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     this.inputFileInput.click();
                 },
 
+                setTotalOutputSamples: function(value){
+                    this.totalOutputSamples = value;
+
+                    return this;
+                },
+
                 /* This is added */
                 inputsDepleted: function () {
                     this.depletedAllInputSamples = true;
@@ -660,7 +671,6 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         that.resultSampleIds = response.data.sampleIds;
                         that.resultSamples = response.data.samples;
 
-                        // this is a standard sample import not a prod request
                         if (!that.requestObject) {
                             that.isUploading = false;
                             StepsService.steps(that.name).next();
@@ -682,6 +692,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                             resultSampleIds: that.resultSampleIds,
                             depletedAllInputSamples: that.depletedAllInputSamples
                         };
+                        console.log(outputSampleDefaults);
 
                         $cbResource.create(that.completeUrl, data).then(function (response) {
 
@@ -705,6 +716,12 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         });
 
                     })
+
+                },
+
+                addOutputsToWorkingSet: function () {
+
+                    workingSetManager.addItems("Samples", this.resultSamples);
 
                 },
 
@@ -743,7 +760,25 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                     });
 
-                }
+                },
+
+// Added with gridforms
+                // setInputGridForm: function (inputGridForm) {
+
+                //     this.inputGridForm = inputGridForm;
+
+                //     return this;
+
+                // },
+
+                // setOutputGridForm: function (outputGridForm) {
+
+                //     this.outputGridForm = outputGridForm;
+
+                //     return this;
+
+                // }
+
 
             };
 

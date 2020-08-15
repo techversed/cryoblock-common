@@ -26,18 +26,19 @@ angular.module('notification.cbObjectWatchDirective', [])
                         'objectClassName[EQ]': $scope.entity
                     };
 
+                    // This is what is doing that shit...
                     $cbResource.getOne('/cryoblock/entity-detail', data).then(function(response){
                         if (response == undefined) {
                             response = $cbResource.create('/cryoblock/entity-detail', {'objectClassName': $scope.entity, 'objectUrl': $scope.url, 'objectDescription': $scope.objectDescription}).then( function (response2) {
-                                $scope.entityDetail = response2.data;
+                                $scope.linkedEntityDetail = response2.data;
                                 $scope.userObjectNotification = false;
                             });
                         }
                         else {
-                            $scope.entityDetail = response;
+                            $scope.linkedEntityDetail = response;
 
                             var data = {
-                                'entityDetailId[EQ]': response.id,
+                                'linkedEntityDetailId[EQ]': response.id,
                                 'entityId[EQ]': $scope.entityId,
                                 'userId[EQ]': $scope.loggedInUser.id
                             };
@@ -71,7 +72,7 @@ angular.module('notification.cbObjectWatchDirective', [])
                         }, function() {
 
                             var data = {
-                                entityDetail: $scope.entityDetail,
+                                linkedEntityDetail: $scope.linkedEntityDetail,
                                 entityId: $scope.entityId,
                                 user: $scope.loggedInUser,
                                 onCreate: true,
@@ -100,7 +101,7 @@ angular.module('notification.cbObjectWatchDirective', [])
                         }, function() {
 
                             var data = {
-                                'entityDetailId[EQ]': $scope.entityDetail.id,
+                                'linkedEntityDetailId[EQ]': $scope.linkedEntityDetail.id,
                                 'entityId[EQ]': $scope.entityId,
                                 'userId[EQ]': $scope.loggedInUser.id
                             };

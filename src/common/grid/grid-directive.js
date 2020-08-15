@@ -78,7 +78,9 @@ angular.module('grid.gridDirective', [])
 
                         $scope.previousParams = cloned_params;
 
+
                         $cbResource.get($scope.grid.resourceUrl, params).then(function (response) {
+
                             if (currentRefreshCounter == $scope.grid.refreshCount) {
                                 $scope.grid
                                     .setResults(response.data)
@@ -131,6 +133,118 @@ angular.module('grid.gridDirective', [])
                     $scope.restoreRemovedItem = function (item) {
 
                         $scope.grid.restoreRemovedItem(item);
+
+                    };
+
+                    $scope.downloadCsvGrid = function () {
+
+
+                        var dateRegex = /^\d+-\d+-\d+T\d+:\d+:\d+-\d+:\d+$/
+                        var headers = [];
+
+                        var csvContent = "data:text/csv;charset=utf-8,";
+
+                        angular.forEach($scope.grid.columns, function (column) {
+
+                            if(column.isVisible){
+
+                                headers.push(column.header);
+
+                            }
+
+                        });
+
+                        csvContent += (headers.join(",") + "\n");
+
+                        angular.forEach($scope.grid.results, function (result) {
+
+                            var lineArray = [];
+
+                            angular.forEach($scope.grid.columns, function (column) {
+
+                                if (column.isVisible) {
+
+                                    var thing2 = column['bindTo'].split("|")[0].split(".")[0];
+
+                                    eval("result." + thing2)
+                                    if (eval("result." + thing2)) {
+
+                                        var thingToBind = column['bindTo'].split("|")[0];
+                                        try{
+                                            var value = eval("result." + thingToBind) ? eval("result." + thingToBind) : "";
+                                            // var value = "";
+
+                                            // If the column is a number
+                                            if (value == undefined){
+                                                lineArray.push("undefined");
+                                            }
+                                            if (!isNaN(value)){
+
+                                                lineArray.push(value);
+
+                                            }
+
+                                            // If the column is a string
+                                            else if (typeof value == "string")
+                                            {
+
+                                                // If the string is an encoded date
+                                                if (dateRegex.test(value) == true) {
+
+                                                    lineArray.push((new Date(value)).toDateString().replace(/,/g,""));
+
+                                                }
+                                                // If the string is anything else
+                                                else {
+
+                                                    // Remove characters that could mess up the file
+                                                    lineArray.push(value.replace(/\#/g,"").replace(/,/g," &").replace("\;",""));
+
+                                                }
+
+                                            }
+                                            else{
+                                                // This is going to becoem a thing when we start passing arrays of tags instead of the list of tags.
+                                                // I don't really know if we are going to end up doing this though -- it would be nice to have the project list offer links directly to the object that you want.
+
+                                                lineArray.push("there is a problem -- tell taylor");
+
+                                            }
+                                        }
+                                        catch(e){
+                                            lineArray.push("");
+
+                                        }
+
+                                    }
+                                    else{
+
+                                        lineArray.push("");
+
+                                    }
+
+                                }
+
+                            });
+
+                            csvContent += (lineArray.join(",") + "\n");
+
+                        });
+
+
+                        var day = new Date();
+                        var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+
+                        var filename = $scope.grid.resourceUrl.replace(/\//g, "") + "-" + day.getFullYear() + "-"+ monthNames[day.getMonth()] + "-" + day.getDay() + ".csv";
+
+                        var encodedUri = encodeURI(csvContent);
+
+                        // window.open(encodedUri, "test.csv");
+                        var a = document.createElement('a');
+                        a.href = encodedUri;
+                        a.download = filename;
+                        a.click();
+                        // window.URL.revokeObjectURL(encodedUri);
 
                     };
 

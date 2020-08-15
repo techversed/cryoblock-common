@@ -22,7 +22,7 @@ angular.module('grid.gridFilterPromiseSharer' , [])
 
                     if (that.promiseMap[url+parTesting] == undefined) {
 
-                        that.promiseMap[url+parTesting] = $cbResource.get(url, params);
+                        that.promiseMap[url+parTesting] = $cbResource.get(url, params, true);
 
                         that.promiseMap[url+parTesting].then(function (response) {
                             that.promiseMap[url+parTesting] = undefined;
