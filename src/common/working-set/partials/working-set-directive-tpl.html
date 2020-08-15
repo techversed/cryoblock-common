@@ -1,0 +1,36 @@
+<div ng-if="wsm.collapsed">
+
+    <button class="btn btn-success" ng-click="wsm.refresh()">Refresh</button>
+    <button class="btn btn-success" ng-click="wsm.selectAll()">Select All</button>
+    <button class="btn btn-success" ng-click="wsm.deselectAll()">Deselect All</button>
+    <br />
+    <br />
+
+    <div ng-if="wsm.loading == true" > Loading please wait </div>
+    <div ng-if="wsm.data">
+        <ul>
+            <li ng-repeat="entry in wsm.data"><input ng-model="entry.selected" bind-to='entry.selected' type="checkbox"></input> &nbsp {{entry.id}} - {{entry.catalog.name}} - {{entry.description}}</li>
+        </ul>
+
+    </div>
+
+    <br />
+
+    <table>
+        <tr>
+            <td ng-repeat="entry in wsm.buttons">
+                <button class="btn btn-primary" ng-click="entry.action()" ng-if="entry.type == 'button'">{{entry.text}}</button>
+                <div uib-dropdown is-open="false">
+                    <button ng-if="entry.type == 'dropdown'" type="button" class="btn btn-block" ng-class="buttonClass" uib-dropdown-toggle>
+                        <i ng-if="iconClass != undefined" class="{{iconClass}}" />
+                        <span ng-if="!isFormCtrl">{{entry.text}}</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul uib-dropdown-menu class="dropdown-menu modal-dropdown-menu" role="menu" aria-labelledby="single-button">
+                        <li ng-repeat="dropdownSelection in entry.dropdownActions"><a ng-click="dropdownSelection.action()">{{dropdownSelection.text}}</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
