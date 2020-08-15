@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest', 'API', '$localStorage', 'toastr', '$cbResource',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest', 'API', '$localStorage', 'toastr', '$cbResource', 'workingSetManager',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest, API, $localStorage, toastr, $cbResource) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest, API, $localStorage, toastr, $cbResource, workingSetManager) {
 
             var storageDivisionManager = {
 
@@ -43,8 +43,6 @@ angular.module('storage.storageDivisionManager', [])
                 orderDirection: 'rowMajor',
 
                 initialize: function (division) {
-
-                    console.log("calling init");
 
                     this.division = division;
                     this.cellScopes = {};
@@ -852,6 +850,19 @@ angular.module('storage.storageDivisionManager', [])
 
                 },
 
+                //
+                addSelectedToWorkingSet: function (){
+
+                    var that = this;
+
+                    angular.forEach(that.getSelectedSamples(), function(result){
+
+                        workingSetManager.addItem('Samples', result);
+
+                    });
+
+                },
+
                 cloneSample: function () {
 
                     var that = this;
@@ -882,10 +893,7 @@ angular.module('storage.storageDivisionManager', [])
 
                 },
 
-                // THIS WILL NEED A PARTIAL REWORK
                 pasteSample: function () {
-
-                    // console.log("cloned Sample", this.clonedSample);
 
                     var that = this;
 

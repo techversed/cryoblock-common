@@ -24,6 +24,7 @@ angular.module('storage', [
     'storage.catalog',
     'storage.storageSampleLinkCtrl',
     'storage.cbBoxGridInfoDirective',
-    'storage.storageCopyDimensionlessCtrl'
+    'storage.storageCopyDimensionlessCtrl',
+    'storage.storageContainer'
 ]);
 
