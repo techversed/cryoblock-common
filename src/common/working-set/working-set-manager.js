@@ -277,13 +277,6 @@ angular.module('workingSet.workingSetManager', [])
                     }
                 },
                 {
-                    "text": "Deplete",
-                    "type": "button",
-                    "action": function () {
-                        console.log("depleting this sample");
-                    }
-                },
-                {
                     "text": "Excel Export",
                     "type": "button",
                     "action": function () {
@@ -321,13 +314,6 @@ angular.module('workingSet.workingSetManager', [])
 
                         xhr.send();
 
-                    }
-                },
-                {
-                    "text": "Add Attachment",
-                    "type": "button",
-                    "action": function () {
-                        console.log("Add attachment");
                     }
                 },
                 {
@@ -384,16 +370,6 @@ angular.module('workingSet.workingSetManager', [])
                             "type": "dropdownItem",
                             "action": function () {
                                 var factory = $injector.get('antigenFormFactory');
-                                return factory.openFormModal({}, {inputSamples: workingSetManager.getSelected()});
-                                // return factory.openFormModal({}, workingSetManager.getSelected());
-                            }
-                        },
-                        {
-                            "text": 'Hybridoma Sequencing',
-                            "service": undefined,
-                            "type": "dropdownItem",
-                            "action": function () {
-                                var factory = $injector.get('sequencingFormFactory');
                                 return factory.openFormModal({}, {inputSamples: workingSetManager.getSelected()});
                                 // return factory.openFormModal({}, workingSetManager.getSelected());
                             }
