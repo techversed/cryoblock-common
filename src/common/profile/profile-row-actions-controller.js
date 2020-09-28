@@ -21,9 +21,13 @@ angular.module('profile.profileRowActionsCtrl', [])
                 // console.log(result);
                 // linkedEntityDetail.objectUrl
                 var url = result.linkedEntityDetail.objectUrl;
+                console.log(url)
                 url = url.split("/")
+                console.log(url)
                 url.pop();
+                console.log(url)
                 url = url.join("/");
+                console.log(url)
                 url += "/request-output-sample/request/";
                 url += result.entity.id;
 
