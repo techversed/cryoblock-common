@@ -10,6 +10,7 @@ angular.module('form.cbBooleanDirective', [])
                 require: ['^form', 'ngModel'],
                 scope: {disabled: '=', trueText: '@', falseText: '@', onToggle: '='},
                 controller: function ($scope) {
+
                     $scope.toggle = function (bool) {
                         if (!$scope.disabled) {
                             $scope.modelCtrl.$setViewValue(bool);

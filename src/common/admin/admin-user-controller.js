@@ -1,8 +1,10 @@
 angular.module('admin.adminUserCtrl', [])
 
-    .controller('adminUserCtrl', ['$scope', 'userGrid', 'userFormFactory', '$state',
+    .controller('adminUserCtrl', ['$scope', 'userGrid', 'userFormFactory', '$state', '$window',
 
-        function ($scope, userGrid, userFormFactory, $state) {
+        function ($scope, userGrid, userFormFactory, $state, $window) {
+
+            $window.scroll(0,0);
 
             $scope.userGrid = userGrid;
             $scope.active = 0;

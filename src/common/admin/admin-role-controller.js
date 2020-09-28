@@ -1,8 +1,10 @@
 angular.module('admin.adminRoleCtrl', [])
 
-    .controller('adminRoleCtrl', ['$scope', 'roleGrid', '$state',
+    .controller('adminRoleCtrl', ['$scope', 'roleGrid', '$state', '$window',
 
-        function ($scope, roleGrid, $state) {
+        function ($scope, roleGrid, $state, $window) {
+
+            $window.scroll(0,0);
 
             $scope.roleGrid = roleGrid;
             $scope.active = 2;

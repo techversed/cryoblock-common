@@ -469,6 +469,29 @@ angular.module('grid.gridFactory', [])
 
                 },
 
+                // This is still not finished.
+                setSelectedItems: function (items) {
+
+                    var that = this;
+
+                    if (items.length ==0) {
+                        return that;
+                    }
+
+
+                    angular.forEach(items, function(item) {
+                        that.addingItems.push(item);
+                        that.addingItemIds.push(item.id);
+
+                        if (that.selectItemCallback) {
+                            that.selectItemCallback(item);
+                        }
+                    });
+
+                    return that;
+
+                },
+
                 unselectItem: function (item) {
 
                     this.selectedItem = null;
@@ -492,26 +515,36 @@ angular.module('grid.gridFactory', [])
                 },
 
                 setNoResultString: function (noResultString) {
+
                     this.noResultString = noResultString;
+
                     return this;
+
                 },
 
                 disableHover: function () {
+
                     this.isHoverable = false;
+
                     return this;
                 },
 
                 disableHyperlinks: function () {
+
                     this.showHyperLinks = false;
+
                     return this;
                 },
 
                 setBindToState: function (bindToState) {
+
                     this.bindToState = bindToState;
+
                     return this;
                 },
 
                 setDecorator: function (decorator) {
+
                     this.decorator = decorator;
 
                     return this;

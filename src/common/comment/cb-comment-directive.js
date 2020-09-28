@@ -78,8 +78,6 @@ angular.module('comment.cbCommentDirective', [])
                             completeSingle: false,
                             hint: function (cm, test1, test2) {
 
-                                console.log("trying to get a hint");
-
                                 completion = cm.state.completionActive;
 
                                 var startPos = {

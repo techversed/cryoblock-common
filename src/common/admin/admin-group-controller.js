@@ -1,8 +1,10 @@
 angular.module('admin.adminGroupCtrl', [])
 
-    .controller('adminGroupCtrl', ['$scope', 'groupGrid', 'groupFormFactory', '$state',
+    .controller('adminGroupCtrl', ['$scope', 'groupGrid', 'groupFormFactory', '$state', '$window',
 
-        function ($scope, groupGrid, groupFormFactory, $state) {
+        function ($scope, groupGrid, groupFormFactory, $state, $window) {
+
+            $window.scroll(0,0);
 
             $scope.groupGrid = groupGrid;
             $scope.active = 1;
