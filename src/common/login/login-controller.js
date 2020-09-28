@@ -7,7 +7,7 @@ angular.module('login.loginCtrl', [])
                 I want to handle it like this in the short term due to the fact that we just need to make progress at this point.
 
             */
-            $state.go('backstock_order.index');
+            // $state.go('backstock_order.index');
 
             if (sessionFactory.getLoggedInUser()) {
 
@@ -36,7 +36,7 @@ angular.module('login.loginCtrl', [])
                             $state.go(redirectService.redirectToState, redirectService.redirectToStateParams);
                         }
                         else if (sessionFactory.hasRole('ROLE_USER')) {
-                            $state.go('sample.index');
+                            $state.go('profile.index');
                         }
                         else if (sessionFactory.hasRole('ROLE_UNDERGRAD_STUDENT_WORKER')) {
                             $state.go('backstock_order.index');
