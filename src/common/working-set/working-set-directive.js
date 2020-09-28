@@ -19,7 +19,7 @@ angular.module('workingSet.workingSetDirective', [])
                 },
 
                 controller: function ($scope) {
-                    
+
                     $scope.wsm = workingSetManager;
                     $scope.temp = "";
 

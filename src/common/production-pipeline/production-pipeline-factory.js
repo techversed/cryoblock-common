@@ -76,7 +76,6 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 this.inputGridForm = null;
                 this.outputGridForm = null;
 
-
             };
 
             ProductionPipelineFactory.prototype = {
@@ -778,7 +777,6 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     return this;
 
                 }
-
 
             };
 
