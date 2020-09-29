@@ -692,7 +692,6 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                             resultSampleIds: that.resultSampleIds,
                             depletedAllInputSamples: that.depletedAllInputSamples
                         };
-                        console.log(outputSampleDefaults);
 
                         $cbResource.create(that.completeUrl, data).then(function (response) {
 
