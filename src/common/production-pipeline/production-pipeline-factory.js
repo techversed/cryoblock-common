@@ -640,6 +640,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     if (that.inputImportGrid) {
 
                         angular.forEach(that.inputImportGrid.data, function (sample) {
+                            inputSampleIds.push(sample.id);
 
                             bulkSamples.push(sample);
 
@@ -670,6 +671,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
 
                         that.resultSampleIds = response.data.sampleIds;
                         that.resultSamples = response.data.samples;
+                        
 
                         if (!that.requestObject) {
                             that.isUploading = false;
@@ -678,6 +680,14 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                         }
 
                         that.requestObject.status = 'Completed';
+                        // that.resultSampleIds.filter(sample => sample.id in )
+
+                        // var outputSampleIds = [];
+                        // angular.forEach(that.outputImportGrid.data, function (sample){
+                        //     if(resultSampleIds.includes(sample.id)){
+                        //         outputSampleIds.push(sample.id);
+                        //     }
+                        // });
 
                         var data = {
                             id: that.requestObject.id,
@@ -689,9 +699,11 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                             catalog: that.catalogData.catalogName,
                             outputTemplateType: that.outputTemplateType,
                             outputSampleDefaults: that.outputSampleDefaults,
-                            resultSampleIds: that.resultSampleIds,
+                            resultSampleIds: that.resultSampleIds.filter(sampleId => !inputSampleIds.includes(sampleId)),
                             depletedAllInputSamples: that.depletedAllInputSamples
                         };
+                        //resultSampleIds: that.resultSampleIds,
+// resultSampleIds: outputSampleIds,
 
                         $cbResource.create(that.completeUrl, data).then(function (response) {
 
