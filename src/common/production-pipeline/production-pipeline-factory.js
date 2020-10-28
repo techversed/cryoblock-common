@@ -639,6 +639,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                     if (that.inputImportGrid) {
 
                         angular.forEach(that.inputImportGrid.data, function (sample) {
+                            inputSampleIds.push(sample.id);
 
                             bulkSamples.push(sample);
 
@@ -688,7 +689,7 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                             catalog: that.catalogData.catalogName,
                             outputTemplateType: that.outputTemplateType,
                             outputSampleDefaults: that.outputSampleDefaults,
-                            resultSampleIds: that.resultSampleIds,
+                            resultSampleIds: that.resultSampleIds.filter(sampleId => !inputSampleIds.includes(sampleId)),
                             depletedAllInputSamples: that.depletedAllInputSamples
                         };
 
