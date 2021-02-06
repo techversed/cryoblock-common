@@ -22,8 +22,8 @@ angular.module('profile.profileRowActionsCtrl', [])
                 // linkedEntityDetail.objectUrl
                 var url = result.linkedEntityDetail.objectUrl;
                 console.log(url)
-                url = url.split("/")
-                // this is too basic we need to remove "-request" for production requests for Output samples
+                url = url.split("-request")
+                // we need to replace "-request" with a "/" for production requests for Output samples
                 console.log(url)
                 url.pop();
                 console.log(url)
