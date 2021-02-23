@@ -83,17 +83,15 @@ angular.module('profile.profileRowActionsCtrl', [])
             }
 
 
-            $scope.complete = function(result){
+            $scope.vimComplete = function(result) {
                 console.log(result)
-// if (result) {
-// console.log(2)
-            vim.complete(result.id);
-// } else{
-
-            // antigenFormFactory.openRequestCompleteModal(result.entityId);
-// }
+                url = '/record/vim/:id/complete'
+                id = result.entityId
+                $state.go(url);
 
             }
+
+            $scope.antigenComplete = antigenFormFactory.openRequestCompleteModal
 
         }
     ])
