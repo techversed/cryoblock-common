@@ -84,10 +84,8 @@ angular.module('profile.profileRowActionsCtrl', [])
 
 
             $scope.vimComplete = function(result) {
-                console.log(result)
-                url = '/record/vim/:id/complete'
-                id = result.entityId
-                $state.go(url);
+
+                window.location.href='/#/record/vim/ID/complete'.replace("ID",result.entityId);
 
             }
 
