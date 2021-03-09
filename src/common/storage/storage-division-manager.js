@@ -1,8 +1,8 @@
 angular.module('storage.storageDivisionManager', [])
 
-    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest', 'API', '$localStorage', 'toastr', '$cbResource', 'workingSetManager',
+    .service('storageDivisionManager', ['sampleFormFactory', 'storageFormFactory', '$compile', '$q', '$uibModal', '$state', '$stateParams', '$rootScope', '$templateRequest', 'API', '$localStorage', 'toastr', '$cbResource', 'workingSetManager', 'sessionFactory',
 
-        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest, API, $localStorage, toastr, $cbResource, workingSetManager) {
+        function (sampleFormFactory, storageFormFactory, $compile, $q, $modal, $state, $stateParams, $rootScope, $templateRequest, API, $localStorage, toastr, $cbResource, workingSetManager, sessionFactory) {
 
             var storageDivisionManager = {
 
@@ -359,6 +359,8 @@ angular.module('storage.storageDivisionManager', [])
                         return;
                     }
 
+                    userId = sessionFactory.getLoggedInUser().id;
+console.log(sessionFactory.getLoggedInUser().fullName)
                     if (this.division.canEdit === false) {
 
                         swal({
@@ -395,7 +397,7 @@ angular.module('storage.storageDivisionManager', [])
                             sampleGrid: function ($cbGridBuilder) {
 
                                 return $cbGridBuilder.buildSelectSingle('sampleGridFactory', {
-                                    url: '/storage/sample?status[EQ]=Available',
+                                    url: '/storage/sample?status[EQ]=Available'
                                 }).then(function (grid) {
                                     angular.forEach(grid.filters, function (filter) {
                                         if (filter.bindTo == 'status') {
@@ -403,6 +405,11 @@ angular.module('storage.storageDivisionManager', [])
                                             filter.isVisible = true;
                                             filter.selectionString = 'Available';
                                             filter.isFiltering = true;
+                                        }
+                                        if (filter.filterProperty == 'workingSets.userId') {
+                                            filter.disabled = false;
+                                            filter.isVisible = true;
+
                                         }
                                     });
 
