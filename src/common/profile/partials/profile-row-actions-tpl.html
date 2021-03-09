@@ -19,7 +19,7 @@
                 <a ng-click="stopWatching(result)" class="dropdown-item" ><i class="fa fa-eye-slash m-r-xs"/>Stop Watching</a>
         </li>
 
-        <li role="menu-item" ng-show="result.entity.status == 'Completed'">
+        <li role="menu-item" ng-show="result.entity.status == 'Completed' && result.linkedEntityDetailId != 10">
                 <a ng-click="addOutputsToWorkingSet(result)" class="dropdown-item" ><i class="fa fa-object-group m-r-xs"/>Add output samples to working set</a>
         </li>
 
