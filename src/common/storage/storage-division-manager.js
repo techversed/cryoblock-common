@@ -359,8 +359,6 @@ angular.module('storage.storageDivisionManager', [])
                         return;
                     }
 
-                    userId = sessionFactory.getLoggedInUser().id;
-console.log(sessionFactory.getLoggedInUser().fullName)
                     if (this.division.canEdit === false) {
 
                         swal({
