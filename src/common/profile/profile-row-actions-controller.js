@@ -1,8 +1,8 @@
 angular.module('profile.profileRowActionsCtrl', [])
 
-    .controller('profileRowActionsCtrl', ['$scope', 'antigenFormFactory', 'vimFormFactory', '$cbResource', '$state', '$stateParams', '$cbResource', 'sessionFactory', 'workingSetManager',
+    .controller('profileRowActionsCtrl', ['$scope', 'antigenFormFactory', '$cbResource', '$state', '$stateParams', '$cbResource', 'sessionFactory', 'workingSetManager',
 
-        function ($scope, antigenFormFactory, vimFormFactory, $cbResource, $state, $stateParams, $cbResource, sessionFactory, workingSetManager) {
+        function ($scope, antigenFormFactory, $cbResource, $state, $stateParams, $cbResource, sessionFactory, workingSetManager) {
 
             // $scope.dismissAll = function() {
 
@@ -18,17 +18,11 @@ angular.module('profile.profileRowActionsCtrl', [])
             // This makes it essential for the request to have a certain url layout
             $scope.addOutputsToWorkingSet = function(result) {
 
-                console.log(result);
-                // linkedEntityDetail.objectUrl
+
                 var url = result.linkedEntityDetail.objectUrl;
-                console.log(url)
                 url = url.split("-request")
-                // we need to replace "-request" with a "/" for production requests for Output samples
-                console.log(url)
                 url.pop();
-                console.log(url)
                 url = url.join("/");
-                console.log(url)
                 url += "/request-output-sample/request/";
                 url += result.entity.id;
 
