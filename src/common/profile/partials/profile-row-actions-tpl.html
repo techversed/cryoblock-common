@@ -19,12 +19,16 @@
                 <a ng-click="stopWatching(result)" class="dropdown-item" ><i class="fa fa-eye-slash m-r-xs"/>Stop Watching</a>
         </li>
 
-        <li role="menu-item">
+        <li role="menu-item" ng-show="result.entity.status == 'Completed' && result.linkedEntityDetailId != 10">
                 <a ng-click="addOutputsToWorkingSet(result)" class="dropdown-item" ><i class="fa fa-object-group m-r-xs"/>Add output samples to working set</a>
         </li>
 
         <li role="menuitem" ng-if="result.entity.status == 'Action Required'">
-            <a ng-click="complete(result.entity)"><i class="fa fa-check m-r-xs"/>Complete</a>
+            <a ng-click="antigenComplete(result.entity)"><i class="fa fa-check m-r-xs"/>Action Required</a>
+        </li>
+
+        <li role="menuitem" ng-if="result.entity.status == 'Samples Received'">
+            <a ng-click="vimComplete(result)"><i class="fa fa-check m-r-xs"/>Place Samples</a>
         </li>
 <!--
         <li role="menuitem">

@@ -395,7 +395,7 @@ angular.module('storage.storageDivisionManager', [])
                             sampleGrid: function ($cbGridBuilder) {
 
                                 return $cbGridBuilder.buildSelectSingle('sampleGridFactory', {
-                                    url: '/storage/sample?status[EQ]=Available',
+                                    url: '/storage/sample?status[EQ]=Available'
                                 }).then(function (grid) {
                                     angular.forEach(grid.filters, function (filter) {
                                         if (filter.bindTo == 'status') {
@@ -403,6 +403,11 @@ angular.module('storage.storageDivisionManager', [])
                                             filter.isVisible = true;
                                             filter.selectionString = 'Available';
                                             filter.isFiltering = true;
+                                        }
+                                        if (filter.filterProperty == 'workingSets.userId') {
+                                            filter.disabled = false;
+                                            filter.isVisible = true;
+
                                         }
                                     });
 

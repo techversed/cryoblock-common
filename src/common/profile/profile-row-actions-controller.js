@@ -18,16 +18,11 @@ angular.module('profile.profileRowActionsCtrl', [])
             // This makes it essential for the request to have a certain url layout
             $scope.addOutputsToWorkingSet = function(result) {
 
-                // console.log(result);
-                // linkedEntityDetail.objectUrl
+
                 var url = result.linkedEntityDetail.objectUrl;
-                console.log(url)
-                url = url.split("/")
-                console.log(url)
+                url = url.split("-request")
                 url.pop();
-                console.log(url)
                 url = url.join("/");
-                console.log(url)
                 url += "/request-output-sample/request/";
                 url += result.entity.id;
 
@@ -82,7 +77,13 @@ angular.module('profile.profileRowActionsCtrl', [])
             }
 
 
-            $scope.complete = antigenFormFactory.openRequestCompleteModal
+            $scope.vimComplete = function(result) {
+
+                window.location.href='/#/record/vim/ID/complete'.replace("ID",result.entityId);
+
+            }
+
+            $scope.antigenComplete = antigenFormFactory.openRequestCompleteModal
 
         }
     ])
