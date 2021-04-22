@@ -65,29 +65,33 @@ angular.module('storage.catalog.routes', [ 'ui.router', 'ui.router.stateHelper']
 
                                     },
 
+                                    // sequenceGrid: function ($cbGridBuilder, catalog, sequenceGridFactory) {
+                                    sequenceGrid: function ($cbGridBuilder, catalog, sequenceGridFactory) {
+
+                                        console.log("here are the things");
+
+                                        return sequenceGridFactory.getCatalogGrid(catalog);
+
+                                    },
+
                                     grids: function (sampleTypes, catalog, sampleGridFactory, $q) {
 
                                         var sampleTypes = sampleTypes.data;
                                         var grids = [];
                                         var promises = [];
 
-                                        for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
+                                        angular.forEach(sampleTypes, function(st) {
 
-                                            var currentSampleType = sampleTypes[sampleTypeIndex];
-                                            var promise = sampleGridFactory.getCatalogGrid(catalog, currentSampleType.id);
+                                            promises.push(sampleGridFactory.getCatalogGrid(catalog, st['id']));
 
-                                            promises.push(promise);
-
-                                        }
+                                        });
 
                                         return $q.all(promises).then(function (gridResults) {
 
                                             for (var sampleTypeIndex = 0; sampleTypeIndex < sampleTypes.length; sampleTypeIndex++) {
 
-                                                var currentSampleType = sampleTypes[sampleTypeIndex];
-
                                                 grids.push({
-                                                    sampleType: currentSampleType,
+                                                    sampleType: sampleTypes[sampleTypeIndex],
                                                     grid: gridResults[sampleTypeIndex]
                                                 });
 
