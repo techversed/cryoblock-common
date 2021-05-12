@@ -1,9 +1,11 @@
 angular.module('storage.catalog.catalogFormCtrl', [])
-    .controller('catalogFormCtrl', ['$scope', 'catalog', 'toastr', 'callback', '$cbForm',
+    .controller('catalogFormCtrl', ['$scope', 'catalog', 'toastr', 'targetGrid', 'donorGrid', 'callback', '$cbForm',
 
-        function ($scope, catalog, toastr, callback, $cbForm) {
+        function ($scope, catalog, toastr, targetGrid, donorGrid, callback, $cbForm) {
 
             $scope.catalog = catalog ? angular.copy(catalog) : {};
+            $scope.targetGrid = targetGrid;
+            $scope.donorGrid = donorGrid;
 
             $scope.catalogBoolOnToggle = function(){
                 $scope.sample.catalog = undefined;
