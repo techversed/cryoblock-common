@@ -34,6 +34,12 @@
                     </div>
                 </cb-form-group>
 
+                <cb-form-group label="Description" name="description">
+                    <div class="col-sm-10">
+                        <input name="description" type="text" class="form-control" ng-model="catalog.description" />
+                    </div>
+                </cb-form-group>
+
                 <cb-form-group label="Target" name="target">
                     <div class="col-sm-10">
                         <one-to-one name="target" grid="targetGrid" ng-model="catalog.target" parent-object="catalog" bind-to="target" placeholder="Link Target.."></one-to-one>
