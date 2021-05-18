@@ -23,6 +23,18 @@ angular.module('storage.catalog.catalogFormFactory', [])
 
                             },
 
+                            targetGrid: function () {
+
+                                return $cbGridBuilder.buildSelectSingle('targetGridFactory');
+
+                            },
+
+                            donorGrid: function () {
+
+                                return $cbGridBuilder.buildSelectSingle('donorGridFactory');
+
+                            },
+
                             callback: function () {
 
                                 return function () {

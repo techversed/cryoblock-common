@@ -24,7 +24,7 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         bindTo: 'status',
                         name: 'status',
                         templateUrl: 'common/storage/catalog/partials/catalog-status-column-tpl.html',
-                        isSorable: true
+                        isSortable: true
                     },
                     {
                         header: 'Name',
@@ -32,6 +32,12 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         name: 'name',
                         isSortable: true,
                         sref: 'catalog.detail({id:result.id})'
+                    },
+                    {
+                        header: 'Description',
+                        bindTo: 'description',
+                        name: 'descripiton',
+                        isSortable: true
                     },
                     {
                         header: 'Sample Count',
