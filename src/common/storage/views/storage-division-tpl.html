@@ -86,7 +86,7 @@
                         <button role="button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="sdm.selectedCount == 0 || sdm.selectedEmptyCount < 1 || sdm.selectedSampleCount > 0" title="Create a new sample, paste a copy of an existing sample or move an existing sample from its old location to this division.">
                             <i class="fa fa-plus" />
                         </button>
-                        <ul uib-dropdown-menu class="dropdown-menu pull-right" role="menu" aria-labelledby="single-button">
+                        <ul uib-dropdown-menu class="dropdown-menu pull-left" role="menu" aria-labelledby="single-button">
                             <li role="menuitem" ng-class="{disabled: sdm.selectedCount != 1 || sdm.selectedEmptyCount != 1}">
                                 <a ng-click="sdm.openSampleStorageLinkModal()"><i class="fa fa-arrow-right m-r-xs"/>Move Sample</a>
                             </li>
