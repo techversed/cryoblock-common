@@ -17,8 +17,9 @@ angular.module('cbResource.$cbResource', [])
 
                 },
 
-                //get a list of elements based upon an array of ids
-                    //it looks like get one resolves all the promises before it returns... I don't know if the way I am handling this really makes sense.
+                // get a list of elements based upon an array of ids
+                    // It looks like get one resolves all the promises before it returns... I don't know if the way I am handling this really makes sense.
+                    // Come back and verify that this is working
                 getSelectIds: function (url, params, ids, ignoreLoadingBar) {
 
                     requests = [];
@@ -51,6 +52,7 @@ angular.module('cbResource.$cbResource', [])
                         url = url + '&' + this.serializeParams(params);
                     }
 
+                    //
                     if (ignoreLoadingBar !== undefined) {
                         additionalParams = {'ignoreLoadingBar': ignoreLoadingBar}
                     }

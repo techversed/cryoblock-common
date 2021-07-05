@@ -1,0 +1,57 @@
+<div style="width:100%; scroll-direction: horizontal; overflow-y:visible; overflow-x:scroll;">
+<!-- <div style="width:100%; y-overflow: visible; x-overflow:scroll; scroll-direction: horizontal;"> -->
+
+    <div class="row">
+
+        <div class="btn-group pull-center">
+            <button class="btn btn-primary pull-left" tooltip="Add a new row" ng-click="gridForm.addEmptyRow()" ><i class="fa fa-plus"></i></button>
+            <button class="btn btn-primary pull-left" tooltip="testing" ng-click="gridForm.validate()"><i class="fa fa-check"></i></button>
+        </div>
+
+    </div>
+
+    <table>
+
+        <!-- The header row for the table -->
+        <tr>
+            <th class="grid-form-column-header"  ng-repeat="col in gridForm.columns"> <!-- ng-repeat for each column -->
+                <center>
+
+                    <i class="fa fa-link" aria-hidden="true" ng-if="col.type == 'relation' || col.type == 'mRelation'"><i class="fa fa-link" aria-hidden="true" ng-if="col.type == 'mRelation'"></i></i>
+                    <i class="fa fa-angle-down" aria-hidden="true" ng-if="col.type == 'dropdown'"></i>
+                    <i class="fa fa-i-cursor" aria-hidden="true" ng-if="col.type == 'text'"></i>
+
+                    {{col.name}}
+                </center>
+            </th>
+        </tr>
+
+        <tr ng-repeat="row in gridForm.rowOrdering">
+            <td ng-repeat="col in gridForm.columns">
+
+                <grid-form-column class="wFullWidth" column="col" data="gridForm.rows[row]['entity']" field="col['field']"></grid-form-column>
+
+            </td>
+        </tr>
+
+    </table>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</div>

@@ -2,10 +2,26 @@
 <!-- ng-class with current state name give you the ability to extended customization your view -->
 <div id="page-wrapper" class="{{$state.current.name}} gray-bg">
 
+
+	
     <!-- Main Wrapper -->
+
+    <!-- 
+    	May want to redo this at some point 
+
+
+    -->
+<!-- 
+    <div class="Fixed" style="width:25%;"> <div class="col-sm-1" style="background-color:blue;"><button class="btn btn-primary" ng-click="wsm.toggleCollapse()"><i class="fa fa-angle-right"></i><i class="fa fa-angle-left"></i></button></div><div style="background-color:red; width: 25%;"><working-set>asdfasdf</working-set></div></div>
+ -->
+
+    <!-- <working-set></working-set> -->
+
+
     <div id="wrapper" class="gray-bg" ui-view="content"></div>
 
     <!-- Footer -->
+
 
 </div>
 <!-- End page wrapper-->

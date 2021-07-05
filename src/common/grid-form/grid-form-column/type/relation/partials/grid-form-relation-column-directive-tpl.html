@@ -1,0 +1,32 @@
+<div class="grid-form-input-field grid-form-text-area-dropdown" uib-dropdown keyboard-nav >
+
+    <div class='dropdownColumnNoText form-control2' tabindex="0" ng-focus="shiftFocus()" ng-keydown="keyPressHandler($event,item)">
+
+        <span ng-repeat="thing in obj[field]">
+            <span class="label label-success">{{createDisplayString(thing)}} <i class="fa fa-remove" ng-click="unselectItem(thing)"></i></span><span  ng-if="!$last" ng-keydown="keyPressHandler($event,item)">, </span>
+        </span>
+
+    </div>
+
+    <ul uib-dropdown-menu class="dropdown-menu2" role="menu">
+
+        <li>
+            <input class="gridFormRelationSearch" ng-model="searchString" ng-change="getSearchResults()" ng-keydown="keyPressHandler($event,item)" ></input>
+        </li>
+
+        <li>
+                <hr class="dash" />
+        </li>
+
+            <li ng-repeat="item in suggestionList" role="menuitem" tabindex=-1 >
+                <a role='menuitem' href="" ng-click="selectItem(item)" tabindex=-1>
+                    <span class="grid-form-dropdown-input-spacer" / >
+                    <i on-focus="shiftFocus()" class="fa fa-check" ng-show="obj[field].includes(item)"> </i>
+                    <span class="grid-form-dropdown-input-spacer" / > <span ng-class="{ 'grid-form-column-dropdown-input-field-selected' : highlightedElement == item }">{{createDisplayString(item)}}</span>
+                </a>
+            </li>
+
+    </ul>
+
+</div>
+

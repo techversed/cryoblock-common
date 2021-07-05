@@ -3,6 +3,7 @@ angular.module('form', [
     'form.icheckDirective',
     'form.oneToMany',
     'form.cbDropdown',
+    'form.cbSelectButton',
     'form.cbFormGroup',
     'form.oneToOne',
     'form.cbBoolean',
