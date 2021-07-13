@@ -14,8 +14,7 @@
                 <h2 class="font-light m-b-xs">
                     Profile
                 </h2>
-                <button ng-if="userBool" ng-click="changePassword()" class="btn btn-primary"><i class="fa fa-lock"/></button>
-                <small>{{user.username}}'s profile details</small>
+                <button ng-if="userBool" ng-click="changePassword()" class="btn btn-primary"><i class="fa fa-lock"/> Change Password</button>
             </div>
         </div>
     </div>
@@ -34,7 +33,7 @@
                 </div>
                 <div class="panel-body float-e-margins">
 
-                    <button ng-if="userBool" ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/></button>
+                    <button ng-if="userBool" ng-click="edit(user)" class="btn btn-primary v-align-top m-r-sm"><i class="fa fa-pencil"/> Edit Profile</button>
 
                     <div class="row">
                         <div class="col-lg-12">
