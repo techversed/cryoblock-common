@@ -35,6 +35,12 @@ angular.module('storage.catalog.catalogFormFactory', [])
 
                             },
 
+                            patentGrid: function () {
+
+                                return $cbGridBuilder.buildSelectSingle('patentGridFactory');
+
+                            },
+
                             callback: function () {
 
                                 return function () {
