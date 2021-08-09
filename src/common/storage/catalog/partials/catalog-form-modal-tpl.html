@@ -52,6 +52,12 @@
                     </div>
                 </cb-form-group>
 
+                <cb-form-group label="Patent" name="patent">
+                    <div class="col-sm-10">
+                        <one-to-one name="patent" grid="patentGrid" ng-model="catalog.patent" parent-object="catalog" bind-to="patent" placeholder="Link Patent..."></one-to-one>
+                    </div>
+                </cb-form-group>
+
                 <cb-form-group label="Status" name="status" ng-if="catalog.id">
                     <div class="col-sm-10">
                         <cb-dropdown name="status" ng-model="catalog.status" label="Status" items="statuses" required></cb-dropdown>

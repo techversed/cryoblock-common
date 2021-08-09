@@ -36,8 +36,29 @@ angular.module('storage.catalog.catalogGridFactory', [])
                     {
                         header: 'Description',
                         bindTo: 'description',
-                        name: 'descripiton',
+                        name: 'description',
                         isSortable: true
+                    },
+                    {
+                        header: 'Donor',
+                        bindTo: 'donor.stringLabel',
+                        name: 'donor',
+                        isSortable: true,
+                        sref: 'donor.detail({id:result.donor.id})'
+                    },
+                    {
+                        header: 'Target',
+                        bindTo: 'target.name',
+                        name: 'target.id',
+                        isSortable: true,
+                        sref: 'target.detail({id:result.target.id})'
+                    },
+                    {
+                        header: 'Patent',
+                        bindTo: 'patent.name',
+                        name: 'patent.id',
+                        isSortable: true,
+                        sref: 'patent.detail({id:result.patent.id})'
                     },
                     {
                         header: 'Sample Count',
