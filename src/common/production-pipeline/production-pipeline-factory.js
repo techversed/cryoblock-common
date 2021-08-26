@@ -73,9 +73,8 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 this.depletedAllInputSamples = false;
 
                 // Added
-                // this.inputGridForm = null;
-                // this.outputGridForm = null;
-
+                this.inputGridForm = null;
+                this.outputGridForm = null;
 
             };
 
@@ -763,22 +762,21 @@ angular.module('productionPipeline.productionPipelineFactory', [])
                 },
 
 // Added with gridforms
-                // setInputGridForm: function (inputGridForm) {
+                setInputGridForm: function (inputGridForm) {
 
-                //     this.inputGridForm = inputGridForm;
+                    this.inputGridForm = inputGridForm;
 
-                //     return this;
+                    return this;
 
-                // },
+                },
 
-                // setOutputGridForm: function (outputGridForm) {
+                setOutputGridForm: function (outputGridForm) {
 
-                //     this.outputGridForm = outputGridForm;
+                    this.outputGridForm = outputGridForm;
 
-                //     return this;
+                    return this;
 
-                // }
-
+                }
 
             };
 
