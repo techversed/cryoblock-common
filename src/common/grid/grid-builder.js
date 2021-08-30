@@ -86,7 +86,6 @@ angular.module('grid.gridBuilder', [])
                     // Initial selection -- what objects should be selected by default when the selection grid is returned.
                     // not yet implemented -- otmFilterGroups -- might not even implement this.
                 buildMTMGrids: function (url, factoryName, initObject, isEditable, overrides = {}) {
-
                     var otmPostpend = overrides.otmPostpend ? overrides.selectPostpend : "";
                     var selectPostpend = overrides.selectPostpend ? overrides.selectPostpend : "";
                     var selectFilterGroups = overrides.selectFilterGroups ? overrides.selectFilterGroups : {};
@@ -95,7 +94,7 @@ angular.module('grid.gridBuilder', [])
                     promises = [];
                     promises.push(this.buildOTM(url, factoryName, initObject, isEditable, {postpend : otmPostpend}));
                     // promises.push(this.buildSelect(url, factoryName, initObject, undefined, {initialSelection: is, postpend : selectPostpend, filterGroups : selectFilterGroups}));
-                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, {initialSelection: is, postpend : selectPostpend, filterGroups : selectFilterGroups}));
+                    promises.push(this.buildSelect(url, factoryName, initObject, undefined, overrides={initialSelection: is, postpend : selectPostpend, filterGroups : selectFilterGroups}));
 
                     return $q.all(promises);
                 },
@@ -118,7 +117,7 @@ angular.module('grid.gridBuilder', [])
                     grid.allowSelectMany();
                     grid.perPageOptions = [5, 15, 25];
                     grid.setPerPage(grid.perPageOptions[0]);
-                    grid = this.addFiltersToGrid(grid, overrides['filterGroups']);
+                    grid = this.addFiltersToGrid(grid, overrides['filterGroups']); // This line
 
                     // var defaultParams = {cOrderBy: 'id', cOrderByDirection: 'DESC', cPerPage:'3'};
 
@@ -322,9 +321,10 @@ angular.module('grid.gridBuilder', [])
 
                                 switch(filter.type){
                                     case "relation":
-                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]], function (selectedRelation) {
+                                        angular.forEach( filterOverride[filterObjectKeys[filterObjIndex]]['selected'], function (selectedRelation) {
                                             filter.selectItem(selectedRelation);
                                         });
+
                                         break;
 
                                     case "enum":
