@@ -37,7 +37,8 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         header: 'Description',
                         bindTo: 'description',
                         name: 'description',
-                        isSortable: true
+                        isSortable: true,
+                        isVisible: false
                     },
                     {
                         header: 'Donor',
@@ -112,6 +113,24 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         filterProperty: 'status',
                         bindTo: 'status',
                         enum: ['Available', 'Depleted', 'Destroyed'],
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Target',
+                        accessProperty: 'id',
+                        filterProperty: 'target.id',
+                        resourceUrl: '/storage/target',
+                        bindTo: 'name',
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Donor',
+                        accessProperty: 'id',
+                        filterProperty: 'donorId',
+                        resourceUrl: '/donor/donor',
+                        bindTo: 'stringLabel',
                         isVisible: true
                     },
                     {
