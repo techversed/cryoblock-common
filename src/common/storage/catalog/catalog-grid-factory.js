@@ -50,14 +50,14 @@ angular.module('storage.catalog.catalogGridFactory', [])
                     {
                         header: 'Target',
                         bindTo: 'target.name',
-                        name: 'target.id',
+                        name: 'target',
                         isSortable: true,
                         sref: 'target.detail({id:result.target.id})'
                     },
                     {
                         header: 'Patent',
                         bindTo: 'patent.name',
-                        name: 'patent.id',
+                        name: 'patent',
                         isSortable: true,
                         sref: 'patent.detail({id:result.patent.id})'
                     },
@@ -130,6 +130,15 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         accessProperty: 'id',
                         filterProperty: 'donorId',
                         resourceUrl: '/donor/donor',
+                        bindTo: 'stringLabel',
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Patent',
+                        accessProperty: 'id',
+                        filterProperty: 'patentId',
+                        resourceUrl: '/record/patent',
                         bindTo: 'stringLabel',
                         isVisible: true
                     },
