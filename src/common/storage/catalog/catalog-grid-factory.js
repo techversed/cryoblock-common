@@ -135,6 +135,15 @@ angular.module('storage.catalog.catalogGridFactory', [])
                     },
                     {
                         type: 'relation',
+                        title: 'Patent',
+                        accessProperty: 'id',
+                        filterProperty: 'patentId',
+                        resourceUrl: '/record/patent',
+                        bindTo: 'stringLabel',
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
                         title: 'Created By',
                         accessProperty: 'id',
                         filterProperty: 'createdById',
