@@ -67,6 +67,11 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         bindTo: 'sampleCount'
                     },
                     {
+                        header: 'Sequence Count',
+                        name: 'sequenceCount',
+                        bindTo: 'sequenceCount'
+                    },
+                    {
                         header: 'Merged Into',
                         name: 'mergedInto',
                         bindTo: 'mergedInto.name',
