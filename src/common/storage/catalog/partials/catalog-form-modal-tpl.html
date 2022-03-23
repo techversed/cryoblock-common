@@ -40,6 +40,18 @@
                     </div>
                 </cb-form-group>
 
+                <cb-form-group label="Catalog Source" name="external" tooltip="Is this a Catalog from literature or a non-Crowelab source?">
+                    <div class="col-sm-10">
+                        <cb-boolean cb-boolean-primary ng-model="catalog.external" true-text="External" false-text="Internal"></cb-boolean>
+                    </div>
+                </cb-form-group>
+
+                <cb-form-group label="Verified" name="verified" tooltip="Is this Catalog named and tagged correctly?">
+                    <div class="col-sm-10">
+                        <cb-boolean cb-boolean-primary ng-model="catalog.verified" true-text="Yes" false-text="No"></cb-boolean>
+                    </div>
+                </cb-form-group>
+
                 <cb-form-group label="Target" name="target">
                     <div class="col-sm-10">
                         <one-to-one name="target" grid="targetGrid" ng-model="catalog.target" parent-object="catalog" bind-to="target" placeholder="Link Target.."></one-to-one>
