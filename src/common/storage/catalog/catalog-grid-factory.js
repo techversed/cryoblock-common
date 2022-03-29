@@ -27,6 +27,20 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         isSortable: true
                     },
                     {
+                        header: 'Source',
+                        bindTo: 'external',
+                        name: 'external',
+                        templateUrl: 'common/storage/catalog/partials/catalog-external-column-tpl.html',
+                        isSortable: true
+                    },
+                    {
+                        header: 'Verified',
+                        bindTo: 'verified',
+                        name: 'verified',
+                        templateUrl: 'common/storage/catalog/partials/catalog-verified-column-tpl.html',
+                        isSortable: true
+                    },
+                    {
                         header: 'Name',
                         bindTo: 'name',
                         name: 'name',
