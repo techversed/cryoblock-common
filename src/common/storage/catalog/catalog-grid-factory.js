@@ -68,6 +68,34 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         isSortable: true,
                         sref: 'target.detail({id:result.target.id})'
                     },
+                                        {
+                        header: 'Order',
+                        bindTo: 'target.genus.family.order.name',
+                        name: 'target',
+                        isSortable: true,
+                        sref: 'target.detail({id:result.target.id})'
+                    },
+                                        {
+                        header: 'Family',
+                        bindTo: 'target.genus.family.name',
+                        name: 'target',
+                        isSortable: true,
+                        sref: 'target.detail({id:result.target.id})'
+                    },
+                                        {
+                        header: 'Genus',
+                        bindTo: 'target.genus.name',
+                        name: 'target',
+                        isSortable: true,
+                        sref: 'target.detail({id:result.target.id})'
+                    },
+                                        {
+                        header: 'Species',
+                        bindTo: 'target.spec.name',
+                        name: 'target',
+                        isSortable: true,
+                        sref: 'target.detail({id:result.target.id})'
+                    },
                     {
                         header: 'Patent',
                         bindTo: 'patent.name',
@@ -140,6 +168,33 @@ angular.module('storage.catalog.catalogGridFactory', [])
                         accessProperty: 'id',
                         filterProperty: 'target.id',
                         resourceUrl: '/storage/target',
+                        bindTo: 'name',
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Genus',
+                        accessProperty: 'id',
+                        filterProperty: 'target.genusId',
+                        resourceUrl: '/storage/genus',
+                        bindTo: 'name',
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Family',
+                        accessProperty: 'id',
+                        filterProperty: 'target.genus.familyId',
+                        resourceUrl: '/storage/family',
+                        bindTo: 'name',
+                        isVisible: true
+                    },
+                    {
+                        type: 'relation',
+                        title: 'Order',
+                        accessProperty: 'id',
+                        filterProperty: 'target.genus.family.orderId',
+                        resourceUrl: '/storage/order',
                         bindTo: 'name',
                         isVisible: true
                     },
