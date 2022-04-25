@@ -453,9 +453,13 @@ angular.module('storage.storageDivisionManager', [])
 
                 createSample: function () {
 
-                    if (this.selectedCount != 1 || this.selectedEmptyCount != 1) {
-                        return;
+                    if(this.division.hasDimension == true) {
+
+                        if (this.selectedCount != 1 || this.selectedEmptyCount != 1) {
+                            return;
+                        }
                     }
+
 
                     if (this.division.canEdit === false) {
 
