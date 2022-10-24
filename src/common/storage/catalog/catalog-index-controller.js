@@ -10,21 +10,21 @@ angular.module('storage.catalog.catalogIndexCtrl', [])
 
             $scope.linky = function () {
                 window.open(
-                    'https://crowelab-utilities.service.vumc.org/#/target/index',
+                    'https://vacnode8.emp.vumc.io/#/target/index',
                     '_blank' // <- This is what makes it open in a new window.
                 );
             };
 
             $scope.linky2 = function () {
                 window.open(
-                    'https://crowelab-utilities.service.vumc.org/#/donor/donor/index',
+                    'https://vacnode8.emp.vumc.io/#/donor/donor/index',
                     '_blank' // <- This is what makes it open in a new window.
                 );
             };
 
             $scope.linky3 = function () {
                 window.open(
-                    'https://crowelab-utilities.service.vumc.org/#/production/human-specimen-request/index',
+                    'https://vacnode8.emp.vumc.io/#/production/human-specimen-request/index',
                     '_blank' // <- This is what makes it open in a new window.
                 );
             };
